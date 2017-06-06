@@ -1,0 +1,14 @@
+name: skawa_components
+
+dependencies:
+  angular2: ^3.1.0
+  angular_components: ^0.5.1
+
+dev_dependencies:
+  sass_builder: ^0.1.0
+
+#dependency_overrides:
+#  build: 0.9.0
+
+transformers:
+- angular2

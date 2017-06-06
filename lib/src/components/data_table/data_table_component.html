@@ -1,0 +1,28 @@
+<table [class.selectable]="selectable" [class.non-selectable]="!selectable">
+    <thead>
+        <tr>
+            <th *ngIf="selectable">
+                <material-checkbox #markAllCheckbox
+                                   (click)="markAllRowsChecked(!markAllCheckbox.checked); $event.stopPropagation();"
+                                   [checked]="isEveryRowChecked"></material-checkbox>
+            </th>
+            <th *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses('--header')">{{c.header}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of rows" [class.selected]="row.checked ">
+            <td *ngIf="selectable">
+                <material-checkbox (checkedChange)="row.checked = $event" [checked]="row.checked"></material-checkbox>
+            </td>
+            <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">{{c.accessor(row)}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td *ngFor="let c of columns | unskippedInFooter; let i = index;" [attr.colspan]="getColspanFor(c, i)"
+                [ngClass]="c.getClasses('--footer')">
+                {{c.footer}}
+            </td>
+        </tr>
+    </tfoot>
+</table>

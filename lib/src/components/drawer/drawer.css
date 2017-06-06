@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fafafa;
+}
+
+::-webkit-scrollbar-button:start {
+  display: none;
+}
+
+::-webkit-scrollbar-button:end {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  background-clip: border-box;
+  border: none;
+  min-height: 28px;
+  padding: 0 0 0;
+  box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.07);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb:active {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+:host {
+  background-color: white;
+  display: block;
+  width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+  transition-duration: 0.36s;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+:host .fixed-sider {
+  display: flex;
+  flex-direction: column;
+}
+:host .fixed-sider .logo-area {
+  height: 56px;
+  min-height: 56px;
+  border-bottom: 1px solid #d3d3d3;
+}
+:host .fixed-sider .flex-grow {
+  flex-grow: 1;
+}
+:host.opened {
+  width: 224px;
+  min-width: 224px;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+:host.opened .fixed-sider {
+  width: 224px;
+  min-width: 224px;
+  position: fixed;
+  overflow: hidden;
+  height: 100%;
+}

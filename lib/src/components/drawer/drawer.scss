@@ -1,0 +1,35 @@
+@import "../../css/skawa-material";
+
+:host {
+  background-color: white;
+  display: block;
+  width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 100%;
+  .fixed-sider {
+    display: flex;
+    flex-direction: column;
+    .logo-area {
+      height: $increment;
+      min-height: $increment;
+      border-bottom: 1px solid #d3d3d3;
+    }
+    .flex-grow {
+      flex-grow: 1;
+    }
+  }
+  &.opened {
+    width: $increment * 4;
+    min-width: $increment * 4;
+    @include material-animation-linear-out-slow-in();
+    .fixed-sider {
+      width: $increment * 4;
+      min-width: $increment * 4;
+      position: fixed;
+      overflow: hidden;
+      height: 100%;
+    }
+  }
+  @include material-animation-linear-out-slow-in(0.36s);
+}

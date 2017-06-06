@@ -1,0 +1,8 @@
+<material-button icon (trigger)="navigate()" [attr.title]="url != null" title="{{url}}" #primaryAction>
+    <glyph icon="{{icon}}" size="medium"></glyph>
+</material-button>
+<div class="info-text">
+    <span class="ws-truncate-fix">
+        <ng-content></ng-content>
+    </span>
+</div>

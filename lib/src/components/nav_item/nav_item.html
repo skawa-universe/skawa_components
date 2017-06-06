@@ -1,0 +1,11 @@
+<skawa-sidebar-item [icon]="icon"
+                 class="content"
+                 [textOnly]="textOnly"
+                 [ngClass]="{'hovering': hovering, 'icon-padding': icon == null}">
+    <ng-content></ng-content>
+</skawa-sidebar-item>
+
+<material-ripple (mousedown)="onMouseDown($event)"
+                 (mouseup)="onMouseUp($event)"
+                 [focused]="visualFocus">
+</material-ripple>

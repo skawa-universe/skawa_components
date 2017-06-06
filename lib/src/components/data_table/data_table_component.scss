@@ -1,0 +1,85 @@
+@import "../../css/skawa-material";
+
+:host {
+  display: block;
+  background-color: white;
+  table {
+    width: 100%;
+    box-sizing: border-box;
+    &.selectable {
+      th, td {
+        &:nth-child(2) {
+          padding-left: 0;
+          width: 40px;
+        }
+      }
+      th {
+        &:first-of-type {
+          color: black;
+        }
+      }
+      tfoot {
+        tr {
+          td {
+            &:first-of-type {
+              padding-left: 64px !important;
+            }
+          }
+        }
+      }
+    }
+    &.non-selectable {
+      th, td {
+        &:first-of-type {
+          padding-left: 24px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        transition-duration: .28s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-property: background-color;
+        &:hover {
+          background-color: #EEEEEE !important;
+        }
+        &.selected {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+    tr {
+      &:first-of-type, &:last-of-type{
+        height: 56px;
+      }
+      border-bottom: 1px solid #d0d0d0;
+      td, th {
+        padding-left: 56px;
+        text-align: right;
+        vertical-align: middle;
+        @include typo-body;
+        height: 48px;
+        &:first-of-type {
+          padding-left: 0;
+        }
+        &:last-of-type {
+          padding-right: 24px;
+        }
+      }
+      td {
+        font-size: 13px;
+      }
+      th {
+        font-size: 12px;
+        //color: $secondary-text-color;
+      }
+    }
+  }
+
+  .text-column, .text-column--header, .text-column--footer {
+    text-align: left;
+  }
+  .numeric-column, .numeric-column--header, .numeric-column--footer {
+    text-align: right;
+  }
+}

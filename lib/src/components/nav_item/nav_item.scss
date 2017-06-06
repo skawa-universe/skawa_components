@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  font-size: 15px;
+  font-weight: normal;
+  position: relative; // needed dy ripple
+  background: transparent;
+  border-radius: inherit;
+  box-sizing: border-box;
+  cursor: pointer;
+  letter-spacing: .01em;
+  line-height: normal;
+  outline: none;
+  text-align: center;
+  z-index: 0;
+  transition: color 0.4s linear, background-color 0.4s linear;
+  flex-basis: 100%;
+  &:hover {
+    color: rgba(0,0,0,.987);
+    background-color: rgba(0,0,0,.05);
+  }
+}
