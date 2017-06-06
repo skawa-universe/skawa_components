@@ -1,4 +1,5 @@
 name: skawa_components
+version: 0.0.1
 
 dependencies:
   angular2: ^3.1.0
