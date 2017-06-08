@@ -9,7 +9,7 @@ typedef dynamic DataTableAccessor<T extends RowData>(T rowData);
     inputs: const ['accessor', 'header', 'footer', 'skipFooter'],
     changeDetection: ChangeDetectionStrategy.OnPush
 )
-class SkawaDataTableCol {
+class SkawaDataTableColComponent {
 
   DataTableAccessor accessor;
 
