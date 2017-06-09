@@ -3,7 +3,18 @@ import 'package:angular_components/src/model/ui/toggle.dart';
 
 import '../sidebar/sidebar.dart';
 
-/// Drawer is such a sidebar
+/// A Drawer is such a sidebar. (See more at)[https://material.io/guidelines/patterns/navigation-drawer.html#]
+///
+/// __Example usage:__
+///     <skawa-drawer></skawa-drawer>
+///     <skawa-drawer [isOn]="sidebarIsOpen"></skawa-drawer>
+///     <skawa-drawer><logo-cmp class=".logo-area"></logo-cmp></skawa-drawer>
+///     <skawa-drawer><some-cmp></some-cmp></skawa-drawer>
+///     <skawa-drawer><logo-cmp class=".logo-area"></logo-cmp><some-cmp></some-cmp></skawa-drawer>
+///
+/// __Properties:__
+/// - `isOn: bool` -- Whether to display the sidebar. Defaults to false.
+///
 @Component(
   selector: 'skawa-drawer',
   styleUrls: const ['drawer.css'],

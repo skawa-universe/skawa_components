@@ -4,10 +4,6 @@ import '../../util/attribute.dart' as attr_util;
 
 /// Master-detail component.
 ///
-/// __Properties__:
-///
-/// - `expanded: bool` -- whether details should be shown
-///
 /// __Example__:
 ///
 ///     <skawa-master-detail expanded>
@@ -18,6 +14,10 @@ import '../../util/attribute.dart' as attr_util;
 ///         world
 ///       </span>
 ///     </skawa-master-detail>
+///
+/// __Properties__:
+///
+/// - `expanded: bool` -- Whether details should be shown.
 ///
 @Component(
     selector: 'skawa-master-detail',

@@ -2,20 +2,23 @@ import 'package:angular2/core.dart';
 
 import 'card.dart';
 
-/// Card section containing actions
-///
-/// __Inputs:__
-///
-///  - `align-left`: aligns content elements to the right
-///  - `align-right`: align content elements to the left
+/// Card section containing actions. Should be used only inside a [SkawaCardComponent].
 ///
 /// __Example:__
 ///
-///     <skawa-card-actions>
-///       <material-button icon>
-///         <glyph icon="android"></glyph>
-///       </material-button>
-///     </skawa-card-actions>
+///     <skawa-card>
+///        <skawa-card-actions>
+///          <material-button icon>
+///            <glyph icon="android"></glyph>
+///          </material-button>
+///        </skawa-card-actions>
+///     </skawa-card>
+///
+/// __Inputs:__
+///
+///  - `align-left`: Align content elements to the right.
+///  - `align-right`: Align content elements to the left.
+///
 @Component(
   selector: 'skawa-card-actions',
   template: '<ng-content></ng-content>',

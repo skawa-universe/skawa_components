@@ -19,8 +19,17 @@ const skawaCardDirectives = const [
   SkawaCardComponent
 ];
 
+/// A card component. [See more at](https://material.io/guidelines/components/cards.html)
+///
+/// __Example:__
+///
+///     <skawa-card>
+///       Some content.
+///     </skawa-card>
+///
 /// __Inputs__:
-///   - `no-shadow`: will not add default shadow
+///   - `no-shadow`: Will not add default shadow.
+///
 @Component(
   selector: 'skawa-card',
   template: '<ng-content></ng-content>',
@@ -38,14 +47,15 @@ class SkawaCardComponent {
 
 /// Content area for cards
 ///
-/// __Inputs:__
-///   - `collapsed` -- Initial state of the component will be collapsed
-///
 /// __Example:__
 ///
 ///     <skawa-card-content collapsed>
 ///         Some content that is collapsed by default.
 ///     </skawa-card-content>
+///
+/// __Inputs:__
+///   - `collapsed: bool` -- Initial state of the component will be collapsed.
+///
 @Component(
     selector: 'skawa-card-content',
     template: '<ng-content></ng-content>',
@@ -73,15 +83,19 @@ class SkawaCardContentComponent {
   }
 }
 
-/// Header component for a [SkawaCardComponent]
+/// Header component for a [SkawaCardComponent].
 ///
 /// __Example:__
 ///
 ///     <skawa-card>
 ///       <skawa-card-header statusColor="rgb(255,0,0)">
-///
 ///       </skawa-card-header>
 ///     </skawa-card>
+///
+/// __Inputs:__
+///   - `statusColor: String` -- The color of the box-shadow-top. Accept only rgb() or rgba() formats. Defaults to transparent.
+///   - `backgroundColor: String` -- ???
+///
 @Component(
   selector: 'skawa-card-header',
   template: '<ng-content></ng-content>',
