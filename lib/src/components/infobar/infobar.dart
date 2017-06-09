@@ -15,8 +15,8 @@ import 'package:angular_components/src/utils/async/async.dart' show LazyEventEmi
 /// - `trigger: Event` -- Published when the `icon` is triggered.
 @Component(
     selector: 'skawa-infobar',
-    templateUrl: 'infobar_component.html',
-    styleUrls: const ['infobar_component.css'],
+    templateUrl: 'infobar.html',
+    styleUrls: const ['infobar.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [GlyphComponent, MaterialButtonComponent],
     inputs: const ['icon', 'url'],

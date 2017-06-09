@@ -21,8 +21,8 @@ import '../../util/attribute.dart' as attr_util;
 ///
 @Component(
     selector: 'skawa-master-detail',
-    templateUrl: 'master_detail_component.html',
-    styleUrls: const ['master_detail_component.css'],
+    templateUrl: 'master_detail.html',
+    styleUrls: const ['master_detail.css'],
     host: const {
       '[attr.expanded]': 'expanded ? "" : null'
     },

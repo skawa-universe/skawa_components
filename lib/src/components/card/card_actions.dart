@@ -1,6 +1,6 @@
 import 'package:angular2/core.dart';
 
-import 'card_component.dart';
+import 'card.dart';
 
 /// Card section containing actions
 ///
@@ -19,7 +19,7 @@ import 'card_component.dart';
 @Component(
   selector: 'skawa-card-actions',
   template: '<ng-content></ng-content>',
-  styleUrls: const ['card_actions_component.css'],
+  styleUrls: const ['card_actions.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 )
 class SkawaCardActionsComponent {

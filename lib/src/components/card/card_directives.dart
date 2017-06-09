@@ -3,16 +3,16 @@ import 'package:angular2/core.dart';
 @Directive(
   selector: 'skawa-header-title'
 )
-class SkawaCardHeaderTitle {}
+class SkawaCardHeaderTitleDirective {}
 
 @Directive(
   selector: 'skawa-header-subhead',
 )
-class SkawaCardHeaderSubhead {
+class SkawaCardHeaderSubheadDirective {
 }
 
 @Directive(
   selector: 'skawa-header-image',
 )
-class SkawaCardHeaderImage {
+class SkawaCardHeaderImageDirective {
 }
