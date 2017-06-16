@@ -4,15 +4,23 @@ import 'package:angular_components/src/components/glyph/glyph.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
 import 'package:angular_components/src/utils/async/async.dart' show LazyEventEmitter;
 
+/// An Inforbar is compositing an (icon as button)[https://material.io/components/web/catalog/buttons/icon-toggle-buttons/] and
+/// an arbitrary component. Infobar is designed to display small notifications, important messages to the user, *in-context*.
+/// This differs from "snackbars" and "toasts" that serve as feedback of actions.
+///
+/// __Example usage:__
+///     <skawa-infobar [icon]="myIcon" [url]="urlToNavigate"></skawa-infobar>
+///     <skawa-infobar [icon]="myIcon" [url]="urlToNavigate"><some-cmp></some-cmp></skawa-infobar>
 ///
 /// __Inputs__:
 ///
-///   - `icon`: icon to display in the infobar
-///   - `url`: url to navigate the user to when icon is triggered
+///   - `icon`: Icon to display in the infobar.
+///   - `url`: Url to navigate the user to when icon is triggered.
 ///
 /// __Events:__
 ///
 /// - `trigger: Event` -- Published when the `icon` is triggered.
+///
 @Component(
     selector: 'skawa-infobar',
     templateUrl: 'infobar.html',

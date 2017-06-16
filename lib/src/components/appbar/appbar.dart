@@ -5,13 +5,19 @@ import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/glyph/glyph.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
 
-/// Toolbar
+/// Appbar component. [See more at](https://material.io/guidelines/layout/structure.html#structure-app-bar)
+///
+/// __Example usage:__
+///     <skawa-appbar></skawa-appbar>
+///     <skawa-appbar [showNavToggle]="appbarState"></skawa-appbar>
+///     <skawa-appbar>Appbar with some content</skawa-appbar>
 ///
 /// __Events:__
-/// - `navToggle: MouseEvent` -- triggered when nav button is pressed
+/// - `navToggle: MouseEvent` -- Triggered when nav button is pressed.
 ///
 /// __Properties:__
-/// - `showNavToggle: bool` -- whether to display nav toggle. Defaults to true.
+/// - `showNavToggle: bool` -- Whether to display nav toggle. Defaults to true.
+///
 @Component(
     selector: 'skawa-appbar',
     templateUrl: 'appbar.html',
