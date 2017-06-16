@@ -5,8 +5,10 @@ import 'package:angular_components/src/components/material_checkbox/material_che
 import 'data_table_column.dart';
 import 'row_data.dart';
 
-/// A datatable component. A wrapper for the [SkawaDataTableComponent].
+/// A datatable component. A wrapper for the [SkawaDataTableColComponent].
 /// [See more at](https://material.io/guidelines/components/data-tables.html#)
+/// This data table component is designed on our expectations,
+/// maybe need some modification for sortable, searchable, etc. table implementation.
 ///
 /// __Example usage:__
 ///             <skawa-data-table [data]="rowData">

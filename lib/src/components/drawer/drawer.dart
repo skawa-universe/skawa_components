@@ -3,7 +3,7 @@ import 'package:angular_components/src/model/ui/toggle.dart';
 
 import '../sidebar/sidebar.dart';
 
-/// A Drawer is such a sidebar. (See more at)[https://material.io/guidelines/patterns/navigation-drawer.html#]
+/// Drawer serves as a navigational side panel. (See more at)[https://material.io/guidelines/patterns/navigation-drawer.html#]
 ///
 /// __Example usage:__
 ///     <skawa-drawer></skawa-drawer>

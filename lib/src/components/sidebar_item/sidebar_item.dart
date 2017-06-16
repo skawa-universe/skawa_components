@@ -2,8 +2,9 @@ import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/glyph/glyph.dart';
 import '../../util/attribute.dart' as attrib;
 
-/// Toolbar item. See more [at about normal lists](https://material.io/guidelines/components/lists.html#) or
-/// [at about control lists](https://material.io/guidelines/components/lists-controls.html)
+/// Toolbar item. See more [about normal lists](https://material.io/guidelines/components/lists.html#) or
+/// [about control lists](https://material.io/guidelines/components/lists-controls.html)
+/// *Note:* Sidebar is not yet fully implemented. Currently only support use within a Drawer. Please see [#123](plans for sidebar)
 ///
 /// __Example usage:__
 ///     <skawa-toolbar-item>No icon, with icon placeholder</skawa-toolbar-item>

@@ -94,7 +94,6 @@ class SkawaCardContentComponent {
 ///
 /// __Inputs:__
 ///   - `statusColor: String` -- The color of the box-shadow-top. Accept only rgb() or rgba() formats. Defaults to transparent.
-///   - `backgroundColor: String` -- ???
 ///
 @Component(
   selector: 'skawa-card-header',
@@ -130,9 +129,6 @@ class SkawaCardHeaderComponent {
   /// not picked up.
   @Input()
   String statusColor = 'transparent';
-
-  @Input()
-  String backgroundColor = '';
 
   @HostBinding('style.box-shadow')
   String get statusStyle {
