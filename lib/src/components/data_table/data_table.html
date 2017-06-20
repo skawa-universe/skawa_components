@@ -3,7 +3,7 @@
         <tr>
             <th *ngIf="selectable">
                 <material-checkbox #markAllCheckbox
-                                   (click)="markAllRowsChecked(!markAllCheckbox.checked); $event.stopPropagation();"
+                                   (click)="markAllRowsChecked(markAllCheckbox.checked); $event.stopPropagation();"
                                    [checked]="isEveryRowChecked"></material-checkbox>
             </th>
             <th *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses('--header')">{{c.header}}</th>

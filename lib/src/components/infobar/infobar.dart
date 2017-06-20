@@ -6,7 +6,8 @@ import 'package:angular_components/src/utils/async/async.dart' show LazyEventEmi
 
 /// An Inforbar is compositing an (icon as button)[https://material.io/components/web/catalog/buttons/icon-toggle-buttons/] and
 /// an arbitrary component. Infobar is designed to display small notifications, important messages to the user, *in-context*.
-/// This differs from "snackbars" and "toasts" that serve as feedback of actions.
+/// This differs from "snackbars" and "toasts" that serve as feedback of actions. For the proper work, you have to include
+///  '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">' to your index.
 ///
 /// __Example usage:__
 ///     <skawa-infobar [icon]="myIcon" [url]="urlToNavigate"></skawa-infobar>

@@ -8,8 +8,11 @@ dependencies:
 dev_dependencies:
   sass_builder: ^0.1.0
 
-#dependency_overrides:
-#  build: 0.9.0
+dependency_overrides:
+  sass:
+    git:
+      url: https://github.com/sass/dart-sass
+      ref: e958477
 
 transformers:
 - angular2
