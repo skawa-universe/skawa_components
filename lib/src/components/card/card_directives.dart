@@ -1,6 +1,5 @@
 import 'package:angular2/core.dart';
 
-
 /// The three following Directive should be used only inside a [SkawaCardHeaderComponent].
 /// The [SkawaCardHeaderTitleDirective] should contain the title.
 /// The [SkawaCardHeaderSubheadDirective] should contain the subheader.
@@ -23,19 +22,15 @@ import 'package:angular2/core.dart';
 ///       </skawa-card-header>
 ///     </skawa-card>
 ///
-@Directive(
-  selector: 'skawa-header-title'
-)
+@Directive(selector: 'skawa-header-title')
 class SkawaCardHeaderTitleDirective {}
 
 @Directive(
   selector: 'skawa-header-subhead',
 )
-class SkawaCardHeaderSubheadDirective {
-}
+class SkawaCardHeaderSubheadDirective {}
 
 @Directive(
   selector: 'skawa-header-image',
 )
-class SkawaCardHeaderImageDirective {
-}
+class SkawaCardHeaderImageDirective {}

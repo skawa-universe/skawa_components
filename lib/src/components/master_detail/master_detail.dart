@@ -23,12 +23,9 @@ import '../../util/attribute.dart' as attr_util;
     selector: 'skawa-master-detail',
     templateUrl: 'master_detail.html',
     styleUrls: const ['master_detail.css'],
-    host: const {
-      '[attr.expanded]': 'expanded ? "" : null'
-    },
+    host: const {'[attr.expanded]': 'expanded ? "" : null'},
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMasterDetailComponent {
-
   SkawaMasterDetailComponent(@Optional() @Attribute('expanded') expanded)
       : expanded = attr_util.isPresent(expanded);
 

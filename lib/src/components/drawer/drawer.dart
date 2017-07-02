@@ -23,4 +23,4 @@ import '../sidebar/sidebar.dart';
   inputs: const ['isOn'],
   directives: const [SkawaSidebarComponent, NgClass],
 )
-class SkawaDrawerComponent extends Toggleable { }
+class SkawaDrawerComponent extends Toggleable {}

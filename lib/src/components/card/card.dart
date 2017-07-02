@@ -143,5 +143,6 @@ class SkawaCardHeaderComponent {
     return null;
   }
 
-  static final RegExp _rgbaRegexp = new RegExp(r'rgba?\s*\((?:\d+(?:\.[\d]+)?,?\s*){3,4}\)');
+  static final RegExp _rgbaRegexp =
+      new RegExp(r'rgba?\s*\((?:\d+(?:\.[\d]+)?,?\s*){3,4}\)');
 }

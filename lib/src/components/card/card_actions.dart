@@ -20,13 +20,11 @@ import 'card.dart';
 ///  - `align-right`: Align content elements to the left.
 ///
 @Component(
-  selector: 'skawa-card-actions',
-  template: '<ng-content></ng-content>',
-  styleUrls: const ['card_actions.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-)
+    selector: 'skawa-card-actions',
+    template: '<ng-content></ng-content>',
+    styleUrls: const ['card_actions.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardActionsComponent {
-
   /// Header component actions were embedded in
   final SkawaCardHeaderComponent cardHeader;
 

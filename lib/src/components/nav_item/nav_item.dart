@@ -75,7 +75,8 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   final ChangeDetectorRef _changeDetector;
 
-  SkawaNavItemComponent(ElementRef element, this._changeDetector) : super(element);
+  SkawaNavItemComponent(ElementRef element, this._changeDetector)
+      : super(element);
 
   @override
   void focusedStateChanged() {
