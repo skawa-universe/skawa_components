@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -10,7 +6,6 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:skawa_components/src/components/master_detail/master_detail.dart';
-import 'package:skawa_components/src/components/nav_item/nav_item.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
@@ -20,7 +15,7 @@ Future main() async {
   group('MasterDetail | ', () {
     test('initialization', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       expect(
@@ -29,7 +24,7 @@ Future main() async {
     });
     test('initialization then expand 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.expand.click();
@@ -39,7 +34,7 @@ Future main() async {
     });
     test('initialization then expand 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.expand.click();
@@ -50,7 +45,7 @@ Future main() async {
     });
     test('initialization then expand 1X then toggle 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.expand.click();
@@ -61,7 +56,7 @@ Future main() async {
     });
     test('initialization then expand 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.expand.click();
@@ -72,7 +67,7 @@ Future main() async {
     });
     test('initialization then toogle 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.toggle.click();
@@ -83,7 +78,7 @@ Future main() async {
     });
     test('initialization then toggle 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.toggle.click();
@@ -107,8 +102,7 @@ Future main() async {
     SkawaMasterDetailComponent,
   ],
 )
-class MasterDetailTestComponent {
-}
+class MasterDetailTestComponent {}
 
 @EnsureTag('test')
 class TestPO {

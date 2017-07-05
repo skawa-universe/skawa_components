@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -20,161 +16,238 @@ Future main() async {
   group('Datatable | ', () {
     test('initialization a non selectable datatable', () async {
       final fixture =
-      await new NgTestBed<NonSelectableDatatableTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+          await new NgTestBed<NonSelectableDatatableTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
-      expect(await table.rootElement.classes.contains('non-selectable'), isTrue);
+      expect(
+          await table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(await table.rootElement.classes.contains('selectable'), isFalse);
       expect(await table.tfoot.tr[0].td.length, 0);
       expect(await table.thead.tr.th.length, 2);
       expect(await table.thead.tr.th[0].rootElement.innerText, 'Car make');
-      expect(await table.thead.tr.th[0].rootElement.classes.contains('text-column--header'), isTrue);
-      expect(await table.thead.tr.th[1].rootElement.innerText, 'My strong opinion');
+      expect(
+          await table.thead.tr.th[0].rootElement.classes
+              .contains('text-column--header'),
+          isTrue);
+      expect(await table.thead.tr.th[1].rootElement.innerText,
+          'My strong opinion');
       Future.forEach(table.tbody.tr, (trElement) async {
         expect(trElement.td.length, 2);
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
-        expect(await trElement.td[0].rootElement.innerText, (ROWDATA[index] as SampleRowData).name);
-        expect(await trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(await trElement.td[1].rootElement.innerText, (ROWDATA[index] as SampleRowData).opinion);
+        expect(await trElement.td[0].rootElement.innerText,
+            (ROWDATA[index] as SampleRowData).name);
+        expect(
+            await trElement.td[0].rootElement.classes.contains('text-column'),
+            isTrue);
+        expect(await trElement.td[1].rootElement.innerText,
+            (ROWDATA[index] as SampleRowData).opinion);
       });
     });
-    test('initialization a non selectable datatable with a custom class on a column', () async {
+    test(
+        'initialization a non selectable datatable with a custom class on a column',
+        () async {
       final fixture = await new NgTestBed<NonSelectableDatatableTestComponent>()
           .create(beforeChangeDetection: (testComponent) {
         testComponent.cssClass = 'new-test-class';
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
-      expect(await table.rootElement.classes.contains('non-selectable'), isTrue);
+      expect(
+          await table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(await table.rootElement.classes.contains('selectable'), isFalse);
       expect(await table.tfoot.tr[0].td.length, 0);
       expect(await table.thead.tr.th.length, 2);
       expect(await table.thead.tr.th[0].rootElement.innerText, 'Car make');
-      expect(await table.thead.tr.th[0].rootElement.classes.contains('text-column--header'), isTrue);
-      expect(await table.thead.tr.th[1].rootElement.innerText, 'My strong opinion');
-      expect(await table.thead.tr.th[1].rootElement.classes.contains('new-test-class--header'), isTrue);
+      expect(
+          await table.thead.tr.th[0].rootElement.classes
+              .contains('text-column--header'),
+          isTrue);
+      expect(await table.thead.tr.th[1].rootElement.innerText,
+          'My strong opinion');
+      expect(
+          await table.thead.tr.th[1].rootElement.classes
+              .contains('new-test-class--header'),
+          isTrue);
       Future.forEach(table.tbody.tr, (trElement) async {
         expect(trElement.td.length, 2);
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
-        expect(await trElement.td[0].rootElement.innerText, (ROWDATA[index] as SampleRowData).name);
-        expect(await trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(await trElement.td[1].rootElement.innerText, (ROWDATA[index] as SampleRowData).opinion);
-        expect(await trElement.td[1].rootElement.classes.contains('new-test-class'), isTrue);
+        expect(await trElement.td[0].rootElement.innerText,
+            (ROWDATA[index] as SampleRowData).name);
+        expect(
+            await trElement.td[0].rootElement.classes.contains('text-column'),
+            isTrue);
+        expect(await trElement.td[1].rootElement.innerText,
+            (ROWDATA[index] as SampleRowData).opinion);
+        expect(
+            await trElement.td[1].rootElement.classes
+                .contains('new-test-class'),
+            isTrue);
       });
     });
     test('initialization a selectable datatable', () async {
       final fixture =
-      await new NgTestBed<SelectableDatatableTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+          await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
       expect(await table.rootElement.classes.contains('selectable'), isTrue);
-      expect(await table.rootElement.classes.contains('non-selectable'), isFalse);
+      expect(
+          await table.rootElement.classes.contains('non-selectable'), isFalse);
       expect(await table.tfoot.tr[0].td.length, 4);
       expect(await table.thead.tr.th.length, 5);
       expect(await table.thead.tr.th[1].rootElement.innerText, 'Class');
       expect(await table.thead.tr.th[2].rootElement.innerText, 'Male');
       expect(await table.thead.tr.th[3].rootElement.innerText, 'Female');
       expect(await table.thead.tr.th[4].rootElement.innerText, 'All');
-      expect(await table.thead.tr.th[0].rootElement.classes.contains('selected'), isFalse);
-      expect(await table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
+      expect(
+          await table.thead.tr.th[0].rootElement.classes.contains('selected'),
+          isFalse);
+      expect(
+          await table.thead.tr.th[1].rootElement.classes
+              .contains('text-column--header'),
+          isTrue);
       Future.forEach(table.tbody.tr, (TableRowPO trElement) async {
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
         int male = (SELECTABLE_ROWDATA[index] as SampleNumericData).male;
         int female = (SELECTABLE_ROWDATA[index] as SampleNumericData).female;
-        expect(await trElement.rootElement.classes.contains('selected'), isFalse);
+        expect(
+            await trElement.rootElement.classes.contains('selected'), isFalse);
         expect(trElement.td.length, 5);
-        expect(await trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(await trElement.td[1].rootElement.innerText, (SELECTABLE_ROWDATA[index] as SampleNumericData)
-            .category);
+        expect(
+            await trElement.td[1].rootElement.classes.contains('text-column'),
+            isTrue);
+        expect(await trElement.td[1].rootElement.innerText,
+            (SELECTABLE_ROWDATA[index] as SampleNumericData).category);
         expect(await trElement.td[2].rootElement.innerText, male.toString());
         expect(await trElement.td[3].rootElement.innerText, female.toString());
-        expect(await trElement.td[4].rootElement.innerText, (male + female).toString());
-        expect(await trElement.td[0].rootElement.classes.contains('selected'), isFalse);
+        expect(await trElement.td[4].rootElement.innerText,
+            (male + female).toString());
+        expect(await trElement.td[0].rootElement.classes.contains('selected'),
+            isFalse);
         expect(await trElement.td[0].materialCheckbox, isNotNull);
       });
       var trElement = table.tfoot.tr[0];
       expect(await trElement.td[0].rootElement.innerText, 'Total:');
-      expect(await trElement.td[0].rootElement.classes.contains('text-column--footer'), isTrue);
+      expect(
+          await trElement.td[0].rootElement.classes
+              .contains('text-column--footer'),
+          isTrue);
       expect(await trElement.td[1].rootElement.innerText, '-');
       expect(await trElement.td[2].rootElement.innerText, '-');
       expect(await trElement.td[3].rootElement.innerText, '-');
     });
     test('selectable datatable then selectall', () async {
       final fixture =
-      await new NgTestBed<SelectableDatatableTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+          await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
       await table.thead.tr.th[0].materialCheckbox.click();
       expect(await table.rootElement.classes.contains('selectable'), isTrue);
-      expect(await table.rootElement.classes.contains('non-selectable'), isFalse);
+      expect(
+          await table.rootElement.classes.contains('non-selectable'), isFalse);
       expect(await table.tfoot.tr[0].td.length, 4);
       expect(await table.thead.tr.th.length, 5);
       expect(await table.thead.tr.th[1].rootElement.innerText, 'Class');
       expect(await table.thead.tr.th[2].rootElement.innerText, 'Male');
       expect(await table.thead.tr.th[3].rootElement.innerText, 'Female');
       expect(await table.thead.tr.th[4].rootElement.innerText, 'All');
-      expect(await table.thead.tr.th[0].rootElement.classes.contains('selected'), isFalse);
-      expect(await table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
+      expect(
+          await table.thead.tr.th[0].rootElement.classes.contains('selected'),
+          isFalse);
+      expect(
+          await table.thead.tr.th[1].rootElement.classes
+              .contains('text-column--header'),
+          isTrue);
       Future.forEach(table.tbody.tr, (TableRowPO trElement) async {
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
         int male = (SELECTABLE_ROWDATA[index] as SampleNumericData).male;
         int female = (SELECTABLE_ROWDATA[index] as SampleNumericData).female;
-        expect(await trElement.rootElement.classes.contains('selected'), isTrue);
+        expect(
+            await trElement.rootElement.classes.contains('selected'), isTrue);
         expect(trElement.td.length, 5);
-        expect(await trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(await trElement.td[1].rootElement.innerText,
-            (SELECTABLE_ROWDATA[table.tbody.tr.indexOf(trElement)] as SampleNumericData).category);
+        expect(
+            await trElement.td[1].rootElement.classes.contains('text-column'),
+            isTrue);
+        expect(
+            await trElement.td[1].rootElement.innerText,
+            (SELECTABLE_ROWDATA[table.tbody.tr.indexOf(trElement)]
+                    as SampleNumericData)
+                .category);
         expect(await trElement.td[2].rootElement.innerText, male.toString());
         expect(await trElement.td[3].rootElement.innerText, female.toString());
-        expect(await trElement.td[4].rootElement.innerText, (male + female).toString());
-        expect(await trElement.td[0].rootElement.classes.contains('selected'), isFalse);
+        expect(await trElement.td[4].rootElement.innerText,
+            (male + female).toString());
+        expect(await trElement.td[0].rootElement.classes.contains('selected'),
+            isFalse);
         expect(await trElement.td[0].materialCheckbox, isNotNull);
       });
       var trElement = table.tfoot.tr[0];
       expect(await trElement.td[0].rootElement.innerText, 'Total:');
-      expect(await trElement.td[0].rootElement.classes.contains('text-column--footer'), isTrue);
+      expect(
+          await trElement.td[0].rootElement.classes
+              .contains('text-column--footer'),
+          isTrue);
       expect(await trElement.td[1].rootElement.innerText, '59');
       expect(await trElement.td[2].rootElement.innerText, '56');
       expect(await trElement.td[3].rootElement.innerText, '115');
     });
     test('selectable datatable then select second and fourth row', () async {
       final fixture =
-      await new NgTestBed<SelectableDatatableTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+          await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
       await table.tbody.tr[1].td[0].materialCheckbox.click();
       await table.tbody.tr[3].td[0].materialCheckbox.click();
-      expect(await table.tbody.tr[0].rootElement.classes.contains('selected'), isTrue);
-      expect(await table.tbody.tr[1].rootElement.classes.contains('selected'), isFalse);
-      expect(await table.tbody.tr[2].rootElement.classes.contains('selected'), isTrue);
-      expect(await table.tbody.tr[3].rootElement.classes.contains('selected'), isFalse);
+      expect(await table.tbody.tr[0].rootElement.classes.contains('selected'),
+          isTrue);
+      expect(await table.tbody.tr[1].rootElement.classes.contains('selected'),
+          isFalse);
+      expect(await table.tbody.tr[2].rootElement.classes.contains('selected'),
+          isTrue);
+      expect(await table.tbody.tr[3].rootElement.classes.contains('selected'),
+          isFalse);
       expect(await table.rootElement.classes.contains('selectable'), isTrue);
-      expect(await table.rootElement.classes.contains('non-selectable'), isFalse);
+      expect(
+          await table.rootElement.classes.contains('non-selectable'), isFalse);
       expect(await table.tfoot.tr[0].td.length, 4);
       expect(await table.thead.tr.th.length, 5);
       expect(await table.thead.tr.th[1].rootElement.innerText, 'Class');
       expect(await table.thead.tr.th[2].rootElement.innerText, 'Male');
       expect(await table.thead.tr.th[3].rootElement.innerText, 'Female');
       expect(await table.thead.tr.th[4].rootElement.innerText, 'All');
-      expect(await table.thead.tr.th[0].rootElement.classes.contains('selected'), isFalse);
-      expect(await table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
+      expect(
+          await table.thead.tr.th[0].rootElement.classes.contains('selected'),
+          isFalse);
+      expect(
+          await table.thead.tr.th[1].rootElement.classes
+              .contains('text-column--header'),
+          isTrue);
       Future.forEach(table.tbody.tr, (TableRowPO trElement) async {
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
         int male = (SELECTABLE_ROWDATA[index] as SampleNumericData).male;
         int female = (SELECTABLE_ROWDATA[index] as SampleNumericData).female;
         expect(trElement.td.length, 5);
-        expect(await trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(await trElement.td[1].rootElement.innerText,
-            (SELECTABLE_ROWDATA[table.tbody.tr.indexOf(trElement)] as SampleNumericData).category);
+        expect(
+            await trElement.td[1].rootElement.classes.contains('text-column'),
+            isTrue);
+        expect(
+            await trElement.td[1].rootElement.innerText,
+            (SELECTABLE_ROWDATA[table.tbody.tr.indexOf(trElement)]
+                    as SampleNumericData)
+                .category);
         expect(await trElement.td[2].rootElement.innerText, male.toString());
         expect(await trElement.td[3].rootElement.innerText, female.toString());
-        expect(await trElement.td[4].rootElement.innerText, (male + female).toString());
-        expect(await trElement.td[0].rootElement.classes.contains('selected'), isFalse);
+        expect(await trElement.td[4].rootElement.innerText,
+            (male + female).toString());
+        expect(await trElement.td[0].rootElement.classes.contains('selected'),
+            isFalse);
         expect(await trElement.td[0].materialCheckbox, isNotNull);
       });
       var trElement = table.tfoot.tr[0];
       expect(await trElement.td[0].rootElement.innerText, 'Total:');
-      expect(await trElement.td[0].rootElement.classes.contains('text-column--footer'), isTrue);
+      expect(
+          await trElement.td[0].rootElement.classes
+              .contains('text-column--footer'),
+          isTrue);
       expect(await trElement.td[1].rootElement.innerText, '28');
       expect(await trElement.td[2].rootElement.innerText, '25');
       expect(await trElement.td[3].rootElement.innerText, '53');
@@ -242,7 +315,7 @@ class SelectableDatatableTestComponent {
 
   aggregate(DataTableAccessor<RowData> accessor) {
     Iterable mapped =
-    selectableRowData.where((row) => row.checked).map(accessor);
+        selectableRowData.where((row) => row.checked).map(accessor);
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
@@ -319,7 +392,6 @@ class TableCellPO {
   @optional
   @ByTagName('material-checkbox')
   PageLoaderElement materialCheckbox;
-
 }
 
 class SampleRowData implements RowData {

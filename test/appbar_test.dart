@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -20,12 +16,12 @@ Future main() async {
   group('Appbar | ', () {
     test('initialization without button', () async {
       final fixture = await new NgTestBed<AppbarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(await pageObject.trigger.innerText, '0');
     });
     test('initialization with button', () async {
       final fixture = await new NgTestBed<AppbarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.showNavToggle = true;
       });
@@ -33,10 +29,11 @@ Future main() async {
       expect(await pageObject.appbar, isNotNull);
     });
     test('initialization with button and trigger 2X', () async {
-      final fixture = await new NgTestBed<AppbarTestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<AppbarTestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.showNavToggle = true;
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
 //      await fixture.update((testElement) {
 //        testElement.showNavToggle = true;
 //      });

@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -18,7 +14,7 @@ Future main() async {
   group('Infobar | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       expect(await pageObject.trigger.innerText, '0');
@@ -26,7 +22,7 @@ Future main() async {
     });
     test('initialization with icon', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
@@ -37,7 +33,7 @@ Future main() async {
     });
     test('initialization with url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
@@ -50,7 +46,7 @@ Future main() async {
     });
     test('initialization with url and url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
@@ -62,9 +58,10 @@ Future main() async {
           'https://github.com/skawa-universe/skawa_components/');
       expect(await pageObject.infobar.glyph.innerText, 'code');
     });
-    test('initialization with url then click 1X on the infobar button', () async {
+    test('initialization with url then click 1X on the infobar button',
+        () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
@@ -78,7 +75,7 @@ Future main() async {
     });
     test(' with url then click 4X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.infobar.materialButton.click();

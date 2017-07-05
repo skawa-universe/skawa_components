@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -19,7 +15,7 @@ Future main() async {
   group('NavItem | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       expect(await pageObject.sideNavItemList.rootElement.innerText, '');
@@ -33,7 +29,7 @@ Future main() async {
     });
     test('initialization with icon', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
@@ -54,7 +50,7 @@ Future main() async {
     });
     test('initialization with icon but with textOnly', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
