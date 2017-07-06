@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -18,7 +14,7 @@ Future main() async {
   group('Drawer | ', () {
     test('initialization with closed drawer', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(await pageObject.drawer.rootElement.classes.contains('opened'),
           isFalse);
       expect(
@@ -30,7 +26,7 @@ Future main() async {
     });
     test('initialization with open drawer', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.isOn = true;
       });
@@ -45,7 +41,7 @@ Future main() async {
     });
     test('initialization with closed drawer then toggle 1X', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.button.click();
       expect(await pageObject.drawer.rootElement.classes.contains('opened'),
           isTrue);
@@ -58,7 +54,7 @@ Future main() async {
     });
     test('initialization with closed drawer then toggle 2X', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.button.click();
       await pageObject.button.click();
       expect(await pageObject.drawer.rootElement.classes.contains('opened'),

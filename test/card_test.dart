@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -20,34 +16,59 @@ Future main() async {
   group('Card | ', () {
     test('initialization a raw card', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialization a card with action and content', () async {
-      final fixture = await new NgTestBed<CardTestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<CardTestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.hasAction = true;
         testElement.hasContent = true;
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      expect(
+          await (await pageObject.card.actions)
+              .rootElement
+              .classes
+              .contains('in-header'),
+          isFalse);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('with-header'),
+          isFalse);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('skawa-collapsed'),
+          isFalse);
     });
-    test('initialization a card with action and content then toogle the content 1X', () async {
+    test(
+        'initialization a card with action and content then toogle the content 1X',
+        () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.hasAction = true;
         testElement.hasContent = true;
       });
       var content = (await pageObject.card.content).rootElement;
       await content.click();
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
+      expect(
+          await (await pageObject.card.actions)
+              .rootElement
+              .classes
+              .contains('in-header'),
+          isFalse);
       expect(await content.classes.contains('with-header'), isFalse);
       expect(await content.classes.contains('skawa-collapsed'), isTrue);
     });
-    test('initialization a card with action and content then toogle the content 2X', () async {
+    test(
+        'initialization a card with action and content then toogle the content 2X',
+        () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.hasContent = true;
         testElement.hasAction = true;
@@ -55,13 +76,20 @@ Future main() async {
       var content = (await pageObject.card.content).rootElement;
       await content.click();
       await content.click();
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
+      expect(
+          await (await pageObject.card.actions)
+              .rootElement
+              .classes
+              .contains('in-header'),
+          isFalse);
       expect(await content.classes.contains('with-header'), isFalse);
       expect(await content.classes.contains('skawa-collapsed'), isFalse);
     });
-    test('initialization a card with action, content, header and an action in the header', () async {
+    test(
+        'initialization a card with action, content, header and an action in the header',
+        () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.hasHeader = true;
         testElement.hasHeaderAction = true;
@@ -70,16 +98,48 @@ Future main() async {
       await fixture.update((testElement) {
         testElement.hasContent = true;
       });
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isTrue);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-actions'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-subhead'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-title-image'), isFalse);
+      expect(
+          await (await pageObject.card.actions)
+              .rootElement
+              .classes
+              .contains('in-header'),
+          isFalse);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('with-header'),
+          isTrue);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('skawa-collapsed'),
+          isFalse);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-actions'),
+          isTrue);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-subhead'),
+          isFalse);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-title-image'),
+          isFalse);
     });
-    test('initialization a card with action, content and a header with action, title, subheader and image', () async {
+    test(
+        'initialization a card with action, content and a header with action, title, subheader and image',
+        () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.hasHeader = true;
         testElement.hasHeaderAction = true;
@@ -91,12 +151,42 @@ Future main() async {
       await fixture.update((testElement) {
         testElement.hasContent = true;
       });
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isTrue);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-actions'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-subhead'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-title-image'), isTrue);
+      expect(
+          await (await pageObject.card.actions)
+              .rootElement
+              .classes
+              .contains('in-header'),
+          isFalse);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('with-header'),
+          isTrue);
+      expect(
+          await (await pageObject.card.content)
+              .rootElement
+              .classes
+              .contains('skawa-collapsed'),
+          isFalse);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-actions'),
+          isTrue);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-subhead'),
+          isTrue);
+      expect(
+          await (await pageObject.card.header)
+              .rootElement
+              .classes
+              .contains('with-title-image'),
+          isTrue);
     });
   });
 }
@@ -138,17 +228,18 @@ class TestPO {
 }
 
 class CardPO {
-
   @inject
   PageLoader loader;
 
-  Future<HeaderPO> get header => loader.getInstance(HeaderPO, loader.globalContext);
+  Future<HeaderPO> get header =>
+      loader.getInstance(HeaderPO, loader.globalContext);
 
-  Future<ActionPO> get actions => loader.getInstance(ActionPO, loader.globalContext);
+  Future<ActionPO> get actions =>
+      loader.getInstance(ActionPO, loader.globalContext);
 
-  Future<ContentPO> get content => loader.getInstance(ContentPO, loader.globalContext);
+  Future<ContentPO> get content =>
+      loader.getInstance(ContentPO, loader.globalContext);
 }
-
 
 @ByTagName('skawa-card-content')
 class ContentPO {

@@ -1,7 +1,3 @@
-// Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
@@ -19,7 +15,7 @@ Future main() async {
   group('SidebarItem | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<SidebarItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       expect(
@@ -30,11 +26,11 @@ Future main() async {
           isNull);
     });
     test('initialization with icon', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection:
-          (testElement) {
+      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.icon = 'alarm';
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       expect(
@@ -48,12 +44,12 @@ Future main() async {
           isNull);
     });
     test('initialization with icon but with textOnly', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection:
-          (testElement) {
+      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.icon = 'alarm';
         testElement.textOnly = true;
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
 //      expect(() async { await pageObject.sideBarItemList.glyph;}, isStateError);
