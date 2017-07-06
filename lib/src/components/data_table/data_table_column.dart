@@ -3,7 +3,6 @@ import 'row_data.dart';
 
 typedef dynamic DataTableAccessor<T extends RowData>(T rowData);
 
-
 /// A column of the [SkawaDataTableComponent]. Usable only with a [SkawaDataTableComponent].
 ///
 /// __Example usage:__
@@ -24,10 +23,8 @@ typedef dynamic DataTableAccessor<T extends RowData>(T rowData);
     selector: 'skawa-data-table-col',
     template: '',
     inputs: const ['accessor', 'header', 'footer', 'skipFooter'],
-    changeDetection: ChangeDetectionStrategy.OnPush
-)
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaDataTableColComponent {
-
   DataTableAccessor accessor;
 
   String header;
@@ -41,10 +38,8 @@ class SkawaDataTableColComponent {
   @Input('class')
   String classString;
 
-
-  Iterable<String> getClasses([String suffix]) =>
-      classString
-          ?.trim()
-          ?.split(' ')
-          ?.map((className) => suffix != null ? '$className$suffix' : className);
+  Iterable<String> getClasses([String suffix]) => classString
+      ?.trim()
+      ?.split(' ')
+      ?.map((className) => suffix != null ? '$className$suffix' : className);
 }

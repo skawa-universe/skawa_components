@@ -21,5 +21,4 @@ import 'package:angular_components/src/model/ui/toggle.dart';
   inputs: const ['isOn'],
   host: const {'[class.opened]': 'isOn'},
 )
-class SkawaSidebarComponent extends Toggleable {
-}
+class SkawaSidebarComponent extends Toggleable {}

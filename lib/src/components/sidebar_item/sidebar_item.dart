@@ -25,16 +25,23 @@ import '../../util/attribute.dart' as attrib;
     styleUrls: const ['sidebar_item.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     inputs: const ['icon', 'textOnly'],
-    directives: const [
-      GlyphComponent,
-      NgIf,
-      NgClass
-    ],
+    directives: const [GlyphComponent, NgIf, NgClass],
     host: const {
       '[attr.textOnly]': 'textOnly',
     })
-class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
+class SkawaSidebarItemComponent extends Object
+    with TextOnlyMixin
+    implements OnChanges, OnInit {
   String icon;
+
+  @override
+  ngOnChanges(Map<String, SimpleChange> changes) {
+//    print('onChanges ${isTextOnly} || ${icon} || ${!isTextOnly && icon != null} || ${changes}');
+  }
+  @override
+  ngOnInit() {
+//    print('onChanges ${isTextOnly} || ${icon} || ${!isTextOnly && icon != null}');
+  }
 }
 
 abstract class TextOnlyMixin {
