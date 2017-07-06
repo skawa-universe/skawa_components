@@ -28,7 +28,7 @@ main() {
   selector: 'dummy-cke',
   directives: const [SkawaCkeditorComponent],
   template: '''
-  <skawa-ckeditor editor-name="editor" [extra-plugins]="plugins" config-url="/some-url">
+  <skawa-ckeditor editorName="editor" [extraPlugins]="plugins" configUrl="/some-url">
   </skawa-ckeditor>
   ''',
 )

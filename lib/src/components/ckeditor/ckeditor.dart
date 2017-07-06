@@ -17,21 +17,21 @@ import 'ckeditor_interop.dart' as js_ck;
 /// - `change: String` -- Triggered when editor content changes
 ///
 /// __Properties:__
-/// - `editor-name: String` -- element CSS selector to replace with CKEditor
-/// - `extra-plugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
-/// - `config-url: String` -- url of the config file to load for CKEditor
+/// - `editorName: String` -- element CSS selector to replace with CKEditor
+/// - `extraPlugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
+/// - `configUrl: String` -- url of the config file to load for CKEditor
 @Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   final _changeController = new StreamController<String>.broadcast();
   _CKEditor _ckeditor;
 
-  @Input('editor-name')
+  @Input()
   String editorName;
 
-  @Input('extra-plugins')
+  @Input()
   List<ExtraPlugin> extraPlugins;
 
-  @Input('config-url')
+  @Input()
   String configUrl;
 
   @Output('change')
