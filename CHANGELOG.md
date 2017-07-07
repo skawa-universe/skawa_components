@@ -1,3 +1,7 @@
+## 0.0.3+1
+
+- Fixed transformer usage 
+
 ## 0.0.3
 
 - Added new component `<skawa-ckeditor>`

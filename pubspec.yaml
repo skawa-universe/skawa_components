@@ -1,5 +1,5 @@
 name: skawa_components
-version: 0.0.3
+version: 0.0.3+1
 
 dependencies:
   angular2: ^3.1.0
@@ -16,7 +16,6 @@ dependency_overrides:
       ref: e958477
 transformers:
 - angular2
-- angular2/transform/codegen
 - angular2/transform/reflection_remover:
    $include:
       - test/**_test.dart
