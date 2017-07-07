@@ -4,19 +4,16 @@ version: 0.0.3
 dependencies:
   angular2: ^3.1.0
   angular_components: ^0.5.1
-
 dev_dependencies:
   sass_builder: ^0.1.0
   test: ^0.12.22+2
   angular_test: ^1.0.0-beta+3
   browser:
-
 dependency_overrides:
   sass:
     git:
       url: https://github.com/sass/dart-sass
       ref: e958477
-
 transformers:
 - angular2
 - angular2/transform/codegen

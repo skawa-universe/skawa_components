@@ -29,22 +29,12 @@ import '../../util/attribute.dart' as attrib;
     host: const {
       '[attr.textOnly]': 'textOnly',
     })
-class SkawaSidebarItemComponent extends Object
-    with TextOnlyMixin
-    implements OnChanges, OnInit {
+class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
   String icon;
-
-  @override
-  ngOnChanges(Map<String, SimpleChange> changes) {
-//    print('onChanges ${isTextOnly} || ${icon} || ${!isTextOnly && icon != null} || ${changes}');
-  }
-  @override
-  ngOnInit() {
-//    print('onChanges ${isTextOnly} || ${icon} || ${!isTextOnly && icon != null}');
-  }
 }
 
 abstract class TextOnlyMixin {
   var textOnly;
+
   bool get isTextOnly => attrib.isPresent(textOnly);
 }
