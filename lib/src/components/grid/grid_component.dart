@@ -62,13 +62,13 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   }
 
   @override
-  ngAfterViewInit() {
+  void ngAfterViewInit() {
     updateAndDisplay(true);
     tiles.changes.listen((_){updateAndDisplay(true, _);});
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     window.onResize.listen((_){updateAndDisplay(false, _);});
   }
 

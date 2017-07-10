@@ -14,13 +14,15 @@ import 'package:pageloader/objects.dart';
 Future main() async {
   tearDown(disposeAnyRunningTest);
   group('Grid | ', () {
-    test('initialization a raw card', () async {
+    test('initialization with 3 grid', () async {
       final fixture = await new NgTestBed<GridTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      print((await pageObject.grid.tiles[0].getBoundingClientRect()).width);
-      print('cica');
+      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
       expect(pageObject.grid, isNotNull);
-      expect(pageObject.grid.tiles.length, 3);
+      var tiles = await pageObject.grid.tiles;
+      expect(tiles.length, 3);
+      Future.forEach(tiles, (PageLoaderElement tile) async {
+        expect((await tile.getBoundingClientRect()).width, 280.0);
+      });
     });
   });
 }
@@ -33,7 +35,6 @@ Future main() async {
     <div gridTile>Dog</div>
     <div gridTile>Wolf</div>
   </skawa-grid>
-  <div (click)="f.updateAndDisplay()"></div>
      ''',
   directives: const [
     GridComponent,
@@ -49,7 +50,7 @@ class TestPO {
   GridPO grid;
 }
 
-class GridPO{
+class GridPO {
   @root
   PageLoaderElement rootElement;
 
