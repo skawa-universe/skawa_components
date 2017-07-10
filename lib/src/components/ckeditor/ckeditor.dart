@@ -20,6 +20,7 @@ import 'ckeditor_interop.dart' as js_ck;
 /// - `editorName: String` -- element CSS selector to replace with CKEditor
 /// - `extraPlugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
 /// - `configUrl: String` -- url of the config file to load for CKEditor
+/// - `content: String` -- initial value of editor
 @Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   final _changeController = new StreamController<String>.broadcast();
@@ -30,6 +31,9 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   List<ExtraPlugin> extraPlugins;
+
+  @Input()
+  String content;
 
   @Input()
   String configUrl;

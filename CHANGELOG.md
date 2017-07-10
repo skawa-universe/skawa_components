@@ -1,3 +1,7 @@
+## 0.0.4
+
+- CKEditor accepts initial value as `content` input property 
+
 ## 0.0.3+1
 
 - Fixed transformer usage 

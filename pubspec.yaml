@@ -1,5 +1,5 @@
 name: skawa_components
-version: 0.0.3+1
+version: 0.0.4
 
 dependencies:
   angular2: ^3.1.0
@@ -9,6 +9,7 @@ dev_dependencies:
   test: ^0.12.22+2
   angular_test: ^1.0.0-beta+3
   browser:
+  html_unescape: ^0.1.5
 dependency_overrides:
   sass:
     git:
