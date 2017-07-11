@@ -1,0 +1,78 @@
+@import "markdown_style";
+
+:host {
+  display: block;
+  position: relative;
+  [hidden] {
+    display: none !important;
+  }
+
+  &.mode-display {
+    .markdown-container {
+      display: block;
+    }
+    textarea {
+      display: none;
+    }
+    .modify-markdown-button {
+      display: inline-block;
+    }
+    .preview-changes-button {
+      display: none;
+    }
+  }
+
+  &.mode-edit {
+    .markdown-container {
+      display: none !important;
+    }
+    textarea {
+      display: block;
+    }
+    .modify-markdown-button {
+      display: none;
+    }
+    .preview-changes-button {
+      display: inline-block;
+    }
+  }
+  .markdown-container {
+    @include md_style;
+    min-height: 200px;
+    cursor: pointer;
+    &.with-placeholder {
+      display: flex;
+      align-items: center;
+    }
+    .placeholder {
+      color: rgba(0, 0, 0, 0.36);
+      text-align: center;
+      font-size: 20px;
+      width: 100%;
+    }
+  }
+
+  .modify-markdown-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
+  .preview-changes-button {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    display: none;
+  }
+
+  textarea {
+    width: 100%;
+    border: none;
+    background-color: #eee;
+    min-height: 200px;
+    padding: 8px;
+    font-size: 14px;
+    font-family: monospace;
+    box-sizing: border-box;
+  }
+}

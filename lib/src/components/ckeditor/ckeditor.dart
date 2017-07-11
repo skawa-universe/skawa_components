@@ -4,20 +4,22 @@ import 'package:angular2/angular2.dart';
 
 import 'ckeditor_interop.dart' as js_ck;
 
-/// Simple CKEditor wrapper component
+/// Simple CKEditor wrapper component.
+///
+/// *Note:* CKEditor component uses ckeditor.js, make sure it is available
 ///
 /// __Example usage:__
 ///
-///     <skawa-ckeditor editor-name="editor"
-///         [extra-plugins]="[ somePlugin ]"
-///         config-url="/ckeditor/config.js"
+///     <skawa-ckeditor editorName="editor"
+///         [extraPlugins]="[ somePlugin ]"
+///         configUrl="/ckeditor/config.js"
 ///         (change)="editorChanged($event)" ></skawa-ckeditor>
 ///
 /// __Events:__
 /// - `change: String` -- Triggered when editor content changes
 ///
 /// __Properties:__
-/// - `editorName: String` -- element CSS selector to replace with CKEditor
+/// - `editorName: String` -- element CSS selector to replace with CKEditor, this should be unique
 /// - `extraPlugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
 /// - `configUrl: String` -- url of the config file to load for CKEditor
 /// - `content: String` -- initial value of editor

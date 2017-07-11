@@ -1,10 +1,20 @@
+## 0.0.6
+
+- Added new component `<skawa-skawa-markdown-editor>` and corresponding Directives.
+- Ckeditor description corrected
+
+## 0.0.5
+
+- Added new component `<skawa-grid>`
+
+
 ## 0.0.4
 
-- CKEditor accepts initial value as `content` input property 
+- CKEditor accepts initial value as `content` input property
 
 ## 0.0.3+1
 
-- Fixed transformer usage 
+- Fixed transformer usage
 
 ## 0.0.3
 

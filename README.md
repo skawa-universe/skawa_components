@@ -16,6 +16,8 @@ The goal is to provide a couple of components that seems to be missing from angu
 * ✓ `<skawa-sidebar>`
 * ✓ `<skawa-sidebar-item>`
 * ✓ `<skawa-ckeditor>`
+* ✓ `<skawa-grid>`
+* ✓ `<skawa-skawa-markdown-editor>`
 * ☐ `<skawa-virtual-scrollbar>`
 
 Both packages are being actively maintained, meaning components get added and removed. 
