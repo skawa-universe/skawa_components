@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  .grid-container {
+    position: relative;
+    [gridTile] /deep/ {
+      position: absolute;
+      width: 280px;
+      margin: 16px;
+      transition: transform 0.3s ease-out;
+    }
+  }
+}

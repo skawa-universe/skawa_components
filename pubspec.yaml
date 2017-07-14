@@ -1,10 +1,9 @@
 name: skawa_components
-version: 0.0.2
+version: 0.0.5
 
 dependencies:
   angular2: ^3.1.0
   angular_components: ^0.5.1
-
 dev_dependencies:
   sass_builder: ^0.1.0
   test: ^0.12.22+2
@@ -12,6 +11,7 @@ dev_dependencies:
   browser:
   angular_utility:
     git: https://github.com/skawa-universe/angular_utility.git
+  html_unescape: ^0.1.5
 dependency_overrides:
   sass:
     git:
@@ -19,7 +19,6 @@ dependency_overrides:
       ref: e958477
 transformers:
 - angular2
-- angular2/transform/codegen
 - angular2/transform/reflection_remover:
    $include:
       - test/**_test.dart

@@ -13,7 +13,10 @@
     .logo-area {
       height: $increment;
       min-height: $increment;
+      line-height: $increment;
+      box-sizing: border-box;
       border-bottom: 1px solid #d3d3d3;
+      text-align: center;
     }
     .flex-grow {
       flex-grow: 1;

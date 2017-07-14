@@ -58,7 +58,11 @@
 :host .fixed-sider .logo-area {
   height: 56px;
   min-height: 56px;
+  line-height: 56px;
+  box-sizing: border-box;
+  vertical-align: middle;
   border-bottom: 1px solid #d3d3d3;
+  text-align: center;
 }
 :host .fixed-sider .flex-grow {
   flex-grow: 1;
