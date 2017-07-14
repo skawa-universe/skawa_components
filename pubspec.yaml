@@ -9,6 +9,8 @@ dev_dependencies:
   test: ^0.12.22+2
   angular_test: ^1.0.0-beta+3
   browser:
+  angular_utility:
+    git: https://github.com/skawa-universe/angular_utility.git
   html_unescape: ^0.1.5
 dependency_overrides:
   sass:
