@@ -1,9 +1,21 @@
 import 'package:angular2/angular2.dart';
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
+import 'package:angular_components/src/components/dynamic_component/dynamic_component.dart';
 
 import 'data_table_column.dart';
 import 'row_data.dart';
+
+export 'data_table_column.dart';
+export 'row_data.dart';
+
+
+/// Directive list for data tables
+const List<Type> skawaDataTableDirectives = const <Type>[
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent,
+  SkawaDataColRendererDirective,
+];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].
 /// [See more at](https://material.io/guidelines/components/data-tables.html#)
@@ -25,7 +37,7 @@ import 'row_data.dart';
 @Component(
     selector: 'skawa-data-table',
     templateUrl: 'data_table.html',
-    directives: const [MaterialCheckboxComponent, NgIf, NgClass, NgFor],
+    directives: const [MaterialCheckboxComponent, DynamicComponent, NgIf, NgClass, NgFor],
     pipes: const [UnskippedInFooterPipe],
     inputs: const ['selectable'],
     styleUrls: const ['data_table.css'],
@@ -65,6 +77,8 @@ class SkawaDataTableComponent {
   }
 
   bool get isEveryRowChecked => rows.every((row) => row.checked);
+
+  bool get isEveryRowSkippedInFooter => columns.every((col) => col.skipFooter);
 }
 
 /// Filters for those [SkawaDataTableColComponent]s, that are not skipped in footer

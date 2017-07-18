@@ -56,6 +56,10 @@ class SkawaCardComponent {
 /// __Inputs:__
 ///   - `collapsed: bool` -- Initial state of the component will be collapsed.
 ///
+/// __Properties:__
+///
+/// - `fullWidth` -- removes padding for card content
+///
 @Component(
     selector: 'skawa-card-content',
     template: '<ng-content></ng-content>',
