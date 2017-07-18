@@ -22,7 +22,7 @@ Future main() async {
       expect(
           await table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(await table.rootElement.classes.contains('selectable'), isFalse);
-      expect(await table.tfoot.tr[0].td.length, 0);
+      expect(await table.tfoot, isNull);
       expect(await table.thead.tr.th.length, 2);
       expect(await table.thead.tr.th[0].rootElement.innerText, 'Car make');
       expect(
@@ -55,7 +55,6 @@ Future main() async {
       expect(
           await table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(await table.rootElement.classes.contains('selectable'), isFalse);
-      expect(await table.tfoot.tr[0].td.length, 0);
       expect(await table.thead.tr.th.length, 2);
       expect(await table.thead.tr.th[0].rootElement.innerText, 'Car make');
       expect(
@@ -356,6 +355,7 @@ class TablePO {
   TableSectionPO tbody;
 
   @ByTagName('tfoot')
+  @optional
   TableSectionPO tfoot;
 }
 
