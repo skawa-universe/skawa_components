@@ -1,7 +1,10 @@
+## 0.0.6
+
+- Added support for column renderer for `<data-table>`
+
 ## 0.0.5
 
 - Added new component `<skawa-grid>`
-
 
 ## 0.0.4
 
