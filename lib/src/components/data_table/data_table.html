@@ -14,10 +14,19 @@
             <td *ngIf="selectable">
                 <material-checkbox (checkedChange)="row.checked = $event" [checked]="row.checked"></material-checkbox>
             </td>
-            <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">{{c.accessor(row)}}</td>
+            <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">
+                <template [ngIf]="c.useColumnRenderer">
+                    <dynamic-component
+                            [componentType]="c.columnRenderer.componentRenderer(row)"
+                            [value]="row"></dynamic-component>
+                </template>
+                <template [ngIf]="!c.useColumnRenderer">
+                    {{c.accessor(row)}}
+                </template>
+            </td>
         </tr>
     </tbody>
-    <tfoot>
+    <tfoot *ngIf="!isEveryRowSkippedInFooter">
         <tr>
             <td *ngFor="let c of columns | unskippedInFooter; let i = index;" [attr.colspan]="getColspanFor(c, i)"
                 [ngClass]="c.getClasses('--footer')">
