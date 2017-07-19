@@ -26,6 +26,8 @@ deprecated and eventually removed from skawa_components.
 
 ## Getting started
 
+See [examples](https://github.com/skawa-universe/skawa_components_example)
+
 ## Need a component?
 
 Let us know what you'd like to use, open an issue!

@@ -1,12 +1,15 @@
-## 0.0.6
+## 0.0.7
 
 - Added new component `<skawa-skawa-markdown-editor>` and corresponding Directives.
 - Ckeditor description corrected
 
+## 0.0.6
+
+- Added support for column renderer for `<data-table>`
+
 ## 0.0.5
 
 - Added new component `<skawa-grid>`
-
 
 ## 0.0.4
 
