@@ -11,7 +11,7 @@ import 'package:angular_test/angular_test.dart';
 @AngularEntrypoint()
 main() {
   tearDown(disposeAnyRunningTest);
-  group('EditorRenderSource', () {
+  group('EditorRenderSource | ', () {
     test('', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
@@ -22,7 +22,7 @@ main() {
         expect(testElement.initialValue, testElement.renderSource.previousValue);
       });
     });
-    test('', () async {
+    test('with initial value can revert last update', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -36,7 +36,7 @@ main() {
         expect(testElement.initialValue, testElement.renderSource.value);
       });
     });
-    test('', () async {
+    test('with initial value can revert all updates', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -51,7 +51,7 @@ main() {
         expect(testElement.initialValue, testElement.renderSource.value);
       });
     });
-    test('', () async {
+    test('with initial value can\'t revert beyond initial value with revertLastUpdate', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -66,7 +66,7 @@ main() {
         expect(testElement.initialValue, testElement.renderSource.value);
       });
     });
-    test('', () async {
+    test('with initial value can\'t revert beyond initial value with revertAllUpdates', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -82,7 +82,7 @@ main() {
         expect(testElement.initialValue, testElement.renderSource.value);
       });
     });
-    test('', () async {
+    test('with initial value revertLastUpdate emits change', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -97,7 +97,7 @@ main() {
         expect(testElement.renderSource.onUpdated, emits('first'));
       });
     });
-    test('', () async {
+    test('with initial value revertAllUpdates emits change', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.initialValue = "some initial content";
@@ -112,7 +112,7 @@ main() {
         await expect(testElement.renderSource.onUpdated, emits('some initial content'));
       });
     });
-    test('', () async {
+    test('without initial value initialized to empty', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create();
       final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO,);
@@ -120,7 +120,7 @@ main() {
         await expect(testElement.renderSource.previousValue, isNull);
       });
     });
-    test('', () async {
+    test('without initial value can revert to empty', () async {
       final fixture = await
       new NgTestBed<RenderSourceTemplateComponent>().create();
       final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO,);
