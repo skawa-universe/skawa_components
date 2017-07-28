@@ -139,7 +139,7 @@ main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue" (update)="update=\$event;"></textarea>
+    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue" (update)="updateUpdate(\$event)"></textarea>
     <div (click)="f.revertLastUpdate()">{{update}}</div>
     <span (click)="f.revertAllUpdates()"></span>
   ''',
@@ -147,6 +147,10 @@ main() {
 class RenderSourceTemplateComponent {
   String initialValue;
   String update;
+
+  void updateUpdate(event){
+    update = event;
+  }
 
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;
