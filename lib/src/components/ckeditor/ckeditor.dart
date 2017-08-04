@@ -68,10 +68,8 @@ class _CKEditor {
 
   _CKEditor(String editorElementSelector,
       {Iterable<ExtraPlugin> extraPlugins: const [], String configUrl: '/ckeditor/config.js'}) {
-    /// define extranal plugins
-    for (ExtraPlugin extraPlugin in extraPlugins ?? []) {
-      js_ck.addExternalPlugin(extraPlugin.name, extraPlugin.path, extraPlugin.entrypoint);
-    }
+    /// add external plugins
+    _maybeAddExtraPlugins(extraPlugins);
 
     /// Load editor
     _jsEditorInstance = js_ck.CKEditor.replace(editorElementSelector, jsify({'customConfig': configUrl}));
@@ -79,5 +77,12 @@ class _CKEditor {
 
   String getEditorData() {
     return _jsEditorInstance.getData();
+  }
+
+  void _maybeAddExtraPlugins(Iterable<ExtraPlugin> extraPlugins) {
+    if (extraPlugins == null) return;
+    for (ExtraPlugin extraPlugin in extraPlugins) {
+      js_ck.addExternalPlugin(extraPlugin.name, extraPlugin.path, extraPlugin.entrypoint);
+    }
   }
 }
