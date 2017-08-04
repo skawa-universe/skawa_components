@@ -1,3 +1,7 @@
+## 0.0.6+1
+
+-  fixed an issue where dart2js would warn about `??` in for loop
+
 ## 0.0.6
 
 - Added support for column renderer for `<data-table>`
