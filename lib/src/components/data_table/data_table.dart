@@ -1,14 +1,16 @@
+import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/src/components/dynamic_component/dynamic_component.dart';
 
 import 'data_table_column.dart';
+import 'package:angular_components/src/utils/disposer/disposer.dart';
+import 'package:quiver/collection.dart';
 import 'row_data.dart';
 
 export 'data_table_column.dart';
 export 'row_data.dart';
-
 
 /// Directive list for data tables
 const List<Type> skawaDataTableDirectives = const <Type>[
@@ -33,27 +35,44 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 /// __Properties:__
 /// - `selectable: bool` -- Whether to rows can be selectable.
 /// - `data: Iterable<RowData>` -- The rows of the table can be displayed depend on this Iterable.
+/// - `multiSelection: bool` -- Whether to allow multiSelection. Defaults to true
+///
+/// __Events:__
+/// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
 ///
 @Component(
     selector: 'skawa-data-table',
     templateUrl: 'data_table.html',
     directives: const [MaterialCheckboxComponent, DynamicComponent, NgIf, NgClass, NgFor],
     pipes: const [UnskippedInFooterPipe],
-    inputs: const ['selectable'],
     styleUrls: const ['data_table.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush)
-class SkawaDataTableComponent {
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespace: false)
+class SkawaDataTableComponent implements OnDestroy {
+  final ChangeDetectorRef changeDetectorRef;
+  final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
+  final Disposer _tearDownDisposer = new Disposer.oneShot();
+  @Input()
   bool selectable;
 
   @Input('data')
   Iterable<RowData> rows;
 
+  @Input()
+  bool multiSelection = true;
+
   @ContentChildren(SkawaDataTableColComponent)
   QueryList<SkawaDataTableColComponent> columns;
 
-  final ChangeDetectorRef changeDetectorRef;
+  @Output('change')
+  Stream<List<RowData>> onChange;
 
-  SkawaDataTableComponent(this.changeDetectorRef);
+  SkawaDataTableComponent(this.changeDetectorRef) {
+    _tearDownDisposer.addEventSink(_changeController);
+    onChange = _changeController.stream.distinct((a, b) {
+      return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
+    });
+  }
 
   int getColspanFor(SkawaDataTableColComponent col, int skippedIndex) {
     int span = 1;
@@ -72,13 +91,39 @@ class SkawaDataTableComponent {
     return span;
   }
 
-  void markAllRowsChecked(bool checked) {
+  void changeRowSelection(RowData row, bool selected) {
+    if (!multiSelection) {
+      rows.firstWhere((r) => r.checked, orElse: () => null)?.checked = !selected;
+    }
+    row.checked = selected;
+    _emitChange();
+  }
+
+  void markAllRowsChecked(bool checked, [bool emit = false]) {
     rows.forEach((row) => row.checked = checked);
+    if (emit) _emitChange();
+  }
+
+  void _emitChange() {
+    var _selectedRows = rows.where((r) => r.checked).toList(growable: false);
+    _changeController.add(_selectedRows);
   }
 
   bool get isEveryRowChecked => rows.every((row) => row.checked);
 
-  bool get isEveryRowSkippedInFooter => columns.every((col) => col.skipFooter);
+  bool get isEveryRowsSkippedInFooter => columns.every((col) => col.skipFooter);
+
+  @override
+  ngOnDestroy() {
+    _tearDownDisposer.dispose();
+  }
+
+  static bool _areOfSameCheckedState(List<RowData> a, List<RowData> b) {
+    for (int i = 0; i < a.length; ++i) {
+      if (a[i].checked != b[i].checked) return false;
+    }
+    return true;
+  }
 }
 
 /// Filters for those [SkawaDataTableColComponent]s, that are not skipped in footer
