@@ -1,3 +1,9 @@
+## 0.0.7
+
+- Add some new functionality to `<skawa-data-table>`:
+  - `change` event is emitted when selection changes
+  - setting `multiSelection` toggles whether only a single or multiple elements can be selected  
+   
 ## 0.0.6+1
 
 -  fixed an issue where dart2js would warn about `??` in for loop
