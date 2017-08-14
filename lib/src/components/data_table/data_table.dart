@@ -111,7 +111,7 @@ class SkawaDataTableComponent implements OnDestroy {
 
   bool get isEveryRowChecked => rows.every((row) => row.checked);
 
-  bool get isEveryRowsSkippedInFooter => columns.every((col) => col.skipFooter);
+  bool get isEveryRowSkippedInFooter => columns.every((col) => col.skipFooter);
 
   @override
   ngOnDestroy() {
