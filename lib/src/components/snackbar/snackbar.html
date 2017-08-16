@@ -1,0 +1,12 @@
+<popup [visible]="visible"
+       [source]="documentSource"
+       [offsetX]="24"
+       [offsetY]="-24"
+       (visible)="visibleChanged($event)"
+       ink
+       slide="x">
+    <div class="snackbar" [ngClass]="{'displayed': showAnimation}">
+        <span class="message">{{message}}</span>
+        <material-button class="action" (trigger)="trigger($event)" *ngIf="useAction">{{actionLabel}}</material-button>
+    </div>
+</popup>

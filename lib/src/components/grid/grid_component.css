@@ -4,7 +4,7 @@
 :host .grid-container {
   position: relative;
 }
-:host .grid-container /deep/ [gridTile] {
+:host .grid-container [gridTile] /deep/ {
   position: absolute;
   width: 280px;
   margin: 16px;
