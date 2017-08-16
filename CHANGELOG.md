@@ -1,3 +1,7 @@
+## 0.0.8
+
+- Add `SnackbarComponent`
+
 ## 0.0.7
 
 - Add some new functionality to `<skawa-data-table>`:
