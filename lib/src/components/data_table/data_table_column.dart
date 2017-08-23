@@ -2,7 +2,7 @@ import 'package:angular2/core.dart';
 import 'package:angular_components/src/model/ui/has_renderer.dart';
 import 'row_data.dart';
 
-typedef dynamic DataTableAccessor<T extends RowData>(T rowData);
+typedef String DataTableAccessor<T extends RowData>(T rowData);
 
 /// A column of the [SkawaDataTableComponent]. Usable only with a [SkawaDataTableComponent].
 ///

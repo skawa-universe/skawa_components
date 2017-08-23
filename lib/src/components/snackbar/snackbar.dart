@@ -105,6 +105,10 @@ class SkawaSnackbarComponent implements OnDestroy {
     _toggleController.add(visible);
   }
 
+  void trigger(event) {
+    _triggerController.add(event);
+  }
+
   @override
   void ngOnDestroy() {
     _disposer.dispose();

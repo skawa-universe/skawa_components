@@ -1,3 +1,8 @@
+## 0.0.8+1
+
+- Fixed a strong-mode error about missing trigger on Snackbar
+- Changed `DataTableAccessor` return value from `dynamic` to `String`
+
 ## 0.0.8
 
 - Add `SnackbarComponent`
