@@ -39,6 +39,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 ///
 /// __Events:__
 /// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
+/// - `highlight: RowData` -- Emitted when a row is highlighted. Note: highlighted rows are not automatically selected
 ///
 @Component(
     selector: 'skawa-data-table',
@@ -51,6 +52,8 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 class SkawaDataTableComponent implements OnDestroy {
   final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
+  final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
+
   final Disposer _tearDownDisposer = new Disposer.oneShot();
   @Input()
   bool selectable;
@@ -67,8 +70,13 @@ class SkawaDataTableComponent implements OnDestroy {
   @Output('change')
   Stream<List<RowData>> onChange;
 
+  @Output('highlight')
+  Stream<RowData> get onHighlight => _highlightController.stream;
+
+  RowData highlightedRow;
+
   SkawaDataTableComponent(this.changeDetectorRef) {
-    _tearDownDisposer.addEventSink(_changeController);
+    _tearDownDisposer..addEventSink(_changeController)..addEventSink(_highlightController);
     onChange = _changeController.stream.distinct((a, b) {
       return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
     });
@@ -102,6 +110,11 @@ class SkawaDataTableComponent implements OnDestroy {
   void markAllRowsChecked(bool checked, [bool emit = false]) {
     rows.forEach((row) => row.checked = checked);
     if (emit) _emitChange();
+  }
+
+  void highlight(RowData row) {
+    highlightedRow = row;
+    _highlightController.add(row);
   }
 
   void _emitChange() {

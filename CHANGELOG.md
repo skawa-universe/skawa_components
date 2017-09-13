@@ -1,3 +1,10 @@
+## 0.0.9
+
+- Changed to `DataTable`
+  - introduction of the concept of `primaryAction`. Columns with accessors can subscript to `(trigger)`
+    action.
+  - rows can be `(highlight)`-ed without making a change in selection
+
 ## 0.0.8+1
 
 - Fixed a strong-mode error about missing trigger on Snackbar
