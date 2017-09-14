@@ -1,3 +1,7 @@
+## 0.0.10
+
+- DataTable highlight event won't be triggered when selector checkbox is clicked
+
 ## 0.0.9
 
 - Changed to `DataTable`

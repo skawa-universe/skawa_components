@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
@@ -112,9 +113,27 @@ class SkawaDataTableComponent implements OnDestroy {
     if (emit) _emitChange();
   }
 
-  void highlight(RowData row) {
-    highlightedRow = row;
-    _highlightController.add(row);
+  void highlight(RowData row, Event ev) {
+    bool canHighlight = _canHighlight(ev);
+    if (canHighlight) {
+      highlightedRow = row;
+      _highlightController.add(row);
+    }
+  }
+
+  bool _canHighlight(Event ev) {
+    if (selectable && ev.target is Element && ev.target != ev.currentTarget) {
+      Element target = ev.target as Element;
+      if (target is Element) {
+        while (target != ev.currentTarget && target.tagName != 'TR' && target != null) {
+          if (target.classes.contains('selector-checkbox')) {
+            return false;
+          }
+          target = target.parent;
+        }
+      }
+    }
+    return true;
   }
 
   void _emitChange() {

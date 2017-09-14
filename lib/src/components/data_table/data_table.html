@@ -12,10 +12,11 @@
     <tbody>
         <tr *ngFor="let row of rows"
             [class.selected]="row.checked"
-            (click)="highlight(row); $event.stopPropagation()"
+            (click)="highlight(row, $event); $event.stopPropagation()"
             [class.highlighted]="row == highlightedRow">
             <td *ngIf="selectable">
                 <material-checkbox
+                        class="selector-checkbox"
                         (checkedChange)="changeRowSelection(row, $event);"
                         [checked]="row.checked"></material-checkbox>
             </td>

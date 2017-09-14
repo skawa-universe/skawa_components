@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:html';
 import 'dart:math';
 import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
 import 'package:angular_components/src/laminate/components/popup/popup.dart';
 import 'package:angular_components/src/laminate/enums/alignment.dart';
-import 'package:angular_components/src/laminate/popup/module.dart';
 import 'package:angular_components/src/laminate/popup/src/popup_size_provider.dart';
 import 'package:angular_components/src/laminate/popup/src/popup_source.dart';
 import 'package:angular_components/src/utils/angular/properties/properties.dart';
