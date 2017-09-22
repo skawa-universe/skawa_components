@@ -1,3 +1,8 @@
+## 0.0.11
+- Modified snackbar to use material popup.
+- Snackbar should now be in the bottom left corner of the screen always.
+- Changed angular_components version from "^0.5.1" to "^0.5.3+1"
+
 ## 0.0.10
 
 - DataTable highlight event won't be triggered when selector checkbox is clicked
