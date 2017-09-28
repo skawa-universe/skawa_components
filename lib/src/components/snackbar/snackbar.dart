@@ -3,7 +3,6 @@ import 'dart:html';
 import 'dart:math';
 import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
-import 'package:angular_components/src/laminate/components/popup/popup.dart';
 import 'package:angular_components/src/laminate/enums/alignment.dart';
 import 'package:angular_components/src/laminate/popup/src/popup_size_provider.dart';
 import 'package:angular_components/src/laminate/popup/src/popup_source.dart';
@@ -50,6 +49,8 @@ class DocumentPopupSource extends ElementPopupSource {
 /// __Outputs:__
 ///
 /// - `trigger: Event` -- action button is pressed
+///
+/// If there are multiple popupBindings in the project where you use this component, the snackbar may not work because the id's may be the same for more than one popup.
 @Component(
     selector: 'skawa-snackbar',
     templateUrl: 'snackbar.html',
@@ -109,11 +110,11 @@ class SkawaSnackbarComponent implements OnDestroy {
   DivElement parentDiv;
   bool first = true;
 
-  void visibleChanged(bool visible) {
+  void visibleChanged() {
     if (first) {
       parentDiv = document.body.querySelector('div[pane-id="${popupComponent.resolvedPopupRef.uniqueId}"]');
       _disposer.addStreamSubscription(popupComponent.onOpened.listen((_) {
-        parentDiv.style.setProperty("transform", "translateX(30px) translateY(${window.screen.height - 130}px)");
+        parentDiv.style.setProperty("transform", "translateX(30px) translateY(${window.screen.height - 180}px)");
       }));
 
       first = false;
