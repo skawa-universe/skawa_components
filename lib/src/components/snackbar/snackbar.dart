@@ -50,7 +50,8 @@ class DocumentPopupSource extends ElementPopupSource {
 ///
 /// - `trigger: Event` -- action button is pressed
 ///
-/// If there are multiple popupBindings in the project where you use this component, the snackbar may not work because the id's may be the same for more than one popup.
+/// If there are multiple popupBindings provided in the project where you use this component,
+/// the snackbar may not work because the id's may be the same for more than one popup.
 @Component(
     selector: 'skawa-snackbar',
     templateUrl: 'snackbar.html',
