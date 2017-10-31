@@ -117,7 +117,7 @@ class SkawaDataTableComponent implements OnDestroy {
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
       highlightedRow = row;
-      _highlightController.add(row);
+      if (!_highlightController.isClosed) _highlightController.add(row);
     }
   }
 
