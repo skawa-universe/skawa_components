@@ -6,7 +6,15 @@
                                    (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation();"
                                    [checked]="isEveryRowChecked" *ngIf="multiSelection"></material-checkbox>
             </th>
-            <th *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses('--header')">{{c.header}}</th>
+            <th *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses('--header')" [class.sort-enabled]="true" class.sort="true">
+                <template [ngIf]="c.sort == null">
+                    {{c.header}}
+                </template>
+                <template [ngIf]="c.sort != null">
+                    <glyph icon="arrow_downwards"></glyph>
+                    {{c.header}}
+                </template>
+            </th>
         </tr>
     </thead>
     <tbody>

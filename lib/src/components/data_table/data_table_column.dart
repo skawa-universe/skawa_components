@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'package:angular2/core.dart';
+import 'package:angular_components/src/components/glyph/glyph.dart';
 import 'package:angular_components/src/model/ui/has_renderer.dart';
 import 'row_data.dart';
+import 'sort.dart';
+
+export 'sort.dart';
 
 typedef String DataTableAccessor<T extends RowData>(T rowData);
 
@@ -20,6 +24,7 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
 /// - `accessor: bool` -- A function which return with the data to display in the cells.
 /// - `colRenderer: ComponentRenderer` -- component renderer function reference - if specified, accessor is ignored
 /// - `header: String` -- Header name of the column to display.
+/// - `sort: SortConfig -- Enable/disable sort for this column with various options
 /// - `footer: String` -- Footer name of the column to display.
 /// - `skipFooter: bool` -- Whether to display the footer. Defaults to true.
 ///
@@ -33,22 +38,26 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
 /// mixin.
 ///
 @Component(
-    selector: 'skawa-data-table-col',
-    template: '',
-    directives: const [SkawaDataColRendererDirective],
-    inputs: const ['accessor', 'header', 'footer', 'skipFooter'])
+    selector: 'skawa-data-table-col', template: '', directives: const [SkawaDataColRendererDirective, GlyphComponent])
 class SkawaDataTableColComponent implements OnInit, OnDestroy {
   final StreamController<RowData> _triggerController = new StreamController<RowData>.broadcast();
   final SkawaDataColRendererDirective columnRenderer;
 
+  @Input()
   DataTableAccessor accessor;
 
+  @Input()
   String header;
 
+  @Input()
   String footer;
+
+  @Input()
+  SortConfig sort;
 
   /// If set to true, footer will not display this column and
   /// colspan of td element will be set accordingly
+  @Input()
   bool skipFooter = true;
 
   @Input('class')
