@@ -1,6 +1,5 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
@@ -10,54 +9,54 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('MasterDetail | ', () {
     test('initialization', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isNull));
     });
     test('initialization then expand 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], '');
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isEmpty));
     });
     test('initialization then expand 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.expand.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], '');
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isEmpty));
     });
     test('initialization then expand 1X then toggle 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.toggle.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isNull));
     });
     test('initialization then expand 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.collapse.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isNull));
     });
     test('initialization then toogle 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.toggle.click();
       await pageObject.collapse.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isNull));
     });
     test('initialization then toggle 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.toggle.click();
       await pageObject.toggle.click();
-      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
+      expect(pageObject.sideMasterDetail.rootElement.attributes['expanded'], completion(isNull));
     });
   });
 }

@@ -9,19 +9,18 @@ import 'package:angular2/core.dart';
 import 'package:angular_test/angular_test.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('EditorRenderTarget | ', () {
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<TestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.counter.click();
-      expect(await pageObject.renderTarget.innerText, '');
+      expect(pageObject.renderTarget.innerText, completion(isEmpty));
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.content = '<div> Cat <span>Lion</span></div>';
-      });
+      final fixture = await new NgTestBed<TestComponent>()
+          .create(beforeChangeDetection: (testElement) => testElement.content = '<div> Cat <span>Lion</span></div>');
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.counter.click();
       await fixture.update((testElement) {
@@ -31,7 +30,7 @@ main() {
           expect(child.classes, isEmpty);
         });
       });
-      expect(await pageObject.counter.visibleText, '1');
+      expect(pageObject.counter.visibleText, completion('1'));
     });
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
@@ -68,7 +67,7 @@ main() {
           expect(child.classes.contains('lion'), isTrue);
         });
       });
-      expect(await pageObject.counter.visibleText, '1');
+      expect(pageObject.counter.visibleText, completion('1'));
     });
   });
 }

@@ -1,5 +1,6 @@
 @Tags(const ['aot'])
 @TestOn('browser')
+import 'dart:async';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:skawa_components/src/components/markdown_editor/editor_render_source.dart';
@@ -8,120 +9,63 @@ import 'package:angular2/core.dart';
 import 'package:angular_test/angular_test.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   tearDown(disposeAnyRunningTest);
-  group('EditorRenderSource | ', () {
-    test('', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        expect(testElement.initialValue, testElement.renderSource.previousValue);
-      });
+  final testBed = new NgTestBed<RenderSourceTemplateComponent>();
+  NgTestFixture<RenderSourceTemplateComponent> fixture;
+  TestPO pageObject;
+  final String _first = 'first';
+  final String _second = 'second';
+  final String _initialValue = "some initial content";
+  group('EditorRenderSource | without initial value ', () {
+    setUp(() async {
+      fixture = await new NgTestBed<RenderSourceTemplateComponent>().create();
+      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
-    test('with initial value can revert last update', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-      });
-      await pageObject.div.click();
-      await fixture.update((testElement) async {
-        expect(testElement.initialValue, testElement.renderSource.value);
-      });
+    test('initialized to empty', () async {
+      expect(pageObject.actualValue(), completion(isEmpty));
     });
-    test('with initial value can revert all updates', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-        testElement.initialValue = 'second';
-      });
-      await pageObject.span.click();
-      await fixture.update((testElement) async {
-        expect(testElement.initialValue, testElement.renderSource.value);
-      });
+    test('can revert to empty', () async {
+      await pageObject.type(_first);
+      await pageObject.type(_second);
+      await pageObject.revertAllUpdates();
+      await new Future.delayed(DeferredCallback.defaultTimeout);
+      expect(pageObject.actualValue(), completion(isEmpty));
     });
-    test('with initial value can\'t revert beyond initial value with revertLastUpdate', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.renderSource.value = 'first';
-      });
-      await pageObject.div.click();
-      await pageObject.div.click();
-      await fixture.update((testElement) async {
-        expect(testElement.initialValue, testElement.renderSource.value);
-      });
+  });
+  group('EditorRenderSource | with initial value ', () {
+    setUp(() async {
+      fixture = await testBed.create(beforeChangeDetection: (testElement) => testElement.initialValue = _initialValue);
+      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
-    test('with initial value can\'t revert beyond initial value with revertAllUpdates', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-        testElement.initialValue = 'second';
-      });
-      await pageObject.span.click();
-      await pageObject.span.click();
-      await fixture.update((testElement) async {
-        expect(testElement.initialValue, testElement.renderSource.value);
-      });
+    test('initialization', () async {
+      expect(pageObject.actualValue(), completion(_initialValue));
     });
-    test('with initial value revertLastUpdate emits change', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-        testElement.initialValue = 'second';
-      });
-      await pageObject.div.click();
-      await fixture.update((testElement) async {
-        await expect(testElement.renderSource.onUpdated, emits('first'));
-      });
+    test('revertLastUpdate emits change', () async {
+      await pageObject.type(_first);
+      await pageObject.type(_second);
+      await pageObject.revertLastUpdate();
+      await new Future.delayed(DeferredCallback.defaultTimeout);
+      expect(pageObject.actualValue(), completion('$_initialValue$_first'));
     });
-    test('with initial value revertAllUpdates emits change', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.initialValue = "some initial content";
-      });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-        testElement.initialValue = 'second';
-      });
-      await pageObject.span.click();
-      fixture.update((testElement) async {
-        await expect(testElement.renderSource.onUpdated, emits('some initial content'));
-      });
+    test('can\'t revert beyond initial value with revertLastUpdate', () async {
+      await pageObject.type(_first);
+      await pageObject.revertLastUpdate();
+      await pageObject.revertLastUpdate();
+      await new Future.delayed(DeferredCallback.defaultTimeout);
+      expect(pageObject.actualValue(), completion(_initialValue));
     });
-    test('without initial value initialized to empty', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create();
-      await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        await expect(testElement.renderSource.previousValue, isNull);
-      });
+    test('can revert all updates', () async {
+      await pageObject.type(_first);
+      await pageObject.type(_second);
+      await pageObject.revertAllUpdates();
+      await new Future.delayed(DeferredCallback.defaultTimeout);
+      expect(pageObject.actualValue(), completion(_initialValue));
     });
-    test('without initial value can revert to empty', () async {
-      final fixture = await new NgTestBed<RenderSourceTemplateComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) async {
-        testElement.initialValue = 'first';
-        testElement.initialValue = 'second';
-      });
-      await pageObject.span.click();
-      await fixture.update((testElement) async {
-        await expect(testElement.renderSource.onUpdated, emits(null));
-      });
+    test('can\'t revert beyond initial value with revertAllUpdates', () async {
+      await pageObject.revertAllUpdates();
+      await new Future.delayed(DeferredCallback.defaultTimeout);
+      expect(pageObject.actualValue(), completion(_initialValue));
     });
   });
 }
@@ -129,18 +73,14 @@ main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue" (update)="updateUpdate(\$event)"></textarea>
+    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue" (update)="update=\$event"></textarea>
     <div (click)="f.revertLastUpdate()">{{update}}</div>
     <span (click)="f.revertAllUpdates()"></span>
-  ''',
+              ''',
     directives: const [EditorRenderSource])
 class RenderSourceTemplateComponent {
   String initialValue;
   String update;
-
-  void updateUpdate(event) {
-    update = event;
-  }
 
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;
@@ -149,11 +89,21 @@ class RenderSourceTemplateComponent {
 @EnsureTag('test')
 class TestPO {
   @ByTagName('textarea')
-  PageLoaderElement editorRenderSource;
+  PageLoaderElement _editorRenderSource;
+
+  Future clear() async => _editorRenderSource.clear();
+
+  Future type(String s) => _editorRenderSource.type(s);
+
+  Future revertLastUpdate() => _div.click();
+
+  Future revertAllUpdates() => _span.click();
+
+  Future<String> actualValue() => _div.innerText;
 
   @ByTagName('div')
-  PageLoaderElement div;
+  PageLoaderElement _div;
 
   @ByTagName('span')
-  PageLoaderElement span;
+  PageLoaderElement _span;
 }

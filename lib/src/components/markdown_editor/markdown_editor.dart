@@ -76,22 +76,14 @@ abstract class TextareaEditorBase implements SkawaEditor {
 ///       <div class="placeholder">What to display if value is empty</div>
 ///     </skawa-markdown-editor>
 ///
-@Component(selector: 'skawa-markdown-editor', templateUrl: 'markdown_editor.html', styleUrls: const [
-  'markdown_editor.css'
-], directives: const [
-  AutoFocusDirective,
-  EditorRenderSource,
-  EditorRenderTarget,
-  LanguageDirectionDirective,
-  NgClass,
-], outputs: const [
-  'onUpdated: update'
-], inputs: const [
-  'initialValue'
-], host: const {
-  '[class.mode-edit]': 'displayMode == "edit"',
-  '[class.mode-display]': 'displayMode == "display"'
-})
+@Component(
+    selector: 'skawa-markdown-editor',
+    templateUrl: 'markdown_editor.html',
+    styleUrls: const ['markdown_editor.css'],
+    directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
+    outputs: const ['onUpdated: update'],
+    inputs: const ['initialValue'],
+    host: const {'[class.mode-edit]': 'displayMode == "edit"', '[class.mode-display]': 'displayMode == "display"'})
 class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit {
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;

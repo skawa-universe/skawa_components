@@ -11,88 +11,95 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Card | ', () {
     test('initialization a raw card', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
       await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
+    final String inHeader = 'in-header';
+    final String withHeader = 'with-header';
+    final String collapsed = 'skawa-collapsed';
+    final String withAction = 'with-actions';
+    final String withSubhead = 'with-subhead';
+    final String withTitleImage = 'with-title-image';
     test('initialization a card with action and content', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.hasAction = true;
-        testElement.hasContent = true;
+        testElement
+          ..hasAction = true
+          ..hasContent = true;
       });
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
+      expect((await pageObject.card.actions).rootElement.classes, neverEmits(inHeader));
+      expect((await pageObject.card.content).rootElement.classes, neverEmits(withHeader));
+      expect((await pageObject.card.content).rootElement.classes, neverEmits(collapsed));
     });
     test('initialization a card with action and content then toogle the content 1X', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
-        testElement.hasAction = true;
-        testElement.hasContent = true;
+        testElement
+          ..hasAction = true
+          ..hasContent = true;
       });
-      var content = (await pageObject.card.content).rootElement;
+      PageLoaderElement content = (await pageObject.card.content).rootElement;
       await content.click();
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await content.classes.contains('with-header'), isFalse);
-      expect(await content.classes.contains('skawa-collapsed'), isTrue);
+      expect((await pageObject.card.actions).rootElement.classes, neverEmits(inHeader));
+      expect(content.classes, neverEmits(withHeader));
+      expect(content.classes, mayEmit(collapsed));
     });
     test('initialization a card with action and content then toogle the content 2X', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
-        testElement.hasContent = true;
-        testElement.hasAction = true;
+        testElement
+          ..hasAction = true
+          ..hasContent = true;
       });
-      var content = (await pageObject.card.content).rootElement;
+      PageLoaderElement content = (await pageObject.card.content).rootElement;
       await content.click();
       await content.click();
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await content.classes.contains('with-header'), isFalse);
-      expect(await content.classes.contains('skawa-collapsed'), isFalse);
+      expect((await pageObject.card.actions).rootElement.classes, neverEmits(inHeader));
+      expect(content.classes, neverEmits(withHeader));
+      expect(content.classes, neverEmits(collapsed));
     });
     test('initialization a card with action, content, header and an action in the header', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
-        testElement.hasHeader = true;
-        testElement.hasHeaderAction = true;
-        testElement.hasAction = true;
+        testElement
+          ..hasHeader = true
+          ..hasHeaderAction = true
+          ..hasAction = true;
       });
-      await fixture.update((testElement) {
-        testElement.hasContent = true;
-      });
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isTrue);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-actions'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-subhead'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-title-image'), isFalse);
+      await fixture.update((testElement) => testElement.hasContent = true);
+      expect((await pageObject.card.actions).rootElement.classes, neverEmits(inHeader));
+      expect((await pageObject.card.content).rootElement.classes, mayEmit(withHeader));
+      expect((await pageObject.card.content).rootElement.classes, neverEmits(collapsed));
+      expect((await pageObject.card.header).rootElement.classes, mayEmit(withAction));
+      expect((await pageObject.card.header).rootElement.classes, neverEmits(withSubhead));
+      expect((await pageObject.card.header).rootElement.classes, neverEmits(withTitleImage));
     });
     test('initialization a card with action, content and a header with action, title, subheader and image', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
-        testElement.hasHeader = true;
-        testElement.hasHeaderAction = true;
-        testElement.hasAction = true;
-        testElement.hasImage = true;
-        testElement.hasTitle = true;
-        testElement.hasSubHead = true;
+        testElement
+          ..hasHeader = true
+          ..hasHeaderAction = true
+          ..hasAction = true
+          ..hasImage = true
+          ..hasTitle = true
+          ..hasSubHead = true;
       });
-      await fixture.update((testElement) {
-        testElement.hasContent = true;
-      });
-      expect(await (await pageObject.card.actions).rootElement.classes.contains('in-header'), isFalse);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('with-header'), isTrue);
-      expect(await (await pageObject.card.content).rootElement.classes.contains('skawa-collapsed'), isFalse);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-actions'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-subhead'), isTrue);
-      expect(await (await pageObject.card.header).rootElement.classes.contains('with-title-image'), isTrue);
+      await fixture.update((testElement) => testElement.hasContent = true);
+      expect((await pageObject.card.actions).rootElement.classes, neverEmits(inHeader));
+      expect((await pageObject.card.content).rootElement.classes, mayEmit(withHeader));
+      expect((await pageObject.card.content).rootElement.classes, neverEmits(collapsed));
+      expect((await pageObject.card.header).rootElement.classes, mayEmit(withAction));
+      expect((await pageObject.card.header).rootElement.classes, mayEmit(withSubhead));
+      expect((await pageObject.card.header).rootElement.classes, mayEmit(withTitleImage));
     });
   });
 }
@@ -111,10 +118,7 @@ Future main() async {
     <skawa-card-content *ngIf="hasContent" #f (click)="f.toggle()"></skawa-card-content>
   </skawa-card>
      ''',
-  directives: const [
-    skawaCardDirectives,
-    NgIf,
-  ],
+  directives: const [skawaCardDirectives, NgIf],
 )
 class CardTestComponent {
   String statusColor;

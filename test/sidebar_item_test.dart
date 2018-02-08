@@ -10,33 +10,32 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('SidebarItem | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<SidebarItemTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await pageObject.sideBarItemList.span.classes.contains('text-only'), isFalse);
-      expect(await pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
+      expect(pageObject.sideBarItemList.span.classes.contains('text-only'), completion(isFalse));
+      expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], completion(isNull));
     });
     test('initialization with icon', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.icon = 'alarm';
-      });
+      final fixture = await new NgTestBed<SidebarItemTestComponent>()
+          .create(beforeChangeDetection: (testElement) => testElement.icon = 'alarm');
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await (await pageObject.sideBarItemList.glyph).rootElement.innerText, 'alarm');
-      expect(await pageObject.sideBarItemList.span.classes.contains('text-only'), isFalse);
-      expect(await pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
+      expect((await pageObject.sideBarItemList.glyph).rootElement.innerText, completion('alarm'));
+      expect(pageObject.sideBarItemList.span.classes.contains('text-only'), completion(isFalse));
+      expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], completion(isNull));
     });
     test('initialization with icon but with textOnly', () async {
       final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.icon = 'alarm';
-        testElement.textOnly = true;
+        testElement
+          ..icon = 'alarm'
+          ..textOnly = true;
       });
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-//      expect(() async { await pageObject.sideBarItemList.glyph;}, isStateError);
-      expect(await pageObject.sideBarItemList.span.classes.contains('text-only'), isTrue);
-      expect(await pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNotNull);
+      expect(pageObject.sideBarItemList.span.classes.contains('text-only'), completion(isTrue));
+      expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], completion(isNotNull));
     });
   });
 }

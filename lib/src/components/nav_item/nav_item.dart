@@ -34,11 +34,7 @@ import 'package:angular_components/src/components/material_ripple/material_rippl
     selector: 'skawa-nav-item',
     templateUrl: 'nav_item.html',
     styleUrls: const ['nav_item.css'],
-    directives: const [
-      SkawaSidebarItemComponent,
-      MaterialRippleComponent,
-      NgClass,
-    ],
+    directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
     inputs: const ['link', 'icon', 'disabled', 'textOnly', 'fullWidth'],
     outputs: const ['trigger'],
     changeDetection: ChangeDetectionStrategy.OnPush,

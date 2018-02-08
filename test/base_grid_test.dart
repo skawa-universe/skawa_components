@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:skawa_components/src/base_implementations/grid/grid.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('GridUpdate | ', () {
     test('constructor', () {
       List<Point> pointList = [

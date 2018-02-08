@@ -18,17 +18,13 @@ import 'package:angular_components/src/components/material_button/material_butto
 /// __Properties:__
 /// - `showNavToggle: bool` -- Whether to display nav toggle. Defaults to true.
 ///
-@Component(selector: 'skawa-appbar', templateUrl: 'appbar.html', styleUrls: const [
-  'appbar.css'
-], inputs: const [
-  'showNavToggle'
-], outputs: const [
-  'navToggle'
-], directives: const [
-  MaterialButtonComponent,
-  GlyphComponent,
-  NgIf,
-])
+@Component(
+    selector: 'skawa-appbar',
+    templateUrl: 'appbar.html',
+    styleUrls: const ['appbar.css'],
+    inputs: const ['showNavToggle'],
+    outputs: const ['navToggle'],
+    directives: const [MaterialButtonComponent, GlyphComponent, NgIf])
 class SkawaAppbarComponent implements OnDestroy {
   StreamController _navToggleController = new StreamController<MouseEvent>.broadcast();
 

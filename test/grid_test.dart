@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Grid | ', () {
     test('initialization with 3 grid', () async {

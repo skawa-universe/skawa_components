@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Datatable | ', () {
     test('initialization a non selectable datatable', () async {
@@ -180,10 +180,7 @@ Future main() async {
        <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
      ''',
-  directives: const [
-    SkawaDataTableComponent,
-    SkawaDataTableColComponent,
-  ],
+  directives: const [SkawaDataTableComponent, SkawaDataTableColComponent],
 )
 class NonSelectableDatatableTestComponent {
   String cssClass = null;
@@ -216,10 +213,7 @@ List<RowData> ROWDATA = <SampleRowData>[
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
      ''',
-  directives: const [
-    SkawaDataTableComponent,
-    SkawaDataTableColComponent,
-  ],
+  directives: const [SkawaDataTableComponent, SkawaDataTableColComponent],
 )
 class SelectableDatatableTestComponent {
   categoryAccessor(SampleNumericData row) => row.category;

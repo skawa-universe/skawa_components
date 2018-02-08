@@ -17,7 +17,7 @@ export 'row_data.dart';
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
-  SkawaDataColRendererDirective,
+  SkawaDataColRendererDirective
 ];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].

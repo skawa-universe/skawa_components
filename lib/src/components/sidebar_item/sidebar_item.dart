@@ -26,9 +26,7 @@ import '../../util/attribute.dart' as attrib;
     changeDetection: ChangeDetectionStrategy.OnPush,
     inputs: const ['icon', 'textOnly'],
     directives: const [GlyphComponent, NgIf, NgClass],
-    host: const {
-      '[attr.textOnly]': 'textOnly',
-    })
+    host: const {'[attr.textOnly]': 'textOnly'})
 class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
   String icon;
 }

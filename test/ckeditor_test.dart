@@ -8,7 +8,7 @@ import 'dart:convert' show HTML_ESCAPE;
 import 'package:html_unescape/html_unescape.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {
     var bed = new NgTestBed<TestEditorComponent>();

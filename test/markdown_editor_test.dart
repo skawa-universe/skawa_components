@@ -12,48 +12,41 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   group('Markdown Editor', () {
     tearDown(disposeAnyRunningTest);
+    final String input = "cica";
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
-        MarkdownEditorPage,
-      );
+      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(MarkdownEditorPage);
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = await markdownEditorPage.textarea;
       String expectedText = await markdownEditorPage.markdownContainerDiv.innerText;
-      expect(await markdownEditorPage.markdownContainerDiv.displayed, isFalse);
-      expect(await textarea.displayed, isTrue);
-      expect(await textarea.seleniumAttributes['value'], expectedText);
+      expect( markdownEditorPage.markdownContainerDiv.displayed, completion(isFalse));
+      expect(textarea.displayed, completion(isTrue));
+      expect(textarea.seleniumAttributes['value'], completion(expectedText));
     });
     test('can be edited and type', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
-        MarkdownEditorPage,
-      );
+      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(MarkdownEditorPage);
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = await markdownEditorPage.textarea;
-      String input = "cica";
       String expectedText = "${await textarea.seleniumAttributes['value']}${input}";
       await textarea.typing(input);
-      expect(await markdownEditorPage.markdownContainerDiv.displayed, isFalse);
-      expect(await textarea.displayed, isTrue);
-      expect(await textarea.seleniumAttributes['value'], expectedText);
+      expect(markdownEditorPage.markdownContainerDiv.displayed, completion(isFalse));
+      expect(textarea.displayed, completion(isTrue));
+      expect(textarea.seleniumAttributes['value'], completion(expectedText));
     });
     test('can be edited and preview', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
-        MarkdownEditorPage,
-      );
+      final markdownEditorPage = await fixture.resolvePageObject/*<MarkdownEditorPage>*/(MarkdownEditorPage);
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = await markdownEditorPage.textarea;
-      String input = "cica";
       await textarea.typing(input);
       String expectedText = "${await markdownEditorPage.markdownContainerDiv.innerText}${input}";
       await markdownEditorPage.buttons[2].click();
-      expect(await markdownEditorPage.markdownContainerDiv.displayed, isTrue);
-      expect(await markdownEditorPage.markdownContainerDiv.innerText, expectedText);
+      expect(markdownEditorPage.markdownContainerDiv.displayed, completion(isTrue));
+      expect(markdownEditorPage.markdownContainerDiv.innerText, completion(expectedText));
     });
   });
 }

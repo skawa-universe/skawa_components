@@ -1,6 +1,5 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'dart:async';
 
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
@@ -12,35 +11,29 @@ import 'package:skawa_components/src/components/appbar/appbar.dart';
 import 'package:test/test.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Appbar | ', () {
     test('initialization without button', () async {
       final fixture = await new NgTestBed<AppbarTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await pageObject.trigger.innerText, '0');
+      expect(pageObject.trigger.innerText, completion('0'));
     });
     test('initialization with button', () async {
       final fixture = await new NgTestBed<AppbarTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) {
-        testElement.showNavToggle = true;
-      });
-      expect(await pageObject.trigger.innerText, '0');
-      expect(await pageObject.appbar, isNotNull);
+      await fixture.update((testElement) => testElement.showNavToggle = true);
+      expect(pageObject.trigger.innerText, completion('0'));
+      expect(pageObject.appbar, isNotNull);
     });
     test('initialization with button and trigger 2X', () async {
-      final fixture = await new NgTestBed<AppbarTestComponent>().create(beforeChangeDetection: (testElement) {
-        testElement.showNavToggle = true;
-      });
+      final fixture = await new NgTestBed<AppbarTestComponent>()
+          .create(beforeChangeDetection: (testElement) => testElement.showNavToggle = true);
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-//      await fixture.update((testElement) {
-//        testElement.showNavToggle = true;
-//      });
       await pageObject.appbar.materialButton.click();
       await pageObject.appbar.materialButton.click();
-      expect(await pageObject.trigger.innerText, '2');
-      expect(await pageObject.appbar, isNotNull);
+      expect(pageObject.trigger.innerText, completion('2'));
+      expect(pageObject.appbar, isNotNull);
     });
   });
 }

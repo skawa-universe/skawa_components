@@ -22,13 +22,12 @@ import 'package:angular2/core.dart';
 ///
 ///     <input editorRenderSource value="someInitialValue" >
 ///
-@Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource', inputs: const [
-  'initialValue'
-], outputs: const [
-  'onUpdated: update'
-], host: const {
-  '(input)': r'contentChanged($event)',
-})
+@Directive(
+    selector: '[editorRenderSource]',
+    exportAs: 'editorRenderSource',
+    inputs: const ['initialValue'],
+    outputs: const ['onUpdated: update'],
+    host: const {'(input)': r'contentChanged($event)'})
 class EditorRenderSource implements AfterViewInit {
   final ElementRef elementRef;
 
@@ -57,21 +56,18 @@ class EditorRenderSource implements AfterViewInit {
   /// Sets the value of editor
   void set value(String val) {
     _changeStack.insert(0, value);
-//    _changeStack.add(value);
     elementRef.nativeElement.value = val;
   }
 
   /// Gets the previous or initial value
-  String get previousValue {
-    return _changeStack.length > 0 ? _changeStack.first : initialValue;
-  }
+  String get previousValue => _changeStack.length > 0 ? _changeStack.first : initialValue;
 
   void revertLastUpdate() {
     if (_changeStack.length <= 1) {
       revertAllUpdates();
     } else {
-      elementRef.nativeElement.value = _changeStack.first;
       _changeStack.removeAt(0);
+      elementRef.nativeElement.value = _changeStack.first;
     }
     _emit(value);
   }
@@ -91,7 +87,7 @@ class EditorRenderSource implements AfterViewInit {
   }
 
   @override
-  ngAfterViewInit() {
+  void ngAfterViewInit() {
     // sync initial value to DOM
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
@@ -119,7 +115,7 @@ class DeferredCallback<T, K> {
   /// [callback] is the action that will be executed once every
   /// [timeout] duration
   DeferredCallback(K callback(T param), [Duration timeout])
-      : timeout = timeout ?? _defaultTimeout,
+      : timeout = timeout ?? defaultTimeout,
         _cb = callback;
 
   Future<K> call(T param) {
@@ -140,5 +136,5 @@ class DeferredCallback<T, K> {
     return c.future;
   }
 
-  static final Duration _defaultTimeout = new Duration(milliseconds: 500);
+  static final Duration defaultTimeout = new Duration(milliseconds: 500);
 }
