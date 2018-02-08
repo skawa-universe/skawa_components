@@ -1,9 +1,10 @@
 name: skawa_components
-version: 0.0.7
+version: 0.0.12
 
 dependencies:
-  angular2: ^3.1.0
-  angular_components: ^0.5.1
+  angular2: 3.1.0
+  angular_components: ^0.5.3+1
+  quiver: 0.25.0
   markdown: any
 dev_dependencies:
   sass_builder: ^0.1.0

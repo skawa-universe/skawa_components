@@ -39,37 +39,23 @@
   box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
   background-color: rgba(0, 0, 0, 0.2);
 }
-:host {
-  background-color: #fafafa;
-  border-right: 1.1px solid #d3d3d3;
-  display: block;
-  width: 0;
-  height: 100%;
+.snackbar {
+  font-size: 14px;
+  background-color: #323232;
+  height: 48px;
   box-sizing: border-box;
-  overflow: hidden;
-  position: relative;
-  left: -224px;
-  transition: left 0.2s cubic-bezier(0, 0, 0.2, 1), width 0 linear 0.2s;
-}
-:host aside {
-  height: 100%;
-  width: 100%;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-}
-:host::-webkit-scrollbar {
-  width: 0;
+  border-radius: 2px;
+  color: white;
+  padding: 0 24px;
+  display: flex;
   opacity: 0;
+  transition: opacity 0.5s linear;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
-:host:hover {
-  overflow-y: auto;
+.snackbar .message, .snackbar .action {
+  align-self: center;
 }
-:host:hover::-webkit-scrollbar {
-  width: 8px;
+.snackbar.displayed {
+  transition: opacity 0.5s linear;
   opacity: 1;
-}
-:host.opened {
-  width: 224px;
-  left: 0;
-  transition: left 0.2s cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
