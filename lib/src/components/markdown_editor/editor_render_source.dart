@@ -39,9 +39,7 @@ class EditorRenderSource implements AfterViewInit {
 
   Stream get onUpdated => _onUpdated.stream;
 
-  DeferredCallback _emit;
-
-  EditorRenderSource(this.elementRef) {
+  DeferredCallback _emit;  EditorRenderSource(this.elementRef) {
     _emit = new DeferredCallback(_onUpdated.add);
   }
 
