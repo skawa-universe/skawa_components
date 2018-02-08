@@ -43,7 +43,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 /// __Events:__
 /// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
 /// - `highlight: RowData` -- Emitted when a row is highlighted. Note: highlighted rows are not automatically selected
-/// - `sort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
+/// - `onSort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
 ///
 @Component(
     selector: 'skawa-data-table',

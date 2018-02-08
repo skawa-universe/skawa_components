@@ -251,6 +251,57 @@ Future main() async {
       expect(await trElement.td[2].rootElement.innerText, '25');
       expect(await trElement.td[3].rootElement.innerText, '53');
     });
+
+    test('sortable datatable sort descending by second column', () async {
+      final fixture =
+      await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      var table = pageObject.dataTable.table;
+
+      expect(await table.tfoot.tr[0].td.length, 4);
+      expect(await table.thead.tr.th.length, 5);
+      expect(await table.thead.tr.th[1].rootElement.innerText, 'Class');
+      expect(await table.thead.tr.th[2].rootElement.innerText, 'Male');
+      expect(await table.thead.tr.th[3].rootElement.innerText, 'Female');
+      expect(await table.thead.tr.th[4].rootElement.innerText, 'All');
+
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('sort'), isFalse);
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('desc'), isFalse);
+
+      var trElement = table.tbody.tr[0];
+      expect(await trElement.td[1].rootElement.innerText, '1. class');
+      expect(await trElement.td[2].rootElement.innerText, '15');
+      expect(await trElement.td[3].rootElement.innerText, '12');
+      expect(await trElement.td[4].rootElement.innerText, '27');
+
+      trElement = table.tbody.tr[3];
+      expect(await trElement.td[1].rootElement.innerText, '4. class');
+      expect(await trElement.td[2].rootElement.innerText, '20');
+      expect(await trElement.td[3].rootElement.innerText, '13');
+      expect(await trElement.td[4].rootElement.innerText, '33');
+
+      await table.thead.tr.th[2].sortLink.click();
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('sort'), isTrue);
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('desc'), isFalse);
+
+      await table.thead.tr.th[2].sortLink.click();
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('sort'), isTrue);
+      expect(await table.thead.tr.th[2].rootElement.classes.contains('desc'), isTrue);
+
+      final updatedPageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      table = updatedPageObject.dataTable.table;
+      trElement = table.tbody.tr[0];
+      expect(await trElement.td[1].rootElement.innerText, '4. class');
+      expect(await trElement.td[2].rootElement.innerText, '20');
+      expect(await trElement.td[3].rootElement.innerText, '13');
+      expect(await trElement.td[4].rootElement.innerText, '33');
+
+      trElement = table.tbody.tr[1];
+      expect(await trElement.td[1].rootElement.innerText, '1. class');
+      expect(await trElement.td[2].rootElement.innerText, '15');
+      expect(await trElement.td[3].rootElement.innerText, '12');
+      expect(await trElement.td[4].rootElement.innerText, '27');
+    });
   });
 }
 
@@ -287,20 +338,21 @@ List<RowData> ROWDATA = <SampleRowData>[
 @Component(
   selector: 'test',
   template: '''
-    <skawa-data-table [data]="selectableRowData" [selectable]="true">
+    <skawa-data-table [data]="selectableRowData" [selectable]="true" (onSort)="sort(\$event)">
       <skawa-data-table-col [accessor]="categoryAccessor" header="Class" footer="Total:" class="text-column"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="maleAccessor" header="Male" [footer]="aggregate(maleAccessor)"
+      <skawa-data-table-col [accessor]="maleAccessor" sort header="Male" [footer]="aggregate(maleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="femaleAccessor" header="Female" [footer]="aggregate(femaleAccessor)"
+      <skawa-data-table-col [accessor]="femaleAccessor" sort="desc, asc" header="Female" [footer]="aggregate(femaleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="peopleAccessor" header="All" [footer]="aggregate(peopleAccessor)"
+      <skawa-data-table-col [accessor]="peopleAccessor" sort="desc"  header="All" [footer]="aggregate(peopleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
      ''',
   directives: const [
     SkawaDataTableComponent,
     SkawaDataTableColComponent,
+    SkawaDataTableSortDirective
   ],
 )
 class SelectableDatatableTestComponent {
@@ -316,6 +368,28 @@ class SelectableDatatableTestComponent {
     Iterable mapped =
         selectableRowData.where((row) => row.checked).map(accessor);
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
+  }
+
+  void sort(SkawaDataTableColComponent column) {
+    if (!column.sort.isSorted) {
+      // Apply default sorting when no sort is specified
+      selectableRowData.sort((a, b) => (a as SampleNumericData).category.compareTo((b as SampleNumericData).category));
+    } else {
+      selectableRowData.sort((a, b) {
+        if (column.header == 'Male') {
+          return column.sort.isAscending
+              ? (a as SampleNumericData).male - (b as SampleNumericData).male
+              : (b as SampleNumericData).male - (a as SampleNumericData).male;
+        } else if (column.header == 'Female') {
+          return column.sort.isAscending
+              ? (a as SampleNumericData).female - (b as SampleNumericData).female
+              : (b as SampleNumericData).female - (a as SampleNumericData).female;
+        } else if (column.header == 'All') {
+          return ((b as SampleNumericData).male + (b as SampleNumericData).female) -
+              ((a as SampleNumericData).male + (a as SampleNumericData).female);
+        }
+      });
+    }
   }
 
   String _aggregateReducer(String a, String b) {
@@ -366,7 +440,7 @@ class TableHeaderSectionPO {
 
 class TableHeaderRowPO {
   @ByTagName('th')
-  List<TableCellPO> th;
+  List<TableHeaderCellPO> th;
 }
 
 class TableSectionPO {
@@ -392,6 +466,22 @@ class TableCellPO {
   @optional
   @ByTagName('material-checkbox')
   PageLoaderElement materialCheckbox;
+}
+
+class TableHeaderCellPO {
+  @inject
+  PageLoader loader;
+
+  @root
+  PageLoaderElement rootElement;
+
+  @optional
+  @ByTagName('material-checkbox')
+  PageLoaderElement materialCheckbox;
+
+  @optional
+  @ByTagName('a')
+  PageLoaderElement sortLink;
 }
 
 class SampleRowData implements RowData {
