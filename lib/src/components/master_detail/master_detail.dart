@@ -26,8 +26,7 @@ import '../../util/attribute.dart' as attr_util;
     host: const {'[attr.expanded]': 'expanded ? "" : null'},
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMasterDetailComponent {
-  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') expanded)
-      : expanded = attr_util.isPresent(expanded);
+  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') expanded) : expanded = attr_util.isPresent(expanded);
 
   /// Expands/collapses the details view
   ///

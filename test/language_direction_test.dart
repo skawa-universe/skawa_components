@@ -13,79 +13,51 @@ main() {
   group('LanguageDirection | ', () {
     test('initialization on div element', () async {
       final fixture = await new NgTestBed<DivTemplateComponent>().create();
-      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(
-        DivTestPO,
-      );
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'start');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'ltr');
+      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(DivTestPO);
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'start');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'ltr');
     });
     test('setLanguageDirection on div element by latin text', () async {
-      final fixture = await new NgTestBed<DivTemplateComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<DivTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = 'cat';
       });
-      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(
-        DivTestPO,
-      );
+      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(DivTestPO);
       await pageobject.langugageDirection.click();
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'start');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'ltr');
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'start');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'ltr');
     });
     test('setLanguageDirection on div element by arabic text', () async {
-      final fixture = await new NgTestBed<DivTemplateComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<DivTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = 'عن فكانت اسبوعين';
       });
-      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(
-        DivTestPO,
-      );
+      final pageobject = await fixture.resolvePageObject/*<DivTestPO>*/(DivTestPO);
       await pageobject.langugageDirection.click();
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'right');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'rtl');
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'right');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'rtl');
     });
     test('initialization on div element', () async {
       final fixture = await new NgTestBed<InputTemplateComponent>().create();
-      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(
-        InputTestPO,
-      );
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'start');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'ltr');
+      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(InputTestPO);
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'start');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'ltr');
     });
     test('setLanguageDirection on div element by latin text', () async {
-      final fixture = await new NgTestBed<InputTemplateComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<InputTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = 'cat';
       });
-      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(
-        InputTestPO,
-      );
+      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(InputTestPO);
       await pageobject.langugageDirection.click();
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'start');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'ltr');
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'start');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'ltr');
     });
     test('setLanguageDirection on div element by arabic text', () async {
-      final fixture = await new NgTestBed<InputTemplateComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<InputTemplateComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = 'عن فكانت اسبوعين';
       });
-      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(
-        InputTestPO,
-      );
+      final pageobject = await fixture.resolvePageObject/*<InputTestPO>*/(InputTestPO);
       await pageobject.langugageDirection.click();
-      expect(await pageobject.langugageDirection.computedStyle['text-align'],
-          'start');
-      expect(await pageobject.langugageDirection.computedStyle['direction'],
-          'rtl');
+      expect(await pageobject.langugageDirection.computedStyle['text-align'], 'start');
+      expect(await pageobject.langugageDirection.computedStyle['direction'], 'rtl');
     });
   });
 }

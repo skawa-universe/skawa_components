@@ -47,8 +47,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
       if (_previousWidth == gridWidth && !forceRefresh) return;
       _previousWidth = gridWidth;
 
-      GridUpdate gridUpdate =
-          calculateGridUpdate(gridWidth, gutterSize: int.parse(gridGutter));
+      GridUpdate gridUpdate = calculateGridUpdate(gridWidth, gutterSize: int.parse(gridGutter));
       visible = true;
       grid.nativeElement.style..height = '${gridUpdate.gridHeight}px';
       for (int i = 0; i < gridUpdate.tilePositions.length; ++i) {
@@ -80,9 +79,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
 @Directive(
   selector: '[gridTile]',
 )
-class GridTileDirective extends Object
-    with DomTransformReposition
-    implements GridTile {
+class GridTileDirective extends Object with DomTransformReposition implements GridTile {
   final ElementRef elementRef;
 
   GridTileDirective(this.elementRef);

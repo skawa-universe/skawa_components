@@ -37,8 +37,7 @@ main() {
       gridTile.reposition(point);
       expect(gridTile.height, 116);
       expect(gridTile.width, 16);
-      expect(
-          tileElement.style.transform, 'translate(${point.x}px, ${point.y}px)');
+      expect(tileElement.style.transform, 'translate(${point.x}px, ${point.y}px)');
     });
   });
   group('Grid | ', () {
@@ -73,13 +72,8 @@ main() {
       expect(grid.visible, isTrue);
       expect(gridUpdate.gridHeight, 412);
       expect(gridUpdate.tilePositions.length, grid.tiles.length);
-      expect(gridUpdate.tilePositions, [
-        new Point(-8, 0),
-        new Point(24, 0),
-        new Point(-8, 132),
-        new Point(24, 132),
-        new Point(-8, 264)
-      ]);
+      expect(gridUpdate.tilePositions,
+          [new Point(-8, 0), new Point(24, 0), new Point(-8, 132), new Point(24, 132), new Point(-8, 264)]);
     });
     test('updateAndDisplay method', () {
       Grid grid = new Grid(gridElement, tileList);
@@ -89,8 +83,7 @@ main() {
       List<String> expected = [];
       GridUpdate gridUpdate = grid.calculateGridUpdate(48);
       for (int i = 0; i < gridUpdate.tilePositions.length; i++) {
-        expected.add(
-            'translate(${gridUpdate.tilePositions[i].x}px, ${gridUpdate.tilePositions[i].y}px)');
+        expected.add('translate(${gridUpdate.tilePositions[i].x}px, ${gridUpdate.tilePositions[i].y}px)');
         actual.add(tileElementList[i].style.transform);
       }
       expect(grid.tiles, tileList);

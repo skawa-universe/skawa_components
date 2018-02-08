@@ -42,9 +42,7 @@ import 'package:angular_components/src/components/material_ripple/material_rippl
     inputs: const ['link', 'icon', 'disabled', 'textOnly', 'fullWidth'],
     outputs: const ['trigger'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: const [
-      const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)
-    ],
+    providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
     preserveWhitespace: false,
     host: const {
       '[class.is-disabled]': 'disabled',
@@ -75,8 +73,7 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   final ChangeDetectorRef _changeDetector;
 
-  SkawaNavItemComponent(ElementRef element, this._changeDetector)
-      : super(element);
+  SkawaNavItemComponent(ElementRef element, this._changeDetector) : super(element);
 
   @override
   void focusedStateChanged() {

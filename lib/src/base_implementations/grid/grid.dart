@@ -47,31 +47,24 @@ abstract class GridBase implements Grid {
   GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize: 16}) {
     final int tileWidth = tiles.first.width;
     final int tileWidthWithGutter = (tileWidth + gutterSize);
-    final int colNumber = gridWidth ~/ tileWidthWithGutter == 0
-        ? 1
-        : gridWidth ~/ tileWidthWithGutter;
-    final int xAdjustmentForCentering =
-        (gridWidth - tileWidthWithGutter * colNumber - gutterSize) ~/ 2;
-    final List<int> xTranslations = new List.generate(colNumber,
-        (int index) => index * tileWidthWithGutter + xAdjustmentForCentering,
+    final int colNumber = gridWidth ~/ tileWidthWithGutter == 0 ? 1 : gridWidth ~/ tileWidthWithGutter;
+    final int xAdjustmentForCentering = (gridWidth - tileWidthWithGutter * colNumber - gutterSize) ~/ 2;
+    final List<int> xTranslations = new List.generate(
+        colNumber, (int index) => index * tileWidthWithGutter + xAdjustmentForCentering,
         growable: false);
-    final List<int> yTranslationForCol =
-        new List.filled(colNumber, 0, growable: false);
-    final List<Point<int>> tileTransformations =
-        new List<Point<int>>(tiles.length);
+    final List<int> yTranslationForCol = new List.filled(colNumber, 0, growable: false);
+    final List<Point<int>> tileTransformations = new List<Point<int>>(tiles.length);
 
     int colIndex = 0;
     for (int tileNumber = 0; tileNumber < tiles.length; ++tileNumber) {
       GridTile tile = tiles.elementAt(tileNumber);
       int maxYTranslation = yTranslationForCol.reduce(max);
       int maxColIndex = yTranslationForCol.indexOf(maxYTranslation);
-      bool multiple =
-          yTranslationForCol.where((e) => e == maxYTranslation).length > 1;
+      bool multiple = yTranslationForCol.where((e) => e == maxYTranslation).length > 1;
       if (!multiple && maxColIndex == colIndex) {
         colIndex = (colIndex + 1) % colNumber;
       }
-      tileTransformations[tileNumber] =
-          new Point<int>(xTranslations[colIndex], yTranslationForCol[colIndex]);
+      tileTransformations[tileNumber] = new Point<int>(xTranslations[colIndex], yTranslationForCol[colIndex]);
       int tileBottom = tile.height + yTranslationForCol[colIndex] + gutterSize;
       yTranslationForCol[colIndex] = tileBottom;
       colIndex = (colIndex + 1) % colNumber;

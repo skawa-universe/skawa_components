@@ -14,17 +14,13 @@ Future main() async {
   group('Infobar | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(await pageObject.trigger.innerText, '0');
       expect(await pageObject.infobar.glyph.innerText, '');
     });
     test('initialization with icon', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.icon = 'code';
       });
@@ -33,9 +29,7 @@ Future main() async {
     });
     test('initialization with url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.url = 'https://github.com/skawa-universe/skawa_components/';
       });
@@ -46,9 +40,7 @@ Future main() async {
     });
     test('initialization with url and url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.icon = 'code';
         testElement.url = 'https://github.com/skawa-universe/skawa_components/';
@@ -58,12 +50,9 @@ Future main() async {
           'https://github.com/skawa-universe/skawa_components/');
       expect(await pageObject.infobar.glyph.innerText, 'code');
     });
-    test('initialization with url then click 1X on the infobar button',
-        () async {
+    test('initialization with url then click 1X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.url = 'https://github.com/skawa-universe/skawa_components/';
       });
@@ -75,9 +64,7 @@ Future main() async {
     });
     test(' with url then click 4X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.infobar.materialButton.click();
       await pageObject.infobar.materialButton.click();
       await pageObject.infobar.materialButton.click();

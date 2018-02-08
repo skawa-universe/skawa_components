@@ -15,77 +15,49 @@ Future main() async {
   group('MasterDetail | ', () {
     test('initialization', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          isNull);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
     });
     test('initialization then expand 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          '');
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], '');
     });
     test('initialization then expand 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.expand.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          '');
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], '');
     });
     test('initialization then expand 1X then toggle 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.toggle.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          isNull);
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
     });
     test('initialization then expand 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.expand.click();
       await pageObject.collapse.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          isNull);
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
     });
     test('initialization then toogle 1X then collapse 1X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.toggle.click();
       await pageObject.collapse.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          isNull);
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
     });
     test('initialization then toggle 2X', () async {
       final fixture = await new NgTestBed<MasterDetailTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.toggle.click();
       await pageObject.toggle.click();
-      expect(
-          await pageObject.sideMasterDetail.rootElement.attributes['expanded'],
-          isNull);
+      expect(await pageObject.sideMasterDetail.rootElement.attributes['expanded'], isNull);
     });
   });
 }

@@ -22,18 +22,13 @@ import 'package:angular2/core.dart';
 ///
 ///     <input editorRenderSource value="someInitialValue" >
 ///
-@Directive(
-    selector: '[editorRenderSource]',
-    exportAs: 'editorRenderSource',
-    inputs: const [
-      'initialValue'
-    ],
-    outputs: const [
-      'onUpdated: update'
-    ],
-    host: const {
-      '(input)': r'contentChanged($event)',
-    })
+@Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource', inputs: const [
+  'initialValue'
+], outputs: const [
+  'onUpdated: update'
+], host: const {
+  '(input)': r'contentChanged($event)',
+})
 class EditorRenderSource implements AfterViewInit {
   final ElementRef elementRef;
 

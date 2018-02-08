@@ -11,9 +11,7 @@ class LanguageDirectionDirective {
 
   LanguageDirectionDirective(this._elementRef);
 
-  bool get _elementIsInput =>
-      _elementRef.nativeElement is InputElement ||
-      _elementRef.nativeElement is TextAreaElement;
+  bool get _elementIsInput => _elementRef.nativeElement is InputElement || _elementRef.nativeElement is TextAreaElement;
 
   @HostBinding('style.direction')
   String textDirection = 'ltr';

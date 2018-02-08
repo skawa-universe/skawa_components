@@ -15,14 +15,9 @@ Future main() async {
     test('initialization with closed drawer', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect(await pageObject.drawer.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.drawer.sidebar.rootElement.classes
-              .contains('opened'),
-          isFalse);
-      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'),
-          isFalse);
+      expect(await pageObject.drawer.rootElement.classes.contains('opened'), isFalse);
+      expect(await pageObject.drawer.sidebar.rootElement.classes.contains('opened'), isFalse);
+      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'), isFalse);
     });
     test('initialization with open drawer', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
@@ -30,41 +25,26 @@ Future main() async {
       await fixture.update((testElement) {
         testElement.isOn = true;
       });
-      expect(await pageObject.drawer.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(
-          await pageObject.drawer.sidebar.rootElement.classes
-              .contains('opened'),
-          isTrue);
-      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'),
-          isTrue);
+      expect(await pageObject.drawer.rootElement.classes.contains('opened'), isTrue);
+      expect(await pageObject.drawer.sidebar.rootElement.classes.contains('opened'), isTrue);
+      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'), isTrue);
     });
     test('initialization with closed drawer then toggle 1X', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.button.click();
-      expect(await pageObject.drawer.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(
-          await pageObject.drawer.sidebar.rootElement.classes
-              .contains('opened'),
-          isTrue);
-      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'),
-          isTrue);
+      expect(await pageObject.drawer.rootElement.classes.contains('opened'), isTrue);
+      expect(await pageObject.drawer.sidebar.rootElement.classes.contains('opened'), isTrue);
+      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'), isTrue);
     });
     test('initialization with closed drawer then toggle 2X', () async {
       final fixture = await new NgTestBed<DrawerTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.button.click();
       await pageObject.button.click();
-      expect(await pageObject.drawer.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.drawer.sidebar.rootElement.classes
-              .contains('opened'),
-          isFalse);
-      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'),
-          isFalse);
+      expect(await pageObject.drawer.rootElement.classes.contains('opened'), isFalse);
+      expect(await pageObject.drawer.sidebar.rootElement.classes.contains('opened'), isFalse);
+      expect(await pageObject.drawer.sidebar.aside.classes.contains('opened'), isFalse);
     });
   });
 }

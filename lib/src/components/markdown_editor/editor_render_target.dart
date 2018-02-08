@@ -23,8 +23,7 @@ class EditorRenderTarget {
 
   String _previousRender;
 
-  EditorRenderTarget(
-      this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
+  EditorRenderTarget(this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
   void updateRender(String newTarget, {List<String> classes}) {
     _onRender.add(newTarget);

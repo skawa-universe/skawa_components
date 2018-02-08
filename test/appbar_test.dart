@@ -1,14 +1,15 @@
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
+
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
+import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
 import 'package:skawa_components/src/components/appbar/appbar.dart';
 import 'package:test/test.dart';
-import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
 Future main() async {
@@ -29,8 +30,7 @@ Future main() async {
       expect(await pageObject.appbar, isNotNull);
     });
     test('initialization with button and trigger 2X', () async {
-      final fixture = await new NgTestBed<AppbarTestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<AppbarTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.showNavToggle = true;
       });
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);

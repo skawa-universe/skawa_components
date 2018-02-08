@@ -14,42 +14,30 @@ main() {
   group('EditorRenderTarget | ', () {
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<TestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.counter.click();
       expect(await pageObject.renderTarget.innerText, '');
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await pageObject.counter.click();
       await fixture.update((testElement) {
-        expect(
-            testElement.editorRenderTarget.elementRef.nativeElement.innerHtml,
-            '<div> Cat <span>Lion</span></div>');
-        expect(testElement.editorRenderTarget.elementRef.nativeElement.text,
-            ' Cat Lion');
-        testElement.editorRenderTarget.elementRef.nativeElement.children
-            .forEach((child) {
+        expect(testElement.editorRenderTarget.elementRef.nativeElement.innerHtml, '<div> Cat <span>Lion</span></div>');
+        expect(testElement.editorRenderTarget.elementRef.nativeElement.text, ' Cat Lion');
+        testElement.editorRenderTarget.elementRef.nativeElement.children.forEach((child) {
           expect(child.classes, isEmpty);
         });
       });
       expect(await pageObject.counter.visibleText, '1');
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.content = '''
          <ul>
@@ -75,8 +63,7 @@ main() {
             '             Dog\n'
             '          \n'
             '         ');
-        testElement.editorRenderTarget.elementRef.nativeElement.children
-            .forEach((child) {
+        testElement.editorRenderTarget.elementRef.nativeElement.children.forEach((child) {
           expect(child.classes.contains('cat'), isTrue);
           expect(child.classes.contains('lion'), isTrue);
         });

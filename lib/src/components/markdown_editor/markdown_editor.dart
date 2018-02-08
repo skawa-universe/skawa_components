@@ -76,31 +76,23 @@ abstract class TextareaEditorBase implements SkawaEditor {
 ///       <div class="placeholder">What to display if value is empty</div>
 ///     </skawa-markdown-editor>
 ///
-@Component(
-    selector: 'skawa-markdown-editor',
-    templateUrl: 'markdown_editor.html',
-    styleUrls: const [
-      'markdown_editor.css'
-    ],
-    directives: const [
-      AutoFocusDirective,
-      EditorRenderSource,
-      EditorRenderTarget,
-      LanguageDirectionDirective,
-      NgClass,
-    ],
-    outputs: const [
-      'onUpdated: update'
-    ],
-    inputs: const [
-      'initialValue'
-    ],
-    host: const {
-      '[class.mode-edit]': 'displayMode == "edit"',
-      '[class.mode-display]': 'displayMode == "display"'
-    })
-class SkawaMarkdownEditorComponent extends TextareaEditorBase
-    implements OnInit, AfterViewInit {
+@Component(selector: 'skawa-markdown-editor', templateUrl: 'markdown_editor.html', styleUrls: const [
+  'markdown_editor.css'
+], directives: const [
+  AutoFocusDirective,
+  EditorRenderSource,
+  EditorRenderTarget,
+  LanguageDirectionDirective,
+  NgClass,
+], outputs: const [
+  'onUpdated: update'
+], inputs: const [
+  'initialValue'
+], host: const {
+  '[class.mode-edit]': 'displayMode == "edit"',
+  '[class.mode-display]': 'displayMode == "display"'
+})
+class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit {
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;
 
@@ -163,20 +155,17 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase
   @override
   ngOnInit() {
     _emulatedCssClass = renderTarget.elementRef.nativeElement.classes
-        .firstWhere(
-            (String cssClass) => !cssClass.contains('markdown-container'));
+        .firstWhere((String cssClass) => !cssClass.contains('markdown-container'));
     _placeholderTemplateCache = placeholderTemplate.createEmbeddedView(null);
-    _placeholderDefined = _placeholderTemplateCache.rootNodes.firstWhere(
-            (Node n) => n is Element && n.classes.contains('placeholder'),
-            orElse: () => null) !=
+    _placeholderDefined = _placeholderTemplateCache.rootNodes
+            .firstWhere((Node n) => n is Element && n.classes.contains('placeholder'), orElse: () => null) !=
         null;
   }
 
   @override
   ngAfterViewInit() {
     if (displayPlaceholder) _clonePlaceholderIntoTemplate();
-    if (value != '')
-      renderTarget.updateRender(value, classes: [_emulatedCssClass]);
+    if (value != '') renderTarget.updateRender(value, classes: [_emulatedCssClass]);
     renderTarget.elementRef.nativeElement;
   }
 

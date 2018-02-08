@@ -15,56 +15,31 @@ Future main() async {
   group('NavItem | ', () {
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(await pageObject.sideNavItemList.rootElement.innerText, '');
-      expect(
-          await pageObject.sideNavItemList.sidebarItemList.span.classes
-              .contains('text-only'),
-          isFalse);
-      expect(
-          await pageObject.sideNavItemList.rootElement.attributes['textOnly'],
-          isNull);
+      expect(await pageObject.sideNavItemList.sidebarItemList.span.classes.contains('text-only'), isFalse);
+      expect(await pageObject.sideNavItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.icon = 'alarm';
       });
-      expect(
-          await (await pageObject.sideNavItemList.sidebarItemList.glyph)
-              .rootElement
-              .innerText,
-          'alarm');
-      expect(
-          await pageObject.sideNavItemList.sidebarItemList.span.classes
-              .contains('text-only'),
-          isFalse);
-      expect(
-          await pageObject.sideNavItemList.rootElement.attributes['textOnly'],
-          isNull);
+      expect(await (await pageObject.sideNavItemList.sidebarItemList.glyph).rootElement.innerText, 'alarm');
+      expect(await pageObject.sideNavItemList.sidebarItemList.span.classes.contains('text-only'), isFalse);
+      expect(await pageObject.sideNavItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon but with textOnly', () async {
       final fixture = await new NgTestBed<NavItemTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
-        TestPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
         testElement.icon = 'alarm';
         testElement.textOnly = true;
       });
 //      expect(() async => await pageObject.sideBarItemList.glyph, isStateError);
-      expect(
-          await pageObject.sideNavItemList.sidebarItemList.span.classes
-              .contains('text-only'),
-          isTrue);
-      expect(
-          await pageObject.sideNavItemList.rootElement.attributes['textOnly'],
-          isNotNull);
+      expect(await pageObject.sideNavItemList.sidebarItemList.span.classes.contains('text-only'), isTrue);
+      expect(await pageObject.sideNavItemList.rootElement.attributes['textOnly'], isNotNull);
     });
   });
 }
@@ -105,8 +80,7 @@ class SidebarItemPO {
   @ByTagName('span')
   PageLoaderElement span;
 
-  Future<GlyphPO> get glyph =>
-      loader.getInstance(GlyphPO, loader.globalContext);
+  Future<GlyphPO> get glyph => loader.getInstance(GlyphPO, loader.globalContext);
 }
 
 @ByTagName('glyph')
