@@ -63,15 +63,25 @@ Future main() async {
       expect(await pageObject.infobar.glyph.innerText, '');
     });
     test(' with url then click 4X on the infobar button', () async {
+      print('before create');
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
+      print('before resolve');
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      print('before 1x click');
       await pageObject.infobar.materialButton.click();
+      print('before 2x click');
       await pageObject.infobar.materialButton.click();
+      print('before 3x click');
       await pageObject.infobar.materialButton.click();
+      print('before 4x click');
       await pageObject.infobar.materialButton.click();
+      print('before 1x expect');
       expect(await pageObject.trigger.innerText, 4.toString());
+      print('before 2x expect');
       expect(await pageObject.infobar.materialButton.attributes['title'], '');
+      print('before 3x expect');
       expect(await pageObject.infobar.glyph.innerText, '');
+      print('end');
     });
   });
 }
