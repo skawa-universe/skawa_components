@@ -26,4 +26,7 @@ class SortConfig {
   bool get isAscending => sort == SortDirection.asc;
 
   bool get isDescending => sort == SortDirection.desc;
+
+  bool get isSorted => sort != null;
+
 }

@@ -1,54 +1,59 @@
 <table [class.selectable]="selectable" [class.non-selectable]="!selectable">
     <thead>
-        <tr>
-            <th *ngIf="selectable">
-                <material-checkbox #markAllCheckbox
-                                   (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation();"
-                                   [checked]="isEveryRowChecked" *ngIf="multiSelection"></material-checkbox>
-            </th>
-            <th *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses('--header')" [class.sort-enabled]="true" class.sort="true">
-                <template [ngIf]="c.sort == null">
+    <tr>
+        <th *ngIf="selectable">
+            <material-checkbox #markAllCheckbox
+                               (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation();"
+                               [checked]="isEveryRowChecked" *ngIf="multiSelection"></material-checkbox>
+        </th>
+        <th *ngFor="let c of columns; let i = index;"
+            [ngClass]="c.getClasses('--header')"
+            [class.sort-enabled]="c.sort != null && c.sort.sort == null"
+            [class.sort]="c.sort?.isSorted ?? false"
+            [class.desc]="c.sort?.isDescending ?? false">
+            <template [ngIf]="c.sort == null">
+                {{c.header}}
+            </template>
+            <template [ngIf]="c.sort != null">
+                <a (click)="triggerSort(c)">
                     {{c.header}}
-                </template>
-                <template [ngIf]="c.sort != null">
-                    <glyph icon="arrow_downwards"></glyph>
-                    {{c.header}}
-                </template>
-            </th>
-        </tr>
+                </a>
+            </template>
+        </th>
+    </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let row of rows"
-            [class.selected]="row.checked"
-            (click)="highlight(row, $event); $event.stopPropagation()"
-            [class.highlighted]="row == highlightedRow">
-            <td *ngIf="selectable">
-                <material-checkbox
-                        class="selector-checkbox"
-                        (checkedChange)="changeRowSelection(row, $event);"
-                        [checked]="row.checked"></material-checkbox>
-            </td>
-            <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">
-                <template [ngIf]="c.useColumnRenderer">
-                    <dynamic-component
-                            [componentType]="c.columnRenderer.componentRenderer(row)"
-                            [value]="row"></dynamic-component>
-                </template>
-                <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
-                    <a (click)="c.trigger(row); $event.preventDefault(); $event.stopPropagation();" class="has-action">{{c.accessor(row)}}</a>
-                </template>
-                <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">
-                    {{c.accessor(row)}}
-                </template>
-            </td>
-        </tr>
+    <tr *ngFor="let row of rows"
+        [class.selected]="row.checked"
+        (click)="highlight(row, $event); $event.stopPropagation()"
+        [class.highlighted]="row == highlightedRow">
+        <td *ngIf="selectable">
+            <material-checkbox
+                    class="selector-checkbox"
+                    (checkedChange)="changeRowSelection(row, $event);"
+                    [checked]="row.checked"></material-checkbox>
+        </td>
+        <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">
+            <template [ngIf]="c.useColumnRenderer">
+                <dynamic-component
+                        [componentType]="c.columnRenderer.componentRenderer(row)"
+                        [value]="row"></dynamic-component>
+            </template>
+            <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
+                <a (click)="c.trigger(row); $event.preventDefault(); $event.stopPropagation();" class="has-action">{{c.accessor(row)}}</a>
+            </template>
+            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">
+                {{c.accessor(row)}}
+            </template>
+        </td>
+    </tr>
     </tbody>
     <tfoot *ngIf="!isEveryRowSkippedInFooter">
-        <tr>
-            <td *ngFor="let c of columns | unskippedInFooter; let i = index;" [attr.colspan]="getColspanFor(c, i)"
-                [ngClass]="c.getClasses('--footer')">
-                {{c.footer}}
-            </td>
-        </tr>
+    <tr>
+        <td *ngFor="let c of columns | unskippedInFooter; let i = index;" [attr.colspan]="getColspanFor(c, i)"
+            [ngClass]="c.getClasses('--footer')">
+            {{c.footer}}
+        </td>
+    </tr>
     </tfoot>
 </table>

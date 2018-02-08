@@ -1,7 +1,8 @@
 import 'dart:async';
+
 import 'package:angular2/core.dart';
-import 'package:angular_components/src/components/glyph/glyph.dart';
 import 'package:angular_components/src/model/ui/has_renderer.dart';
+
 import 'row_data.dart';
 import 'sort.dart';
 
@@ -37,8 +38,7 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(
-    selector: 'skawa-data-table-col', template: '', directives: const [SkawaDataColRendererDirective, GlyphComponent])
+@Component(selector: 'skawa-data-table-col', template: '', directives: const [SkawaDataColRendererDirective])
 class SkawaDataTableColComponent implements OnInit, OnDestroy {
   final StreamController<RowData> _triggerController = new StreamController<RowData>.broadcast();
   final SkawaDataColRendererDirective columnRenderer;

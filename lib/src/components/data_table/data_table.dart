@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:html';
+
 import 'package:angular2/angular2.dart';
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
-import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/src/components/dynamic_component/dynamic_component.dart';
-
-import 'data_table_column.dart';
+import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/src/utils/disposer/disposer.dart';
 import 'package:quiver/collection.dart';
+
+import 'data_table_column.dart';
 import 'row_data.dart';
 
 export 'data_table_column.dart';
@@ -134,6 +135,15 @@ class SkawaDataTableComponent implements OnDestroy {
       }
     }
     return true;
+  }
+
+  void triggerSort(SkawaDataTableColComponent column) {
+    column.sort.sort = column.sort.sort == SortDirection.asc ? SortDirection.desc : SortDirection.asc;
+    for (var c in columns) {
+      if (c != column && c.sort != null) {
+        c.sort.sort = null;
+      }
+    }
   }
 
   void _emitChange() {
