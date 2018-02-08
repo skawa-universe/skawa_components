@@ -98,7 +98,7 @@ main() {
       });
       await pageObject.div.click();
       await fixture.update((testElement) async {
-        expect(testElement.renderSource.onUpdated, emits('first'));
+        await expect(testElement.renderSource.onUpdated, emits('first'));
       });
     });
     test('with initial value revertAllUpdates emits change', () async {
@@ -113,7 +113,7 @@ main() {
       });
       await pageObject.span.click();
       fixture.update((testElement) async {
-        await expect(
+       await expect(
             testElement.renderSource.onUpdated, emits('some initial content'));
       });
     });
@@ -121,8 +121,8 @@ main() {
       final fixture =
           await new NgTestBed<RenderSourceTemplateComponent>().create();
       await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      fixture.update((testElement) async {
-        await expect(testElement.renderSource.previousValue, isNull);
+      await fixture.update((testElement) async {
+       await expect(testElement.renderSource.previousValue, isNull);
       });
     });
     test('without initial value can revert to empty', () async {
@@ -134,8 +134,8 @@ main() {
         testElement.renderSource.value = 'second';
       });
       await pageObject.span.click();
-      fixture.update((testElement) async {
-        await expect(testElement.renderSource.previousValue, isNull);
+      await fixture.update((testElement) async {
+        expect(testElement.renderSource.previousValue, isNull);
       });
     });
   });
