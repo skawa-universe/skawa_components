@@ -22,7 +22,7 @@ void main() {
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = await markdownEditorPage.textarea;
       String expectedText = await markdownEditorPage.markdownContainerDiv.innerText;
-      expect( markdownEditorPage.markdownContainerDiv.displayed, completion(isFalse));
+      expect(markdownEditorPage.markdownContainerDiv.displayed, completion(isFalse));
       expect(textarea.displayed, completion(isTrue));
       expect(textarea.seleniumAttributes['value'], completion(expectedText));
     });
