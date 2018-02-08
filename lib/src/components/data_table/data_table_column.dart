@@ -25,7 +25,6 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
 /// - `accessor: bool` -- A function which return with the data to display in the cells.
 /// - `colRenderer: ComponentRenderer` -- component renderer function reference - if specified, accessor is ignored
 /// - `header: String` -- Header name of the column to display.
-/// - `sort: SortConfig -- Enable/disable sort for this column with various options
 /// - `footer: String` -- Footer name of the column to display.
 /// - `skipFooter: bool` -- Whether to display the footer. Defaults to true.
 ///
@@ -52,8 +51,7 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
   @Input()
   String footer;
 
-  @Input()
-  SortConfig sort;
+  SortModel sort;
 
   /// If set to true, footer will not display this column and
   /// colspan of td element will be set accordingly

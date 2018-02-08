@@ -1,32 +1,69 @@
-enum SortDirection {
-  asc,
-  desc
-}
+import 'package:angular2/angular2.dart';
+import 'package:skawa_components/src/components/data_table/data_table_column.dart';
 
-enum SortStrategy {
-  local,
-  remote
-}
+enum SortDirection { asc, desc }
 
-class SortConfig {
-
+class SortModel {
   final List<SortDirection> allowedDirections;
-  SortStrategy strategy;
 
-  SortDirection sort;
+  SortDirection activeSort;
 
-  SortConfig.local()
-      : allowedDirections = const[SortDirection.asc, SortDirection.desc],
-        strategy = SortStrategy.local;
+  SortModel(this.allowedDirections);
 
-  SortConfig.remote()
-      : allowedDirections = const[SortDirection.asc, SortDirection.desc],
-        strategy = SortStrategy.remote;
+  void toggleSort() {
+    if ((allowedDirections ?? const []).isEmpty) {
+      throw new ArgumentError('SortModel does not have any allowed sort directions');
+    }
+    if (activeSort == null) {
+      activeSort = allowedDirections.first;
+    } else {
+      int directionIndex = allowedDirections.indexOf(activeSort);
+      if (directionIndex == allowedDirections.length - 1) {
+        activeSort = null;
+      } else {
+        activeSort = allowedDirections[directionIndex + 1];
+      }
+    }
+  }
 
-  bool get isAscending => sort == SortDirection.asc;
+  bool get isAscending => activeSort == SortDirection.asc;
 
-  bool get isDescending => sort == SortDirection.desc;
+  bool get isDescending => activeSort == SortDirection.desc;
 
-  bool get isSorted => sort != null;
+  bool get isSorted => activeSort != null;
+}
 
+@Directive(selector: '[sort]')
+class SkawaDataTableSortDirective {
+  final SkawaDataTableColComponent column;
+
+  SkawaDataTableSortDirective(this.column);
+
+  @Input('sort')
+  set allowedSorts(String allowedSorts) {
+    List<String> directions;
+    if ((allowedSorts ?? '').isNotEmpty) {
+      directions = allowedSorts.split(',').map((s) => s.trim()).toList(growable: false);
+    } else {
+      directions = directionMap.keys.toList(growable: false);
+    }
+    if (directions.isEmpty || directions.any((s) => directionMap[s] == null)) {
+      throw new ArgumentError(
+          'SkawaDataTableSortDirective accepts only "asc" and/or "desc" as sort directions. Use comma separated values for both directions.');
+    }
+    column.sort = new SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
+  }
+
+  @Input()
+  set defaultSort(String sort) {
+    if (directionMap[sort] == null) {
+      throw new ArgumentError('SkawaDataTableSortDirective default sort value can only be "asc" or "desc"');
+    }
+    column.sort.activeSort = directionMap[sort];
+  }
+
+  static const String asc = 'asc';
+  static const String desc = 'desc';
+
+  static const Map<String, SortDirection> directionMap = const {asc: SortDirection.asc, desc: SortDirection.desc};
 }

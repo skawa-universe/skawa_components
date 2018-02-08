@@ -19,6 +19,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
   SkawaDataColRendererDirective,
+  SkawaDataTableSortDirective
 ];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].
@@ -42,6 +43,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 /// __Events:__
 /// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
 /// - `highlight: RowData` -- Emitted when a row is highlighted. Note: highlighted rows are not automatically selected
+/// - `sort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
 ///
 @Component(
     selector: 'skawa-data-table',
@@ -55,6 +57,8 @@ class SkawaDataTableComponent implements OnDestroy {
   final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
   final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColComponent> _sortController =
+      new StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = new Disposer.oneShot();
   @Input()
@@ -75,10 +79,16 @@ class SkawaDataTableComponent implements OnDestroy {
   @Output('highlight')
   Stream<RowData> get onHighlight => _highlightController.stream;
 
+  @Output()
+  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
+
   RowData highlightedRow;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
-    _tearDownDisposer..addEventSink(_changeController)..addEventSink(_highlightController);
+    _tearDownDisposer
+      ..addEventSink(_changeController)
+      ..addEventSink(_highlightController)
+      ..addEventSink(_sortController);
     onChange = _changeController.stream.distinct((a, b) {
       return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
     });
@@ -138,12 +148,13 @@ class SkawaDataTableComponent implements OnDestroy {
   }
 
   void triggerSort(SkawaDataTableColComponent column) {
-    column.sort.sort = column.sort.sort == SortDirection.asc ? SortDirection.desc : SortDirection.asc;
+    column.sort.toggleSort();
     for (var c in columns) {
       if (c != column && c.sort != null) {
-        c.sort.sort = null;
+        c.sort.activeSort = null;
       }
     }
+    _sortController.add(column);
   }
 
   void _emitChange() {

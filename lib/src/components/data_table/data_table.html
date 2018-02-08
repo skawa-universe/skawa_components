@@ -8,7 +8,7 @@
         </th>
         <th *ngFor="let c of columns; let i = index;"
             [ngClass]="c.getClasses('--header')"
-            [class.sort-enabled]="c.sort != null && c.sort.sort == null"
+            [class.sort-enabled]="c.sort != null && !c.sort.isSorted"
             [class.sort]="c.sort?.isSorted ?? false"
             [class.desc]="c.sort?.isDescending ?? false">
             <template [ngIf]="c.sort == null">
