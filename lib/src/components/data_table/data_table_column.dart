@@ -38,7 +38,8 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     directives: const [SkawaDataColRendererDirective],
     inputs: const ['accessor', 'header', 'footer', 'skipFooter'])
 class SkawaDataTableColComponent implements OnInit, OnDestroy {
-  final StreamController<RowData> _triggerController = new StreamController<RowData>.broadcast();
+  final StreamController<RowData> _triggerController =
+      new StreamController<RowData>.broadcast();
   final SkawaDataColRendererDirective columnRenderer;
 
   DataTableAccessor accessor;
@@ -67,8 +68,10 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
     _triggerController.add(row);
   }
 
-  Iterable<String> getClasses([String suffix]) =>
-      classString?.trim()?.split(' ')?.map((className) => suffix != null ? '$className$suffix' : className);
+  Iterable<String> getClasses([String suffix]) => classString
+      ?.trim()
+      ?.split(' ')
+      ?.map((className) => suffix != null ? '$className$suffix' : className);
 
   @override
   void ngOnDestroy() {
@@ -78,11 +81,13 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
   @override
   void ngOnInit() {
     if (_triggerController.hasListener && useColumnRenderer) {
-      throw new ArgumentError('Cannot use [colRenderer] together with (trigger)');
+      throw new ArgumentError(
+          'Cannot use [colRenderer] together with (trigger)');
     }
   }
 }
 
 @Directive(selector: 'skawa-data-table-col[colRenderer]', //
     inputs: const ['componentRenderer: colRenderer'])
-class SkawaDataColRendererDirective extends HasComponentRenderer<RendersValue, RowData> {}
+class SkawaDataColRendererDirective
+    extends HasComponentRenderer<RendersValue, RowData> {}

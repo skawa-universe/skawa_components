@@ -14,39 +14,44 @@ main() {
   group('EditorRenderTarget | ', () {
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<TestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.counter.click();
       expect(await pageObject.renderTarget.innerText, '');
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<TestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await pageObject.counter.click();
       await fixture.update((testElement) {
-        expect(testElement.editorRenderTarget.elementRef.nativeElement.innerHtml, '<div> Cat <span>Lion</span></div>');
-        expect(testElement.editorRenderTarget.elementRef.nativeElement.text, ' Cat Lion');
-        testElement.editorRenderTarget.elementRef.nativeElement.children.forEach((child) {
+        expect(
+            testElement.editorRenderTarget.elementRef.nativeElement.innerHtml,
+            '<div> Cat <span>Lion</span></div>');
+        expect(testElement.editorRenderTarget.elementRef.nativeElement.text,
+            ' Cat Lion');
+        testElement.editorRenderTarget.elementRef.nativeElement.children
+            .forEach((child) {
           expect(child.classes, isEmpty);
         });
       });
       expect(await pageObject.counter.visibleText, '1');
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<TestComponent>().create(
+          beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(
         TestPO,
       );
       await fixture.update((testElement) {
-        testElement.content =
-        '''
+        testElement.content = '''
          <ul>
             <li> Cat</li>
             <li> Dog</li>
@@ -56,19 +61,22 @@ main() {
       });
       await pageObject.counter.click();
       await fixture.update((testElement) {
-        expect(testElement.editorRenderTarget.elementRef.nativeElement.innerHtml, '         <ul class="cat lion">\n'
+        expect(
+            testElement.editorRenderTarget.elementRef.nativeElement.innerHtml,
+            '         <ul class="cat lion">\n'
             '            <li> Cat</li>\n'
             '            <li> Dog</li>\n'
             '          </ul>\n'
-            '         '
-        );
-        expect(testElement.editorRenderTarget.elementRef.nativeElement.text, '         \n'
+            '         ');
+        expect(
+            testElement.editorRenderTarget.elementRef.nativeElement.text,
+            '         \n'
             '             Cat\n'
             '             Dog\n'
             '          \n'
-            '         '
-        );
-        testElement.editorRenderTarget.elementRef.nativeElement.children.forEach((child) {
+            '         ');
+        testElement.editorRenderTarget.elementRef.nativeElement.children
+            .forEach((child) {
           expect(child.classes.contains('cat'), isTrue);
           expect(child.classes.contains('lion'), isTrue);
         });
@@ -85,10 +93,7 @@ main() {
     <div class="counter" (click)="update()">{{renderCount}}</div>
   ''',
     directives: const [EditorRenderTarget],
-    providers: const [
-      const Provider(EditorRenderer, useClass: MockRenderer)
-    ]
-)
+    providers: const [const Provider(EditorRenderer, useClass: MockRenderer)])
 class TestComponent {
   int renderCount = 0;
   String content;
@@ -105,7 +110,6 @@ class TestComponent {
   @ViewChild(EditorRenderTarget)
   EditorRenderTarget editorRenderTarget;
 }
-
 
 @EnsureTag('test')
 class TestPO {

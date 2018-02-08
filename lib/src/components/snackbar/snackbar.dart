@@ -56,7 +56,12 @@ class DocumentPopupSource extends ElementPopupSource {
     selector: 'skawa-snackbar',
     templateUrl: 'snackbar.html',
     styleUrls: const ['snackbar.css'],
-    directives: const [MaterialPopupComponent, MaterialButtonComponent, NgIf, NgClass],
+    directives: const [
+      MaterialPopupComponent,
+      MaterialButtonComponent,
+      NgIf,
+      NgClass
+    ],
     providers: const [
       const Provider(PopupSource, useClass: DocumentPopupSource),
       const Provider(PopupSizeProvider, useFactory: sizeProviderFactory)
@@ -65,13 +70,17 @@ class DocumentPopupSource extends ElementPopupSource {
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaSnackbarComponent implements OnDestroy {
   final PopupSource documentSource;
-  final StreamController<Event> _triggerController = new StreamController<Event>.broadcast(sync: true);
-  final StreamController<bool> _toggleController = new StreamController<bool>.broadcast(sync: true);
+  final StreamController<Event> _triggerController =
+      new StreamController<Event>.broadcast(sync: true);
+  final StreamController<bool> _toggleController =
+      new StreamController<bool>.broadcast(sync: true);
   final Disposer _disposer = new Disposer.oneShot();
   final ChangeDetectorRef _cd;
 
   SkawaSnackbarComponent(this.documentSource, this._cd) {
-    _disposer..addEventSink(_toggleController)..addEventSink(_triggerController);
+    _disposer
+      ..addEventSink(_toggleController)
+      ..addEventSink(_triggerController);
   }
 
   @ViewChild(MaterialPopupComponent)
@@ -113,9 +122,11 @@ class SkawaSnackbarComponent implements OnDestroy {
 
   void visibleChanged() {
     if (first) {
-      parentDiv = document.body.querySelector('div[pane-id="${popupComponent.resolvedPopupRef.uniqueId}"]');
+      parentDiv = document.body.querySelector(
+          'div[pane-id="${popupComponent.resolvedPopupRef.uniqueId}"]');
       _disposer.addStreamSubscription(popupComponent.onOpened.listen((_) {
-        parentDiv.style.setProperty("transform", "translateX(30px) translateY(${window.screen.height - 180}px)");
+        parentDiv.style.setProperty("transform",
+            "translateX(30px) translateY(${window.screen.height - 180}px)");
       }));
 
       first = false;
@@ -141,4 +152,3 @@ class SkawaSnackbarComponent implements OnDestroy {
 PopupSizeProvider sizeProviderFactory() {
   return new FixedPopupSizeProvider(568, 100);
 }
-

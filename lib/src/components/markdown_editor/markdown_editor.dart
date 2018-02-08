@@ -130,9 +130,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase
 
   bool get displayPlaceholder {
     if (_placeholderDefined != null && _placeholderDefined) {
-      return value == null || value
-          .trim()
-          .isEmpty;
+      return value == null || value.trim().isEmpty;
     }
     return false;
   }
@@ -164,13 +162,13 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase
 
   @override
   ngOnInit() {
-    _emulatedCssClass = renderTarget.elementRef.nativeElement.classes.firstWhere((String cssClass) =>
-    !cssClass.contains(
-        'markdown-container'));
+    _emulatedCssClass = renderTarget.elementRef.nativeElement.classes
+        .firstWhere(
+            (String cssClass) => !cssClass.contains('markdown-container'));
     _placeholderTemplateCache = placeholderTemplate.createEmbeddedView(null);
     _placeholderDefined = _placeholderTemplateCache.rootNodes.firstWhere(
             (Node n) => n is Element && n.classes.contains('placeholder'),
-        orElse: () => null) !=
+            orElse: () => null) !=
         null;
   }
 

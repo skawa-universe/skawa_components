@@ -16,7 +16,7 @@ Future main() async {
   group('Card | ', () {
     test('initialization a raw card', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialization a card with action and content', () async {
       final fixture = await new NgTestBed<CardTestComponent>().create(

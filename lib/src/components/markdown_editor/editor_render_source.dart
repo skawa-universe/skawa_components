@@ -41,7 +41,6 @@ class EditorRenderSource implements AfterViewInit {
 
   String initialValue;
 
-
   final StreamController _onUpdated = new StreamController.broadcast();
 
   Stream get onUpdated => _onUpdated.stream;

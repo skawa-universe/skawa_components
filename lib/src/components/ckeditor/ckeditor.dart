@@ -23,7 +23,10 @@ import 'ckeditor_interop.dart' as js_ck;
 /// - `extraPlugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
 /// - `configUrl: String` -- url of the config file to load for CKEditor
 /// - `content: String` -- initial value of editor
-@Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
+@Component(
+    selector: 'skawa-ckeditor',
+    templateUrl: 'ckeditor.html',
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   final _changeController = new StreamController<String>.broadcast();
   _CKEditor _ckeditor;
@@ -47,7 +50,8 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
 
   @override
   ngAfterViewInit() {
-    _ckeditor = new _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl);
+    _ckeditor = new _CKEditor(editorName,
+        extraPlugins: extraPlugins, configUrl: configUrl);
   }
 
   @override
@@ -69,12 +73,14 @@ class _CKEditor {
   js_ck.CKEditorInstance _jsEditorInstance;
 
   _CKEditor(String editorElementSelector,
-      {Iterable<ExtraPlugin> extraPlugins: const [], String configUrl: '/ckeditor/config.js'}) {
+      {Iterable<ExtraPlugin> extraPlugins: const [],
+      String configUrl: '/ckeditor/config.js'}) {
     /// add external plugins
     _maybeAddExtraPlugins(extraPlugins);
 
     /// Load editor
-    _jsEditorInstance = js_ck.CKEditor.replace(editorElementSelector, jsify({'customConfig': configUrl}));
+    _jsEditorInstance = js_ck.CKEditor
+        .replace(editorElementSelector, jsify({'customConfig': configUrl}));
   }
 
   String getEditorData() {
@@ -84,7 +90,8 @@ class _CKEditor {
   void _maybeAddExtraPlugins(Iterable<ExtraPlugin> extraPlugins) {
     if (extraPlugins == null) return;
     for (ExtraPlugin extraPlugin in extraPlugins) {
-      js_ck.addExternalPlugin(extraPlugin.name, extraPlugin.path, extraPlugin.entrypoint);
+      js_ck.addExternalPlugin(
+          extraPlugin.name, extraPlugin.path, extraPlugin.entrypoint);
     }
   }
 }

@@ -20,10 +20,13 @@ main() {
       expect(editor.editorName, "editor");
       expect(editor.extraPlugins, allOf(isList, hasLength(1)));
       expect(editor.extraPlugins.first, predicate((ExtraPlugin plugin) {
-        return plugin.path == '/plugin' && plugin.name == 'some-plugin' && plugin.entrypoint == 'plugin.js';
+        return plugin.path == '/plugin' &&
+            plugin.name == 'some-plugin' &&
+            plugin.entrypoint == 'plugin.js';
       }));
       expect(editor.configUrl, '/some-url');
-      expect(new HtmlUnescape().convert(editor.value), TestEditorComponent._TEST_MARKUP);
+      expect(new HtmlUnescape().convert(editor.value),
+          TestEditorComponent._TEST_MARKUP);
     });
   });
 }

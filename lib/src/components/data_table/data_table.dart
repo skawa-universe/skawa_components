@@ -45,15 +45,23 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 @Component(
     selector: 'skawa-data-table',
     templateUrl: 'data_table.html',
-    directives: const [MaterialCheckboxComponent, DynamicComponent, NgIf, NgClass, NgFor],
+    directives: const [
+      MaterialCheckboxComponent,
+      DynamicComponent,
+      NgIf,
+      NgClass,
+      NgFor
+    ],
     pipes: const [UnskippedInFooterPipe],
     styleUrls: const ['data_table.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     preserveWhitespace: false)
 class SkawaDataTableComponent implements OnDestroy {
   final ChangeDetectorRef changeDetectorRef;
-  final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
-  final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
+  final StreamController<List<RowData>> _changeController =
+      new StreamController<List<RowData>>.broadcast(sync: true);
+  final StreamController<RowData> _highlightController =
+      new StreamController<RowData>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = new Disposer.oneShot();
   @Input()
@@ -77,7 +85,9 @@ class SkawaDataTableComponent implements OnDestroy {
   RowData highlightedRow;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
-    _tearDownDisposer..addEventSink(_changeController)..addEventSink(_highlightController);
+    _tearDownDisposer
+      ..addEventSink(_changeController)
+      ..addEventSink(_highlightController);
     onChange = _changeController.stream.distinct((a, b) {
       return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
     });
@@ -102,7 +112,8 @@ class SkawaDataTableComponent implements OnDestroy {
 
   void changeRowSelection(RowData row, bool selected) {
     if (!multiSelection) {
-      rows.firstWhere((r) => r.checked, orElse: () => null)?.checked = !selected;
+      rows.firstWhere((r) => r.checked, orElse: () => null)?.checked =
+          !selected;
     }
     row.checked = selected;
     _emitChange();
@@ -125,7 +136,9 @@ class SkawaDataTableComponent implements OnDestroy {
     if (selectable && ev.target is Element && ev.target != ev.currentTarget) {
       Element target = ev.target as Element;
       if (target is Element) {
-        while (target != ev.currentTarget && target.tagName != 'TR' && target != null) {
+        while (target != ev.currentTarget &&
+            target.tagName != 'TR' &&
+            target != null) {
           if (target.classes.contains('selector-checkbox')) {
             return false;
           }

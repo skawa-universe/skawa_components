@@ -11,9 +11,7 @@ import 'package:markdown/markdown.dart' as markdown;
 @Directive(
   selector: '[editorRenderTarget]',
   exportAs: 'editorRenderTarget',
-  outputs: const [
-    'onRender: render'
-  ],
+  outputs: const ['onRender: render'],
 )
 class EditorRenderTarget {
   final ElementRef elementRef;
@@ -25,7 +23,8 @@ class EditorRenderTarget {
 
   String _previousRender;
 
-  EditorRenderTarget(this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
+  EditorRenderTarget(
+      this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
   void updateRender(String newTarget, {List<String> classes}) {
     _onRender.add(newTarget);

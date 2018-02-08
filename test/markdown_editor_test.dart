@@ -17,25 +17,29 @@ main() {
     tearDown(disposeAnyRunningTest);
     test('can be edited displays data', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject /*<MarkdownEditorPage>*/(
+      final markdownEditorPage =
+          await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
         MarkdownEditorPage,
       );
       await markdownEditorPage.editMarkdown();
       var textarea = await markdownEditorPage.textarea;
-      String expectedText = await markdownEditorPage.markdownContainerDiv.innerText;
+      String expectedText =
+          await markdownEditorPage.markdownContainerDiv.innerText;
       expect(await markdownEditorPage.markdownContainerDiv.displayed, isFalse);
       expect(await textarea.displayed, isTrue);
       expect(await textarea.seleniumAttributes['value'], expectedText);
     });
     test('can be edited and type', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject /*<MarkdownEditorPage>*/(
+      final markdownEditorPage =
+          await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
         MarkdownEditorPage,
       );
       await markdownEditorPage.editMarkdown();
       var textarea = await markdownEditorPage.textarea;
       String input = "cica";
-      String expectedText = "${await textarea.seleniumAttributes['value']}${input}";
+      String expectedText =
+          "${await textarea.seleniumAttributes['value']}${input}";
       await textarea.typing(input);
       expect(await markdownEditorPage.markdownContainerDiv.displayed, isFalse);
       expect(await textarea.displayed, isTrue);
@@ -43,21 +47,23 @@ main() {
     });
     test('can be edited and preview', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
-      final markdownEditorPage = await fixture.resolvePageObject /*<MarkdownEditorPage>*/(
+      final markdownEditorPage =
+          await fixture.resolvePageObject/*<MarkdownEditorPage>*/(
         MarkdownEditorPage,
       );
       await markdownEditorPage.editMarkdown();
       var textarea = await markdownEditorPage.textarea;
       String input = "cica";
       await textarea.typing(input);
-      String expectedText = "${await markdownEditorPage.markdownContainerDiv.innerText}${input}";
+      String expectedText =
+          "${await markdownEditorPage.markdownContainerDiv.innerText}${input}";
       await markdownEditorPage.buttons[2].click();
       expect(await markdownEditorPage.markdownContainerDiv.displayed, isTrue);
-      expect(await markdownEditorPage.markdownContainerDiv.innerText, expectedText);
+      expect(await markdownEditorPage.markdownContainerDiv.innerText,
+          expectedText);
     });
   });
 }
-
 
 class MarkdownEditorPage {
   @inject
@@ -66,7 +72,8 @@ class MarkdownEditorPage {
   @FirstByCss('.markdown-container')
   PageLoaderElement markdownContainerDiv;
 
-  Future<TextAreaElement> get textarea => loader.getInstance(TextAreaElement, loader.globalContext);
+  Future<TextAreaElement> get textarea =>
+      loader.getInstance(TextAreaElement, loader.globalContext);
 
   @ByTagName('button')
   List<PageLoaderElement> buttons;
@@ -86,9 +93,7 @@ class TextAreaElement {
   PageLoaderAttributes get seleniumAttributes => rootElement.seleniumAttributes;
 
   Future typing(String input) async => rootElement.type(input);
-
 }
-
 
 @Component(
   selector: 'app-cmp',
@@ -110,9 +115,4 @@ class TextAreaElement {
 class AppComponent {
   @ViewChild(SkawaMarkdownEditorComponent)
   SkawaMarkdownEditorComponent markdownEditorComponent;
-
 }
-
-
-
-
