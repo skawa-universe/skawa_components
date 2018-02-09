@@ -37,7 +37,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   DeferredCallback _emit;
 
   EditorRenderSource(this.elementRef) {
-    _emit = new DeferredCallback(_onUpdatedController.add);
+    _emit = new DeferredCallback((String a){print('emit: aaa $a');});
   }
 
   @Output('update')
