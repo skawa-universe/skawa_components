@@ -128,23 +128,25 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
     } else {
       _changeStack.removeAt(0);
       elementRef.nativeElement.value = _changeStack.first;
+      _emit(value);
     }
-    _emit(value);
   }
 
   void revertAllUpdates() {
     print('revertAllUpdates');
-    value = initialValue;
-    _changeStack.clear();
-    _emit(initialValue);
+    if (_changeStack.isNotEmpty) {
+      value = initialValue;
+      _changeStack.clear();
+      _emit(initialValue);
+    }
   }
 
   void contentChanged(Event ev) {
     print('contentChanged : $ev');
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
+      _emit(value);
     }
-    _emit(value);
     ev.stopPropagation();
   }
 
