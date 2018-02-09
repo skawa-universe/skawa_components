@@ -83,7 +83,7 @@ void main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource [initialValue]="initialValue"></textarea>
+    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="a"></textarea>
     <button revertLastUpdate (click)="cica('revertLastUpdate'); renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="cica('revertAllUpdates'); renderSource.revertAllUpdates()"></button>
               ''',
@@ -91,6 +91,8 @@ void main() {
     changeDetection: ChangeDetectionStrategy.OnPush)
 class RenderSourceTemplateComponent {
   String initialValue;
+
+  var a = new Duration(milliseconds: 100);
 
   void cica(String ev) {
     print('cica: $ev');

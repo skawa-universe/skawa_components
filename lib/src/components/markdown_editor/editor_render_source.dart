@@ -26,7 +26,7 @@ import 'package:angular2/core.dart';
     selector: '[editorRenderSource]',
     exportAs: 'editorRenderSource',
     host: const {'(input)': r'contentChanged($event)'})
-class EditorRenderSource implements AfterViewInit, OnDestroy {
+class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   final ElementRef elementRef;
   final StreamController _onUpdatedController = new StreamController.broadcast();
   final List<String> _changeStack = <String>[];
@@ -34,11 +34,12 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   @Input()
   String initialValue;
 
+  @Input()
+  Duration updateDelay;
+
   DeferredCallback _emit;
 
-  EditorRenderSource(this.elementRef) {
-    _emit = new DeferredCallback((String a){print('emit: aaa $a');});
-  }
+  EditorRenderSource(this.elementRef);
 
   @Output('update')
   Stream get onUpdated => _onUpdatedController.stream;
@@ -100,6 +101,13 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   @override
   void ngOnDestroy() {
     _onUpdatedController.close();
+  }
+
+  @override
+  void ngOnInit() {
+    _emit = new DeferredCallback((String a) {
+      print('emit: aaa $a');
+    }, updateDelay);
   }
 }
 
