@@ -6,14 +6,14 @@ import 'package:js/js.dart';
 @JS('CKEDITOR')
 abstract class CKEditor {
   @JS('replace')
-  external static CKEditorInstance replace(String element, config);
+  external static CKEditorInstance replace(String element, Object config);
 }
 
 @JS()
 class CKEditorInstance {
   external String get name;
 
-  external getData();
+  external String getData();
 }
 
 @JS('CKEDITOR.plugins.addExternal')

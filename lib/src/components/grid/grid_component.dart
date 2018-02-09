@@ -36,7 +36,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   ElementRef grid;
 
   @override
-  void updateAndDisplay(bool forceRefresh, [_]) {
+  void updateAndDisplay(bool forceRefresh) {
     _resizeTimer?.cancel();
     _resizeTimer = new Timer(new Duration(milliseconds: 100), () {
       // there are no tiles to update, return
@@ -60,14 +60,14 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   void ngAfterViewInit() {
     updateAndDisplay(true);
     tiles.changes.listen((_) {
-      updateAndDisplay(true, _);
+      updateAndDisplay(true);
     });
   }
 
   @override
   void ngOnInit() {
     window.onResize.listen((_) {
-      updateAndDisplay(false, _);
+      updateAndDisplay(false);
     });
   }
 

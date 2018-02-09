@@ -90,7 +90,7 @@ abstract class Grid {
   GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize: 16});
 
   /// Updates the grid
-  void updateAndDisplay(bool forceRefresh, [ev]);
+  void updateAndDisplay(bool forceRefresh);
 }
 
 class _DomGridTile implements GridTile {
