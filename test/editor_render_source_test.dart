@@ -71,14 +71,13 @@ void main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue" (update)="update=\$event"></textarea>
-    <div (click)="f.revertLastUpdate()">{{update}}</div>
+    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue"></textarea>
+    <div (click)="f.revertLastUpdate()"></div>
     <span (click)="f.revertAllUpdates()"></span>
               ''',
     directives: const [EditorRenderSource])
 class RenderSourceTemplateComponent {
   String initialValue;
-  String update;
 
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;
