@@ -80,7 +80,6 @@ class SkawaDataTableComponent implements OnDestroy {
     });
   }
 
-
   @Output('highlight')
   Stream<RowData> get onHighlight => _highlightController.stream;
 
