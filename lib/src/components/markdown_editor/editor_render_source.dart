@@ -89,10 +89,14 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
 
   @override
   void ngAfterViewInit() {
+    print('ngAfterViewInit');
     // sync initial value to DOM
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
-    (elementRef.nativeElement as Element)..onInput.listen(contentChanged);
+    (elementRef.nativeElement as Element).onInput.listen((ev) {
+      print('onInput listen');
+      contentChanged(ev);
+    });
   }
 
   @override
@@ -125,6 +129,7 @@ class DeferredCallback<T, K> {
         _cb = callback;
 
   Future<K> call(T param) {
+    print('call: $param');
     if (_timer != null) _timer.cancel();
     var c = new Completer<K>();
     _timer = new Timer(timeout, () {
