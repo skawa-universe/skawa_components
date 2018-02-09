@@ -5,14 +5,16 @@
      (render)="renderTarget.setLanguageDirection($event)"
      title="Click to edit"
      (click)="editMarkdown()"
-     [ngClass]="{'with-placeholder': displayPlaceholder}"></div>
+     [ngClass]="{'with-placeholder': displayPlaceholder}">
+</div>
 
 <textarea editorRenderSource
           skawaLangugageDirection
           #renderSource="skawaLangugageDirection"
           (update)="renderSource.setLanguageDirection($event)"
           autoFocus
-          [hidden]="displayMode != 'edit'" [initialValue]="initialValue"></textarea>
+          [hidden]="displayMode != 'edit'" [initialValue]="initialValue">
+</textarea>
 
 <template #placeholderTemplate>
     <ng-content selector=".placeholder"></ng-content>

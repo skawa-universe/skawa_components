@@ -8,13 +8,11 @@ import 'package:skawa_components/src/base_implementations/grid/grid.dart';
 ///   - `gridGutter`: padding between grid items
 ///
 @Component(
-  selector: 'skawa-grid',
-  template: '<div class="grid-container" #grid><ng-content></ng-content></div>',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: const ['grid_component.css'],
-  directives: const [GridTileDirective],
-  inputs: const ['gridGutter'],
-)
+    selector: 'skawa-grid',
+    template: '<div class="grid-container" #grid><ng-content></ng-content></div>',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: const ['grid_component.css'],
+    directives: const [GridTileDirective])
 class GridComponent extends GridBase implements AfterViewInit, OnInit {
   @HostBinding('style.visibility')
   String visibility;
@@ -23,13 +21,14 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   @override
   QueryList<GridTile> tiles;
 
+  @Input()
   String gridGutter = '16';
 
   @override
   bool get visible => visibility != 'hidden';
 
   @override
-  void set visible(bool val) {
+  set visible(bool val) {
     visibility = val ? '' : 'hidden';
   }
 

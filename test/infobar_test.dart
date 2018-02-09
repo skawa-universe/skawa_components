@@ -73,9 +73,7 @@ void main() {
     <skawa-infobar [icon]="icon" [url]="url" (trigger)="increment()"></skawa-infobar>
     <div increment>{{triggered}}</div>
      ''',
-  directives: const [
-    SkawaInfobarComponent,
-  ],
+  directives: const [SkawaInfobarComponent],
 )
 class InfobarTestComponent {
   String icon;

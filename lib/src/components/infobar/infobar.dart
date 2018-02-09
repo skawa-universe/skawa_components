@@ -28,21 +28,22 @@ import 'package:angular_components/src/utils/async/async.dart' show LazyEventEmi
     selector: 'skawa-infobar',
     templateUrl: 'infobar.html',
     styleUrls: const ['infobar.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: const [GlyphComponent, MaterialButtonComponent],
-    inputs: const ['icon', 'url'],
-    outputs: const ['trigger'])
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaInfobarComponent {
   // TODO: dismiss
 
+  @Input()
   String icon;
 
+  @Input()
   String url;
 
   @ViewChild('primaryAction')
   MaterialButtonComponent primaryActionButton;
 
-  LazyEventEmitter<UIEvent> get trigger => primaryActionButton.trigger;
+  @Output('trigger')
+  LazyEventEmitter<UIEvent> get onTrigger => primaryActionButton.trigger;
 
   void navigate() {
     if (url != null) window.location.href = url;

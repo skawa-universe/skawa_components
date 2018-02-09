@@ -28,7 +28,6 @@ class DocumentPopupSource extends ElementPopupSource {
   @override
   Stream<Rectangle<num>> onDimensionsChanged({bool track: false}) {
     // TODO: track is currently ignored... yield* for window.resize?
-    ;
     return new Stream<Rectangle<num>>.fromIterable([
       _zone.runOutsideAngular(() {
         return document.body.getBoundingClientRect();

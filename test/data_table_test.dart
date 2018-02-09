@@ -183,11 +183,11 @@ void main() {
   directives: const [SkawaDataTableComponent, SkawaDataTableColComponent],
 )
 class NonSelectableDatatableTestComponent {
-  String cssClass = null;
+  String cssClass;
 
-  makeAccessor(SampleRowData row) => row.name;
+  String makeAccessor(SampleRowData row) => row.name;
 
-  opinionAccessor(SampleRowData row) => row.opinion;
+  String opinionAccessor(SampleRowData row) => row.opinion;
 
   List<RowData> get rowData => ROWDATA;
 }
@@ -216,13 +216,13 @@ List<RowData> ROWDATA = <SampleRowData>[
   directives: const [SkawaDataTableComponent, SkawaDataTableColComponent],
 )
 class SelectableDatatableTestComponent {
-  categoryAccessor(SampleNumericData row) => row.category;
+  String categoryAccessor(SampleNumericData row) => row.category;
 
-  maleAccessor(SampleNumericData row) => row.male.toString();
+  String maleAccessor(SampleNumericData row) => row.male.toString();
 
-  femaleAccessor(SampleNumericData row) => row.female.toString();
+  String femaleAccessor(SampleNumericData row) => row.female.toString();
 
-  peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
+  String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
 
   aggregate(DataTableAccessor<RowData> accessor) {
     Iterable mapped = selectableRowData.where((row) => row.checked).map(accessor);

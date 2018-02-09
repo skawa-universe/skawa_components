@@ -9,7 +9,7 @@ export 'card_actions.dart';
 export 'card.dart';
 export 'card_directives.dart';
 
-const skawaCardDirectives = const [
+const List<Type> skawaCardDirectives = const [
   SkawaCardHeaderComponent,
   SkawaCardHeaderSubheadDirective,
   SkawaCardHeaderTitleDirective,
@@ -42,7 +42,7 @@ class SkawaCardComponent {
   @ContentChild(SkawaCardContentComponent)
   SkawaCardContentComponent cardContent;
 
-  get hasHeader => cardHeader != null;
+  bool get hasHeader => cardHeader != null;
 }
 
 /// Content area for cards
@@ -63,18 +63,18 @@ class SkawaCardComponent {
 @Component(
     selector: 'skawa-card-content',
     template: '<ng-content></ng-content>',
-    inputs: const ['collapsed'],
     styleUrls: const ['card_content.css'],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardContentComponent {
   final SkawaCardComponent parentCard;
 
+  SkawaCardContentComponent(this.parentCard);
+
   @HostBinding('class.with-header')
   bool get withHeader => parentCard.hasHeader;
 
-  SkawaCardContentComponent(this.parentCard);
-
-  var collapsed;
+  @Input()
+  bool collapsed;
 
   @HostBinding('class.skawa-collapsed')
   bool get isCollapsed {

@@ -10,7 +10,7 @@ class LanguageDirectionDirective {
   String textDirection = 'ltr';
 
   @HostBinding('style.text-align')
-  String textAlign = null;
+  String textAlign;
 
   LanguageDirectionDirective(this._elementRef);
 

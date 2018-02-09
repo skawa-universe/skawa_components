@@ -5,7 +5,6 @@ import 'package:angular2/core.dart';
 
 import 'package:angular2/src/common/directives/ng_class.dart';
 import 'package:angular_components/src/components/focus/focus.dart';
-import 'package:meta/meta.dart';
 
 import 'editor_render_source.dart';
 import 'editor_render_target.dart';
@@ -17,13 +16,13 @@ abstract class SkawaEditor {
   String get displayMode;
 
   /// Sets the mode in which the editor is in
-  void set displayMode(String mode);
+  set displayMode(String mode);
 
   /// Gets the updated value of the editor
   String get value;
 
   /// Sets the updated value of the editor
-  void set value(String val);
+  set value(String val);
 
   /// Event emitted when value changes
   Stream get onUpdated;
@@ -36,15 +35,17 @@ abstract class SkawaEditor {
 /// Base class for an editor that uses a textarea as input
 /// and a Div as a render output
 abstract class TextareaEditorBase implements SkawaEditor {
-  // TODO: SDK 1.23 is out, this will not be needed any more
-  @virtual
-  EditorRenderTarget renderTarget;
+  set renderTarget(EditorRenderTarget newTarget);
+
+  EditorRenderTarget get renderTarget;
 
   String _displayMode = EditorMode.DISPLAY;
 
+  @override
   String get displayMode => _displayMode;
 
-  void set displayMode(String mode) {
+  @override
+  set displayMode(String mode) {
     if (mode == _displayMode) return;
     if (mode == EditorMode.DISPLAY) {
       renderTarget.updateRender(value);
@@ -81,20 +82,23 @@ abstract class TextareaEditorBase implements SkawaEditor {
     templateUrl: 'markdown_editor.html',
     styleUrls: const ['markdown_editor.css'],
     directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
-    outputs: const ['onUpdated: update'],
-    inputs: const ['initialValue'],
     host: const {'[class.mode-edit]': 'displayMode == "edit"', '[class.mode-display]': 'displayMode == "display"'})
 class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit {
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;
 
+  @Input()
   String initialValue;
 
   String _emulatedCssClass;
 
+  EmbeddedViewRef _placeholderTemplateCache;
+  bool _placeholderDefined;
+
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;
 
+  @override
   @ViewChild(EditorRenderTarget)
   EditorRenderTarget renderTarget;
 
@@ -103,14 +107,17 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
 
   SkawaMarkdownEditorComponent(this.containerRef, this.changeDetectorRef);
 
-  String get value => renderSource.value;
-
-  void set value(String val) {
-    renderSource.value = val;
-  }
+  @override
+  @Output('update')
+  Stream get onUpdated => renderSource.onUpdated;
 
   @override
-  Stream get onUpdated => renderSource.onUpdated;
+  String get value => renderSource.value;
+
+  @override
+  set value(String val) {
+    renderSource.value = val;
+  }
 
   bool get displayPlaceholder {
     if (_placeholderDefined != null && _placeholderDefined) {
@@ -145,7 +152,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     _emulatedCssClass = renderTarget.elementRef.nativeElement.classes
         .firstWhere((String cssClass) => !cssClass.contains('markdown-container'));
     _placeholderTemplateCache = placeholderTemplate.createEmbeddedView(null);
@@ -155,7 +162,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   }
 
   @override
-  ngAfterViewInit() {
+  void ngAfterViewInit() {
     if (displayPlaceholder) _clonePlaceholderIntoTemplate();
     if (value != '') renderTarget.updateRender(value, classes: [_emulatedCssClass]);
     renderTarget.elementRef.nativeElement;
@@ -167,12 +174,9 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
       renderTarget.elementRef.nativeElement.append(n);
     });
   }
-
-  EmbeddedViewRef _placeholderTemplateCache;
-  bool _placeholderDefined;
 }
 
-/// Mode of [MarkdownEditor]
+/// Mode of MarkdownEditor
 class EditorMode {
   static const String EDIT = 'edit';
   static const String DISPLAY = 'display';

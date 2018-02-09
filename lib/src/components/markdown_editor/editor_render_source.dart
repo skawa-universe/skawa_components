@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular2/core.dart';
 
-/// Content source part of a [SkawaEditor] Component. It works in tandem
-/// with [EditorRenderTarget] directive.
+/// Content source part of a SkawaEditor Component. It works in tandem
+/// with EditorRenderTarget directive.
 ///
 /// __Properties__:
 ///
@@ -25,25 +25,23 @@ import 'package:angular2/core.dart';
 @Directive(
     selector: '[editorRenderSource]',
     exportAs: 'editorRenderSource',
-    inputs: const ['initialValue'],
-    outputs: const ['onUpdated: update'],
     host: const {'(input)': r'contentChanged($event)'})
-class EditorRenderSource implements AfterViewInit {
+class EditorRenderSource implements AfterViewInit, OnDestroy {
   final ElementRef elementRef;
-
+  final StreamController _onUpdatedController = new StreamController.broadcast();
   final List<String> _changeStack = <String>[];
 
+  @Input()
   String initialValue;
-
-  final StreamController _onUpdated = new StreamController.broadcast();
-
-  Stream get onUpdated => _onUpdated.stream;
 
   DeferredCallback _emit;
 
   EditorRenderSource(this.elementRef) {
-    _emit = new DeferredCallback(_onUpdated.add);
+    _emit = new DeferredCallback(_onUpdatedController.add);
   }
+
+  @Output('update')
+  Stream get onUpdated => _onUpdatedController.stream;
 
   String get value {
     if (initialValue != null && _changeStack.isEmpty) {
@@ -54,7 +52,7 @@ class EditorRenderSource implements AfterViewInit {
   }
 
   /// Sets the value of editor
-  void set value(String val) {
+  set value(String val) {
     _changeStack.insert(0, value);
     elementRef.nativeElement.value = val;
   }
@@ -92,6 +90,11 @@ class EditorRenderSource implements AfterViewInit {
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
     (elementRef.nativeElement as Element)..onInput.listen(contentChanged);
+  }
+
+  @override
+  void ngOnDestroy() {
+    _onUpdatedController.close();
   }
 }
 

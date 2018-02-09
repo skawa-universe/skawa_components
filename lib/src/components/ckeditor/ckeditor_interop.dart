@@ -17,4 +17,4 @@ class CKEditorInstance {
 }
 
 @JS('CKEDITOR.plugins.addExternal')
-external addExternalPlugin(String name, String path, String fileName);
+external void addExternalPlugin(String name, String path, String fileName);

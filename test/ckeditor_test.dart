@@ -37,7 +37,7 @@ void main() {
   ''',
 )
 class TestEditorComponent {
-  var plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
+  List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 
   String get escaped => HTML_ESCAPE.convert(_TEST_MARKUP);
   static const String _TEST_MARKUP = 'Some <br /> content <p>comes here.</p>';

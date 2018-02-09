@@ -5,7 +5,7 @@ import 'row_data.dart';
 
 typedef String DataTableAccessor<T extends RowData>(T rowData);
 
-/// A column of the [SkawaDataTableComponent]. Usable only with a [SkawaDataTableComponent].
+/// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
 ///
 /// __Example usage:__
 ///             <skawa-data-table [data]="rowData">
@@ -54,10 +54,10 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
   @Input('class')
   String classString;
 
+  SkawaDataTableColComponent(@Optional() @Self() this.columnRenderer);
+
   @Output('trigger')
   Stream<RowData> get onTrigger => _triggerController.stream;
-
-  SkawaDataTableColComponent(@Optional() @Self() this.columnRenderer);
 
   bool get useAccessorAsLink => _triggerController.hasListener;
 

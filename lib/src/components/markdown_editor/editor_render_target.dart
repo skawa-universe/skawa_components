@@ -3,30 +3,29 @@ import 'dart:html';
 import 'package:angular2/core.dart';
 import 'package:markdown/markdown.dart' as markdown;
 
-/// Target where rendered output of [EditorRendererSource] will be inserted
+/// Target where rendered output of EditorRendererSource will be inserted
 ///
 /// __Providers__:
 ///
-/// - `EditorRenderer` -- renderer to use to convert [EditorRendererSource.value] to a DOM fragment
+/// - `EditorRenderer` -- renderer to use to convert EditorRendererSource.value to a DOM fragment
 @Directive(
   selector: '[editorRenderTarget]',
   exportAs: 'editorRenderTarget',
   outputs: const ['onRender: render'],
 )
-class EditorRenderTarget {
+class EditorRenderTarget implements OnDestroy {
   final ElementRef elementRef;
   final EditorRenderer renderer;
-
-  final StreamController _onRender = new StreamController.broadcast();
-
-  Stream get onRender => _onRender.stream;
+  final StreamController _onRenderController = new StreamController.broadcast();
 
   String _previousRender;
 
   EditorRenderTarget(this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
+  Stream get onRender => _onRenderController.stream;
+
   void updateRender(String newTarget, {List<String> classes}) {
-    _onRender.add(newTarget);
+    _onRenderController.add(newTarget);
     if (newTarget == _previousRender) return;
     Element e = elementRef.nativeElement as Element;
     e.children.clear();
@@ -35,6 +34,11 @@ class EditorRenderTarget {
       e.children.forEach((Element children) {
         children.classes.addAll(classes);
       });
+  }
+
+  @override
+  void ngOnDestroy() {
+    _onRenderController.close();
   }
 }
 

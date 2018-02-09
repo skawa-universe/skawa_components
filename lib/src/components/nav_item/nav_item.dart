@@ -35,7 +35,7 @@ import 'package:angular_components/src/components/material_ripple/material_rippl
     templateUrl: 'nav_item.html',
     styleUrls: const ['nav_item.css'],
     directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
-    inputs: const ['link', 'icon', 'disabled', 'textOnly', 'fullWidth'],
+    inputs: const ['disabled', 'textOnly'],
     outputs: const ['trigger'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
@@ -58,14 +58,17 @@ import 'package:angular_components/src/components/material_ripple/material_rippl
     })
 class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
   /// Link to navigate to
+  @Input()
   String link;
 
   /// Glyph name to use as icon
+  @Input()
   String icon;
 
   bool hovering = false;
 
-  var fullWidth;
+  @Input()
+  bool fullWidth;
 
   final ChangeDetectorRef _changeDetector;
 

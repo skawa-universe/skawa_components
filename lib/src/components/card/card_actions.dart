@@ -28,9 +28,9 @@ class SkawaCardActionsComponent {
   /// Header component actions were embedded in
   final SkawaCardHeaderComponent cardHeader;
 
+  SkawaCardActionsComponent(@Optional() this.cardHeader);
+
   /// Whether this component is in a card header or not
   @HostBinding('class.in-header')
   bool get inHeader => cardHeader != null;
-
-  SkawaCardActionsComponent(@Optional() this.cardHeader);
 }

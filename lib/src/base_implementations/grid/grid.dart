@@ -14,6 +14,10 @@ class GridUpdate {
 
 /// Represents a tile in the Grid
 abstract class GridTile {
+  factory GridTile(Element gridTile) {
+    return new _DomGridTile(gridTile);
+  }
+
   /// Width of the grid tile
   int get width;
 
@@ -22,10 +26,6 @@ abstract class GridTile {
 
   /// Repositions the tile to [pos]
   void reposition(Point<int> pos);
-
-  factory GridTile(Element gridTile) {
-    return new _DomGridTile(gridTile);
-  }
 }
 
 abstract class DomTransformReposition {
@@ -44,6 +44,7 @@ abstract class GridBase implements Grid {
   /// Calculates the positions for [tiles] in a grid with width of [gridWidth]
   ///
   /// Default gutter size (spacing between tiles) is 16px
+  @override
   GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize: 16}) {
     final int tileWidth = tiles.first.width;
     final int tileWidthWithGutter = (tileWidth + gutterSize);
@@ -76,9 +77,13 @@ abstract class GridBase implements Grid {
 }
 
 abstract class Grid {
+  factory Grid(Element grid, List<GridTile> tiles) {
+    return new _DomGrid(grid, tiles);
+  }
+
   Iterable<GridTile> get tiles;
 
-  void set visible(bool val);
+  set visible(bool val);
 
   bool get visible;
 
@@ -86,10 +91,6 @@ abstract class Grid {
 
   /// Updates the grid
   void updateAndDisplay(bool forceRefresh, [ev]);
-
-  factory Grid(Element grid, List<GridTile> tiles) {
-    return new _DomGrid(grid, tiles);
-  }
 }
 
 class _DomGridTile implements GridTile {
@@ -104,12 +105,13 @@ class _DomGridTile implements GridTile {
   int get height => _tile.clientHeight;
 
   @override
-  reposition(Point<int> pos) {
+  void reposition(Point<int> pos) {
     _tile.style.transform = 'translate(${pos.x}px, ${pos.y}px)';
   }
 }
 
 class _DomGrid extends GridBase {
+  @override
   final List<GridTile> tiles;
   final Element _grid;
 
