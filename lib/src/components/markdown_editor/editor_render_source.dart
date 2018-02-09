@@ -62,7 +62,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   String get previousValue => _changeStack.length > 0 ? _changeStack.first : initialValue;
 
   void revertLastUpdate() {
-    print('revertLastUpdate');
     if (_changeStack.length <= 1) {
       revertAllUpdates();
     } else {
@@ -73,7 +72,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   }
 
   void revertAllUpdates() {
-    print('revertAllUpdates');
     if (_changeStack.isNotEmpty) {
       value = initialValue;
       _changeStack.clear();
@@ -82,7 +80,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   }
 
   void contentChanged(Event ev) {
-    print('contentChanged : $ev');
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
       _emit(value);
@@ -92,7 +89,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
 
   @override
   void ngAfterViewInit() {
-    print('ngAfterViewInit');
     // sync initial value to DOM
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
@@ -105,9 +101,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
 
   @override
   void ngOnInit() {
-    _emit = new DeferredCallback((String a) {
-      print('emit: aaa $a');
-    }, updateDelay);
+    _emit = new DeferredCallback(_onUpdatedController.add, updateDelay);
   }
 }
 
@@ -135,7 +129,6 @@ class DeferredCallback<T, K> {
         _cb = callback;
 
   Future<K> call(T param) {
-    print('call: $param');
     if (_timer != null) _timer.cancel();
     var c = new Completer<K>();
     _timer = new Timer(timeout, () {
