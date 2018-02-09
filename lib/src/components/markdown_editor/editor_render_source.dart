@@ -72,18 +72,16 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   }
 
   void revertAllUpdates() {
-    if (_changeStack.isNotEmpty) {
-      value = initialValue;
-      _changeStack.clear();
-      _emit(initialValue);
-    }
+    value = initialValue;
+    _changeStack.clear();
+    _emit(initialValue);
   }
 
   void contentChanged(Event ev) {
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
-      _emit(value);
     }
+    _emit(value);
     ev.stopPropagation();
   }
 
@@ -92,6 +90,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
     // sync initial value to DOM
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
+    (elementRef.nativeElement as Element).onInput.listen(contentChanged);
   }
 
   @override
