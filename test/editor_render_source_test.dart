@@ -72,8 +72,8 @@ void main() {
     selector: 'test',
     template: '''
     <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue"></textarea>
-    <div (click)="f.revertLastUpdate()"></div>
-    <span (click)="f.revertAllUpdates()"></span>
+    <button revertLastUpdate (click)="f.revertLastUpdate()"></button>
+    <button revertAllUpdates (click)="f.revertAllUpdates()"></button>
               ''',
     directives: const [EditorRenderSource])
 class RenderSourceTemplateComponent {
@@ -92,15 +92,15 @@ class TestPO {
 
   Future type(String s) => _editorRenderSource.type(s);
 
-  Future revertLastUpdate() => _div.click();
+  Future revertLastUpdate() => _revertLastUpdate.click();
 
-  Future revertAllUpdates() => _span.click();
+  Future revertAllUpdates() => _revertAllUpdates.click();
 
-  Future<String> actualValue() => _div.innerText;
+  Future<String> actualValue() => _revertLastUpdate.innerText;
 
-  @ByTagName('div')
-  PageLoaderElement _div;
+  @ByTagName('revertLastUpdate')
+  PageLoaderElement _revertLastUpdate;
 
-  @ByTagName('span')
-  PageLoaderElement _span;
+  @ByTagName('revertAllUpdates')
+  PageLoaderElement _revertAllUpdates;
 }
