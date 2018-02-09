@@ -1,0 +1,7 @@
+<div class="snackbar-container" [class.show]="show" (transitionend)="transitionEnd($event)">
+    <template [ngIf]="message != null">
+        <span class="message">{{ message.text }}</span>
+        <material-button *ngIf="message.action != null" (trigger)="message.action.callback()">{{ message.action.label }}
+        </material-button>
+    </template>
+</div>

@@ -1,0 +1,41 @@
+.snackbar-container {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  position: fixed;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, 100%);
+  font-size: 14px;
+  z-index: 10000;
+  color: white;
+  background-color: #323232;
+  display: flex;
+  padding: 0 24px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  transition: transform 0.5s ease;
+}
+@media screen and (max-width: 767px) {
+  .snackbar-container {
+    height: 96px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 999px) {
+  .snackbar-container {
+    height: 72px;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .snackbar-container {
+    height: 48px;
+  }
+}
+.snackbar-container material-button {
+  align-self: center;
+  color: #c98bc7;
+}
+.snackbar-container.show {
+  transform: translate(-50%, 0);
+}
+.snackbar-container .message, .snackbar-container .action {
+  align-self: center;
+}
