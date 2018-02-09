@@ -338,14 +338,14 @@ List<RowData> ROWDATA = <SampleRowData>[
 @Component(
   selector: 'test',
   template: '''
-    <skawa-data-table [data]="selectableRowData" [selectable]="true" (onSort)="sort(\$event)">
+    <skawa-data-table [data]="selectableRowData" [selectable]="true" (sort)="sort(\$event)">
       <skawa-data-table-col [accessor]="categoryAccessor" header="Class" footer="Total:" class="text-column"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="maleAccessor" sort header="Male" [footer]="aggregate(maleAccessor)"
+      <skawa-data-table-col [accessor]="maleAccessor" sortable header="Male" [footer]="aggregate(maleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="femaleAccessor" sort="desc, asc" header="Female" [footer]="aggregate(femaleAccessor)"
+      <skawa-data-table-col [accessor]="femaleAccessor" sortable="desc, asc" header="Female" [footer]="aggregate(femaleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="peopleAccessor" sort="desc"  header="All" [footer]="aggregate(peopleAccessor)"
+      <skawa-data-table-col [accessor]="peopleAccessor" sortable="desc"  header="All" [footer]="aggregate(peopleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
      ''',
@@ -371,17 +371,17 @@ class SelectableDatatableTestComponent {
   }
 
   void sort(SkawaDataTableColComponent column) {
-    if (!column.sort.isSorted) {
+    if (!column.sortModel.isSorted) {
       // Apply default sorting when no sort is specified
       selectableRowData.sort((a, b) => (a as SampleNumericData).category.compareTo((b as SampleNumericData).category));
     } else {
       selectableRowData.sort((a, b) {
         if (column.header == 'Male') {
-          return column.sort.isAscending
+          return column.sortModel.isAscending
               ? (a as SampleNumericData).male - (b as SampleNumericData).male
               : (b as SampleNumericData).male - (a as SampleNumericData).male;
         } else if (column.header == 'Female') {
-          return column.sort.isAscending
+          return column.sortModel.isAscending
               ? (a as SampleNumericData).female - (b as SampleNumericData).female
               : (b as SampleNumericData).female - (a as SampleNumericData).female;
         } else if (column.header == 'All') {
@@ -469,9 +469,6 @@ class TableCellPO {
 }
 
 class TableHeaderCellPO {
-  @inject
-  PageLoader loader;
-
   @root
   PageLoaderElement rootElement;
 

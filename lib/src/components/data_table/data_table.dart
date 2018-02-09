@@ -43,7 +43,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 /// __Events:__
 /// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
 /// - `highlight: RowData` -- Emitted when a row is highlighted. Note: highlighted rows are not automatically selected
-/// - `onSort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
+/// - `sort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
 ///
 @Component(
     selector: 'skawa-data-table',
@@ -79,7 +79,7 @@ class SkawaDataTableComponent implements OnDestroy {
   @Output('highlight')
   Stream<RowData> get onHighlight => _highlightController.stream;
 
-  @Output()
+  @Output('sort')
   Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
 
   RowData highlightedRow;
@@ -148,10 +148,10 @@ class SkawaDataTableComponent implements OnDestroy {
   }
 
   void triggerSort(SkawaDataTableColComponent column) {
-    column.sort.toggleSort();
+    column.sortModel.toggleSort();
     for (var c in columns) {
-      if (c != column && c.sort != null) {
-        c.sort.activeSort = null;
+      if (c != column && c.sortModel != null) {
+        c.sortModel.activeSort = null;
       }
     }
     _sortController.add(column);

@@ -51,7 +51,7 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
   @Input()
   String footer;
 
-  SortModel sort;
+  SortModel sortModel;
 
   /// If set to true, footer will not display this column and
   /// colspan of td element will be set accordingly

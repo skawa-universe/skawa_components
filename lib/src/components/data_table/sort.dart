@@ -33,13 +33,13 @@ class SortModel {
   bool get isSorted => activeSort != null;
 }
 
-@Directive(selector: '[sort]')
+@Directive(selector: '[sortable]')
 class SkawaDataTableSortDirective {
   final SkawaDataTableColComponent column;
 
   SkawaDataTableSortDirective(this.column);
 
-  @Input('sort')
+  @Input('sortable')
   set allowedSorts(String allowedSorts) {
     List<String> directions;
     if ((allowedSorts ?? '').isNotEmpty) {
@@ -51,15 +51,15 @@ class SkawaDataTableSortDirective {
       throw new ArgumentError(
           'SkawaDataTableSortDirective accepts only "asc" and/or "desc" as sort directions. Use comma separated values for both directions.');
     }
-    column.sort = new SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
+    column.sortModel = new SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
   }
 
   @Input()
-  set defaultSort(String sort) {
+  set initialSort(String sort) {
     if (directionMap[sort] == null) {
-      throw new ArgumentError('SkawaDataTableSortDirective default sort value can only be "asc" or "desc"');
+      throw new ArgumentError('SkawaDataTableSortDirective initial sort value can only be "asc" or "desc"');
     }
-    column.sort.activeSort = directionMap[sort];
+    column.sortModel.activeSort = directionMap[sort];
   }
 
   static const String asc = 'asc';

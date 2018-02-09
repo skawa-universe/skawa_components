@@ -8,13 +8,13 @@
         </th>
         <th *ngFor="let c of columns; let i = index;"
             [ngClass]="c.getClasses('--header')"
-            [class.sort-enabled]="c.sort != null && !c.sort.isSorted"
-            [class.sort]="c.sort?.isSorted ?? false"
-            [class.desc]="c.sort?.isDescending ?? false">
-            <template [ngIf]="c.sort == null">
+            [class.sort-enabled]="c.sortModel != null && !c.sortModel.isSorted"
+            [class.sort]="c.sortModel?.isSorted ?? false"
+            [class.desc]="c.sortModel?.isDescending ?? false">
+            <template [ngIf]="c.sortModel == null">
                 {{c.header}}
             </template>
-            <template [ngIf]="c.sort != null">
+            <template [ngIf]="c.sortModel != null">
                 <a (click)="triggerSort(c)">
                     {{c.header}}
                 </a>
