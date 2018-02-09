@@ -93,10 +93,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
     // sync initial value to DOM
     _emit(initialValue);
     if (initialValue != null) elementRef.nativeElement.value = initialValue;
-    (elementRef.nativeElement as Element).onInput.listen((ev) {
-      print('onInput listen');
-      contentChanged(ev);
-    });
   }
 
   @override

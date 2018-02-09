@@ -17,50 +17,62 @@ void main() {
   final String _first = 'first';
   final String _second = 'second';
   final String _initialValue = "some initial content";
-  group('EditorRenderSource | without initial value ', () {
-    setUp(() async {
-      fixture = await testBed.create();
-      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-    });
-    test('initialized to empty', () async {
-      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
-    });
-    test('can revert to empty', () async {
-      await pageObject.type(_first);
-      await pageObject.type(_second);
-      await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(isEmpty)));
-    });
-  });
+//  group('EditorRenderSource | without initial value ', () {
+//    setUp(() async {
+//      fixture = await testBed.create();
+//      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+//    });
+//    test('initialized to empty', () async {
+//      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
+//    });
+//    test('can revert to empty', () async {
+//      await pageObject.type(_first);
+//      await pageObject.type(_second);
+//      await pageObject.revertAllUpdates();
+//      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(isEmpty)));
+//    });
+//  });
   group('EditorRenderSource | with initial value ', () {
     setUp(() async {
       fixture = await testBed.create(beforeChangeDetection: (testElement) => testElement.initialValue = _initialValue);
       pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
-    test('initialization', () async {
-      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
-    });
-    test('revertLastUpdate emits change', () async {
-      await pageObject.type(_first);
-      await pageObject.type(_second);
-      await pageObject.revertLastUpdate();
-      await fixture
-          .update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit('$_initialValue$_first')));
-    });
-    test('can\'t revert beyond initial value with revertLastUpdate', () async {
-      await pageObject.type(_first);
-      await pageObject.revertLastUpdate();
-      await pageObject.revertLastUpdate();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
-    });
-    test('can revert all updates', () async {
-      await pageObject.type(_first);
-      await pageObject.type(_second);
-      await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
-    });
+//    test('initialization', () async {
+//      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
+//    });
+//    test('revertLastUpdate emits change', () async {
+//      await pageObject.type(_first);
+//      await pageObject.type(_second);
+//      await pageObject.revertLastUpdate();
+//      await fixture
+//          .update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit('$_initialValue$_first')));
+//    });
+//    test('can\'t revert beyond initial value with revertLastUpdate', () async {
+//      await pageObject.type(_first);
+//      await pageObject.revertLastUpdate();
+//      await pageObject.revertLastUpdate();
+//      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+//    });
+//    test('can revert all updates', () async {
+//      await pageObject.type(_first);
+//      await pageObject.type(_second);
+//      await pageObject.revertAllUpdates();
+//      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+//    });
     test('can\'t revert beyond initial value with revertAllUpdates', () async {
-      await pageObject.type(_first);
+      await pageObject.type(' 1');
+      await pageObject.type(' 2');
+      await pageObject.type(' 3');
+      await pageObject.type(' 4');
+      await pageObject.type(' 5');
+      await pageObject.type(' 6');
+      await pageObject.type(' 7');
+      await pageObject.type(' 8');
+      await pageObject.type(' 9');
+      await pageObject.type(' 10');
+      await pageObject.type(' 11');
+      await pageObject.type(' 12');
+      await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
       await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
@@ -71,13 +83,18 @@ void main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource #f="editorRenderSource" [initialValue]="initialValue"></textarea>
-    <button revertLastUpdate (click)="f.revertLastUpdate()"></button>
-    <button revertAllUpdates (click)="f.revertAllUpdates()"></button>
+    <textarea editorRenderSource [initialValue]="initialValue"></textarea>
+    <button revertLastUpdate (click)="cica('revertLastUpdate'); renderSource.revertLastUpdate()"></button>
+    <button revertAllUpdates (click)="cica('revertAllUpdates'); renderSource.revertAllUpdates()"></button>
               ''',
-    directives: const [EditorRenderSource])
+    directives: const [EditorRenderSource],
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class RenderSourceTemplateComponent {
   String initialValue;
+
+  void cica(String ev) {
+    print('cica: $ev');
+  }
 
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;
@@ -88,19 +105,19 @@ class TestPO {
   @ByTagName('textarea')
   PageLoaderElement _editorRenderSource;
 
-  Future clear() async => _editorRenderSource.clear();
+  Future clear() async => await _editorRenderSource.clear();
 
-  Future type(String s) => _editorRenderSource.type(s);
+  Future type(String s) async => await _editorRenderSource.type(s);
 
-  Future revertLastUpdate() => _revertLastUpdate.click();
+  Future revertLastUpdate() async => await _revertLastUpdate.click();
 
-  Future revertAllUpdates() => _revertAllUpdates.click();
+  Future revertAllUpdates() async => await _revertAllUpdates.click();
 
-  Future<String> actualValue() => _revertLastUpdate.innerText;
+  Future<String> actualValue() async => await _revertLastUpdate.innerText;
 
-  @ByTagName('revertLastUpdate')
+  @ByTagName('[revertLastUpdate]')
   PageLoaderElement _revertLastUpdate;
 
-  @ByTagName('revertAllUpdates')
+  @ByTagName('[revertAllUpdates]')
   PageLoaderElement _revertAllUpdates;
 }
