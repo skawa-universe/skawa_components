@@ -23,14 +23,13 @@ void main() {
       pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialized to empty', () async {
-      expect(pageObject.actualValue(), completion(isEmpty));
+      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
     });
     test('can revert to empty', () async {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await new Future.delayed(DeferredCallback.defaultTimeout);
-      expect(pageObject.actualValue(), completion(isEmpty));
+      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(isEmpty)));
     });
   });
   group('EditorRenderSource | with initial value ', () {
@@ -39,33 +38,32 @@ void main() {
       pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialization', () async {
-      expect(pageObject.actualValue(), completion(_initialValue));
+      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
     });
     test('revertLastUpdate emits change', () async {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
-      await new Future.delayed(DeferredCallback.defaultTimeout);
-      expect(pageObject.actualValue(), completion('$_initialValue$_first'));
+      await fixture
+          .update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit('$_initialValue$_first')));
     });
     test('can\'t revert beyond initial value with revertLastUpdate', () async {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
-      await new Future.delayed(DeferredCallback.defaultTimeout);
-      expect(pageObject.actualValue(), completion(_initialValue));
+      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
     });
     test('can revert all updates', () async {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await new Future.delayed(DeferredCallback.defaultTimeout);
-      expect(pageObject.actualValue(), completion(_initialValue));
+      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
     });
     test('can\'t revert beyond initial value with revertAllUpdates', () async {
+      await pageObject.type(_first);
       await pageObject.revertAllUpdates();
-      await new Future.delayed(DeferredCallback.defaultTimeout);
-      expect(pageObject.actualValue(), completion(_initialValue));
+      await pageObject.revertAllUpdates();
+      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
     });
   });
 }
