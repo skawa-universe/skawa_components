@@ -19,7 +19,7 @@ void main() {
   final String _initialValue = "some initial content";
   group('EditorRenderSource | without initial value ', () {
     setUp(() async {
-      fixture = await new NgTestBed<RenderSourceTemplateComponent>().create();
+      fixture = await testBed.create();
       pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialized to empty', () async {
