@@ -61,6 +61,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   String get previousValue => _changeStack.length > 0 ? _changeStack.first : initialValue;
 
   void revertLastUpdate() {
+    print('revertLastUpdate');
     if (_changeStack.length <= 1) {
       revertAllUpdates();
     } else {
@@ -71,12 +72,14 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   }
 
   void revertAllUpdates() {
+    print('revertAllUpdates');
     value = initialValue;
     _changeStack.clear();
     _emit(initialValue);
   }
 
   void contentChanged(Event ev) {
+    print('contentChanged : $ev');
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
     }
