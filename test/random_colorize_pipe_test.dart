@@ -1,4 +1,3 @@
-@TestOn('browser')
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:skawa_components/src/pipes/random_colorize_pipe.dart';
 import 'package:test/test.dart';
@@ -12,6 +11,7 @@ main() {
     SkawaRandomColorizePipe pipe;
     final int intSeed = 1234;
     final String stringSeed = 'seed';
+    final String hexSeed = '2cbe4e';
     setUp(() => pipe = new SkawaRandomColorizePipe());
     test('accepts int', () {
       expect(() {
@@ -31,12 +31,21 @@ main() {
     });
     test('returns valid css color', () {
       String a = pipe.transform(intSeed);
-      expect(a, allOf(startsWith('#'), hasLength(lessThanOrEqualTo(7))));
+      expect(a, startsWith('#'));
+      expect(SkawaRandomColorizePipe.validHashLength.contains(a.length - 1), isTrue);
     });
     test('returns same color for the same string seed', () {
       String a = pipe.transform(stringSeed);
       String b = pipe.transform(stringSeed);
       expect(a, b);
+    });
+    test('keeps hex numbers', () {
+      String b = pipe.transform(hexSeed);
+      expect(b, contains(hexSeed));
+    });
+    test("output can't be 6 length", () {
+      String b = pipe.transform(hexSeed.substring(1));
+      expect(b, hasLength(5));
     });
   });
 }
