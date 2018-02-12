@@ -37,7 +37,6 @@
 ## 0.0.6+1
 
 -  fixed an issue where dart2js would warn about `??` in for loop
->>>>>>> 0ed745b8749299cde49077673c9a05eefab2f7e2
 
 ## 0.0.6
 
