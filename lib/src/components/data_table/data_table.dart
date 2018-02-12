@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:html';
+
 import 'package:angular2/angular2.dart';
 import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
-import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/src/components/dynamic_component/dynamic_component.dart';
-
-import 'data_table_column.dart';
+import 'package:angular_components/src/components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/src/utils/disposer/disposer.dart';
 import 'package:quiver/collection.dart';
+
+import 'data_table_column.dart';
 import 'row_data.dart';
 
 export 'data_table_column.dart';
@@ -17,7 +18,8 @@ export 'row_data.dart';
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
-  SkawaDataColRendererDirective
+  SkawaDataColRendererDirective,
+  SkawaDataTableSortDirective
 ];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].
@@ -41,6 +43,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 /// __Events:__
 /// - `change: List<RowData>` -- Emitted when selection changes. If `selectable` is false, this event will never trigger.
 /// - `highlight: RowData` -- Emitted when a row is highlighted. Note: highlighted rows are not automatically selected
+/// - `sort: SkawaDataTableColComponent` -- Emitted when a sort was invoked on the given column.
 ///
 @Component(
     selector: 'skawa-data-table',
@@ -50,10 +53,12 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     styleUrls: const ['data_table.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     preserveWhitespace: false)
-class SkawaDataTableComponent implements OnDestroy {
+class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
   final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColComponent> _sortController =
+      new StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = new Disposer.oneShot();
   @Input()
@@ -74,7 +79,10 @@ class SkawaDataTableComponent implements OnDestroy {
   RowData highlightedRow;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
-    _tearDownDisposer..addEventSink(_changeController)..addEventSink(_highlightController);
+    _tearDownDisposer
+      ..addEventSink(_changeController)
+      ..addEventSink(_highlightController)
+      ..addEventSink(_sortController);
     onChange = _changeController.stream.distinct((a, b) {
       return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
     });
@@ -82,6 +90,9 @@ class SkawaDataTableComponent implements OnDestroy {
 
   @Output('highlight')
   Stream<RowData> get onHighlight => _highlightController.stream;
+
+  @Output('sort')
+  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
 
   int getColspanFor(SkawaDataTableColComponent col, int skippedIndex) {
     int span = 1;
@@ -136,6 +147,16 @@ class SkawaDataTableComponent implements OnDestroy {
     return true;
   }
 
+  void triggerSort(SkawaDataTableColComponent column) {
+    column.sortModel.toggleSort();
+    for (var c in columns) {
+      if (c != column && c.sortModel != null) {
+        c.sortModel.activeSort = null;
+      }
+    }
+    _sortController.add(column);
+  }
+
   void _emitChange() {
     var _selectedRows = rows.where((r) => r.checked).toList(growable: false);
     _changeController.add(_selectedRows);
@@ -155,6 +176,15 @@ class SkawaDataTableComponent implements OnDestroy {
       if (a[i].checked != b[i].checked) return false;
     }
     return true;
+  }
+
+  @override
+  void ngAfterViewInit() {
+    var initialSorts = columns.where((c) => c.sortModel?.activeSort != null).toList(growable: false);
+    if (initialSorts.length > 1) {
+      throw new ArgumentError(
+          'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
+    }
   }
 }
 

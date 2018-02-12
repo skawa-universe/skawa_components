@@ -1,9 +1,12 @@
-## 0.0.12
+## 0.0.13
 
 - Added new component `<skawa-skawa-markdown-editor>` and corresponding Directives.
 - Ckeditor description corrected
 - analysis_options became stricter
 - travis script now running dartfmt, if the code is not formated properly then exit
+
+## 0.0.12
+- Added sort logic to SkawaDataTableComponent
 
 ## 0.0.11
 - Modified snackbar to use material popup.

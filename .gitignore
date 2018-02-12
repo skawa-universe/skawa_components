@@ -22,3 +22,4 @@ Thumbs.db
 #IDE garbage
 .dart_tool
 .idea
+skawa_components.iml

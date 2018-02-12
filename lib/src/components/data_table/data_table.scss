@@ -10,10 +10,8 @@
       th, td {
         &:nth-child(2) {
           padding-left: 0;
-          //width: 40px;
         }
-      }
-      th, td {
+
         &:first-of-type {
           text-align: center;
           color: black;
@@ -83,7 +81,39 @@
       }
       th {
         font-size: 12px;
-        //color: $secondary-text-color;
+        &.sort-enabled {
+          a {
+            cursor: pointer;
+            &:before {
+              font-family: 'Material Icons';
+              content: 'arrow_downwards';
+              opacity: 0;
+            }
+            &:hover {
+              font-weight: bold;
+              &:before {
+                opacity: 0.38;
+              }
+            }
+          }
+        }
+        &.sort {
+          font-weight: bold;
+          a {
+            cursor: pointer;
+            &:before {
+              font-family: 'Material Icons';
+              content: 'arrow_upwards';
+              opacity: 0.87;
+            }
+          }
+          &.desc {
+            a:before {
+              content: 'arrow_downwards';
+            }
+          }
+        }
+
       }
     }
   }
