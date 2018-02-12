@@ -224,15 +224,14 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
     <skawa-data-table [data]="data" [selectable]="false">
        <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
        <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
      ''',
-  directives: const [SkawaDataTableComponent, SkawaDataTableColComponent]
-)
+    directives: const [SkawaDataTableComponent, SkawaDataTableColComponent])
 class NonSelectableDatatableTestComponent {
   String cssClass;
 
@@ -251,8 +250,8 @@ List<RowData> rowData = <SampleRowData>[
 ];
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
     <skawa-data-table [data]="rowData" [selectable]="true" (sort)="sort(\$event)">
       <skawa-data-table-col [accessor]="categoryAccessor" header="Class" footer="Total:" class="text-column"
                           [skipFooter]="false"></skawa-data-table-col>
@@ -264,8 +263,7 @@ List<RowData> rowData = <SampleRowData>[
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
      ''',
-  directives: const [SkawaDataTableComponent, SkawaDataTableColComponent, SkawaDataTableSortDirective]
-)
+    directives: const [SkawaDataTableComponent, SkawaDataTableColComponent, SkawaDataTableSortDirective])
 class SelectableDatatableTestComponent {
   String categoryAccessor(SampleNumericData row) => row.category;
 
