@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:skawa_components/src/components/material_snackbar/material_snackbar.dart';
-import 'package:angular_components/src/components/material_button/material_button.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
@@ -90,7 +89,7 @@ main() {
 
 @Component(
   selector: 'test',
-  directives: const [MaterialSnackbarComponent, MaterialButtonComponent],
+  directives: const [MaterialSnackbarComponent],
   template: '''
   <material-snackbar></material-snackbar>
   ''',
