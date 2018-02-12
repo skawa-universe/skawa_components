@@ -1,6 +1,3 @@
-@import '../../../../css/scaffolding/colors';
-@import '../../../../css/scaffolding/responsiveness';
-
 @mixin shadow-2dp() {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
   0 3px 1px -2px rgba(0, 0, 0, 0.14),
@@ -15,15 +12,7 @@
   transform: translate(-50%, 100%);
   font-size: 14px;
   z-index: 10000;
-  @include mobile() {
-    height: 96px;
-  }
-  @include tablet-only() {
-    height: 72px;
-  }
-  @include desktop() {
-    height: 48px;
-  }
+  height: 48px;
   color: white;
   background-color: #323232;
   display: flex;
@@ -34,7 +23,6 @@
 
   material-button {
     align-self: center;
-    color: $purple
   }
 
   &.show {
@@ -43,5 +31,11 @@
 
   .message, .action {
     align-self: center;
+  }
+}
+
+:host-context(.touch-enabled) {
+  .snackbar-container {
+    height: 96px;
   }
 }
