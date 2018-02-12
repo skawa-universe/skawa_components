@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
-import 'package:skawa_components/src/components/material_snackbar/material_snackbar.dart';
+import 'package:skawa_components/src/components/skawa_snackbar/skawa_snackbar.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
@@ -11,16 +11,16 @@ import 'package:pageloader/src/annotations.dart';
 @AngularEntrypoint()
 main() {
   tearDown(disposeAnyRunningTest);
-  group('MaterialSnackbar |', () {
+  group('SkawaSnackbar |', () {
     test('initializing', () async {
-      final bed = new NgTestBed<MaterialSnackbarTestComponent>();
+      final bed = new NgTestBed<SkawaSnackbarTestComponent>();
       final fixture = await bed.create();
       final pageObject = await fixture.resolvePageObject(TestPO);
-      expect(pageObject.materialSnackbar, isNotNull);
+      expect(pageObject.skawaSnackbar, isNotNull);
     });
 
     test('displays a message (default duration: 3 sec)', () async {
-      final bed = new NgTestBed<MaterialSnackbarTestComponent>();
+      final bed = new NgTestBed<SkawaSnackbarTestComponent>();
       final fixture = await bed.create();
       final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.update((testElement) {
@@ -28,90 +28,84 @@ main() {
       });
       await new Future.delayed(new Duration(milliseconds: 1000), () async {
         await fixture.update();
-        await fixture.query<MaterialSnackbarComponent>((element) {
-          return element.componentInstance is MaterialSnackbarComponent;
-        }, (MaterialSnackbarComponent snackbar) {
+        await fixture.query<SkawaSnackbarComponent>((element) {
+          return element.componentInstance is SkawaSnackbarComponent;
+        }, (SkawaSnackbarComponent snackbar) {
           expect(snackbar.message.text, 'hello');
           expect(snackbar.show, true);
+          return false;
         });
-        expect(pageObject.materialSnackbar.messageContainer.classes, mayEmit('show'));
-        print('snackbar shows up');
+        expect(pageObject.skawaSnackbar.messageContainer.classes, mayEmit('show'));
       });
 
-
       await new Future.delayed(new Duration(milliseconds: 1000), () => null);
-      await fixture.query<MaterialSnackbarComponent>((element) {
-        return element.componentInstance is MaterialSnackbarComponent;
-      }, (MaterialSnackbarComponent snackbar) {
+      await fixture.query<SkawaSnackbarComponent>((element) {
+        return element.componentInstance is SkawaSnackbarComponent;
+      }, (SkawaSnackbarComponent snackbar) {
         expect(snackbar.message.text, 'hello');
         expect(snackbar.show, true);
       });
-      print('snackbar is still there after 1 second');
 
       await new Future.delayed(new Duration(milliseconds: 3000), () => null);
       await fixture.update();
-      expect(pageObject.materialSnackbar.messageContainer.classes, neverEmits('show'));
-      print('snackbar disappears after 3 seconds');
+      expect(pageObject.skawaSnackbar.messageContainer.classes, neverEmits('show'));
     });
 
     test('slides out after specified duration(2 seconds)', () async {
-      final bed = new NgTestBed<MaterialSnackbarTestComponent>();
+      final bed = new NgTestBed<SkawaSnackbarTestComponent>();
       final fixture = await bed.create();
       final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.update((testElement) {
         testElement.showMessage('hello', duration: new Duration(milliseconds: 2000));
       });
       await new Future.delayed(new Duration(milliseconds: 1000), () => null);
-      await fixture.query<MaterialSnackbarComponent>((element) {
-        return element.componentInstance is MaterialSnackbarComponent;
-      }, (MaterialSnackbarComponent snackbar) {
+      await fixture.query<SkawaSnackbarComponent>((element) {
+        return element.componentInstance is SkawaSnackbarComponent;
+      }, (SkawaSnackbarComponent snackbar) {
         expect(snackbar.message.text, 'hello');
         expect(snackbar.show, true);
-        print('snackbar shows up');
       });
 
       await new Future.delayed(new Duration(milliseconds: 1000), () => null);
-      await fixture.query<MaterialSnackbarComponent>((element) {
-        return element.componentInstance is MaterialSnackbarComponent;
-      }, (MaterialSnackbarComponent snackbar) {
+      await fixture.query<SkawaSnackbarComponent>((element) {
+        return element.componentInstance is SkawaSnackbarComponent;
+      }, (SkawaSnackbarComponent snackbar) {
         expect(snackbar.message.text, 'hello');
         expect(snackbar.show, true);
       });
-      print('snackbar is still there after 1 second');
 
       await new Future.delayed(new Duration(milliseconds: 2000), () => null);
       await fixture.update();
-      expect(pageObject.materialSnackbar.messageContainer.classes, neverEmits('show'));
-      print('snackbar disappears after 2 seconds');
+      expect(pageObject.skawaSnackbar.messageContainer.classes, neverEmits('show'));
     });
   });
 }
 
 @Component(
   selector: 'test',
-  directives: const [MaterialSnackbarComponent],
+  directives: const [SkawaSnackbarComponent],
   template: '''
-  <material-snackbar></material-snackbar>
+  <skawa-snackbar></skawa-snackbar>
   ''',
   providers: const [SnackbarService],
   changeDetection: ChangeDetectionStrategy.OnPush
 )
-class MaterialSnackbarTestComponent {
+class SkawaSnackbarTestComponent {
   final SnackbarService _snackbarService;
   final ChangeDetectorRef cd;
 
-  MaterialSnackbarTestComponent(this._snackbarService, this.cd);
+  SkawaSnackbarTestComponent(this._snackbarService, this.cd);
 
   void showMessage(String message, {Duration duration}) => _snackbarService.showMessage(message, duration: duration);
 }
 
 @EnsureTag('test')
 class TestPO {
-  @ByTagName('material-snackbar')
-  MaterialSnackbarPO materialSnackbar;
+  @ByTagName('skawa-snackbar')
+  SkawaSnackbarPO skawaSnackbar;
 }
 
-class MaterialSnackbarPO {
+class SkawaSnackbarPO {
   @root
   PageLoaderElement rootElement;
 

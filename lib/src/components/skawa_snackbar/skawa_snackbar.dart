@@ -3,6 +3,13 @@ import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
 import 'package:angular_components/src/utils/disposer/disposer.dart';
 
+
+/// Snackbar service, emitting messages that the snackbar can listen to.
+///
+///__Example__
+///
+///   _snackbarService.showMessage('Hello world!');
+///
 @Injectable()
 class SnackbarService {
 
@@ -33,20 +40,29 @@ class SnackMessage {
   SnackAction action;
 }
 
+/// A Snackbar component. See more at: https://material.io/guidelines/components/snackbars-toasts.html
+///
+/// __Example__
+///
+/// <material-snackbar></material-snackbar>
+///
+/// Will display messages emitted by SnackbarService.
+///
+
 @Component(
-    selector: 'material-snackbar',
-    templateUrl: 'material_snackbar.html',
-    styleUrls: const ['material_snackbar.css'],
+    selector: 'skawa-snackbar',
+    templateUrl: 'skawa_snackbar.html',
+    styleUrls: const ['skawa_snackbar.css'],
     directives: const [MaterialButtonComponent, NgIf],
     changeDetection: ChangeDetectionStrategy.OnPush,
     preserveWhitespace: false,
 )
-class MaterialSnackbarComponent implements OnInit, OnDestroy {
+class SkawaSnackbarComponent implements OnInit, OnDestroy {
   final ChangeDetectorRef _changeDetectorRef;
   final SnackbarService _snackbarService;
   final Disposer _tearDownDisposer = new Disposer.oneShot();
 
-  MaterialSnackbarComponent(this._changeDetectorRef, this._snackbarService);
+  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
 
   SnackMessage message;
   SnackMessage nextMessage;
