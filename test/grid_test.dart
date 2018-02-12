@@ -21,7 +21,7 @@ Future main() async {
       var tiles = await pageObject.grid.tiles;
       expect(tiles.length, 3);
       Future.forEach(tiles, (PageLoaderElement tile) async {
-        expect((await tile.getBoundingClientRect()).width, 280.0);
+        expect((await tile.getBoundingClientRect()).width.round(), 280.0);
       });
     });
   });
