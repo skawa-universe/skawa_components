@@ -1,3 +1,10 @@
+## 0.0.13
+- Added SkawaRandomColorizePipe
+
+
+## 0.0.12
+- Added sort logic to SkawaDataTableComponent
+
 ## 0.0.11
 - Modified snackbar to use material popup.
 - Snackbar should now be in the bottom left corner of the screen always.
