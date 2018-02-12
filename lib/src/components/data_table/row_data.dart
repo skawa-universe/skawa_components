@@ -1,5 +1,5 @@
 ///
-/// The [SkawaDataTableComponent] can be display objects wiches extends this abstarct class.
+/// The [SkawaDataTableComponent] can display objects extending this abstract class.
 ///
 abstract class RowData {
   bool checked = false;
