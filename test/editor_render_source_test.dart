@@ -83,7 +83,7 @@ void main() {
 @Component(
     selector: 'test',
     template: '''
-    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="a"></textarea>
+    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="updateDelay"></textarea>
     <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
               ''',
@@ -92,7 +92,7 @@ void main() {
 class RenderSourceTemplateComponent {
   String initialValue;
 
-  var a = new Duration(milliseconds: 100);
+  Duration updateDelay = new Duration(milliseconds: 100);
 
   @ViewChild(EditorRenderSource)
   EditorRenderSource renderSource;

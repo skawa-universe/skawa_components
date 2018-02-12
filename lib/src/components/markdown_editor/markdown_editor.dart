@@ -90,8 +90,10 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   @Input()
   String initialValue;
 
-  String _emulatedCssClass;
+  @Input()
+  Duration updateDelay;
 
+  String _emulatedCssClass;
   EmbeddedViewRef _placeholderTemplateCache;
   bool _placeholderDefined;
 

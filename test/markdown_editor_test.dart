@@ -71,19 +71,19 @@ class TextAreaElement {
   @root
   PageLoaderElement rootElement;
 
-  Future<String> get innerText => rootElement.innerText;
+  Future<String> get innerText async => await rootElement.innerText;
 
-  Future<bool> get displayed => rootElement.displayed;
+  Future<bool> get displayed async => await rootElement.displayed;
 
   PageLoaderAttributes get seleniumAttributes => rootElement.seleniumAttributes;
 
-  Future typing(String input) async => rootElement.type(input);
+  Future typing(String input) async => await rootElement.type(input);
 }
 
 @Component(
   selector: 'app-cmp',
   template: '''
-    <skawa-markdown-editor #editor initialValue="hello">
+    <skawa-markdown-editor #editor initialValue="hello" [updateDelay]="updateDelay">
         <div class="placeholder">Nothing to show you yet</div>
     </skawa-markdown-editor>
     <button (click)="editor.renderSource.revertLastUpdate()">Step back</button>
@@ -97,4 +97,6 @@ class TextAreaElement {
 class AppComponent {
   @ViewChild(SkawaMarkdownEditorComponent)
   SkawaMarkdownEditorComponent markdownEditorComponent;
+
+  Duration updateDelay = new Duration(milliseconds: 100);
 }
