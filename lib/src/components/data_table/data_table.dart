@@ -53,7 +53,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     styleUrls: const ['data_table.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     preserveWhitespace: false)
-class SkawaDataTableComponent implements OnDestroy {
+class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
   final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
@@ -176,6 +176,15 @@ class SkawaDataTableComponent implements OnDestroy {
       if (a[i].checked != b[i].checked) return false;
     }
     return true;
+  }
+
+  @override
+  ngAfterViewInit() {
+    var initialSorts = columns.where((c) => c.sortModel?.activeSort != null).toList(growable: false);
+    if (initialSorts.length > 1) {
+      throw new ArgumentError(
+          'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
+    }
   }
 }
 
