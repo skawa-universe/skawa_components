@@ -1,9 +1,16 @@
-## 0.0.13
+## 0.0.15
 
 - Added new component `<skawa-skawa-markdown-editor>` and corresponding Directives.
 - Ckeditor description corrected
 - analysis_options became stricter
 - travis script now running dartfmt, if the code is not formated properly then exit
+
+## 0.0.14
+- Added tests to snackbar
+- Changed angular2 version from  ^3.1.0 to 3.1.0
+
+## 0.0.13
+- Added SkawaRandomColorizePipe
 
 ## 0.0.12
 - Added sort logic to SkawaDataTableComponent

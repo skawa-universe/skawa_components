@@ -1,142 +1,131 @@
 import 'dart:async';
-import 'dart:html';
-import 'dart:math';
 import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
-import 'package:angular_components/src/laminate/enums/alignment.dart';
-import 'package:angular_components/src/laminate/popup/src/popup_size_provider.dart';
-import 'package:angular_components/src/laminate/popup/src/popup_source.dart';
-import 'package:angular_components/src/utils/angular/properties/properties.dart';
 import 'package:angular_components/src/utils/disposer/disposer.dart';
-import 'package:angular_components/src/components/material_popup/material_popup.dart';
 
+/// Snackbar service, emitting messages that the snackbar can listen to.
+/// You can emit messages with the showMessage function. The default display
+/// time of messages is 3 seconds, but you can specify any duration, and also callbacks.
+///
+///__Example__
+///
+///   _snackbarService.showMessage(
+///     'Hello world',
+///     duration: new Duration(seconds: 2),
+///     action: new SnackAction()..label = 'call me back'..callback = callback);
+///
 @Injectable()
-class DocumentPopupSource extends ElementPopupSource {
-  final NgZone _zone;
+class SnackbarService {
+  StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
 
-  DocumentPopupSource(this._zone);
+  Stream get messages => _messageQueue.stream;
 
-  @override
-  final Alignment alignOriginX = Alignment.Start;
-
-  @override
-  final Alignment alignOriginY = Alignment.End;
-
-  @override
-  bool get isRtl => false;
-
-  @override
-  Stream<Rectangle<num>> onDimensionsChanged({bool track: false}) {
-    // TODO: track is currently ignored... yield* for window.resize?
-    return new Stream<Rectangle<num>>.fromIterable([
-      _zone.runOutsideAngular(() {
-        return document.body.getBoundingClientRect();
-      })
-    ]);
+  void showMessage(String message, {Duration duration, SnackAction action}) {
+    _messageQueue.add(new SnackMessage()
+      ..text = message
+      ..duration = duration ?? _defaultDuration
+      ..action = action);
   }
 
-  @override
-  ElementRef get sourceElement => new ElementRef(document.body);
+  static final Duration _defaultDuration = new Duration(seconds: 3);
 }
 
+class SnackAction {
+  String label;
+  Function callback;
+}
+
+class SnackMessage {
+  String text;
+  Duration duration;
+  SnackAction action;
+}
+
+/// A Snackbar component. See more at: https://material.io/guidelines/components/snackbars-toasts.html
 ///
-/// __Inputs:__
+/// __Example__
 ///
-/// - `actionLabel: String` -- label to display on action button. If not set, button won't be displayed
-/// - `visible` -- display or hide snackbar
+/// <material-snackbar></material-snackbar>
 ///
-/// __Outputs:__
+/// Will display messages emitted by SnackbarService. Also a button if a SnackAction callback is specified.
 ///
-/// - `trigger: Event` -- action button is pressed
-///
-/// If there are multiple popupBindings provided in the project where you use this component,
-/// the snackbar may not work because the id's may be the same for more than one popup.
+
 @Component(
     selector: 'skawa-snackbar',
     templateUrl: 'snackbar.html',
     styleUrls: const ['snackbar.css'],
-    directives: const [MaterialPopupComponent, MaterialButtonComponent, NgIf, NgClass],
-    providers: const [
-      const Provider(PopupSource, useClass: DocumentPopupSource),
-      const Provider(PopupSizeProvider, useFactory: sizeProviderFactory)
-    ],
-    preserveWhitespace: false,
-    changeDetection: ChangeDetectionStrategy.OnPush)
-class SkawaSnackbarComponent implements OnDestroy {
-  final PopupSource documentSource;
-  final StreamController<Event> _triggerController = new StreamController<Event>.broadcast(sync: true);
-  final StreamController<bool> _toggleController = new StreamController<bool>.broadcast(sync: true);
-  final Disposer _disposer = new Disposer.oneShot();
-  final ChangeDetectorRef _cd;
+    directives: const [MaterialButtonComponent, NgIf],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    preserveWhitespace: false)
+class SkawaSnackbarComponent implements OnInit, OnDestroy {
+  final ChangeDetectorRef _changeDetectorRef;
+  final SnackbarService _snackbarService;
+  final Disposer _tearDownDisposer = new Disposer.oneShot();
 
-  SkawaSnackbarComponent(this.documentSource, this._cd) {
-    _disposer..addEventSink(_toggleController)..addEventSink(_triggerController);
+  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
+
+  SnackMessage message;
+  SnackMessage nextMessage;
+  Timer _messageTimer;
+  bool show;
+
+  Timer _animationBlocker;
+  static final Duration _minimumSlideInDelay = new Duration(milliseconds: 100);
+
+  @override
+  void ngOnInit() {
+    final StreamSubscription subscription = _snackbarService.messages.listen((newMessage) {
+      if (message == null) {
+        message = newMessage;
+        _slideIn();
+      } else {
+        nextMessage = newMessage;
+        _messageTimer?.cancel();
+        _messageTimer = null;
+        if (_animationBlocker == null) {
+          _slideOut();
+        }
+      }
+    });
+    _tearDownDisposer.addStreamSubscription(subscription);
   }
 
-  @ViewChild(MaterialPopupComponent)
-  MaterialPopupComponent popupComponent;
+  void _slideIn() {
+    show = true;
+    _animationBlocker = new Timer(_minimumSlideInDelay, () {
+      _animationBlocker = null;
+      if (nextMessage != null) {
+        _slideOut();
+      }
+    });
+    _changeDetectorRef.markForCheck();
+  }
 
-  @Input()
-  String actionLabel;
+  void _slideOut() {
+    show = false;
+    _changeDetectorRef.markForCheck();
+  }
 
-  @Input()
-  String message = '';
-
-  @Output('trigger')
-  Stream<Event> get onTrigger => _triggerController.stream;
-
-  @Output('toggle')
-  Stream<bool> get onToggle => _toggleController.stream;
-
-  @Input()
-  set visible(val) {
-    displayPopup = getBool(val);
-    if (displayPopup) {
-      popupComponent.open();
+  void transitionEnd(_) {
+    if (show) {
+      _messageTimer = new Timer(message.duration, () {
+        _messageTimer = null;
+        _slideOut();
+      });
     } else {
-      popupComponent.close();
+      if (nextMessage == null) {
+        message = null;
+        _changeDetectorRef.markForCheck();
+      } else {
+        message = nextMessage;
+        nextMessage = null;
+        _slideIn();
+      }
     }
-    _cd.markForCheck();
-  }
-
-  get visible => displayPopup;
-
-  bool displayPopup = false;
-  bool isFixed = false;
-
-  bool get useAction => actionLabel != null;
-  bool showAnimation = false;
-
-  DivElement parentDiv;
-  bool first = true;
-
-  void visibleChanged() {
-    if (first) {
-      parentDiv = document.body.querySelector('div[pane-id="${popupComponent.resolvedPopupRef.uniqueId}"]');
-      _disposer.addStreamSubscription(popupComponent.onOpened.listen((_) {
-        parentDiv.style.setProperty("transform", "translateX(30px) translateY(${window.screen.height - 180}px)");
-      }));
-
-      first = false;
-    }
-    if (!isFixed) {
-      parentDiv.style.position = 'fixed';
-      isFixed = true;
-    }
-    showAnimation = displayPopup;
-    _cd.markForCheck();
-  }
-
-  void trigger(event) {
-    _triggerController.add(event);
   }
 
   @override
   void ngOnDestroy() {
-    _disposer.dispose();
+    _tearDownDisposer.dispose();
   }
-}
-
-PopupSizeProvider sizeProviderFactory() {
-  return new FixedPopupSizeProvider(568, 100);
 }
