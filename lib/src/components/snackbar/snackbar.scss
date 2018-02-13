@@ -1,22 +1,41 @@
-@import "../../css/skawa-material";
+@mixin shadow-2dp() {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+  0 3px 1px -2px rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
 
-.snackbar {
+.snackbar-container {
+  @include shadow-2dp;
+  position: fixed;
+  left: 50%;
+  bottom: 0px;
+  transform: translate(-50%, 100%);
   font-size: 14px;
-  background-color: #323232;
+  z-index: 10000;
   height: 48px;
+  color: white;
+  background-color: #323232;
+  display: flex;
+  padding: 0 24px;
   box-sizing: border-box;
   border-radius: 2px;
-  color: white;
-  padding: 0 24px;
-  display: flex;
-  opacity: 0;
-  transition: opacity 0.5s linear;
+  transition: transform 0.5s ease;
+
+  material-button {
+    align-self: center;
+  }
+
+  &.show {
+    transform: translate(-50%, 0);
+  }
+
   .message, .action {
     align-self: center;
   }
-  &.displayed {
-    transition: opacity 0.5s linear;
-    opacity: 1;
+}
+
+:host-context(.touch-enabled) {
+  .snackbar-container {
+    height: 96px;
   }
-  @include shadow-2dp;
 }
