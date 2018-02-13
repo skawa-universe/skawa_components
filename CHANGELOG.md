@@ -1,6 +1,9 @@
+## 0.0.14
+- Added tests to snackbar
+- Changed angular2 version from  ^3.1.0 to 3.1.0
+
 ## 0.0.13
 - Added SkawaRandomColorizePipe
-
 
 ## 0.0.12
 - Added sort logic to SkawaDataTableComponent

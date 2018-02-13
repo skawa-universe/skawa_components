@@ -5,10 +5,15 @@ import 'package:angular_components/src/utils/disposer/disposer.dart';
 
 
 /// Snackbar service, emitting messages that the snackbar can listen to.
+/// You can emit messages with the showMessage function. The default display
+/// time of messages is 3 seconds, but you can specify any duration, and also callbacks.
 ///
 ///__Example__
 ///
-///   _snackbarService.showMessage('Hello world!');
+///   _snackbarService.showMessage(
+///     'Hello world',
+///     duration: new Duration(seconds: 2),
+///     action: new SnackAction()..label = 'call me back'..callback = callback);
 ///
 @Injectable()
 class SnackbarService {
@@ -46,7 +51,7 @@ class SnackMessage {
 ///
 /// <material-snackbar></material-snackbar>
 ///
-/// Will display messages emitted by SnackbarService.
+/// Will display messages emitted by SnackbarService. Also a button if a SnackAction callback is specified.
 ///
 
 @Component(
