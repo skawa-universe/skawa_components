@@ -50,19 +50,19 @@ class SnackMessage {
 ///
 
 @Component(
-    selector: 'skawa-snackbar',
-    templateUrl: 'skawa_snackbar.html',
-    styleUrls: const ['skawa_snackbar.css'],
+    selector: 'snackbar',
+    templateUrl: 'snackbar.html',
+    styleUrls: const ['snackbar.css'],
     directives: const [MaterialButtonComponent, NgIf],
     changeDetection: ChangeDetectionStrategy.OnPush,
     preserveWhitespace: false,
 )
-class SkawaSnackbarComponent implements OnInit, OnDestroy {
+class SnackbarComponent implements OnInit, OnDestroy {
   final ChangeDetectorRef _changeDetectorRef;
   final SnackbarService _snackbarService;
   final Disposer _tearDownDisposer = new Disposer.oneShot();
 
-  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
+  SnackbarComponent(this._changeDetectorRef, this._snackbarService);
 
   SnackMessage message;
   SnackMessage nextMessage;
