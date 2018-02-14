@@ -22,7 +22,7 @@ linter:
     - unrelated_type_equality_checks
     - valid_regexps
 
-#    - always_declare_return_types -- doesn't interact well with strong mode
+    - always_declare_return_types
 #    - always_specify_types        -- doesn't interact well with strong mode
     - annotate_overrides
 #    - avoid_as                    -- jmesserly recommends avoiding
@@ -39,10 +39,10 @@ linter:
 #    - one_member_abstracts
     - only_throw_errors
     - overridden_fields
-#   - package_api_docs        # This is not public APIs
+   - package_apidocs
     - package_prefixed_library_names
     - prefer_is_not_empty
-#   - public_member_api_docs  # This is not public APIs
+   - public_member_api_docs
     - slash_for_doc_comments
     - sort_constructors_first
     - sort_unnamed_constructors_first

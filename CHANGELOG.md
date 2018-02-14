@@ -1,6 +1,6 @@
 ## 0.0.15
 
-- Added new component `<skawa-skawa-markdown-editor>` and corresponding Directives.
+- Added new component `<skawa-markdown-editor>` and corresponding Directives.
 - Ckeditor description corrected
 - analysis_options became stricter
 - travis script now running dartfmt, if the code is not formated properly then exit

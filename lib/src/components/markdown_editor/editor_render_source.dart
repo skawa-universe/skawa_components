@@ -15,7 +15,7 @@ import 'package:angular2/core.dart';
 ///
 /// __Methods__:
 ///
-/// - `revertAllUpdates(): void` -- revert all updates since directive was created
+/// - `revertAllUpdates(): void` -- revert all updates since directiv e was created
 /// - `revertLastUpdate(): void` -- revert last update
 ///
 /// __Example__:
@@ -128,8 +128,13 @@ class DeferredCallback<T, K> {
         _cb = callback;
 
   Future<K> call(T param) {
-    if (_timer != null) _timer.cancel();
     var c = new Completer<K>();
+    if (_timer != null) {
+      _timer.cancel();
+    } else {
+      previuslyEmitted = param;
+      c.complete(_cb(param));
+    }
     _timer = new Timer(timeout, () {
       try {
         if (param == previuslyEmitted) {
