@@ -1,10 +1,11 @@
 name: skawa_components
-version: 0.0.14
+version: 0.0.15
 
 dependencies:
   angular2: 3.1.0
   angular_components: ^0.5.3+1
   quiver: 0.25.0
+  markdown: any
 
 dev_dependencies:
   sass_builder: 0.1.1
@@ -14,6 +15,7 @@ dev_dependencies:
   angular_utility:
     git: https://github.com/skawa-universe/angular_utility.git
   html_unescape: ^0.1.5
+  mockito: ^1.0.1
 dependency_overrides:
   sass:
     git:

@@ -8,7 +8,7 @@ import 'dart:convert' show HTML_ESCAPE;
 import 'package:html_unescape/html_unescape.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {
     var bed = new NgTestBed<TestEditorComponent>();
@@ -37,7 +37,7 @@ main() {
   ''',
 )
 class TestEditorComponent {
-  var plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
+  List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 
   String get escaped => HTML_ESCAPE.convert(_TEST_MARKUP);
   static const String _TEST_MARKUP = 'Some <br /> content <p>comes here.</p>';

@@ -1,0 +1,541 @@
+@charset "UTF-8";
+:host {
+  display: block;
+  position: relative;
+}
+:host [hidden] {
+  display: none !important;
+}
+:host.mode-display .markdown-container {
+  display: block;
+}
+:host.mode-display textarea {
+  display: none;
+}
+:host.mode-display .modify-markdown-button {
+  display: inline-block;
+}
+:host.mode-display .preview-changes-button {
+  display: none;
+}
+:host.mode-edit .markdown-container {
+  display: none !important;
+}
+:host.mode-edit textarea {
+  display: block;
+}
+:host.mode-edit .modify-markdown-button {
+  display: none;
+}
+:host.mode-edit .preview-changes-button {
+  display: inline-block;
+}
+:host .markdown-container {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: #333;
+  font-size: 16px;
+  word-wrap: break-word;
+  min-height: 200px;
+  cursor: pointer;
+}
+:host .markdown-container a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+:host .markdown-container a:active,
+:host .markdown-container a:hover {
+  outline-width: 0;
+}
+:host .markdown-container strong {
+  font-weight: inherit;
+}
+:host .markdown-container strong {
+  font-weight: bolder;
+}
+:host .markdown-container em {
+  font-style: italic;
+}
+:host .markdown-container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+:host .markdown-container img {
+  border-style: none;
+}
+:host .markdown-container svg:not(:root) {
+  overflow: hidden;
+}
+:host .markdown-container code,
+:host .markdown-container kbd,
+:host .markdown-container pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+:host .markdown-container hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+:host .markdown-container input {
+  font: inherit;
+  margin: 0;
+}
+:host .markdown-container input {
+  overflow: visible;
+}
+:host .markdown-container [type=checkbox] {
+  box-sizing: border-box;
+  padding: 0;
+}
+:host .markdown-container * {
+  box-sizing: border-box;
+}
+:host .markdown-container input {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+:host .markdown-container a {
+  color: #4078c0;
+  text-decoration: none;
+}
+:host .markdown-container a:hover,
+:host .markdown-container a:active {
+  text-decoration: underline;
+}
+:host .markdown-container strong {
+  font-weight: 600;
+}
+:host .markdown-container hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+:host .markdown-container hr::before {
+  display: table;
+  content: "";
+}
+:host .markdown-container hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+:host .markdown-container table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+:host .markdown-container td,
+:host .markdown-container th {
+  padding: 0;
+}
+:host .markdown-container h1,
+:host .markdown-container h2,
+:host .markdown-container h3,
+:host .markdown-container h4,
+:host .markdown-container h5,
+:host .markdown-container h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+:host .markdown-container h1 {
+  font-size: 32px;
+  font-weight: 600;
+}
+:host .markdown-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+:host .markdown-container h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+:host .markdown-container h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+:host .markdown-container h5 {
+  font-size: 14px;
+  font-weight: 600;
+}
+:host .markdown-container h6 {
+  font-size: 12px;
+  font-weight: 600;
+}
+:host .markdown-container p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+:host .markdown-container blockquote {
+  margin: 0;
+}
+:host .markdown-container ul,
+:host .markdown-container ol {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: disc;
+}
+:host .markdown-container ul ul {
+  list-style-type: circle;
+}
+:host .markdown-container ol ol,
+:host .markdown-container ul ol {
+  list-style-type: lower-roman;
+}
+:host .markdown-container ul ul ol,
+:host .markdown-container ul ol ol,
+:host .markdown-container ol ul ol,
+:host .markdown-container ol ol ol,
+:host .markdown-container ul ul ul {
+  list-style-type: lower-alpha;
+}
+:host .markdown-container dd {
+  margin-left: 0;
+}
+:host .markdown-container code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 12px;
+}
+:host .markdown-container pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+:host .markdown-container .octicon {
+  vertical-align: text-bottom;
+}
+:host .markdown-container input {
+  -webkit-font-feature-settings: "liga" 0;
+  font-feature-settings: "liga" 0;
+}
+:host .markdown-container .markdown-body::before {
+  display: table;
+  content: "";
+}
+:host .markdown-container .markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+:host .markdown-container > *:first-child {
+  margin-top: 0 !important;
+}
+:host .markdown-container > *:last-child {
+  margin-bottom: 0 !important;
+}
+:host .markdown-container a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+:host .markdown-container .anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+:host .markdown-container .anchor:focus {
+  outline: none;
+}
+:host .markdown-container p,
+:host .markdown-container blockquote,
+:host .markdown-container ul,
+:host .markdown-container ol,
+:host .markdown-container dl,
+:host .markdown-container table,
+:host .markdown-container pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+:host .markdown-container hr {
+  height: 0.25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #e7e7e7;
+  border: 0;
+}
+:host .markdown-container blockquote {
+  padding: 0 1em;
+  color: #777;
+  border-left: 0.25em solid #ddd;
+}
+:host .markdown-container blockquote > :first-child {
+  margin-top: 0;
+}
+:host .markdown-container blockquote > :last-child {
+  margin-bottom: 0;
+}
+:host .markdown-container kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+:host .markdown-container h1,
+:host .markdown-container h2,
+:host .markdown-container h3,
+:host .markdown-container h4,
+:host .markdown-container h5,
+:host .markdown-container h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+:host .markdown-container h1 .octicon-link,
+:host .markdown-container h2 .octicon-link,
+:host .markdown-container h3 .octicon-link,
+:host .markdown-container h4 .octicon-link,
+:host .markdown-container h5 .octicon-link,
+:host .markdown-container h6 .octicon-link {
+  color: #000;
+  vertical-align: middle;
+  visibility: hidden;
+}
+:host .markdown-container h1:hover .anchor,
+:host .markdown-container h2:hover .anchor,
+:host .markdown-container h3:hover .anchor,
+:host .markdown-container h4:hover .anchor,
+:host .markdown-container h5:hover .anchor,
+:host .markdown-container h6:hover .anchor {
+  text-decoration: none;
+}
+:host .markdown-container h1:hover .anchor .octicon-link,
+:host .markdown-container h2:hover .anchor .octicon-link,
+:host .markdown-container h3:hover .anchor .octicon-link,
+:host .markdown-container h4:hover .anchor .octicon-link,
+:host .markdown-container h5:hover .anchor .octicon-link,
+:host .markdown-container h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+:host .markdown-container h1 {
+  padding-bottom: 0.3em;
+  font-size: 2em;
+  border-bottom: 1px solid #eee;
+}
+:host .markdown-container h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #eee;
+}
+:host .markdown-container h3 {
+  font-size: 1.25em;
+}
+:host .markdown-container h4 {
+  font-size: 1em;
+}
+:host .markdown-container h5 {
+  font-size: 0.875em;
+}
+:host .markdown-container h6 {
+  font-size: 0.85em;
+  color: #777;
+}
+:host .markdown-container ul,
+:host .markdown-container ol {
+  padding-left: 2em;
+}
+:host .markdown-container ul ul,
+:host .markdown-container ul ol,
+:host .markdown-container ol ol,
+:host .markdown-container ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+:host .markdown-container li > p {
+  margin-top: 16px;
+}
+:host .markdown-container li + li {
+  margin-top: 0.25em;
+}
+:host .markdown-container dl {
+  padding: 0;
+}
+:host .markdown-container dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+:host .markdown-container dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+:host .markdown-container table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+:host .markdown-container table th {
+  font-weight: bold;
+}
+:host .markdown-container table th,
+:host .markdown-container table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+:host .markdown-container table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+:host .markdown-container table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+:host .markdown-container img {
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #fff;
+}
+:host .markdown-container code {
+  padding: 0.2em 0;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
+}
+:host .markdown-container code::before,
+:host .markdown-container code::after {
+  letter-spacing: -0.2em;
+  content: " ";
+}
+:host .markdown-container pre {
+  word-wrap: normal;
+}
+:host .markdown-container pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+:host .markdown-container .highlight {
+  margin-bottom: 16px;
+}
+:host .markdown-container .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+:host .markdown-container .highlight pre,
+:host .markdown-container pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+:host .markdown-container pre code {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+:host .markdown-container pre code::before,
+:host .markdown-container pre code::after {
+  content: normal;
+}
+:host .markdown-container .pl-0 {
+  padding-left: 0 !important;
+}
+:host .markdown-container .pl-1 {
+  padding-left: 3px !important;
+}
+:host .markdown-container .pl-2 {
+  padding-left: 6px !important;
+}
+:host .markdown-container .pl-3 {
+  padding-left: 12px !important;
+}
+:host .markdown-container .pl-4 {
+  padding-left: 24px !important;
+}
+:host .markdown-container .pl-5 {
+  padding-left: 36px !important;
+}
+:host .markdown-container .pl-6 {
+  padding-left: 48px !important;
+}
+:host .markdown-container .full-commit .btn-outline:not(:disabled):hover {
+  color: #4078c0;
+  border: 1px solid #4078c0;
+}
+:host .markdown-container kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+:host .markdown-container :checked + .radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #4078c0;
+}
+:host .markdown-container .task-list-item {
+  list-style-type: none;
+}
+:host .markdown-container .task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+:host .markdown-container .task-list-item input {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+:host .markdown-container hr {
+  border-bottom-color: #eee;
+}
+:host .markdown-container.with-placeholder {
+  display: flex;
+  align-items: center;
+}
+:host .markdown-container .placeholder {
+  color: rgba(0, 0, 0, 0.36);
+  text-align: center;
+  font-size: 20px;
+  width: 100%;
+}
+:host .modify-markdown-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+:host .preview-changes-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: none;
+}
+:host textarea {
+  width: 100%;
+  border: none;
+  background-color: #eee;
+  min-height: 200px;
+  padding: 8px;
+  font-size: 14px;
+  font-family: monospace;
+  box-sizing: border-box;
+}

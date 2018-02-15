@@ -11,7 +11,7 @@ class SortModel {
   SortModel(this.allowedDirections);
 
   void toggleSort() {
-    if ((allowedDirections ?? const []).isEmpty) {
+    if (((allowedDirections ?? const []) as List).isEmpty) {
       throw new ArgumentError('SortModel does not have any allowed sort directions');
     }
     if (activeSort == null) {

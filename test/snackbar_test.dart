@@ -10,7 +10,7 @@ import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 
 @AngularEntrypoint()
-main() {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Snackbar |', () {
     test('initializing', () async {
@@ -28,9 +28,9 @@ main() {
         testElement.showMessage('hello');
       });
       await new Future.delayed(new Duration(milliseconds: 2000), () => null);
-      await fixture.query<SnackbarComponent>((element) {
-        return element.componentInstance is SnackbarComponent;
-      }, (SnackbarComponent snackbar) {
+      await fixture.query<SkawaSnackbarComponent>((element) {
+        return element.componentInstance is SkawaSnackbarComponent;
+      }, (SkawaSnackbarComponent snackbar) {
         expect(snackbar.message.text, 'hello');
         expect(snackbar.show, true);
       });
@@ -78,7 +78,8 @@ main() {
       final fixture = await bed.create();
       final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.update((testElement) {
-        testElement.showMessageWithCallback('call me back', callback: () => testElement.displayMsgOnSpan('callback done'));
+        testElement.showMessageWithCallback('call me back',
+            callback: () => testElement.displayMsgOnSpan('callback done'));
       });
       await new Future.delayed(new Duration(milliseconds: 1000), () => null);
       PageLoaderElement button = await pageObject.snackbar.rootElement.getElementsByCss('material-button').first;
@@ -90,15 +91,14 @@ main() {
 }
 
 @Component(
-  selector: 'test',
-  directives: const [SnackbarComponent],
-  template: '''
-  <snackbar></snackbar>
+    selector: 'test',
+    directives: const [SkawaSnackbarComponent],
+    template: '''
+  <skawa-snackbar></skawa-snackbar>
   <span #messageSpan></span>
   ''',
-  providers: const [SnackbarService],
-  changeDetection: ChangeDetectionStrategy.OnPush
-)
+    providers: const [SnackbarService],
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SnackbarTestComponent {
   final SnackbarService _snackbarService;
   final ChangeDetectorRef cd;
@@ -108,21 +108,21 @@ class SnackbarTestComponent {
   @ViewChild('messageSpan')
   ElementRef messageSpan;
 
-  void showMessage(String message, {Duration duration}) => _snackbarService.showMessage(message,
-      duration: duration);
+  void showMessage(String message, {Duration duration}) => _snackbarService.showMessage(message, duration: duration);
 
   void showMessageWithCallback(String message, {Duration duration, Function callback}) =>
-      _snackbarService.showMessage(
-          message,
+      _snackbarService.showMessage(message,
           duration: duration,
-          action: new SnackAction()..label = 'call me back'..callback = callback);
+          action: new SnackAction()
+            ..label = 'call me back'
+            ..callback = callback);
 
   void displayMsgOnSpan(String message) => (messageSpan.nativeElement as SpanElement).innerHtml = message;
 }
 
 @EnsureTag('test')
 class TestPO {
-  @ByTagName('snackbar')
+  @ByTagName('skawa-snackbar')
   SnackbarPO snackbar;
 
   @ByTagName('span')

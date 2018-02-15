@@ -11,7 +11,7 @@ library skawa_components.utils;
 ///       var someInput;
 ///       bool get isSomeInput => isPresent(someInput);
 ///     }
-bool isPresent(input) {
+bool isPresent(bool input) {
   return input != null;
 }
 
@@ -29,8 +29,8 @@ bool isPresent(input) {
 ///         toggleAttribute(someInput);
 ///       }
 ///     }
-toggleAttribute(val) {
+bool toggleAttribute(bool val) {
   // In Angular2, an attribute is removed if it's value is `null` and added
   // if it's anything else, like
-  return isPresent(val) ? val = null : '';
+  return isPresent(val) ? val = null : true;
 }

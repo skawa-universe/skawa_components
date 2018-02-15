@@ -1,0 +1,22 @@
+<div class="markdown-container"
+     editorRenderTarget
+     skawaLangugageDirection
+     #renderTarget="skawaLangugageDirection"
+     (render)="renderTarget.setLanguageDirection($event)"
+     title="Click to edit"
+     (click)="editMarkdown()"
+     [ngClass]="{'with-placeholder': displayPlaceholder}">
+</div>
+
+<textarea editorRenderSource
+          skawaLangugageDirection
+          #renderSource="skawaLangugageDirection"
+          (update)="renderSource.setLanguageDirection($event)"
+          autoFocus
+          [updateDelay]="updateDelay"
+          [hidden]="displayMode != 'edit'" [initialValue]="initialValue">
+</textarea>
+
+<template #placeholderTemplate>
+    <ng-content selector=".placeholder"></ng-content>
+</template>

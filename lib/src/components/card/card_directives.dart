@@ -1,6 +1,6 @@
 import 'package:angular2/core.dart';
 
-/// The three following Directive should be used only inside a [SkawaCardHeaderComponent].
+/// The three following Directive should be used only inside a SkawaCardHeaderComponent.
 /// The [SkawaCardHeaderTitleDirective] should contain the title.
 /// The [SkawaCardHeaderSubheadDirective] should contain the subheader.
 /// The [SkawaCardHeaderImageDirective] should contain an image.

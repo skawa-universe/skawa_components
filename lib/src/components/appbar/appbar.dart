@@ -21,34 +21,23 @@ import 'package:angular_components/src/components/material_button/material_butto
 @Component(
     selector: 'skawa-appbar',
     templateUrl: 'appbar.html',
-    styleUrls: const [
-      'appbar.css'
-    ],
-    inputs: const [
-      'showNavToggle'
-    ],
-    outputs: const [
-      'navToggle'
-    ],
-    directives: const [
-      MaterialButtonComponent,
-      GlyphComponent,
-      NgIf,
-    ])
+    styleUrls: const ['appbar.css'],
+    directives: const [MaterialButtonComponent, GlyphComponent, NgIf])
 class SkawaAppbarComponent implements OnDestroy {
-  StreamController _navToggleController =
-      new StreamController<MouseEvent>.broadcast();
+  StreamController _navToggleController = new StreamController<MouseEvent>.broadcast();
 
-  Stream get navToggle => _navToggleController.stream;
-
+  @Input()
   bool showNavToggle = true;
+
+  @Output()
+  Stream get navToggle => _navToggleController.stream;
 
   void toggleNav(MouseEvent ev) {
     _navToggleController.add(ev);
   }
 
   @override
-  ngOnDestroy() {
+  void ngOnDestroy() {
     _navToggleController.close();
   }
 }

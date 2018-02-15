@@ -11,17 +11,17 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Grid | ', () {
     test('initialization with 3 grid', () async {
       final fixture = await new NgTestBed<GridTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject /*<TestPO>*/(TestPO);
+      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(pageObject.grid, isNotNull);
       var tiles = await pageObject.grid.tiles;
       expect(tiles.length, 3);
       Future.forEach(tiles, (PageLoaderElement tile) async {
-        expect((await tile.getBoundingClientRect()).width.round(), 280.0);
+        expect((await tile.getBoundingClientRect()).width.round(), 280);
       });
     });
   });
@@ -36,13 +36,9 @@ Future main() async {
     <div gridTile>Wolf</div>
   </skawa-grid>
      ''',
-  directives: const [
-    GridComponent,
-    GridTileDirective,
-  ],
+  directives: const [GridComponent, GridTileDirective],
 )
-class GridTestComponent {
-}
+class GridTestComponent {}
 
 @EnsureTag('test')
 class TestPO {
@@ -57,4 +53,3 @@ class GridPO {
   @ByCss('[gridTile]')
   List<PageLoaderElement> tiles;
 }
-

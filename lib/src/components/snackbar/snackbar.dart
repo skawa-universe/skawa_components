@@ -3,7 +3,6 @@ import 'package:angular2/angular2.dart';
 import 'package:angular_components/src/components/material_button/material_button.dart';
 import 'package:angular_components/src/utils/disposer/disposer.dart';
 
-
 /// Snackbar service, emitting messages that the snackbar can listen to.
 /// You can emit messages with the showMessage function. The default display
 /// time of messages is 3 seconds, but you can specify any duration, and also callbacks.
@@ -17,9 +16,7 @@ import 'package:angular_components/src/utils/disposer/disposer.dart';
 ///
 @Injectable()
 class SnackbarService {
-
-  StreamController<SnackMessage> _messageQueue = new StreamController<
-      SnackMessage>();
+  StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
 
   Stream get messages => _messageQueue.stream;
 
@@ -31,7 +28,6 @@ class SnackbarService {
   }
 
   static final Duration _defaultDuration = new Duration(seconds: 3);
-
 }
 
 class SnackAction {
@@ -55,19 +51,18 @@ class SnackMessage {
 ///
 
 @Component(
-    selector: 'snackbar',
+    selector: 'skawa-snackbar',
     templateUrl: 'snackbar.html',
     styleUrls: const ['snackbar.css'],
     directives: const [MaterialButtonComponent, NgIf],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    preserveWhitespace: false,
-)
-class SnackbarComponent implements OnInit, OnDestroy {
+    preserveWhitespace: false)
+class SkawaSnackbarComponent implements OnInit, OnDestroy {
   final ChangeDetectorRef _changeDetectorRef;
   final SnackbarService _snackbarService;
   final Disposer _tearDownDisposer = new Disposer.oneShot();
 
-  SnackbarComponent(this._changeDetectorRef, this._snackbarService);
+  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
 
   SnackMessage message;
   SnackMessage nextMessage;
@@ -79,8 +74,7 @@ class SnackbarComponent implements OnInit, OnDestroy {
 
   @override
   void ngOnInit() {
-    final StreamSubscription subscription = _snackbarService.messages.listen((
-        newMessage) {
+    final StreamSubscription subscription = _snackbarService.messages.listen((newMessage) {
       if (message == null) {
         message = newMessage;
         _slideIn();

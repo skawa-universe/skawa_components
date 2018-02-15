@@ -1,6 +1,5 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'dart:async';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
@@ -10,108 +9,77 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
 @AngularEntrypoint()
-Future main() async {
+void main() {
   tearDown(disposeAnyRunningTest);
   group('Sidebar | ', () {
+    final String cssClass = 'opened';
     test('initialization with open sidebar', () async {
       final fixture = await new NgTestBed<SidebarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(await pageObject.sidebar.aside.classes.contains('opened'), isTrue);
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
+      expect(pageObject.sidebar.rootElement.classes, mayEmit(cssClass));
+      expect(pageObject.sidebar.aside.classes, mayEmit(cssClass));
     });
     test('initialization with open sidebar then toogle 1X', () async {
       final fixture = await new NgTestBed<SidebarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.sidebar.aside.classes.contains('opened'), isFalse);
+      expect(pageObject.sidebar.rootElement.classes, neverEmits(cssClass));
+      expect(pageObject.sidebar.aside.classes, neverEmits(cssClass));
     });
     test('initialization with open sidebar then toogle 2X', () async {
       final fixture = await new NgTestBed<SidebarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(await pageObject.sidebar.aside.classes.contains('opened'), isTrue);
+      expect(pageObject.sidebar.rootElement.classes, mayEmit(cssClass));
+      expect(pageObject.sidebar.aside.classes, mayEmit(cssClass));
     });
     test('initialization with open sidebar then toogle 3X', () async {
       final fixture = await new NgTestBed<SidebarTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
       await pageObject.button.click();
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.sidebar.aside.classes.contains('opened'), isFalse);
+      expect(pageObject.sidebar.rootElement.classes, neverEmits(cssClass));
+      expect(pageObject.sidebar.aside.classes, neverEmits(cssClass));
     });
     test('initialization with closed sidebar', () async {
-      final fixture = await new NgTestBed<SidebarTestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<SidebarTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.isOpen = false;
       });
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.sidebar.aside.classes.contains('opened'), isFalse);
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
+      expect(pageObject.sidebar.rootElement.classes, neverEmits(cssClass));
+      expect(pageObject.sidebar.aside.classes, neverEmits(cssClass));
     });
     test('initialization with closed sidebar then toogle 1X', () async {
-      final fixture = await new NgTestBed<SidebarTestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<SidebarTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.isOpen = false;
       });
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(await pageObject.sidebar.aside.classes.contains('opened'), isTrue);
+      expect(pageObject.sidebar.rootElement.classes, mayEmit(cssClass));
+      expect(pageObject.sidebar.aside.classes, mayEmit(cssClass));
     });
     test('initialization with closed sidebar then toogle 2X', () async {
-      final fixture = await new NgTestBed<SidebarTestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<SidebarTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.isOpen = false;
       });
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isFalse);
-      expect(
-          await pageObject.sidebar.aside.classes.contains('opened'), isFalse);
+      expect(pageObject.sidebar.rootElement.classes, neverEmits(cssClass));
+      expect(pageObject.sidebar.aside.classes, neverEmits(cssClass));
     });
     test('initialization with closed sidebar then toogle 3X', () async {
-      final fixture = await new NgTestBed<SidebarTestComponent>().create(
-          beforeChangeDetection: (testElement) {
+      final fixture = await new NgTestBed<SidebarTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.isOpen = false;
       });
-      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(
-        ClickCounterPO,
-      );
+      final pageObject = await fixture.resolvePageObject/*<ClickCounterPO>*/(ClickCounterPO);
       await pageObject.button.click();
       await pageObject.button.click();
       await pageObject.button.click();
-      expect(await pageObject.sidebar.rootElement.classes.contains('opened'),
-          isTrue);
-      expect(await pageObject.sidebar.aside.classes.contains('opened'), isTrue);
+      expect(pageObject.sidebar.rootElement.classes, mayEmit(cssClass));
+      expect(pageObject.sidebar.aside.classes, mayEmit(cssClass));
     });
   });
 }

@@ -76,12 +76,6 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   @Output('change')
   Stream<List<RowData>> onChange;
 
-  @Output('highlight')
-  Stream<RowData> get onHighlight => _highlightController.stream;
-
-  @Output('sort')
-  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
-
   RowData highlightedRow;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
@@ -93,6 +87,12 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
       return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
     });
   }
+
+  @Output('highlight')
+  Stream<RowData> get onHighlight => _highlightController.stream;
+
+  @Output('sort')
+  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
 
   int getColspanFor(SkawaDataTableColComponent col, int skippedIndex) {
     int span = 1;
@@ -167,7 +167,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   bool get isEveryRowSkippedInFooter => columns.every((col) => col.skipFooter);
 
   @override
-  ngOnDestroy() {
+  void ngOnDestroy() {
     _tearDownDisposer.dispose();
   }
 
@@ -179,7 +179,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   }
 
   @override
-  ngAfterViewInit() {
+  void ngAfterViewInit() {
     var initialSorts = columns.where((c) => c.sortModel?.activeSort != null).toList(growable: false);
     if (initialSorts.length > 1) {
       throw new ArgumentError(
@@ -188,9 +188,9 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   }
 }
 
-/// Filters for those [SkawaDataTableColComponent]s, that are not skipped in footer
+/// Filters for those SkawaDataTableColComponents, that are not skipped in footer
 ///
-/// Can set a column skipped by setting [skipFooter] to true
+/// Can set a column skipped by setting skipFooter to true
 @Pipe('unskippedInFooter')
 class UnskippedInFooterPipe implements PipeTransform {
   Iterable transform(Iterable data) {
