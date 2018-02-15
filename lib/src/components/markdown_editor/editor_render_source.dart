@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:angular2/core.dart';
+import 'package:skawa_components/src/components/markdown_editor/deferred_callback.dart';
 
 /// Content source part of a SkawaEditor Component. It works in tandem
 /// with EditorRenderTarget directive.
@@ -102,53 +103,4 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   void ngOnInit() {
     _emit = new DeferredCallback(_onUpdatedController.add, updateDelay);
   }
-}
-
-/// Responsible for debounced execution of a callback at most once in every
-/// pre-defined interval
-///
-/// __Usage__:
-///
-///     var cb = new DeferredCallback(someAction, new Duration(seconds: 1));
-///     cb(paramToPassToSomeAction);
-///
-class DeferredCallback<T, K> {
-  final Duration timeout;
-
-  Function _cb;
-
-  Timer _timer;
-
-  T previuslyEmitted;
-
-  /// [callback] is the action that will be executed once every
-  /// [timeout] duration
-  DeferredCallback(K callback(T param), [Duration timeout])
-      : timeout = timeout ?? defaultTimeout,
-        _cb = callback;
-
-  Future<K> call(T param) {
-    var c = new Completer<K>();
-    if (_timer != null) {
-      _timer.cancel();
-    } else {
-      previuslyEmitted = param;
-      c.complete(_cb(param));
-    }
-    _timer = new Timer(timeout, () {
-      try {
-        if (param == previuslyEmitted) {
-          return;
-        } else {
-          previuslyEmitted = param;
-          c.complete(_cb(param));
-        }
-      } catch (e) {
-        c.completeError(e);
-      }
-    });
-    return c.future;
-  }
-
-  static final Duration defaultTimeout = new Duration(milliseconds: 500);
 }
