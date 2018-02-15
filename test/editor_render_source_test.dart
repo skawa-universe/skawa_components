@@ -38,7 +38,7 @@ void main() {
       pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
     });
     test('initialization', () async {
-      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isNull));
+      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isTrue));
     });
     test('revertLastUpdate emits change', () async {
       await pageObject.type(_first);
@@ -57,7 +57,8 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+      await fixture.update((testComponent) async =>
+          await expect(await testComponent.renderSource.onUpdated.contains(_initialValue), isTrue));
     });
     test('can\'t revert beyond initial value with revertAllUpdates', () async {
       await pageObject.type(' 1');
@@ -75,7 +76,8 @@ void main() {
       await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+      await fixture.update((testComponent) async =>
+          await expect(await testComponent.renderSource.onUpdated.contains(_initialValue), isTrue));
     });
   });
 }
