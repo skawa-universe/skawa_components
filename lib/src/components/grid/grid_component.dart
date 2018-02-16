@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:skawa_components/src/base_implementations/grid/grid.dart';
 
 /// __Inputs__:

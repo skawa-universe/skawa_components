@@ -1,5 +1,5 @@
 @import "../../css/skawa-material";
-@import "package:angular_components/src/css/material/material";
+@import "package:angular_components/css/material/material";
 
 :host {
   display: block;
@@ -12,7 +12,7 @@
   }
   &.with-actions {
     display: flex;
-    /deep/ skawa-header-title {
+    ::ng-deep skawa-header-title {
       flex-grow: 1;
     }
   }

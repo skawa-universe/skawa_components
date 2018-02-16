@@ -49,6 +49,6 @@
   padding: 0 8px;
   box-sizing: border-box;
 }
-:host /deep/ .appbar-spacer {
+:host ::ng-deep .appbar-spacer {
   flex-grow: 1;
 }

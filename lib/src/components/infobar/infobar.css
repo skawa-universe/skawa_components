@@ -62,6 +62,6 @@
 :host .info-text .ws-truncate-fix {
   display: inline-block;
 }
-:host /deep/ material-button {
+:host ::ng-deep material-button {
   display: inline-flex;
 }

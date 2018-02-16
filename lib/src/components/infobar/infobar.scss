@@ -18,7 +18,7 @@
       @include ws-truncate-fix;
     }
   }
-  /deep/ material-button {
+  ::ng-deep material-button {
     display: inline-flex;
   }
 }

@@ -50,10 +50,10 @@
   display: block;
   clear: both;
 }
-:host /deep/ skawa-header-title, :host /deep/ skawa-header-subhead {
+:host ::ng-deep skawa-header-title, :host ::ng-deep skawa-header-subhead {
   display: block;
 }
-:host /deep/ skawa-header-image {
+:host ::ng-deep skawa-header-image {
   display: inline-block;
   float: left;
   box-sizing: border-box;
@@ -61,25 +61,25 @@
   height: 40px;
   margin-right: 8px;
 }
-:host /deep/ skawa-header-title {
+:host ::ng-deep skawa-header-title {
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
   -moz-osx-font-smoothing: grayscale;
   color: rgba(0, 0, 0, 0.87);
 }
-:host /deep/ skawa-header-subhead {
+:host ::ng-deep skawa-header-subhead {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
 }
-:host.with-title-image /deep/ skawa-header-subhead {
+:host.with-title-image ::ng-deep skawa-header-subhead {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.54);
 }
 :host.with-title-image.with-subhead {
   display: block;
 }
-:host.with-title-image.with-subhead /deep/ skawa-header-title {
+:host.with-title-image.with-subhead ::ng-deep skawa-header-title {
   font-size: 20px;
   font-weight: 500;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -95,7 +95,7 @@
   display: flex;
   padding-right: 8px;
 }
-:host.with-actions /deep/ skawa-header-title {
+:host.with-actions ::ng-deep skawa-header-title {
   flex-grow: 1;
 }
 :host.with-subhead {

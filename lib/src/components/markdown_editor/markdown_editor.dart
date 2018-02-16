@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 
-import 'package:angular2/src/common/directives/ng_class.dart';
-import 'package:angular_components/src/components/focus/focus.dart';
+import 'package:angular/src/common/directives/ng_class.dart';
+import 'package:angular_components/focus/focus.dart';
 
 import 'editor_render_source.dart';
 import 'editor_render_target.dart';

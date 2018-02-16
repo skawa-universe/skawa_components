@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:js_util';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 
 import 'ckeditor_interop.dart' as js_ck;
 

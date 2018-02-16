@@ -1,4 +1,4 @@
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 
 /// The three following Directive should be used only inside a SkawaCardHeaderComponent.
 /// The [SkawaCardHeaderTitleDirective] should contain the title.

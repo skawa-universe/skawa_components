@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 
-import 'package:angular_components/src/components/glyph/glyph.dart';
-import 'package:angular_components/src/components/material_button/material_button.dart';
+import 'package:angular_components/glyph/glyph.dart';
+import 'package:angular_components/material_button/material_button.dart';
 
 /// Appbar component. [See more at](https://material.io/guidelines/layout/structure.html#structure-app-bar)
 ///

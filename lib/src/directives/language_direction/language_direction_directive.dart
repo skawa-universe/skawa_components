@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:intl/intl.dart' as intl;
 
 @Directive(selector: "[skawaLangugageDirection]", exportAs: 'skawaLangugageDirection')

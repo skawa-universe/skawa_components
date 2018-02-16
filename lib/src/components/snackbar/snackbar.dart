@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart';
-import 'package:angular_components/src/components/material_button/material_button.dart';
-import 'package:angular_components/src/utils/disposer/disposer.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_components/material_button/material_button.dart';
+import 'package:angular_components/utils/disposer/disposer.dart';
 
 /// Snackbar service, emitting messages that the snackbar can listen to.
 /// You can emit messages with the showMessage function. The default display

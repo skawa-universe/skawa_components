@@ -30,7 +30,7 @@ bool isPresent(bool input) {
 ///       }
 ///     }
 bool toggleAttribute(bool val) {
-  // In Angular2, an attribute is removed if it's value is `null` and added
+  // In angular, an attribute is removed if it's value is `null` and added
   // if it's anything else, like
   return isPresent(val) ? val = null : true;
 }

@@ -1,4 +1,4 @@
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 
 import 'card_directives.dart';
 import 'card_actions.dart';

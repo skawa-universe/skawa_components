@@ -1,4 +1,4 @@
-import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
+import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:skawa_components/src/pipes/random_colorize_pipe.dart';
 import 'package:test/test.dart';
 

@@ -2,7 +2,7 @@
   display: block;
   .grid-container {
     position: relative;
-    /deep/ [gridTile]  {
+    ::ng-deep [gridTile]  {
       position: absolute;
       width: 280px;
       margin: 16px;

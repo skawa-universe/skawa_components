@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:markdown/markdown.dart' as markdown;
 
 /// Target where rendered output of EditorRendererSource will be inserted
@@ -8,11 +8,7 @@ import 'package:markdown/markdown.dart' as markdown;
 /// __Providers__:
 ///
 /// - `EditorRenderer` -- renderer to use to convert EditorRendererSource.value to a DOM fragment
-@Directive(
-  selector: '[editorRenderTarget]',
-  exportAs: 'editorRenderTarget',
-  outputs: const ['onRender: render'],
-)
+@Directive(selector: '[editorRenderTarget]', exportAs: 'editorRenderTarget')
 class EditorRenderTarget implements OnDestroy {
   final ElementRef elementRef;
   final EditorRenderer renderer;
@@ -22,6 +18,7 @@ class EditorRenderTarget implements OnDestroy {
 
   EditorRenderTarget(this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
+  @Output('render')
   Stream get onRender => _onRenderController.stream;
 
   void updateRender(String newTarget, {List<String> classes}) {

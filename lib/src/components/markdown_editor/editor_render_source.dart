@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:skawa_components/src/components/markdown_editor/deferred_callback.dart';
 
 /// Content source part of a SkawaEditor Component. It works in tandem

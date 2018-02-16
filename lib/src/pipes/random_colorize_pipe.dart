@@ -1,5 +1,5 @@
-import "package:angular2/di.dart" show PipeTransform, Pipe;
-import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
+import "package:angular/di.dart" show PipeTransform, Pipe;
+import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 
 /// Based on [seed] provided to the pipe, return a css consumable color
 ///

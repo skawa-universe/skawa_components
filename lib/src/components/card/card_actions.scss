@@ -1,4 +1,4 @@
-@import "package:angular_components/src/css/material/material";
+@import "package:angular_components/css/material/material";
 
 :host {
   display: flex;
@@ -9,7 +9,7 @@
   &[align-left] {
     justify-content: flex-start;
   }
-  /deep/ [spacer], /deep/ .spacer {
+  ::ng-deep [spacer], ::ng-deep .spacer {
     display: block;
     flex-grow: 1;
   }
@@ -17,7 +17,7 @@
 
 :host-context(.with-actions) {
   padding: 0;
-  /deep/ material-button[icon] {
+  ::ng-deep material-button[icon] {
     //color: $secondary-text-color;
     color: $mat-indigo-400;
     // spacing between buttons should be 16px

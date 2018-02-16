@@ -1,5 +1,4 @@
 @import "../../css/skawa-material";
-@import "package:angular_components/src/css/material/_material";
 
 :host {
   padding: 16px;
@@ -10,7 +9,7 @@
     display: block;
     clear: both;
   }
-  /deep/ {
+  ::ng-deep {
     skawa-header-title, skawa-header-subhead {
       display: block;
     }
@@ -31,7 +30,7 @@
     }
   }
   &.with-title-image {
-    /deep/ {
+    ::ng-deep {
       skawa-header-subhead {
         font-size: $mat-card-subhead-font-size;
         color: $mat-light-transparent-black;
@@ -39,7 +38,7 @@
     }
     &.with-subhead {
       display: block;
-      /deep/ {
+      ::ng-deep {
         skawa-header-title {
           @include typo-title--dense;
           padding-top: 0;
@@ -51,7 +50,7 @@
   &.with-actions {
     display: flex;
     padding-right: 8px;
-    /deep/ {
+    ::ng-deep {
       skawa-header-title {
         flex-grow: 1;
       }

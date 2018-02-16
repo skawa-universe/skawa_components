@@ -8,7 +8,7 @@
 :host[align-left] {
   justify-content: flex-start;
 }
-:host /deep/ [spacer], :host /deep/ .spacer {
+:host ::ng-deep [spacer], :host ::ng-deep .spacer {
   display: block;
   flex-grow: 1;
 }
@@ -16,7 +16,7 @@
 :host-context(.with-actions) {
   padding: 0;
 }
-:host-context(.with-actions) /deep/ material-button[icon] {
+:host-context(.with-actions) ::ng-deep material-button[icon] {
   color: #5c6bc0;
   margin-left: 8px;
 }

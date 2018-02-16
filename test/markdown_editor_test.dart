@@ -1,8 +1,8 @@
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
-import 'package:angular2/angular2.dart';
-import 'package:angular_components/src/laminate/popup/module.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_components/laminate/popup/module.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';

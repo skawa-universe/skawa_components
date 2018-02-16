@@ -53,6 +53,6 @@
 :host.with-actions {
   display: flex;
 }
-:host.with-actions /deep/ skawa-header-title {
+:host.with-actions ::ng-deep skawa-header-title {
   flex-grow: 1;
 }

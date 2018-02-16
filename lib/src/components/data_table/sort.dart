@@ -1,4 +1,4 @@
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:skawa_components/src/components/data_table/data_table_column.dart';
 
 enum SortDirection { asc, desc }

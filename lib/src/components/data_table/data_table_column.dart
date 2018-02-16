@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:angular2/core.dart';
-import 'package:angular_components/src/model/ui/has_renderer.dart';
+import 'package:angular/core.dart';
 
+import 'package:angular_components/model/ui/has_renderer.dart';
 import 'row_data.dart';
 import 'sort.dart';
 

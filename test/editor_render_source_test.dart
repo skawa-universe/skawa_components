@@ -5,7 +5,7 @@ import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:skawa_components/src/components/markdown_editor/editor_render_source.dart';
 import 'package:test/test.dart';
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:angular_test/angular_test.dart';
 
 @AngularEntrypoint()

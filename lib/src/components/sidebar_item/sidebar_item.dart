@@ -1,5 +1,5 @@
-import 'package:angular2/angular2.dart';
-import 'package:angular_components/src/components/glyph/glyph.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_components/glyph/glyph.dart';
 import '../../util/attribute.dart' as attrib;
 
 /// Toolbar item. See more [about normal lists](https://material.io/guidelines/components/lists.html#) or
