@@ -34,7 +34,7 @@ void main() {
       await fixture.update((testElement) {
         testElement
           ..icon = 'alarm'
-          ..textOnly = true;
+          ..textOnly = '';
       });
       expect(pageObject.sideNavItemList.sidebarItemList.span.classes.contains('text-only'), completion(isTrue));
       expect(pageObject.sideNavItemList.rootElement.attributes['textOnly'], completion(isNotNull));
@@ -52,7 +52,7 @@ void main() {
   ],
 )
 class NavItemTestComponent {
-  bool textOnly;
+  String textOnly;
 
   String icon;
 }

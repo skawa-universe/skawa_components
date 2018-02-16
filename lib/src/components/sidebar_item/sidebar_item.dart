@@ -32,7 +32,7 @@ class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
 }
 
 abstract class TextOnlyMixin {
-  bool textOnly;
+  String textOnly;
 
   bool get isTextOnly => attrib.isPresent(textOnly);
 }

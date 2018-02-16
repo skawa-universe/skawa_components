@@ -31,7 +31,7 @@ void main() {
       final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement
           ..icon = 'alarm'
-          ..textOnly = true;
+          ..textOnly = '';
       });
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(pageObject.sideBarItemList.span.classes.contains('text-only'), completion(isTrue));
@@ -50,7 +50,7 @@ void main() {
   ],
 )
 class SidebarItemTestComponent {
-  bool textOnly;
+  String textOnly;
 
   String icon;
 }
