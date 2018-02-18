@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
+import 'package:angular_components/angular_components.dart';
 import 'package:skawa_components/src/components/prompt/prompt.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
@@ -18,6 +19,55 @@ void main() {
       final pageObject = await fixture.resolvePageObject(TestPO);
       expect(pageObject.prompt, isNotNull);
     });
+
+    test('displays a message', () async {
+      final fixture = await new NgTestBed<PromptTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject(TestPO);
+      await fixture.query<PromptComponent>((debugElement) {
+        return debugElement.componentInstance is PromptComponent;
+      }, (PromptComponent component) {
+        expect((component.messageText.nativeElement as Element).innerHtml, 'Should you?');
+      });
+    });
+    
+    test('calls yes function', () async {
+      final fixture = await new NgTestBed<PromptTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject(TestPO);
+      await fixture.query<PromptComponent>((debugElement) {
+        return debugElement.componentInstance is PromptComponent;
+      }, (PromptComponent component) {
+        component.yesNoButtonsComponent.yesButton.handleClick(new MouseEvent('test'));
+      });
+      String msg = await pageObject.messageSpan.innerText;
+      expect(msg, 'Yes');
+    });
+
+    test('calls no function', () async {
+      final fixture = await new NgTestBed<PromptTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject(TestPO);
+      await fixture.query<PromptComponent>((debugElement) {
+        return debugElement.componentInstance is PromptComponent;
+      }, (PromptComponent component) {
+        component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
+      });
+      String msg = await pageObject.messageSpan.innerText;
+      expect(msg, 'No');
+    });
+
+    test('modal disappears after clicking yes or no if we want it to', () async {
+      final fixture = await new NgTestBed<PromptTestComponent>().create();
+      final pageObject = await fixture.resolvePageObject(TestPO);
+      await fixture.query<PromptComponent>((debugElement) {
+        return debugElement.componentInstance is PromptComponent;
+      }, (PromptComponent component) {
+        component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
+      });
+      await fixture.query<PromptComponent>((debugElement) {
+        return debugElement.componentInstance is PromptComponent;
+      }, (PromptComponent component) {
+        expect((component.messageText.nativeElement as Element).ownerDocument.querySelector('.pane.modal').classes, isNot(contains('visible')));
+      });
+    });
   });
 }
 
@@ -25,9 +75,10 @@ void main() {
     selector: 'test',
     directives: const [PromptComponent],
     template: '''
-  <prompt [message]="message" [yes]="yesCallback" [no]="noCallBack" [visible]="true"></prompt>
+  <prompt [message]="message" [yes]="yesCallback" [no]="noCallback" [visible]="isVisible"></prompt>
   <span #messageSpan></span>
   ''',
+    providers: const [popupBindings],
     changeDetection: ChangeDetectionStrategy.OnPush
 )
 class PromptTestComponent {
@@ -36,31 +87,26 @@ class PromptTestComponent {
 
   void changeText(String input) => (messageSpan.nativeElement as SpanElement).innerHtml = input;
 
-  void yesCallback() => null;
+  void yesCallback() {
+    changeText('Yes');
+    isVisible = false;
+  }
 
-  void noCallback() => null;
+  void noCallback() {
+    changeText('No');
+    isVisible = false;
+  }
 
   final String message = 'Should you?';
+
+  bool isVisible = true;
 }
 
 @EnsureTag('test')
 class TestPO {
   @ByTagName('prompt')
-  PromptPO prompt;
+  PageLoaderElement prompt;
 
   @ByTagName('span')
   PageLoaderElement messageSpan;
-}
-
-class PromptPO {
-  @root
-  PageLoaderElement rootElement;
-
-  @optional
-  @ByTagName('p')
-  PageLoaderElement question;
-
-  @optional
-  @ByTagName('material-yes-no-buttons')
-  PageLoaderElement buttons;
 }

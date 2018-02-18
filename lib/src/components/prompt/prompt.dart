@@ -34,6 +34,13 @@ class PromptComponent {
   @Input('visible')
   bool isVisible = false;
 
+  // Only here for testing purposes
+  @ViewChild('messageText')
+  ElementRef messageText;
+  //Only here for testing purposes
+  @ViewChild(MaterialYesNoButtonsComponent)
+  MaterialYesNoButtonsComponent yesNoButtonsComponent;
+
   bool pending = false;
 
   PromptComponent(this._cd);
