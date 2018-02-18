@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular_test/angular_test.dart';
-import 'package:angular_components/angular_components.dart';
+import 'package:angular_components/src/laminate/popup/module.dart';
 import 'package:skawa_components/src/components/prompt/prompt.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
