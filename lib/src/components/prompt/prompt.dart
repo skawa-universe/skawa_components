@@ -4,6 +4,22 @@ import 'package:angular_components/src/components/material_dialog/material_dialo
 import 'package:angular_components/src/components/material_yes_no_buttons/material_yes_no_buttons.dart';
 import 'package:angular_components/src/laminate/components/modal/modal.dart';
 
+
+/// A prompt component that asks a yes or no question from the user inside a modal.
+/// You can specify callbacks for both cases, a question, custom yes-no strings, .
+/// and also when should the modal be visible or not.
+///
+///__Example__
+///
+///   <prompt
+///     [message]="'Are you sure?'"
+///     [textYes]="'You bet!'"
+///     [textNo]="'Not really'"
+///     [yes]="yesCallback"
+///     [no]="noCallback"
+///     [visible]="isVisible">
+///   </prompt>
+///
 @Component(
     selector: 'prompt',
     templateUrl: 'prompt.html',
