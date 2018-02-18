@@ -26,17 +26,19 @@ void main() {
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
-        expect((component.messageText.nativeElement as Element).innerHtml, 'Should you?');
+        expect((component.messageText.nativeElement as Element).innerHtml,
+            'Should you?');
       });
     });
-    
+
     test('calls yes function', () async {
       final fixture = await new NgTestBed<PromptTestComponent>().create();
       final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
-        component.yesNoButtonsComponent.yesButton.handleClick(new MouseEvent('test'));
+        component.yesNoButtonsComponent.yesButton
+            .handleClick(new MouseEvent('test'));
       });
       String msg = await pageObject.messageSpan.innerText;
       expect(msg, 'Yes');
@@ -48,24 +50,32 @@ void main() {
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
-        component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
+        component.yesNoButtonsComponent.noButton
+            .handleClick(new MouseEvent('test'));
       });
       String msg = await pageObject.messageSpan.innerText;
       expect(msg, 'No');
     });
 
-    test('modal disappears after clicking yes or no if we want it to', () async {
+    test('modal disappears after clicking yes or no if we want it to',
+        () async {
       final fixture = await new NgTestBed<PromptTestComponent>().create();
       final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
-        component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
+        component.yesNoButtonsComponent.noButton
+            .handleClick(new MouseEvent('test'));
       });
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
-        expect((component.messageText.nativeElement as Element).ownerDocument.querySelector('.pane.modal').classes, isNot(contains('visible')));
+        expect(
+            (component.messageText.nativeElement as Element)
+                .ownerDocument
+                .querySelector('.pane.modal')
+                .classes,
+            isNot(contains('visible')));
       });
     });
   });
@@ -79,13 +89,13 @@ void main() {
   <span #messageSpan></span>
   ''',
     providers: const [popupBindings],
-    changeDetection: ChangeDetectionStrategy.OnPush
-)
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class PromptTestComponent {
   @ViewChild('messageSpan')
   ElementRef messageSpan;
 
-  void changeText(String input) => (messageSpan.nativeElement as SpanElement).innerHtml = input;
+  void changeText(String input) =>
+      (messageSpan.nativeElement as SpanElement).innerHtml = input;
 
   void yesCallback() {
     changeText('Yes');
