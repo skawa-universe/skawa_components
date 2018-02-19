@@ -9,7 +9,7 @@ dependencies:
 
 dev_dependencies:
   test: ^0.12.22+2
-  angular_test: ^1.0.01
+  angular_test: ^1.0.1
   browser:
   angular_utility:
     git:

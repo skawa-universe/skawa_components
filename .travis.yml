@@ -1,7 +1,4 @@
 language: dart
-sudo: required
-
-dist: trusty
 
 dart:
 # - dev currently the dartfmt failing on dev
