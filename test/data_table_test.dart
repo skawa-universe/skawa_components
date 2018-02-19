@@ -6,12 +6,11 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/data_table/data_table.dart';
-import 'package:skawa_components/src/components/data_table/data_table_column.dart';
-import 'package:skawa_components/src/components/data_table/row_data.dart';
+import 'package:skawa_components/data_table/data_table.dart';
+import 'package:skawa_components/data_table/data_table_column.dart';
+import 'package:skawa_components/data_table/row_data.dart';
 import 'package:test/test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Datatable | ', () {

@@ -4,10 +4,9 @@ import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:angular/core.dart';
-import 'package:skawa_components/src/directives/language_direction/language_direction_directive.dart';
+import 'package:skawa_components/directives/language_direction_directive.dart';
 import 'package:angular_test/angular_test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('LanguageDirection | ', () {

@@ -5,11 +5,10 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/sidebar_item/sidebar_item.dart';
+import 'package:skawa_components/sidebar_item/sidebar_item.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('SidebarItem | ', () {
@@ -23,7 +22,7 @@ void main() {
       final fixture = await new NgTestBed<SidebarItemTestComponent>()
           .create(beforeChangeDetection: (testElement) => testElement.icon = 'alarm');
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      expect((await pageObject.sideBarItemList.glyph).rootElement.innerText, completion('alarm'));
+      expect((await pageObject.sideBarItemList.materialIcon).rootElement.innerText, completion('alarm'));
       expect(pageObject.sideBarItemList.span.classes.contains('text-only'), completion(isFalse));
       expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], completion(isNull));
     });
@@ -71,11 +70,11 @@ class SidebarItemPO {
   @ByTagName('span')
   PageLoaderElement span;
 
-  Future<GlyphPO> get glyph => loader.getInstance(GlyphPO, loader.globalContext);
+  Future<MaterialIconPO> get materialIcon => loader.getInstance(MaterialIconPO, loader.globalContext);
 }
 
-@ByTagName('glyph')
-class GlyphPO {
+@ByTagName('material-icon')
+class MaterialIconPO {
   @root
   PageLoaderElement rootElement;
 }

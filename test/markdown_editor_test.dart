@@ -6,12 +6,11 @@ import 'package:angular_components/laminate/popup/module.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/markdown_editor/editor_render_target.dart';
-import 'package:skawa_components/src/components/markdown_editor/markdown_editor.dart';
+import 'package:skawa_components/markdown_editor/editor_render_target.dart';
+import 'package:skawa_components/markdown_editor/markdown_editor.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
-@AngularEntrypoint()
 void main() {
   group('Markdown Editor', () {
     tearDown(disposeAnyRunningTest);

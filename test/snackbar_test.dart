@@ -4,12 +4,11 @@ import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
-import 'package:skawa_components/src/components/snackbar/snackbar.dart';
+import 'package:skawa_components/snackbar/snackbar.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Snackbar |', () {
@@ -97,8 +96,7 @@ void main() {
   <skawa-snackbar></skawa-snackbar>
   <span #messageSpan></span>
   ''',
-    providers: const [SnackbarService],
-    changeDetection: ChangeDetectionStrategy.OnPush)
+    providers: const [SnackbarService])
 class SnackbarTestComponent {
   final SnackbarService _snackbarService;
   final ChangeDetectorRef cd;

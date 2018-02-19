@@ -1,5 +1,5 @@
 name: skawa_components
-version: 0.0.15
+version: 1.0.0-alpha
 
 dependencies:
   angular: ^4.0.0
@@ -12,15 +12,14 @@ dev_dependencies:
   angular_test: ^1.0.01
   browser:
   angular_utility:
-    path:
-      ../angular_utility
-#    git:
-#     url: https://github.com/skawa-universe/angular_utility.git
-#     ref: 0.0.4
+    git:
+     url: https://github.com/skawa-universe/angular_utility.git
+     ref: 0.1.0-alpha
   html_unescape: ^0.1.5
   mockito: ^1.0.1
 transformers:
-- angular
+- angular:
+   entry_points: test/**_test.dart
 - angular/transform/reflection_remover:
    $include:
       - test/**_test.dart

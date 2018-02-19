@@ -7,10 +7,9 @@ import 'package:pageloader/html.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_components/src/components/appbar/appbar.dart';
+import 'package:skawa_components/appbar/appbar.dart';
 import 'package:test/test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Appbar | ', () {

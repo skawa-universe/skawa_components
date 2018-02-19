@@ -4,10 +4,9 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/drawer/drawer.dart';
+import 'package:skawa_components/drawer/drawer.dart';
 import 'package:test/test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Drawer | ', () {

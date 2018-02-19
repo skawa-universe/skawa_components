@@ -6,11 +6,10 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_components/src/components/card/card.dart';
+import 'package:skawa_components/card/card.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Card | ', () {
