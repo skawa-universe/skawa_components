@@ -24,6 +24,7 @@ before_install:
 
   # Sanity check for terminal output.
   - echo `which dartium`
+  - chmod ugo+x tool/travis.sh
 
 script: ./tool/travis.sh
 
