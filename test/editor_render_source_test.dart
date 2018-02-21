@@ -43,8 +43,8 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
-      await fixture
-          .update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit('$_initialValue$_first')));
+      await fixture.update(
+          (testComponent) async => expect(await testComponent.renderSource.onUpdated.last, '$_initialValue$_first'));
     });
     test('can\'t revert beyond initial value with revertLastUpdate', () async {
       await pageObject.type(_first);
