@@ -50,7 +50,8 @@ void main() {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+      await fixture
+          .update((testComponent) async => expect(await testComponent.renderSource.onUpdated.last, _initialValue));
     });
     test('can revert all updates', () async {
       await pageObject.type(_first);
