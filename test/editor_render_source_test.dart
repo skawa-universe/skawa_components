@@ -28,7 +28,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(isEmpty)));
+      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isTrue));
     });
   });
   group('EditorRenderSource | with initial value ', () {
