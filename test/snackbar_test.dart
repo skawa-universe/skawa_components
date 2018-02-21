@@ -115,7 +115,9 @@ class SnackbarTestComponent {
             ..label = 'call me back'
             ..callback = callback);
 
-  void displayMsgOnSpan(String message) => (messageSpan.nativeElement as SpanElement).innerHtml = message;
+  void displayMsgOnSpan(String message) {
+    (messageSpan.nativeElement as SpanElement).innerHtml = message;
+  }
 }
 
 @EnsureTag('test')

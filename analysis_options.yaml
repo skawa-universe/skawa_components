@@ -1,11 +1,5 @@
-#  Supported lint rules and documentation:
-#   http://dart-lang.github.io/linter/lints/
-
 analyzer:
   strong-mode: true
-#  exclude:
-
-
 linter:
   rules:
     - avoid_empty_else
@@ -21,7 +15,6 @@ linter:
     - throw_in_finally
     - unrelated_type_equality_checks
     - valid_regexps
-
     - always_declare_return_types
 #    - always_specify_types        -- doesn't interact well with strong mode
     - annotate_overrides
@@ -51,5 +44,4 @@ linter:
     - type_init_formals
     - unnecessary_brace_in_string_interp
     - unnecessary_getters_setters
-
     - package_names
