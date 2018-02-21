@@ -1,6 +1,9 @@
 ## 1.0.0-alpha
 - Upgrade to Angular4
 
+## 0.0.16
+- Added new component <prompt>
+
 ## 0.0.15
 
 - Added new component `<skawa-markdown-editor>` and corresponding Directives.
