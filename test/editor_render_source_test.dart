@@ -75,8 +75,8 @@ void main() {
       await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) async =>
-          await expect(await testComponent.renderSource.onUpdated.contains(_initialValue), isTrue));
+      await fixture.update(
+          (testComponent) async => await expect(await testComponent.renderSource.onUpdated.last, _initialValue));
     });
   });
 }
