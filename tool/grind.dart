@@ -7,12 +7,12 @@ Future<Null> main(List<String> args) async => grind(args);
 @Task('compile scss')
 Future sass() async => await ang.sassBuild();
 
-
-@Task('compile scss')
+@DefaultTask()
+@Task('checking for bad imports')
 Future checkimport() async {
-  ang.config.importOptimize.packagesToCheck=['skawa_components'];
+  ang.config.importOptimize.packagesToCheck = ['skawa_components'];
   await ang.checkImport();
 }
 
-@Task('compile scss')
+@Task('watch scss')
 Future sasswatch() async => await ang.sassWatch();

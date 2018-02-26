@@ -11,4 +11,4 @@ pub run test -p vm
 pub run angular_test --test-arg=-pdartium --test-arg=--timeout=4x
 pub run test test/base_grid_test.dart -pdartium
 
-dart tool/grind.dart skawa_components
+dart tool/grind.dart
