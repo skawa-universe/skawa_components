@@ -5,7 +5,10 @@ import 'package:grinder/grinder.dart';
 Future<Null> main(List<String> args) async => grind(args);
 
 @Task('compile scss')
-Future sass() async => await ang.sassBuild();
+Future sass() async {
+  ang.config.sassBuildConfig.package = 'skawa_components';
+  return await ang.sassBuild();
+}
 
 @DefaultTask()
 @Task('checking for bad imports')
@@ -15,4 +18,7 @@ Future checkimport() async {
 }
 
 @Task('watch scss')
-Future sasswatch() async => await ang.sassWatch();
+Future sasswatch() async {
+  ang.config.sassWatchConfig.package = 'skawa_components';
+  return await ang.sassWatch();
+}
