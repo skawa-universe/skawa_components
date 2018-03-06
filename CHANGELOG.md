@@ -1,3 +1,7 @@
+## 1.0.0-alpha+1
+
+- fix minor issue in toggleAttribute method
+
 ## 1.0.0-alpha
 - Upgrade to Angular4
 

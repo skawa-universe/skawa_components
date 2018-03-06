@@ -27,8 +27,8 @@ bool isPresent(String input) => input != null;
 ///         toggleAttribute(someInput);
 ///       }
 ///     }
-bool toggleAttribute(String val) {
+String toggleAttribute(String val) {
   // In Angular, an attribute is removed if it's value is `null` and added
   // if it's anything else, like
-  return isPresent(val) ? val = null : true;
+  return isPresent(val) ? null : '';
 }

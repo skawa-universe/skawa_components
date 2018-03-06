@@ -82,7 +82,7 @@ class SkawaCardContentComponent {
 
   /// Toggle collapsed state content area
   void toggle() {
-    collapsed = attr_util.toggleAttribute(collapsed) ? null : '';
+    collapsed = attr_util.toggleAttribute(collapsed);
   }
 }
 
