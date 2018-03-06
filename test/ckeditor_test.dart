@@ -1,13 +1,12 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
-import 'package:skawa_components/src/components/ckeditor/ckeditor.dart';
+import 'package:skawa_components/ckeditor/ckeditor.dart';
 import 'package:test/test.dart';
 import 'dart:convert' show HTML_ESCAPE;
 import 'package:html_unescape/html_unescape.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {

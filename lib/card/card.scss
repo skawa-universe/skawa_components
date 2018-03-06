@@ -1,0 +1,19 @@
+@import "../css/skawa-material";
+@import "package:angular_components/css/material/material";
+
+:host {
+  display: block;
+  border-radius: 2px;
+  box-sizing: border-box;
+  background-color: white;
+  @include shadow-2dp;
+  &[no-shadow] {
+    box-shadow: none;
+  }
+  &.with-actions {
+    display: flex;
+    ::ng-deep skawa-header-title {
+      flex-grow: 1;
+    }
+  }
+}

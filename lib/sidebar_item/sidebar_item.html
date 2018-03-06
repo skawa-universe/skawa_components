@@ -1,0 +1,2 @@
+<material-icon [icon]="icon" class="item-icon" *ngIf="!isTextOnly && icon != null"></material-icon>
+<span class="item-text" [ngClass]="{ 'text-only' : isTextOnly}"><ng-content></ng-content></span>

@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:angular2/angular2.dart';
-import 'package:angular_components/src/components/material_dialog/material_dialog.dart';
-import 'package:angular_components/src/components/material_yes_no_buttons/material_yes_no_buttons.dart';
-import 'package:angular_components/src/laminate/components/modal/modal.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_components/material_dialog/material_dialog.dart';
+import 'package:angular_components/material_yes_no_buttons/material_yes_no_buttons.dart';
+import 'package:angular_components/laminate/components/modal/modal.dart';
 
 /// A prompt component that asks a yes or no question from the user inside a modal.
 /// You can specify callbacks for both cases, a question, custom yes-no strings, .
@@ -22,11 +22,7 @@ import 'package:angular_components/src/laminate/components/modal/modal.dart';
 @Component(
     selector: 'prompt',
     templateUrl: 'prompt.html',
-    directives: const [
-      MaterialDialogComponent,
-      ModalComponent,
-      MaterialYesNoButtonsComponent,
-    ],
+    directives: const [MaterialDialogComponent, ModalComponent, MaterialYesNoButtonsComponent],
     preserveWhitespace: false,
     changeDetection: ChangeDetectionStrategy.OnPush)
 class PromptComponent {
@@ -52,6 +48,7 @@ class PromptComponent {
   // Only here for testing purposes
   @ViewChild('messageText')
   ElementRef messageText;
+
   //Only here for testing purposes
   @ViewChild(MaterialYesNoButtonsComponent)
   MaterialYesNoButtonsComponent yesNoButtonsComponent;

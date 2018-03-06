@@ -1,30 +1,29 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/infobar/infobar.dart';
+import 'package:skawa_components/infobar/infobar.dart';
 import 'package:test/test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Infobar | ', () {
     final String testLink = 'https://github.com/skawa-universe/skawa_components/';
-    final String glyphIcon = 'code';
+    final String materialIcon = 'code';
     test('initialization with zero input', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       expect(pageObject.trigger.innerText, completion(0.toString()));
-      expect(pageObject.infobar.glyph.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
     });
     test('initialization with icon', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) => testElement.icon = glyphIcon);
+      await fixture.update((testElement) => testElement.icon = materialIcon);
       expect(pageObject.trigger.innerText, completion(0.toString()));
-      expect(pageObject.infobar.glyph.innerText, completion(glyphIcon));
+      expect(pageObject.infobar.materialIcon.innerText, completion(materialIcon));
     });
     test('initialization with url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
@@ -32,18 +31,18 @@ void main() {
       await fixture.update((testElement) => testElement.url = testLink);
       expect(pageObject.trigger.innerText, completion(0.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
-      expect(pageObject.infobar.glyph.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
     });
     test('initialization with url and url', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) {
-        testElement.icon = glyphIcon;
+        testElement.icon = materialIcon;
         testElement.url = testLink;
       });
       expect(pageObject.trigger.innerText, completion(0.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
-      expect(pageObject.infobar.glyph.innerText, completion(glyphIcon));
+      expect(pageObject.infobar.materialIcon.innerText, completion(materialIcon));
     });
     test('initialization with url then click 1X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
@@ -52,7 +51,7 @@ void main() {
       await pageObject.infobar.materialButton.click();
       expect(pageObject.trigger.innerText, completion(1.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
-      expect(pageObject.infobar.glyph.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
     });
     test(' with url then click 3X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
@@ -62,7 +61,7 @@ void main() {
       await pageObject.infobar.materialButton.click();
       expect(pageObject.trigger.innerText, completion(3.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(''));
-      expect(pageObject.infobar.glyph.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
     });
   });
 }
@@ -99,6 +98,6 @@ class InforbarPO {
   @ByTagName('material-button')
   PageLoaderElement materialButton;
 
-  @ByTagName('glyph')
-  PageLoaderElement glyph;
+  @ByTagName('material-icon')
+  PageLoaderElement materialIcon;
 }

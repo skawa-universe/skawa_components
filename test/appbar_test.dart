@@ -1,16 +1,15 @@
 @Tags(const ['aot'])
 @TestOn('browser')
 
-import 'package:angular2/angular2.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_components/src/components/appbar/appbar.dart';
+import 'package:skawa_components/appbar/appbar.dart';
 import 'package:test/test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   group('Appbar | ', () {

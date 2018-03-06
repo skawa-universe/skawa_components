@@ -1,12 +1,12 @@
-import 'package:angular2/src/common/pipes/invalid_pipe_argument_exception.dart';
-import 'package:skawa_components/src/pipes/random_colorize_pipe.dart';
+import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
+import 'package:skawa_components/pipes/random_colorize_pipe.dart';
 import 'package:test/test.dart';
 
 final Matcher throwsATypeError = throwsA(new isInstanceOf<TypeError>());
 
 final Matcher throwsAnInvalidPipeArgumentException = throwsA(new isInstanceOf<InvalidPipeArgumentException>());
 
-main() {
+void main() {
   group('RandomColorizePipe | ', () {
     SkawaRandomColorizePipe pipe;
     final int intSeed = 1234;

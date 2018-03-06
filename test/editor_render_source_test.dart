@@ -3,12 +3,11 @@
 import 'dart:async';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/src/components/markdown_editor/editor_render_source.dart';
+import 'package:skawa_components/markdown_editor/editor_render_source.dart';
 import 'package:test/test.dart';
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:angular_test/angular_test.dart';
 
-@AngularEntrypoint()
 void main() {
   tearDown(disposeAnyRunningTest);
   final testBed = new NgTestBed<RenderSourceTemplateComponent>();
@@ -29,7 +28,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(isEmpty)));
+      await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isTrue));
     });
   });
   group('EditorRenderSource | with initial value ', () {
@@ -44,14 +43,15 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
-      await fixture
-          .update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit('$_initialValue$_first')));
+      await fixture.update(
+          (testComponent) async => expect(await testComponent.renderSource.onUpdated.last, '$_initialValue$_first'));
     });
     test('can\'t revert beyond initial value with revertLastUpdate', () async {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
-      await fixture.update((testComponent) => expect(testComponent.renderSource.onUpdated, mayEmit(_initialValue)));
+      await fixture
+          .update((testComponent) async => expect(await testComponent.renderSource.onUpdated.last, _initialValue));
     });
     test('can revert all updates', () async {
       await pageObject.type(_first);
@@ -76,8 +76,8 @@ void main() {
       await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
-      await fixture.update((testComponent) async =>
-          await expect(await testComponent.renderSource.onUpdated.contains(_initialValue), isTrue));
+      await fixture.update(
+          (testComponent) async => await expect(await testComponent.renderSource.onUpdated.last, _initialValue));
     });
   });
 }

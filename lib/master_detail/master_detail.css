@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+:host .hidden {
+  visibility: hidden;
+}
+:host[expanded] .master-detail--detail {
+  opacity: 1;
+  visibility: visible;
+  max-height: 100%;
+  transition: opacity 436ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+:host .master-detail--detail {
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+  transition: visibility 0s linear 0.5s, max-height 0s linear 0.5s, opacity 436ms cubic-bezier(0.4, 0, 0.2, 1);
+}
