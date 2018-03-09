@@ -8,7 +8,7 @@ dartfmt test/ --line-length=120 --set-exit-if-changed -n
 dartium --version
 pub run test -p vm
 
-pub run angular_test --test-arg=-pdartium --test-arg=--timeout=4x
+pub run angular_test --test-arg=-pdartium --test-arg=--timeout=4x --test-arg=--exclude-tags=flaky-on-travis
 pub run test test/base_grid_test.dart -pdartium
 
 dart tool/grind.dart

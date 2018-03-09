@@ -75,14 +75,14 @@ class SkawaCardContentComponent {
   bool get withHeader => parentCard.hasHeader;
 
   @Input()
-  String collapsed;
+  bool collapsed;
 
   @HostBinding('class.skawa-collapsed')
   bool get isCollapsed => attr_util.isPresent(collapsed);
 
   /// Toggle collapsed state content area
   void toggle() {
-    collapsed = attr_util.toggleAttribute(collapsed) ? null : '';
+    collapsed = attr_util.toggleAttribute(collapsed);
   }
 }
 

@@ -1,7 +1,6 @@
 @Tags(const ['aot'])
 @TestOn('browser')
 import 'dart:async';
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:skawa_components/snackbar/snackbar.dart';
@@ -11,25 +10,25 @@ import 'package:pageloader/src/annotations.dart';
 
 void main() {
   tearDown(disposeAnyRunningTest);
+  final testBed = new NgTestBed<SnackbarTestComponent>();
+  NgTestFixture<SnackbarTestComponent> fixture;
+  TestPO pageObject;
   group('Snackbar |', () {
+    setUp(() async {
+      fixture = await testBed.create();
+      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+    });
     test('initializing', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       expect(pageObject.snackbar, isNotNull);
     });
 
     test('displays a message', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.update((testElement) {
-        testElement.showMessage('hello');
+        testElement.callbackString = 'hello';
       });
-      await new Future.delayed(new Duration(milliseconds: 2000), () => null);
-      await fixture.query<SkawaSnackbarComponent>((element) {
-        return element.componentInstance is SkawaSnackbarComponent;
-      }, (SkawaSnackbarComponent snackbar) {
+      await pageObject.messageSpan.click();
+      await fixture.query<SkawaSnackbarComponent>((element) => element.componentInstance is SkawaSnackbarComponent,
+          (SkawaSnackbarComponent snackbar) {
         expect(snackbar.message.text, 'hello');
         expect(snackbar.show, true);
       });
@@ -37,35 +36,31 @@ void main() {
     });
 
     test('slides out after default duration (3 seconds)', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
-      await fixture.update((testElement) {
-        testElement.showMessage('hello');
-      });
+      await pageObject.messageSpan.click();
       await new Future.delayed(new Duration(seconds: 5), () => null);
-      expect(pageObject.snackbar.messageContainer.classes, neverEmits('show'));
+      await fixture.query<SkawaSnackbarComponent>((element) => element.componentInstance is SkawaSnackbarComponent,
+          (SkawaSnackbarComponent snackbar) => expect(snackbar.show, false));
     });
 
     test('slides out after specified duration(2 seconds)', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.update((testElement) {
-        testElement.showMessage('hello', duration: new Duration(seconds: 2));
+        testElement
+          ..callbackString = 'hello'
+          ..callbackDuration = (new Duration(seconds: 2));
       });
+      await pageObject.messageSpan.click();
       await new Future.delayed(new Duration(seconds: 3), () => null);
-      expect(pageObject.snackbar.messageContainer.classes, neverEmits('show'));
+      await fixture.query<SkawaSnackbarComponent>((element) => element.componentInstance is SkawaSnackbarComponent,
+          (SkawaSnackbarComponent snackbar) => expect(snackbar.show, false));
     });
 
     test('displays button if callback is specified', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
-      await fixture.update((testElement) {
-        testElement.showMessageWithCallback('call me back', callback: () => print('call me back'));
+      await fixture.update((testElement) async {
+        testElement
+          ..callbackString = 'call me back'
+          ..callbackFunction = (() => print('call me back'));
       });
-      await new Future.delayed(new Duration(milliseconds: 1000), () => null);
+      await pageObject.callbackP.click();
       PageLoaderElement button = await pageObject.snackbar.rootElement.getElementsByCss('material-button').first;
       String buttonText = await button.visibleText;
       expect(button, isNotNull);
@@ -73,14 +68,12 @@ void main() {
     });
 
     test('callback on button click', () async {
-      final bed = new NgTestBed<SnackbarTestComponent>();
-      final fixture = await bed.create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
-      await fixture.update((testElement) {
-        testElement.showMessageWithCallback('call me back',
-            callback: () => testElement.displayMsgOnSpan('callback done'));
+      await fixture.update((testElement) async {
+        testElement
+          ..callbackString = 'call me back'
+          ..callbackFunction = (() => testElement.callbackValue = 'callback done');
       });
-      await new Future.delayed(new Duration(milliseconds: 1000), () => null);
+      await pageObject.callbackP.click();
       PageLoaderElement button = await pageObject.snackbar.rootElement.getElementsByCss('material-button').first;
       await button.click();
       String spanText = await pageObject.messageSpan.innerText;
@@ -91,33 +84,40 @@ void main() {
 
 @Component(
     selector: 'test',
-    directives: const [SkawaSnackbarComponent],
     template: '''
-  <skawa-snackbar></skawa-snackbar>
-  <span #messageSpan></span>
-  ''',
+                <skawa-snackbar></skawa-snackbar>
+                <span (click)="showMessage(callbackString,callbackDuration)">{{callbackValue}}</span>
+                <p (click)="showMessageWithCallback(callbackString,callbackDuration,callbackFunction)">
+                  {{callbackValue}}
+                </p>
+              ''',
+    directives: const [SkawaSnackbarComponent],
     providers: const [SnackbarService])
 class SnackbarTestComponent {
   final SnackbarService _snackbarService;
   final ChangeDetectorRef cd;
 
+  String callbackValue;
+
+  String callbackString;
+
+  Duration callbackDuration;
+
+  Function callbackFunction;
+
+  @ViewChild(SkawaSnackbarComponent)
+  SkawaSnackbarComponent snackbar;
+
   SnackbarTestComponent(this._snackbarService, this.cd);
 
-  @ViewChild('messageSpan')
-  ElementRef messageSpan;
+  void showMessage(String message, [Duration duration]) => _snackbarService.showMessage(message, duration: duration);
 
-  void showMessage(String message, {Duration duration}) => _snackbarService.showMessage(message, duration: duration);
-
-  void showMessageWithCallback(String message, {Duration duration, Function callback}) =>
+  void showMessageWithCallback(String message, [Duration duration, Function callback]) =>
       _snackbarService.showMessage(message,
           duration: duration,
           action: new SnackAction()
             ..label = 'call me back'
             ..callback = callback);
-
-  void displayMsgOnSpan(String message) {
-    (messageSpan.nativeElement as SpanElement).innerHtml = message;
-  }
 }
 
 @EnsureTag('test')
@@ -127,6 +127,9 @@ class TestPO {
 
   @ByTagName('span')
   PageLoaderElement messageSpan;
+
+  @ByTagName('p')
+  PageLoaderElement callbackP;
 }
 
 class SnackbarPO {

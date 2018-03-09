@@ -1,3 +1,10 @@
+## 1.0.0-alpha+1
+
+- fix minor issue in toggleAttribute method
+- snackbar_test refactored
+- added flaky-on-travis tags to tests which is never fails on localhost but sometimes fails on travis
+- moved PromptComponent to lib folder due to Angular4 migration
+
 ## 1.0.0-alpha
 - Upgrade to Angular4
 
