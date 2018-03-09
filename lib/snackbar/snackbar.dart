@@ -18,7 +18,7 @@ import 'package:angular_components/utils/disposer/disposer.dart';
 class SnackbarService {
   StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
 
-  Stream get messages => _messageQueue.stream;
+  Stream<SnackMessage> get messages => _messageQueue.stream;
 
   void showMessage(String message, {Duration duration, SnackAction action}) {
     _messageQueue.add(new SnackMessage()
@@ -45,7 +45,7 @@ class SnackMessage {
 ///
 /// __Example__
 ///
-/// <material-snackbar></material-snackbar>
+/// <skawa-snackbar></skawa-snackbar>
 ///
 /// Will display messages emitted by SnackbarService. Also a button if a SnackAction callback is specified.
 ///
@@ -62,19 +62,16 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   final SnackbarService _snackbarService;
   final Disposer _tearDownDisposer = new Disposer.oneShot();
 
-  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
-
   SnackMessage message;
   SnackMessage nextMessage;
   Timer _messageTimer;
   bool show;
-
   Timer _animationBlocker;
-  static final Duration _minimumSlideInDelay = new Duration(milliseconds: 100);
 
+  SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService) ;
   @override
   void ngOnInit() {
-    final StreamSubscription subscription = _snackbarService.messages.listen((newMessage) {
+    final StreamSubscription subscription = _snackbarService.messages.listen((SnackMessage newMessage) {
       if (message == null) {
         message = newMessage;
         _slideIn();
@@ -128,4 +125,6 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   void ngOnDestroy() {
     _tearDownDisposer.dispose();
   }
+
+  static final Duration _minimumSlideInDelay = new Duration(milliseconds: 100);
 }

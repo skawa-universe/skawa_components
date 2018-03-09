@@ -62,7 +62,7 @@ void main() {
       expect(pageObject.trigger.innerText, completion(3.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(''));
       expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
-    });
+    }, tags: 'flaky-on-travis');
   });
 }
 
