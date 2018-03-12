@@ -3,6 +3,7 @@
 ///
 abstract class RowData {
   bool checked = false;
+  List<String> classes = [];
 
   RowData(this.checked);
 }

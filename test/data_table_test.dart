@@ -16,7 +16,7 @@ void main() {
   group('Datatable | ', () {
     test('initialization a non selectable datatable', () async {
       final fixture = await new NgTestBed<NonSelectableDatatableTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+      TestPO pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       var table = pageObject.dataTable.table;
       expect(await table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(await table.rootElement.classes.contains('selectable'), isFalse);
@@ -25,6 +25,7 @@ void main() {
       expect(await table.thead.tr.th[0].rootElement.innerText, 'Car make');
       expect(await table.thead.tr.th[0].rootElement.classes.contains('text-column--header'), isTrue);
       expect(await table.thead.tr.th[1].rootElement.innerText, 'My strong opinion');
+      expect(await table.tbody.tr[0].rootElement.classes, mayEmit('trabant'));
       Future.forEach(table.tbody.tr, (trElement) async {
         expect(trElement.td.length, 2);
         int index = pageObject.dataTable.table.tbody.tr.indexOf(trElement);
@@ -242,10 +243,10 @@ class NonSelectableDatatableTestComponent {
 }
 
 List<RowData> rowData = <SampleRowData>[
-  new SampleRowData('Trabant', 'Definitely not!'),
-  new SampleRowData('Barkasz', 'Same as Trabant!'),
-  new SampleRowData('Lada', 'Let the Russians have it!'),
-  new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
+  new SampleRowData('Trabant', 'Definitely not!', ['trabant']),
+  new SampleRowData('Barkasz', 'Same as Trabant!', []),
+  new SampleRowData('Lada', 'Let the Russians have it!', []),
+  new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?', []),
 ];
 
 @Component(
@@ -397,7 +398,10 @@ class SampleRowData implements RowData {
 
   final String opinion;
 
-  SampleRowData(this.name, this.opinion);
+  SampleRowData(this.name, this.opinion, this.classes);
+
+  @override
+  List<String> classes;
 }
 
 class SampleNumericData extends RowData {

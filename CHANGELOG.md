@@ -1,3 +1,7 @@
+## 1.0.0-alpha+2
+
+- RowData now has additional classes filed to be able style them differently
+
 ## 1.0.0-alpha+1
 
 - fix minor issue in toggleAttribute method
