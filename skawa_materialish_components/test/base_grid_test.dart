@@ -1,6 +1,6 @@
 @TestOn('browser')
 import 'dart:html';
-import 'package:skawa_components/base_implementations/grid/grid.dart';
+import 'package:skawa_materialish_components/base_implementations/grid/grid.dart';
 import 'package:test/test.dart';
 
 void main() {

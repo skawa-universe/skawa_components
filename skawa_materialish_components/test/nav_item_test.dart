@@ -5,7 +5,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_components/nav_item/nav_item.dart';
+import 'package:skawa_materialish_components/nav_item/nav_item.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 

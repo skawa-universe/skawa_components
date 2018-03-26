@@ -4,7 +4,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:angular_components/laminate/popup/module.dart';
-import 'package:skawa_components/prompt/prompt.dart';
+import 'package:skawa_materialish_components/prompt/prompt.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';

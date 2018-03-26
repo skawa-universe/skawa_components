@@ -1,0 +1,27 @@
+name: skawa_materialish_components
+version: 1.0.0-beta
+
+dependencies:
+  angular: ^4.0.0
+  angular_components: ^0.8.0
+  quiver: ^0.25.0
+
+dev_dependencies:
+  test: ^0.12.22+2
+  angular_test: ^1.0.1
+  browser: ^0.10.0+2
+  angular_utility:
+    git:
+     url: https://github.com/skawa-universe/angular_utility.git
+     ref: 0.1.0-alpha+2
+  html_unescape: ^0.1.5
+  mockito: ^1.0.1
+  grinder: ^0.8.1
+transformers:
+- angular:
+   entry_points: test/**_test.dart
+- angular/transform/reflection_remover:
+   $include:
+      - test/**_test.dart
+- test/pub_serve:
+   $include: test/**_test.dart

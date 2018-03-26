@@ -6,7 +6,7 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_components/grid/grid_component.dart';
+import 'package:skawa_materialish_components/grid/grid_component.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
