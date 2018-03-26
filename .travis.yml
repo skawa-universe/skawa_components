@@ -26,7 +26,7 @@ before_install:
   - echo `which dartium`
   - chmod ugo+x tool/travis.sh
 
-script: ./tool/travis.sh
+#script: ./tool/travis.sh
 
 
 env:
