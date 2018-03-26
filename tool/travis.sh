@@ -18,13 +18,19 @@ if [ -z "$TASK" ]; then
   exit 1
 fi
 
+  echo -e 'before pushd ${PKG}'
+
 # Navigate to the correct sub-directory, and run "pub upgrade".
 pushd $PKG
+
+echo -e 'before case ${TASK}'
 
 case $TASK in
 
 presubmit)
+    echo -e 'before upgrade'
     pub upgrade
+    echo -e 'before analyzer'
     dartanalyzer --fatal-warnings .
     dart tool/grind.dart
     dartfmt lib/ --line-length=120 --set-exit-if-changed -n
