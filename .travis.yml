@@ -28,6 +28,23 @@ before_install:
 
 script: ./tool/travis.sh
 
+
+env:
+  global:
+    - PKG=skawa_materialish_components
+    - PKG=skawa_components
+
+stages:
+  - presubmit
+  - testing
+
+jobs:
+  include:
+    - stage: test
+      script: ./tool/travis.sh presubmit
+    - stage: presubmit
+      script: ./tool/travis.sh testing
+
 # Only building master means that we don't run two builds for each pull request.
 branches:
   only: [master]
