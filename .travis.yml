@@ -34,17 +34,22 @@ cache:
  directories:
    - $HOME/.pub-cache
 
-env:
-  - PKG=skawa_materialish_components
-  - PKG=skawa_components
-
-#stages:
-#  - presubmit
-#  - test
+stages:
+  - presubmit
+  - test
 
 jobs:
   include:
     - stage: presubmit
+      env: - PKG="skawa_materialish_components"
       script: ./tool/travis.sh presubmit
     - stage: test
+      env: - PKG="skawa_materialish_components"
+      script: ./tool/travis.sh test
+
+    - stage: presubmit
+      env: - PKG="skawa_components"
+      script: ./tool/travis.sh presubmit
+    - stage: test
+      env: - PKG="skawa_components"
       script: ./tool/travis.sh test
