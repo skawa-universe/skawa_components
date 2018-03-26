@@ -18,18 +18,18 @@ if [ -z "$TASK" ]; then
   exit 1
 fi
 
-  echo -e 'before pushd ${PKG}'
+  echo -e "before pushd '${PKG}'"
 
 # Navigate to the correct sub-directory, and run "pub upgrade".
 pushd $PKG
+PUB_ALLOW_PRERELEASE_SDK=quiet pub upgrade
+EXIT_CODE=1
 
-echo -e 'before case ${TASK}'
+echo -e "before case '${TASK}'"
 
 case $TASK in
 
 presubmit)
-    echo -e 'before upgrade'
-    pub upgrade
     echo -e 'before analyzer'
     dartanalyzer --fatal-warnings .
     dart tool/grind.dart
@@ -39,6 +39,7 @@ presubmit)
 
 testing)
     dartium --version
+    echo -e 'before first test case'
     pub run test -p vm
     pub run angular_test --test-arg=-pdartium --test-arg=--timeout=4x --test-arg=--exclude-tags=flaky-on-travis
     pub run test -pdartium --tags "!(aot)"

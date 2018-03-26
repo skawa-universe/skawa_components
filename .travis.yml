@@ -26,7 +26,13 @@ before_install:
   - echo `which dartium`
   - chmod ugo+x tool/travis.sh
 
-#script: ./tool/travis.sh
+# Only building master means that we don't run two builds for each pull request.
+branches:
+  only: [master]
+
+cache:
+ directories:
+   - $HOME/.pub-cache
 
 
 env:
@@ -40,15 +46,7 @@ stages:
 
 jobs:
   include:
-    - stage: test
-      script: ./tool/travis.sh presubmit
     - stage: presubmit
+      script: ./tool/travis.sh presubmit
+    - stage: test
       script: ./tool/travis.sh testing
-
-# Only building master means that we don't run two builds for each pull request.
-branches:
-  only: [master]
-
-cache:
- directories:
-   - $HOME/.pub-cache
