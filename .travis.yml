@@ -34,11 +34,9 @@ cache:
  directories:
    - $HOME/.pub-cache
 
-
 env:
-  global:
-    - PKG=skawa_materialish_components
-    - PKG=skawa_components
+  - PKG=skawa_materialish_components
+  - PKG=skawa_components
 
 stages:
   - presubmit
