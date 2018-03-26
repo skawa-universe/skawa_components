@@ -1,5 +1,5 @@
 import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
-import 'package:skawa_components/pipes/random_colorize_pipe.dart';
+import 'package:skawa_components/pipes/hex_colorize_pipe.dart';
 import 'package:test/test.dart';
 
 final Matcher throwsATypeError = throwsA(new isInstanceOf<TypeError>());
@@ -7,12 +7,12 @@ final Matcher throwsATypeError = throwsA(new isInstanceOf<TypeError>());
 final Matcher throwsAnInvalidPipeArgumentException = throwsA(new isInstanceOf<InvalidPipeArgumentException>());
 
 void main() {
-  group('RandomColorizePipe | ', () {
-    SkawaRandomColorizePipe pipe;
+  group('HexColorizePipe | ', () {
+    SkawaHexColorizePipe pipe;
     final int intSeed = 1234;
     final String stringSeed = 'seed';
     final String hexSeed = '2cbe4e';
-    setUp(() => pipe = new SkawaRandomColorizePipe());
+    setUp(() => pipe = new SkawaHexColorizePipe());
     test('accepts int', () {
       expect(() {
         pipe.transform(intSeed);
@@ -32,7 +32,7 @@ void main() {
     test('returns valid css color', () {
       String a = pipe.transform(intSeed);
       expect(a, startsWith('#'));
-      expect(SkawaRandomColorizePipe.validHashLength.contains(a.length - 1), isTrue);
+      expect(SkawaHexColorizePipe.validHashLength.contains(a.length - 1), isTrue);
     });
     test('returns same color for the same string seed', () {
       String a = pipe.transform(stringSeed);

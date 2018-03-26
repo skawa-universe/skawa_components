@@ -12,11 +12,11 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 /// __Limitations__:
 ///
 /// Can only accept seeds of `String` and `int` types also support hexadecimal numbers
-@Pipe('randomColorize')
-class SkawaRandomColorizePipe implements PipeTransform {
+@Pipe('hedColorize')
+class SkawaHexColorizePipe implements PipeTransform {
   String transform(dynamic seed) {
     if (!_supportedInput(seed)) {
-      throw new InvalidPipeArgumentException(SkawaRandomColorizePipe, seed);
+      throw new InvalidPipeArgumentException(SkawaHexColorizePipe, seed);
     }
     int hexHash;
     if (seed is String) {
