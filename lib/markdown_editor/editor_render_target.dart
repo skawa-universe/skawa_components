@@ -21,22 +21,27 @@ class EditorRenderTarget implements OnDestroy {
   @Output('render')
   Stream get onRender => _onRenderController.stream;
 
+  Element get _element => elementRef.nativeElement;
+
   void updateRender(String newTarget, {List<String> classes}) {
     _onRenderController.add(newTarget);
     if (newTarget == _previousRender) return;
-    Element e = elementRef.nativeElement as Element;
-    e.children.clear();
-    e.append(renderer.render(newTarget));
-    if (classes != null && classes.isNotEmpty)
-      e.children.forEach((Element children) {
-        children.classes.addAll(classes);
+    _element.children.clear();
+    _element.append(renderer.render(newTarget));
+    _updateElementChildren(_element, classes);
+  }
+
+  void _updateElementChildren(Element element, List<String> classes) {
+    if (classes != null && classes.isNotEmpty && element.children.isNotEmpty) {
+      element.children.forEach((Element child) {
+        child.classes.addAll(classes);
+        _updateElementChildren(child, classes);
       });
+    }
   }
 
   @override
-  void ngOnDestroy() {
-    _onRenderController.close();
-  }
+  void ngOnDestroy() => _onRenderController.close();
 }
 
 /// Interface to describe a renderer
