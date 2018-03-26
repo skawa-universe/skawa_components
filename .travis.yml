@@ -38,9 +38,9 @@ env:
   - PKG=skawa_materialish_components
   - PKG=skawa_components
 
-stages:
-  - presubmit
-  - test
+#stages:
+#  - presubmit
+#  - test
 
 jobs:
   include:
