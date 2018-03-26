@@ -40,11 +40,11 @@ env:
 
 stages:
   - presubmit
-  - testing
+  - test
 
 jobs:
   include:
     - stage: presubmit
       script: ./tool/travis.sh presubmit
-    - stage: testing
-      script: ./tool/travis.sh testing
+    - stage: test
+      script: ./tool/travis.sh test

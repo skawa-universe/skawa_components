@@ -37,7 +37,7 @@ presubmit)
     dartfmt test/ --line-length=120 --set-exit-if-changed -n
     ;;
 
-testing)
+test)
     dartium --version
     echo -e 'before first test case'
     pub run test -p vm
