@@ -1,3 +1,7 @@
+## 1.0.0-alpha+2
+
+- SkawaMarkdownEditorComponent now updates EditorRenderTarget with the proper classes
+
 ## 1.0.0-alpha+1
 
 - fix minor issue in toggleAttribute method
