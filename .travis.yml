@@ -46,5 +46,5 @@ jobs:
   include:
     - stage: presubmit
       script: ./tool/travis.sh presubmit
-    - stage: test
+    - stage: testing
       script: ./tool/travis.sh testing

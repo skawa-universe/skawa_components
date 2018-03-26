@@ -1,0 +1,4 @@
+# Define tags we expect for this test suite.
+tags:
+  aot:
+    platform: browser
