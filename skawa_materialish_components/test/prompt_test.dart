@@ -11,16 +11,19 @@ import 'package:pageloader/src/annotations.dart';
 
 void main() {
   tearDown(disposeAnyRunningTest);
+  final testBed = new NgTestBed<PromptTestComponent>();
+  NgTestFixture<PromptTestComponent> fixture;
+  TestPO pageObject;
   group('Prompt |', () {
+    setUp(() async {
+      fixture = await testBed.create();
+      pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
+    });
     test('initialization', () async {
-      final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       expect(pageObject.prompt, isNotNull);
     });
 
     test('displays a message', () async {
-      final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
@@ -29,8 +32,6 @@ void main() {
     });
 
     test('calls yes function', () async {
-      final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
@@ -41,8 +42,6 @@ void main() {
     });
 
     test('calls no function', () async {
-      final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
@@ -53,8 +52,6 @@ void main() {
     });
 
     test('modal disappears after clicking yes or no if we want it to', () async {
-      final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
