@@ -36,8 +36,8 @@ test)
     dartium --version
     pub run test -p vm
     pub serve test --web-compiler=dartdevc
-    pub run angular_test --test-arg=-pdartium --test-arg=--timeout=4x --test-arg=--exclude-tags=flaky-on-travis --test-arg=--pub-serve=8080
-    pub run test -pdartium --tags "!(aot)" --pub-serve=8080
+    pub run angular_test --test-arg=-pchrome --test-arg=--timeout=4x --test-arg=--exclude-tags=flaky-on-travis --test-arg=--pub-serve=8080
+    pub run test -pchrome --tags "!(aot)" --pub-serve=8080
     ;;
 
   *)

@@ -4,7 +4,8 @@ dart:
 # - dev currently the dartfmt failing on dev
  - stable
 
-
+addons:
+  chrome: stable
 #before_install:
 #  # Add a local `bin` folder and add it to the PATH.
 #  - mkdir -p bin
@@ -26,9 +27,9 @@ dart:
 #  - echo `which dartium`
 
 before_install:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - "t=0; until (xdpyinfo -display :99 &> /dev/null || test $t -gt 10); do sleep 1; let t=$t+1; done"
+#  - export DISPLAY=:99.0
+#  - sh -e /etc/init.d/xvfb start
+#  - "t=0; until (xdpyinfo -display :99 &> /dev/null || test $t -gt 10); do sleep 1; let t=$t+1; done"
   - chmod ugo+x tool/travis.sh
 
 # Only building master means that we don't run two builds for each pull request.
@@ -40,21 +41,21 @@ cache:
    - $HOME/.pub-cache
 
 stages:
-  - presubmit
+#  - presubmit
   - test
 
 jobs:
   include:
-    - stage: presubmit
-      env: PKG="skawa_material_components"
-      script: ./tool/travis.sh presubmit
+#    - stage: presubmit
+#      env: PKG="skawa_material_components"
+#      script: ./tool/travis.sh presubmit
     - stage: test
       env: PKG="skawa_material_components"
       script: ./tool/travis.sh test
 
-    - stage: presubmit
-      env: PKG="skawa_components"
-      script: ./tool/travis.sh presubmit
+#    - stage: presubmit
+#      env: PKG="skawa_components"
+#      script: ./tool/travis.sh presubmit
     - stage: test
       env: PKG="skawa_components"
       script: ./tool/travis.sh test
