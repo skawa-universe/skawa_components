@@ -18,6 +18,7 @@ import 'package:angular_components/material_icon/material_icon.dart';
 /// __Properties:__
 /// - `showNavToggle: bool` -- Whether to display nav toggle. Defaults to true.
 ///
+@Deprecated("Use MaterialPersistentDrawerDirective from `angular_components`")
 @Component(
     selector: 'skawa-appbar',
     templateUrl: 'appbar.html',

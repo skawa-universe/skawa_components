@@ -6,7 +6,7 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_materialish_components/card/card.dart';
+import 'package:skawa_material_components/card/card.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
@@ -104,8 +104,8 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
   <skawa-card>
     <skawa-card-header [statusColor]="statusColor" *ngIf="hasHeader">
         <skawa-header-image *ngIf="hasImage"></skawa-header-image>
@@ -117,8 +117,7 @@ void main() {
     <skawa-card-content *ngIf="hasContent" #f (click)="f.toggle()"></skawa-card-content>
   </skawa-card>
      ''',
-  directives: const [skawaCardDirectives, NgIf],
-)
+    directives: const [skawaCardDirectives, NgIf])
 class CardTestComponent {
   String statusColor;
   bool hasHeader = false;

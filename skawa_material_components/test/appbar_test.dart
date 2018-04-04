@@ -1,13 +1,12 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_materialish_components/appbar/appbar.dart';
+import 'package:skawa_material_components/appbar/appbar.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -38,15 +37,12 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
     <skawa-appbar [showNavToggle]="showNavToggle"  (navToggle)="increment()"></skawa-appbar>
     <div increment>{{triggered}}</div>
      ''',
-  directives: const [
-    SkawaAppbarComponent,
-  ],
-)
+    directives: const [SkawaAppbarComponent])
 class AppbarTestComponent {
   bool showNavToggle = false;
 

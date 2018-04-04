@@ -80,8 +80,8 @@ class TextAreaElement {
 }
 
 @Component(
-  selector: 'app-cmp',
-  template: '''
+    selector: 'app-cmp',
+    template: '''
     <skawa-markdown-editor #editor initialValue="hello" [updateDelay]="updateDelay">
         <div class="placeholder">Nothing to show you yet</div>
     </skawa-markdown-editor>
@@ -90,9 +90,8 @@ class TextAreaElement {
     <button (click)="editor.previewMarkdown()">Preview</button>
     <button (click)="editor.editMarkdown()">Edit</button>  
    ''',
-  directives: const [SkawaMarkdownEditorComponent],
-  providers: const [popupDebugBindings, const Provider(EditorRenderer, useClass: MarkdownRenderer)],
-)
+    directives: const [SkawaMarkdownEditorComponent],
+    providers: const [popupDebugBindings, const Provider(EditorRenderer, useClass: MarkdownRenderer)])
 class AppComponent {
   @ViewChild(SkawaMarkdownEditorComponent)
   SkawaMarkdownEditorComponent markdownEditorComponent;

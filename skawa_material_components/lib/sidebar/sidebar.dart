@@ -14,6 +14,7 @@ import 'package:angular_components/model/ui/toggle.dart';
 /// __Properties:__
 /// - `isOn: bool` -- Whether to display the sidebar. Defaults to false.
 ///
+@Deprecated("Use MaterialPersistentDrawerDirective from `angular_components`")
 @Component(
   selector: 'skawa-sidebar',
   exportAs: 'sidebar',

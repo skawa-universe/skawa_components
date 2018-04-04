@@ -15,6 +15,7 @@ import '../sidebar/sidebar.dart';
 /// __Properties:__
 /// - `isOn: bool` -- Whether to display the sidebar. Defaults to false.
 ///
+@Deprecated("Use MaterialPersistentDrawerDirective from `angular_components`")
 @Component(
     selector: 'skawa-drawer',
     templateUrl: 'drawer.html',

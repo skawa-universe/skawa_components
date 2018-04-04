@@ -1,4 +1,4 @@
-library skawa_materialish_components;
+library skawa_material_components;
 
 import 'card/card.dart';
 import 'data_table/data_table.dart';
@@ -8,4 +8,4 @@ export 'data_table/data_table_column.dart';
 export 'data_table/data_table.dart';
 export 'data_table/row_data.dart';
 
-const List<dynamic> skawaMaterialishDirectives = const [skawaCardDirectives, skawaDataTableDirectives];
+const List<dynamic> skawaMaterialDirectives = const [skawaCardDirectives, skawaDataTableDirectives];

@@ -89,8 +89,7 @@ void main() {
     <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
               ''',
-    directives: const [EditorRenderSource],
-    changeDetection: ChangeDetectionStrategy.OnPush)
+    directives: const [EditorRenderSource])
 class RenderSourceTemplateComponent {
   String initialValue;
 

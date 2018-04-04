@@ -28,13 +28,12 @@ void main() {
 }
 
 @Component(
-  selector: 'dummy-cke',
-  directives: const [SkawaCkeditorComponent],
-  template: '''
+    selector: 'dummy-cke',
+    template: '''
   <skawa-ckeditor editorName="editor" [extraPlugins]="plugins" configUrl="/some-url" [content]="escaped">
   </skawa-ckeditor>
   ''',
-)
+    directives: const [SkawaCkeditorComponent])
 class TestEditorComponent {
   List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 

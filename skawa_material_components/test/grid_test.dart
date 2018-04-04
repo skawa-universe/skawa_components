@@ -6,7 +6,7 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:pageloader/webdriver.dart';
-import 'package:skawa_materialish_components/grid/grid_component.dart';
+import 'package:skawa_material_components/grid/grid_component.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
@@ -27,16 +27,15 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
   <skawa-grid #f>
     <div gridTile>Cat</div>
     <div gridTile>Dog</div>
     <div gridTile>Wolf</div>
   </skawa-grid>
      ''',
-  directives: const [GridComponent, GridTileDirective],
-)
+    directives: const [GridComponent, GridTileDirective])
 class GridTestComponent {}
 
 @EnsureTag('test')

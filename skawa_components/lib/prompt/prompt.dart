@@ -20,12 +20,12 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 ///   </prompt>
 ///
 @Component(
-    selector: 'prompt',
+    selector: 'skawa-prompt',
     templateUrl: 'prompt.html',
     directives: const [MaterialDialogComponent, ModalComponent, MaterialYesNoButtonsComponent],
     preserveWhitespace: false,
     changeDetection: ChangeDetectionStrategy.OnPush)
-class PromptComponent {
+class SkawaPromptComponent {
   final ChangeDetectorRef _cd;
   @Input('yes')
   Function yesCallback;
@@ -55,7 +55,7 @@ class PromptComponent {
 
   bool pending = false;
 
-  PromptComponent(this._cd);
+  SkawaPromptComponent(this._cd);
 
   void yes() {
     if (yesCallback == null) return;

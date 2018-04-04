@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_materialish_components/drawer/drawer.dart';
+import 'package:skawa_material_components/drawer/drawer.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -47,15 +47,12 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
     <skawa-drawer #f [isOn]="isOn"></skawa-drawer>
     <button (click)="f.toggle();"></button>
      ''',
-  directives: const [
-    SkawaDrawerComponent,
-  ],
-)
+    directives: const [SkawaDrawerComponent])
 class DrawerTestComponent {
   bool isOn = false;
 }

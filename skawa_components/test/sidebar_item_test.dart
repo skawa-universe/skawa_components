@@ -5,7 +5,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
-import 'package:skawa_materialish_components/sidebar_item/sidebar_item.dart';
+import 'package:skawa_components/sidebar_item/sidebar_item.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/objects.dart';
 
@@ -40,14 +40,11 @@ void main() {
 }
 
 @Component(
-  selector: 'test',
-  template: '''
+    selector: 'test',
+    template: '''
     <skawa-sidebar-item [icon]="icon" [textOnly]="textOnly"></skawa-sidebar-item>
      ''',
-  directives: const [
-    SkawaSidebarItemComponent,
-  ],
-)
+    directives: const [SkawaSidebarItemComponent])
 class SidebarItemTestComponent {
   String textOnly;
 

@@ -4,7 +4,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:angular_components/laminate/popup/module.dart';
-import 'package:skawa_materialish_components/prompt/prompt.dart';
+import 'package:skawa_components/prompt/prompt.dart';
 import 'package:test/test.dart';
 import 'package:pageloader/html.dart';
 import 'package:pageloader/src/annotations.dart';
@@ -24,17 +24,17 @@ void main() {
     });
 
     test('displays a message', () async {
-      await fixture.query<PromptComponent>((debugElement) {
-        return debugElement.componentInstance is PromptComponent;
-      }, (PromptComponent component) {
+      await fixture.query<SkawaPromptComponent>((debugElement) {
+        return debugElement.componentInstance is SkawaPromptComponent;
+      }, (SkawaPromptComponent component) {
         expect((component.messageText.nativeElement as Element).innerHtml, 'Should you?');
       });
     });
 
     test('calls yes function', () async {
-      await fixture.query<PromptComponent>((debugElement) {
-        return debugElement.componentInstance is PromptComponent;
-      }, (PromptComponent component) {
+      await fixture.query<SkawaPromptComponent>((debugElement) {
+        return debugElement.componentInstance is SkawaPromptComponent;
+      }, (SkawaPromptComponent component) {
         component.yesNoButtonsComponent.yesButton.handleClick(new MouseEvent('test'));
       });
       String msg = await pageObject.messageSpan.innerText;
@@ -42,9 +42,9 @@ void main() {
     });
 
     test('calls no function', () async {
-      await fixture.query<PromptComponent>((debugElement) {
-        return debugElement.componentInstance is PromptComponent;
-      }, (PromptComponent component) {
+      await fixture.query<SkawaPromptComponent>((debugElement) {
+        return debugElement.componentInstance is SkawaPromptComponent;
+      }, (SkawaPromptComponent component) {
         component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
       });
       String msg = await pageObject.messageSpan.innerText;
@@ -52,14 +52,14 @@ void main() {
     });
 
     test('modal disappears after clicking yes or no if we want it to', () async {
-      await fixture.query<PromptComponent>((debugElement) {
-        return debugElement.componentInstance is PromptComponent;
-      }, (PromptComponent component) {
+      await fixture.query<SkawaPromptComponent>((debugElement) {
+        return debugElement.componentInstance is SkawaPromptComponent;
+      }, (SkawaPromptComponent component) {
         component.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test'));
       });
-      await fixture.query<PromptComponent>((debugElement) {
-        return debugElement.componentInstance is PromptComponent;
-      }, (PromptComponent component) {
+      await fixture.query<SkawaPromptComponent>((debugElement) {
+        return debugElement.componentInstance is SkawaPromptComponent;
+      }, (SkawaPromptComponent component) {
         expect((component.messageText.nativeElement as Element).ownerDocument.querySelector('.pane.modal').classes,
             isNot(contains('visible')));
       });
@@ -69,13 +69,12 @@ void main() {
 
 @Component(
     selector: 'test',
-    directives: const [PromptComponent],
+    directives: const [SkawaPromptComponent],
     template: '''
-  <prompt [message]="message" [yes]="yesCallback" [no]="noCallback" [visible]="isVisible"></prompt>
+  <skawa-prompt [message]="message" [yes]="yesCallback" [no]="noCallback" [visible]="isVisible"></skawa-prompt>
   <span #messageSpan></span>
   ''',
-    providers: const [popupBindings],
-    changeDetection: ChangeDetectionStrategy.OnPush)
+    providers: const [popupBindings])
 class PromptTestComponent {
   @ViewChild('messageSpan')
   ElementRef messageSpan;

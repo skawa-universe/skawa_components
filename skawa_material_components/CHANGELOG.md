@@ -1,3 +1,7 @@
+## 1.0.0-beta
+
+- Splitted the original package, removed the non-material components from this package
+
 ## 1.0.0-alpha+2
 
 - SkawaMarkdownEditorComponent now updates EditorRenderTarget with the proper classes
