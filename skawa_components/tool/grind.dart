@@ -53,7 +53,7 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       '--test-arg=-pchrome',
       '--test-arg=--timeout=4x',
       '--test-arg=--exclude-tags=flaky-on-travis',
-      '--test-arg=--pub-serve=8080'
+      '--serve-arg=--port=8080'
     ],
     'Run angular_test');
 
