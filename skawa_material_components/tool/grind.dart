@@ -35,8 +35,8 @@ Future test(GrinderContext args) async {
   ang.ServeProcess serveProcess = new ang.ServeProcess();
   await serveProcess.processStart(pubServe, dry);
   await ang.processStart(normalTest, dry);
-//  await ang.processStart(angularTest, dry);
   await serveProcess.close();
+  await ang.processStart(angularTest, dry);
 }
 
 const ang.ProcessInformation pubServe =
@@ -54,7 +54,6 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       '--test-arg=--timeout=4x',
       '--test-arg=--exclude-tags=flaky-on-travis',
       '--serve-arg=--web-compiler=dartdevc'
-//      '--serve-arg=--port=8080'
     ],
     'Run angular_test');
 
