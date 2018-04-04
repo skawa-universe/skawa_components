@@ -36,7 +36,7 @@ test)
 #    pub serve test --web-compiler=dartdevc
 #    pub run angular_test --test-arg=-pchrome --test-arg=--timeout=4x --test-arg=--exclude-tags=flaky-on-travis --test-arg=--pub-serve=8080
 #    pub run test -pchrome --tags "!(aot)" --pub-serve=8080
-     xvfb-run -s "-screen 0 1024x768x24" dart tool/grind.dart test
+     dart tool/grind.dart test
     ;;
 
   *)
