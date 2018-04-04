@@ -43,13 +43,12 @@ const ang.ProcessInformation pubServe =
     const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080'], 'Pub serve');
 
 const ang.ProcessInformation normalTest = const ang.ProcessInformation(
-    'pub', const ['run', 'test', '-pchrome', '--tags "!(aot)"', '--pub-serve=8080'], 'Run test');
+    'pub', const ['run', 'test', 'test/', '-pchrome', '--tags "!(aot)"', '--pub-serve=8080'], 'Run test');
 
 const ang.ProcessInformation angularTest = const ang.ProcessInformation(
     'pub',
     const [
       'run',
-      'test',
       'angular_test',
       '--test-arg=-pchrome',
       '--test-arg=--timeout=4x',
@@ -57,8 +56,6 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       '--test-arg=--pub-serve=8080'
     ],
     'Run angular_test');
-
-
 
 /// Prints a log event to stdout
 void logEvent(LogRecord rec, bool verbose) {
@@ -85,7 +82,6 @@ void logEvent(LogRecord rec, bool verbose) {
     }
   }
 }
-
 
 final _green = new AnsiPen()..green();
 final _red = new AnsiPen()..red();
