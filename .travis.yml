@@ -56,6 +56,6 @@ jobs:
 #    - stage: presubmit
 #      env: PKG="skawa_components"
 #      script: ./tool/travis.sh presubmit
-    - stage: test
-      env: PKG="skawa_components"
-      script: ./tool/travis.sh test
+#    - stage: test
+#      env: PKG="skawa_components"
+#      script: ./tool/travis.sh test
