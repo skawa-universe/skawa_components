@@ -50,7 +50,7 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
     const [
       'run',
       'angular_test',
-      '--test-arg=-pchrome',
+//      '--test-arg=-pchrome',
       '--test-arg=--timeout=4x',
       '--test-arg=--exclude-tags=flaky-on-travis',
       '--serve-arg=--web-compiler=dartdevc'
