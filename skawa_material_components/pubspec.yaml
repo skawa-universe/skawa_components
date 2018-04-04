@@ -13,7 +13,7 @@ dev_dependencies:
   angular_utility:
     git:
      url: https://github.com/skawa-universe/angular_utility.git
-     ref: 0.1.0-alpha+2
+     ref: 0.1.0-alpha+4
   html_unescape: ^0.1.5
   mockito: ^1.0.1
   grinder: ^0.8.1
