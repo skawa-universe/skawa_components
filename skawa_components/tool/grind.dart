@@ -40,7 +40,7 @@ Future test(GrinderContext args) async {
 }
 
 const ang.ProcessInformation pubServe =
-    const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080'], 'Pub serve');
+    const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080', '--web-compiler=dartdevc'], 'Pub serve');
 
 const ang.ProcessInformation normalTest = const ang.ProcessInformation(
     'pub', const ['run', 'test', 'test/', '-pchrome', '--tags "!(aot)"', '--pub-serve=8080'], 'Run test');
