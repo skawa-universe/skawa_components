@@ -33,7 +33,7 @@ Future test(GrinderContext args) async {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) => logEvent(rec, !dry));
   ang.ServeProcess serveProcess = new ang.ServeProcess();
-  await serveProcess.processStart(pubServe, dry);
+  await serveProcess.processStart(pubServe, false);
   await ang.processStart(normalTest, dry);
   await serveProcess.close();
   await ang.processStart(angularTest, dry);
@@ -51,7 +51,7 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       'run',
       'angular_test',
       '--test-arg=-pchrome',
-      '--test-arg=--timeout=4x',
+      '--test-arg=--timeout=8x',
       '--test-arg=--exclude-tags=flaky-on-travis',
       '--serve-arg=--web-compiler=dartdevc'
     ],
