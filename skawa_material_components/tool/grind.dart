@@ -52,7 +52,7 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       'angular_test',
       "--verbose",
       '--test-arg=-pchrome',
-      '--test-arg=--timeout=8x',
+      '--test-arg=--timeout=32x',
       '--test-arg=--exclude-tags=flaky-on-travis',
       '--serve-arg=--web-compiler=dartdevc'
     ],
