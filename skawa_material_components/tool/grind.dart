@@ -59,7 +59,8 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       '--test-arg=--exclude-tags=flaky-on-travis',
       '--serve-arg=--web-compiler=dartdevc',
       '--test-arg=--tags=aot',
-      '--test-arg=--reporter=expanded'
+      '--test-arg=--reporter=expanded',
+      '--test-arg=test/appbar_test.dart'
     ],
     'Run angular_test');
 
