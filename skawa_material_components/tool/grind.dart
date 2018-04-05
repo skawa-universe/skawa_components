@@ -40,13 +40,13 @@ Future test(GrinderContext args) async {
 }
 
 const ang.ProcessInformation pubServe =
-    const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080', '--web-compiler=dartdevc'], 'Pub serve');
+    const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080', '--web-compiler=dart2js'], 'Pub serve');
 
 const ang.ProcessInformation normalTest = const ang.ProcessInformation(
     'pub', const ['run', 'test', 'test/', '-pchrome', '--exclude-tags=aot', '--pub-serve=8080'], 'Run test');
 
 const ang.ProcessInformation angularTestlesTest = const ang.ProcessInformation(
-    'pub', const ['run', 'test', 'test/appbar_test.dart', '-pchrome', '--tags=aot', '--pub-serve=8080'], 'Run test');
+    'pub', const ['run', 'test', 'test/', '-pchrome', '--tags=aot', '--pub-serve=8080'], 'Run test');
 
 const ang.ProcessInformation angularTest = const ang.ProcessInformation(
     'pub',
