@@ -50,6 +50,7 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
     const [
       'run',
       'angular_test',
+      "--verbose",
       '--test-arg=-pchrome',
       '--test-arg=--timeout=8x',
       '--test-arg=--exclude-tags=flaky-on-travis',
