@@ -54,7 +54,9 @@ const ang.ProcessInformation angularTest = const ang.ProcessInformation(
       '--test-arg=-pchrome',
       '--test-arg=--timeout=32x',
       '--test-arg=--exclude-tags=flaky-on-travis',
-      '--serve-arg=--web-compiler=dartdevc'
+      '--serve-arg=--web-compiler=dartdevc',
+      '--test-arg=--tags=aot',
+      '--test-arg=--reporter=expanded'
     ],
     'Run angular_test');
 

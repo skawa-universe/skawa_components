@@ -21,6 +21,7 @@ dev_dependencies:
 transformers:
 - angular:
    entry_points: test/**_test.dart
+- angular/transform/codegen
 - angular/transform/reflection_remover:
    $include:
       - test/**_test.dart
