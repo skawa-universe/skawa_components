@@ -35,8 +35,8 @@ Future test(GrinderContext args) async {
   ang.ServeProcess serveProcess = new ang.ServeProcess();
   await serveProcess.processStart(pubServe, false);
   await ang.processStart(normalTest, dry);
+  await ang.processStart(angularTestlesTest, dry);
   await serveProcess.close();
-  await ang.processStart(angularTest, dry);
 }
 
 const ang.ProcessInformation pubServe =
@@ -44,6 +44,9 @@ const ang.ProcessInformation pubServe =
 
 const ang.ProcessInformation normalTest = const ang.ProcessInformation(
     'pub', const ['run', 'test', 'test/', '-pchrome', '--exclude-tags=aot', '--pub-serve=8080'], 'Run test');
+
+const ang.ProcessInformation angularTestlesTest = const ang.ProcessInformation(
+    'pub', const ['run', 'test', 'test/', '-pchrome', '--tags=aot', '--pub-serve=8080'], 'Run test');
 
 const ang.ProcessInformation angularTest = const ang.ProcessInformation(
     'pub',
