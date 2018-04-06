@@ -41,8 +41,8 @@ Future test(GrinderContext args) async {
 const ang.ProcessInformation pubServe =
     const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080', '--web-compiler=dart2js'], 'Pub serve');
 
-const ang.ProcessInformation normalTest =
-    const ang.ProcessInformation('pub', const ['run', 'test', 'test/', '-pchrome', '--pub-serve=8080'], 'Run test');
+const ang.ProcessInformation normalTest = const ang.ProcessInformation(
+    'pub', const ['run', 'test', 'test/', '-pchrome', '--pub-serve=8080', '--timeout=2x'], 'Run test');
 
 /// Prints a log event to stdout
 void logEvent(LogRecord rec, bool verbose) {
