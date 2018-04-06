@@ -98,7 +98,7 @@ class PromptTestComponent {
 
 @EnsureTag('test')
 class TestPO {
-  @ByTagName('prompt')
+  @ByTagName('skawa-prompt')
   PageLoaderElement prompt;
 
   @ByTagName('span')

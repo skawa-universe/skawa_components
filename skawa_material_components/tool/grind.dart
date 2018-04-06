@@ -35,34 +35,14 @@ Future test(GrinderContext args) async {
   ang.ServeProcess serveProcess = new ang.ServeProcess();
   await serveProcess.processStart(pubServe, false);
   await ang.processStart(normalTest, dry);
-  await ang.processStart(angularTestlesTest, dry);
   await serveProcess.close();
 }
 
 const ang.ProcessInformation pubServe =
     const ang.ProcessInformation('pub', const ['serve', 'test', '--port=8080', '--web-compiler=dart2js'], 'Pub serve');
 
-const ang.ProcessInformation normalTest = const ang.ProcessInformation(
-    'pub', const ['run', 'test', 'test/', '-pchrome', '--exclude-tags=aot', '--pub-serve=8080'], 'Run test');
-
-const ang.ProcessInformation angularTestlesTest = const ang.ProcessInformation(
-    'pub', const ['run', 'test', 'test/', '-pchrome', '--tags=aot', '--pub-serve=8080'], 'Run test');
-
-const ang.ProcessInformation angularTest = const ang.ProcessInformation(
-    'pub',
-    const [
-      'run',
-      'angular_test',
-      "--verbose",
-      '--test-arg=-pchrome',
-      '--test-arg=--timeout=32x',
-      '--test-arg=--exclude-tags=flaky-on-travis',
-      '--serve-arg=--web-compiler=dartdevc',
-      '--test-arg=--tags=aot',
-      '--test-arg=--reporter=expanded',
-      '--test-arg=test/appbar_test.dart'
-    ],
-    'Run angular_test');
+const ang.ProcessInformation normalTest =
+    const ang.ProcessInformation('pub', const ['run', 'test', 'test/', '-pchrome', '--pub-serve=8080'], 'Run test');
 
 /// Prints a log event to stdout
 void logEvent(LogRecord rec, bool verbose) {
