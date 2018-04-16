@@ -44,11 +44,15 @@ abstract class TextareaEditorBase implements SkawaEditor {
   @override
   String get displayMode => _displayMode;
 
+  String get _emulatedCssClass;
+
   @override
   set displayMode(String mode) {
     if (mode == _displayMode) return;
     if (mode == EditorMode.DISPLAY) {
-      renderTarget.updateRender(value);
+      List<String> newClasses = [];
+      if (_emulatedCssClass != null) newClasses.add(_emulatedCssClass);
+      renderTarget.updateRender(value, classes: newClasses);
     }
     _displayMode = mode;
   }

@@ -50,8 +50,8 @@ void main() {
         expect(
             testElement.editorRenderTarget.elementRef.nativeElement.innerHtml,
             '         <ul class="cat lion">\n'
-            '            <li> Cat</li>\n'
-            '            <li> Dog</li>\n'
+            '            <li class="cat lion"> Cat</li>\n'
+            '            <li class="cat lion"> Dog</li>\n'
             '          </ul>\n'
             '         ');
         expect(
