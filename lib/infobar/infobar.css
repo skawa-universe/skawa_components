@@ -57,8 +57,17 @@
   margin-bottom: 16px;
   background-color: white;
 }
+:host .hide-without-icon {
+  display: none;
+}
+:host .without-url {
+  cursor: default;
+}
 :host .info-text {
   display: inline-flex;
+}
+:host .info-text.without-icon {
+  padding-left: 16px;
 }
 :host .info-text .ws-truncate-fix {
   display: inline-block;

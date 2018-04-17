@@ -1,3 +1,8 @@
+## 1.0.0-alpha+3
+
+- SkawaInfobarComponent button open the url in a new tab
+- SkawaDataTableComponent can be non highlightable
+
 ## 1.0.0-alpha+2
 
 - SkawaMarkdownEditorComponent now updates EditorRenderTarget with the proper classes
