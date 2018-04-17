@@ -29,7 +29,7 @@ void main() {
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
       await fixture.update((testComponent) async => expect(await testComponent.renderSource.onUpdated.isEmpty, isTrue));
-    });
+    }, tags: 'flaky-on-travis');
   });
   group('EditorRenderSource | with initial value ', () {
     setUp(() async {

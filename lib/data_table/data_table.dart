@@ -59,10 +59,13 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
   final StreamController<SkawaDataTableColComponent> _sortController =
       new StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
-
   final Disposer _tearDownDisposer = new Disposer.oneShot();
+
   @Input()
   bool selectable;
+
+  @Input()
+  bool highlightable = true;
 
   @Input('data')
   Iterable<RowData> rows;
@@ -133,6 +136,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   }
 
   bool _canHighlight(Event ev) {
+    if(highlightable) return false;
     if (selectable && ev.target is Element && ev.target != ev.currentTarget) {
       Element target = ev.target as Element;
       if (target is Element) {

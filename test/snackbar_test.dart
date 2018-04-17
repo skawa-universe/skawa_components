@@ -52,7 +52,7 @@ void main() {
       await new Future.delayed(new Duration(seconds: 3), () => null);
       await fixture.query<SkawaSnackbarComponent>((element) => element.componentInstance is SkawaSnackbarComponent,
           (SkawaSnackbarComponent snackbar) => expect(snackbar.show, false));
-    });
+    }, tags: 'flaky-on-travis');
 
     test('displays button if callback is specified', () async {
       await fixture.update((testElement) async {

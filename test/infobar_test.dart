@@ -19,39 +19,40 @@ void main() {
       expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
     });
     test('initialization with icon', () async {
-      final fixture = await new NgTestBed<InfobarTestComponent>().create();
+      final fixture = await new NgTestBed<InfobarTestComponent>().create(
+          beforeChangeDetection: (InfobarTestComponent infobarTestComponent) =>
+              infobarTestComponent.icon = materialIcon);
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) => testElement.icon = materialIcon);
       expect(pageObject.trigger.innerText, completion(0.toString()));
       expect(pageObject.infobar.materialIcon.innerText, completion(materialIcon));
     });
     test('initialization with url', () async {
-      final fixture = await new NgTestBed<InfobarTestComponent>().create();
+      final fixture = await new NgTestBed<InfobarTestComponent>().create(
+          beforeChangeDetection: (InfobarTestComponent infobarTestComponent) => infobarTestComponent.url = testLink);
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) => testElement.url = testLink);
       expect(pageObject.trigger.innerText, completion(0.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
-      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion('info'));
     });
     test('initialization with url and url', () async {
-      final fixture = await new NgTestBed<InfobarTestComponent>().create();
+      final fixture = await new NgTestBed<InfobarTestComponent>().create(
+          beforeChangeDetection: (InfobarTestComponent infobarTestComponent) => infobarTestComponent
+            ..url = testLink
+            ..icon = materialIcon);
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
-      await fixture.update((testElement) {
-        testElement.icon = materialIcon;
-        testElement.url = testLink;
-      });
       expect(pageObject.trigger.innerText, completion(0.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
       expect(pageObject.infobar.materialIcon.innerText, completion(materialIcon));
     });
     test('initialization with url then click 1X on the infobar button', () async {
-      final fixture = await new NgTestBed<InfobarTestComponent>().create();
+      final fixture = await new NgTestBed<InfobarTestComponent>().create(
+          beforeChangeDetection: (InfobarTestComponent infobarTestComponent) => infobarTestComponent.url = testLink);
       final pageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       await fixture.update((testElement) => testElement.url = testLink);
       await pageObject.infobar.materialButton.click();
       expect(pageObject.trigger.innerText, completion(1.toString()));
       expect(pageObject.infobar.materialButton.attributes['title'], completion(testLink));
-      expect(pageObject.infobar.materialIcon.innerText, completion(isEmpty));
+      expect(pageObject.infobar.materialIcon.innerText, completion('info'));
     });
     test(' with url then click 3X on the infobar button', () async {
       final fixture = await new NgTestBed<InfobarTestComponent>().create();
@@ -88,6 +89,7 @@ class InfobarTestComponent {
 @EnsureTag('test')
 class TestPO {
   @ByTagName('skawa-infobar')
+  @optional
   InforbarPO infobar;
 
   @ByTagName('[increment]')
@@ -96,8 +98,10 @@ class TestPO {
 
 class InforbarPO {
   @ByTagName('material-button')
+  @optional
   PageLoaderElement materialButton;
 
   @ByTagName('material-icon')
+  @optional
   PageLoaderElement materialIcon;
 }
