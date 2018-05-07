@@ -7,9 +7,9 @@ import 'package:angular/core.dart';
 import 'package:angular/src/common/directives/ng_class.dart';
 import 'package:angular_components/focus/focus.dart';
 
+import '../directives/language_direction_directive.dart';
 import 'editor_render_source.dart';
 import 'editor_render_target.dart';
-import '../directives/language_direction_directive.dart';
 
 /// Interface describing an Editor
 abstract class SkawaEditor {
@@ -160,8 +160,8 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
 
   @override
   void ngOnInit() {
-    _emulatedCssClass = renderTarget.htmlElement.classes
-        .firstWhere((String cssClass) => !cssClass.contains('markdown-container'));
+    _emulatedCssClass =
+        renderTarget.htmlElement.classes.firstWhere((String cssClass) => !cssClass.contains('markdown-container'));
     _placeholderTemplateCache = placeholderTemplate.createEmbeddedView();
     _placeholderDefined = _placeholderTemplateCache.rootNodes
             .firstWhere((Node n) => n is Element && n.classes.contains('placeholder'), orElse: () => null) !=

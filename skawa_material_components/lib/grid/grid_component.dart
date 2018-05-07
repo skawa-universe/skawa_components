@@ -20,7 +20,6 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   String visibility;
 
   @ContentChildren(GridTileDirective)
-  @override
   set tiles(List<GridTile> tiles) {
     _tiles = tiles;
     updateAndDisplay(true);

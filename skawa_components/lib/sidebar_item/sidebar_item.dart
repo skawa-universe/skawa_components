@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
-import '../util/attribute.dart' as attrib;
 import 'package:angular_components/material_icon/material_icon.dart';
+import '../util/attribute.dart' as attrib;
 
 /// Toolbar item. See more [about normal lists](https://material.io/guidelines/components/lists.html#) or
 /// [about control lists](https://material.io/guidelines/components/lists-controls.html)

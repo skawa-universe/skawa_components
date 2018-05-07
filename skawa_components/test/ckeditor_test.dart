@@ -1,10 +1,10 @@
 @Tags(const ['aot'])
 @TestOn('browser')
+import 'dart:convert' show HTML_ESCAPE;
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:skawa_components/ckeditor/ckeditor.dart';
 import 'package:test/test.dart';
-import 'dart:convert' show HTML_ESCAPE;
 import 'package:html_unescape/html_unescape.dart';
 
 void main() {
@@ -27,13 +27,10 @@ void main() {
   });
 }
 
-@Component(
-    selector: 'dummy-cke',
-    template: '''
+@Component(selector: 'dummy-cke', template: '''
   <skawa-ckeditor editorName="editor" [extraPlugins]="plugins" configUrl="/some-url" [content]="escaped">
   </skawa-ckeditor>
-  ''',
-    directives: const [SkawaCkeditorComponent])
+  ''', directives: const [SkawaCkeditorComponent])
 class TestEditorComponent {
   List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 

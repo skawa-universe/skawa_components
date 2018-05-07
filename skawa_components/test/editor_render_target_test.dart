@@ -1,12 +1,12 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'editor_artifacts.dart';
 import 'package:pageloader/objects.dart';
 import 'package:pageloader/src/annotations.dart';
 import 'package:skawa_components/markdown_editor/editor_render_target.dart';
 import 'package:test/test.dart';
 import 'package:angular/core.dart';
 import 'package:angular_test/angular_test.dart';
+import 'editor_artifacts.dart';
 
 void main() {
   tearDown(disposeAnyRunningTest);

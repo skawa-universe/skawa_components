@@ -16,7 +16,7 @@ import 'package:angular_components/utils/disposer/disposer.dart';
 ///
 @Injectable()
 class SnackbarService {
-  StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
+  final StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
 
   Stream<SnackMessage> get messages => _messageQueue.stream;
 

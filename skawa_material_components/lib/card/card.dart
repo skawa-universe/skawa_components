@@ -1,12 +1,11 @@
 import 'package:angular/core.dart';
 
-import 'card_directives.dart';
-import 'card_actions.dart';
-
 import '../util/attribute.dart' as attr_util;
+import 'card_actions.dart';
+import 'card_directives.dart';
 
-export 'card_actions.dart';
 export 'card.dart';
+export 'card_actions.dart';
 export 'card_directives.dart';
 
 const List<Type> skawaCardDirectives = const [

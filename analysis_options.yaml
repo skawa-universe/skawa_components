@@ -1,6 +1,8 @@
 analyzer:
  strong-mode:
    implicit-casts: false
+ plugins:
+    - angular
  errors:
    unused_element: error
    unused_import: error

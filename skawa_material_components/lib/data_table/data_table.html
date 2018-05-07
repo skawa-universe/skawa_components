@@ -36,7 +36,7 @@
         <td *ngFor="let c of columns; let i = index" [ngClass]="c.getClasses()">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
-                        [componentType]="c.columnRenderer.componentRenderer(row)"
+                        [componentFactory]="c.columnRenderer.factoryRenderer(row)"
                         [value]="row"></dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">

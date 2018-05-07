@@ -2,11 +2,12 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 
-import '../sidebar_item/sidebar_item.dart';
 import 'package:angular_components/button_decorator/button_decorator.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:angular_components/material_button/material_button_base.dart';
 import 'package:angular_components/material_ripple/material_ripple.dart';
+
+import '../sidebar_item/sidebar_item.dart';
 
 /// Component compositing [SkawaSidebarItemComponent] and [MaterialButtonBase]
 ///

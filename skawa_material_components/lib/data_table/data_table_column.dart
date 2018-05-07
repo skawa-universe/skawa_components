@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:angular/core.dart';
+import 'package:angular_components/model/ui/has_factory.dart';
 
 import 'package:angular_components/model/ui/has_renderer.dart';
 import 'row_data.dart';
@@ -95,7 +96,7 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
 }
 
 @Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
-class SkawaDataColRendererDirective extends HasComponentRenderer<RendersValue, RowData> {
+class SkawaDataColRendererDirective extends HasFactoryRenderer<RendersValue, RowData> {
   @Input('colRenderer')
-  ComponentRenderer<RendersValue, RowData> componentRenderer;
+  FactoryRenderer<RendersValue, RowData> factoryRenderer;
 }
