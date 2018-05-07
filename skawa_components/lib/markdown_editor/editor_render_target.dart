@@ -10,18 +10,18 @@ import 'package:markdown/markdown.dart' as markdown;
 /// - `EditorRenderer` -- renderer to use to convert EditorRendererSource.value to a DOM fragment
 @Directive(selector: '[editorRenderTarget]', exportAs: 'editorRenderTarget')
 class EditorRenderTarget implements OnDestroy {
-  final ElementRef elementRef;
+  final HtmlElement htmlElement;
   final EditorRenderer renderer;
   final StreamController _onRenderController = new StreamController.broadcast();
 
   String _previousRender;
 
-  EditorRenderTarget(this.elementRef, @SkipSelf() @Inject(EditorRenderer) this.renderer);
+  EditorRenderTarget(this.htmlElement, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
   @Output('render')
   Stream get onRender => _onRenderController.stream;
 
-  Element get _element => elementRef.nativeElement;
+  Element get _element => htmlElement;
 
   void updateRender(String newTarget, {List<String> classes}) {
     _onRenderController.add(newTarget);

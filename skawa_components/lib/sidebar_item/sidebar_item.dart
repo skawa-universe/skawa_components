@@ -24,14 +24,15 @@ import 'package:angular_components/material_icon/material_icon.dart';
     templateUrl: 'sidebar_item.html',
     styleUrls: const ['sidebar_item.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    inputs: const ['icon', 'textOnly'],
     directives: const [MaterialIconComponent, NgIf, NgClass],
     host: const {'[attr.textOnly]': 'textOnly'})
 class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
+  @Input()
   String icon;
 }
 
 abstract class TextOnlyMixin {
+  @Input()
   String textOnly;
 
   bool get isTextOnly => attrib.isPresent(textOnly);

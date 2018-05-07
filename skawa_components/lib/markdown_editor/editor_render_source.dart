@@ -28,7 +28,7 @@ import 'deferred_callback.dart';
     exportAs: 'editorRenderSource',
     host: const {'(input)': r'contentChanged($event)'})
 class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
-  final ElementRef elementRef;
+  final HtmlElement htmlElement;
   final StreamController _onUpdatedController = new StreamController.broadcast();
   final List<String> _changeStack = <String>[];
 
@@ -40,7 +40,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
 
   DeferredCallback _emit;
 
-  EditorRenderSource(this.elementRef);
+  EditorRenderSource(this.htmlElement);
 
   @Output('update')
   Stream get onUpdated => _onUpdatedController.stream;
@@ -49,14 +49,14 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
     if (initialValue != null && _changeStack.isEmpty) {
       return initialValue;
     } else {
-      return elementRef.nativeElement.value;
+      return htmlElement.nodeValue;
     }
   }
 
   /// Sets the value of editor
   set value(String val) {
     _changeStack.insert(0, value);
-    elementRef.nativeElement.value = val;
+    htmlElement.setAttribute('value', val);
   }
 
   /// Gets the previous or initial value
@@ -67,7 +67,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
       revertAllUpdates();
     } else {
       _changeStack.removeAt(0);
-      elementRef.nativeElement.value = _changeStack.first;
+      htmlElement.setAttribute('value', _changeStack.first);
       _emit(value);
     }
   }
@@ -90,8 +90,8 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   void ngAfterViewInit() {
     // sync initial value to DOM
     _emit(initialValue);
-    if (initialValue != null) elementRef.nativeElement.value = initialValue;
-    (elementRef.nativeElement as Element).onInput.listen(contentChanged);
+    if (initialValue != null) htmlElement.setAttribute('value', initialValue);
+    htmlElement.onInput.listen(contentChanged);
   }
 
   @override

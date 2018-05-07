@@ -36,7 +36,7 @@ class DeferredCallback<T, K> {
     try {
       if (lastReceived != lastEmitted) {
         lastEmitted = lastReceived;
-        lastReceived.completer.complete(_cb(lastReceived.payload));
+        lastReceived.completer.complete(_cb(lastReceived.payload) as K);
         emitted = true;
       }
     } catch (e) {

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:angular/angular.dart';
 
 import '../sidebar_item/sidebar_item.dart';
@@ -35,7 +37,6 @@ import 'package:angular_components/material_ripple/material_ripple.dart';
     templateUrl: 'nav_item.html',
     styleUrls: const ['nav_item.css'],
     directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
-    inputs: const ['disabled', 'textOnly'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
     preserveWhitespace: false,
@@ -72,7 +73,8 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   final ChangeDetectorRef _changeDetector;
 
-  SkawaNavItemComponent(ElementRef element, this._changeDetector) : super(element.nativeElement);
+  SkawaNavItemComponent(HtmlElement element, this._changeDetector, @Attribute('role') String role)
+      : super(element, role);
 
   @override
   void focusedStateChanged() {

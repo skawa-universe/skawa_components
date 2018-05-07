@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
 
 import 'package:angular/src/common/directives/ng_class.dart';
@@ -159,9 +160,9 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
 
   @override
   void ngOnInit() {
-    _emulatedCssClass = renderTarget.elementRef.nativeElement.classes
+    _emulatedCssClass = renderTarget.htmlElement.classes
         .firstWhere((String cssClass) => !cssClass.contains('markdown-container'));
-    _placeholderTemplateCache = placeholderTemplate.createEmbeddedView(null);
+    _placeholderTemplateCache = placeholderTemplate.createEmbeddedView();
     _placeholderDefined = _placeholderTemplateCache.rootNodes
             .firstWhere((Node n) => n is Element && n.classes.contains('placeholder'), orElse: () => null) !=
         null;
@@ -171,13 +172,13 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   void ngAfterViewInit() {
     if (displayPlaceholder) _clonePlaceholderIntoTemplate();
     if (value != '') renderTarget.updateRender(value, classes: [_emulatedCssClass]);
-    renderTarget.elementRef.nativeElement;
+    renderTarget.htmlElement;
   }
 
   void _clonePlaceholderIntoTemplate() {
-    renderTarget.elementRef.nativeElement.children.clear();
+    renderTarget.htmlElement.children.clear();
     _placeholderTemplateCache.rootNodes.forEach((Node n) {
-      renderTarget.elementRef.nativeElement.append(n);
+      renderTarget.htmlElement.append(n);
     });
   }
 }

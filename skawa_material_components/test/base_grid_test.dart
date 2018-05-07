@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('GridUpdate | ', () {
     test('constructor', () {
-      List<Point> pointList = [
+      List<Point<int>> pointList = [
         new Point(12, 13),
         new Point(13122, 1),
         new Point(412, 163),
@@ -19,7 +19,7 @@ void main() {
     });
   });
   group('GridTile | ', () {
-    var tileElement;
+    Element tileElement;
     setUp(() {
       tileElement = new Element.div();
       tileElement.style.height = '116px';
@@ -33,7 +33,7 @@ void main() {
     });
     test('reposition method', () async {
       GridTile gridTile = new GridTile(tileElement);
-      Point point = new Point(321, 543);
+      Point<int> point = new Point(321, 543);
       gridTile.reposition(point);
       expect(gridTile.height, 116);
       expect(gridTile.width, 16);
@@ -41,9 +41,9 @@ void main() {
     });
   });
   group('Grid | ', () {
-    var tileList;
+    List<GridTile> tileList;
     var tileElementList;
-    var gridElement;
+    Element gridElement;
     setUp(() {
       tileList = [];
       tileElementList = [];
@@ -84,7 +84,7 @@ void main() {
       GridUpdate gridUpdate = grid.calculateGridUpdate(48);
       for (int i = 0; i < gridUpdate.tilePositions.length; i++) {
         expected.add('translate(${gridUpdate.tilePositions[i].x}px, ${gridUpdate.tilePositions[i].y}px)');
-        actual.add(tileElementList[i].style.transform);
+        actual.add(tileElementList[i].style.transform as String);
       }
       expect(grid.tiles, tileList);
       expect(grid.visible, isTrue);

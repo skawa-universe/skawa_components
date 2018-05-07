@@ -14,12 +14,17 @@ import '../base_implementations/grid/grid.dart';
     styleUrls: const ['grid_component.css'],
     directives: const [GridTileDirective])
 class GridComponent extends GridBase implements AfterViewInit, OnInit {
+  List<GridTile> _tiles;
+
   @HostBinding('style.visibility')
   String visibility;
 
   @ContentChildren(GridTileDirective)
   @override
-  QueryList<GridTile> tiles;
+  set tiles(List<GridTile> tiles) {
+    _tiles = tiles;
+    updateAndDisplay(true);
+  }
 
   @Input()
   String gridGutter = '16';
@@ -33,7 +38,9 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   }
 
   @ViewChild('grid')
-  ElementRef grid;
+  HtmlElement grid;
+
+  List<GridTile> get tiles => _tiles;
 
   @override
   void updateAndDisplay(bool forceRefresh) {
@@ -41,14 +48,14 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
     _resizeTimer = new Timer(new Duration(milliseconds: 100), () {
       // there are no tiles to update, return
       if (tiles.isEmpty) return;
-      var gridWidth = grid.nativeElement.clientWidth;
+      var gridWidth = grid.clientWidth;
       // width did not change, return
       if (_previousWidth == gridWidth && !forceRefresh) return;
       _previousWidth = gridWidth;
 
       GridUpdate gridUpdate = calculateGridUpdate(gridWidth, gutterSize: int.parse(gridGutter));
       visible = true;
-      grid.nativeElement.style..height = '${gridUpdate.gridHeight}px';
+      grid.style..height = '${gridUpdate.gridHeight}px';
       for (int i = 0; i < gridUpdate.tilePositions.length; ++i) {
         Point<int> newPosition = gridUpdate.tilePositions[i];
         tiles.elementAt(i).reposition(newPosition);
@@ -59,9 +66,6 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   @override
   void ngAfterViewInit() {
     updateAndDisplay(true);
-    tiles.changes.listen((_) {
-      updateAndDisplay(true);
-    });
   }
 
   @override
@@ -79,10 +83,8 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   selector: '[gridTile]',
 )
 class GridTileDirective extends Object with DomTransformReposition implements GridTile {
-  final ElementRef elementRef;
-
-  GridTileDirective(this.elementRef);
-
   @override
-  Element get tile => elementRef.nativeElement;
+  final HtmlElement tile;
+
+  GridTileDirective(this.tile);
 }

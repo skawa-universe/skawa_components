@@ -6,7 +6,7 @@
                                (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation();"
                                [checked]="isEveryRowChecked" *ngIf="multiSelection"></material-checkbox>
         </th>
-        <th *ngFor="let c of columns; let i = index;"
+        <th *ngFor="let c of columns; let i = index"
             [ngClass]="c.getClasses('--header')"
             [class.sort-enabled]="c.sortModel != null && !c.sortModel.isSorted"
             [class.sort]="c.sortModel?.isSorted ?? false"
@@ -30,10 +30,10 @@
         <td *ngIf="selectable">
             <material-checkbox
                     class="selector-checkbox"
-                    (checkedChange)="changeRowSelection(row, $event);"
+                    (checkedChange)="changeRowSelection(row, $event)"
                     [checked]="row.checked"></material-checkbox>
         </td>
-        <td *ngFor="let c of columns; let i = index;" [ngClass]="c.getClasses()">
+        <td *ngFor="let c of columns; let i = index" [ngClass]="c.getClasses()">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
                         [componentType]="c.columnRenderer.componentRenderer(row)"
@@ -50,7 +50,7 @@
     </tbody>
     <tfoot *ngIf="!isEveryRowSkippedInFooter">
     <tr>
-        <td *ngFor="let c of columns | unskippedInFooter; let i = index;" [attr.colspan]="getColspanFor(c, i)"
+        <td *ngFor="let c of columns | unskippedInFooter; let i = index" [attr.colspan]="getColspanFor(c, i)"
             [ngClass]="c.getClasses('--footer')">
             {{c.footer}}
         </td>

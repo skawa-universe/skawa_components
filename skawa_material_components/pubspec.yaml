@@ -1,34 +1,25 @@
 name: skawa_material_components
 version: 1.0.0-beta
 
+environment:
+  sdk: '>=2.0.0-dev.46.0 <2.0.0'
+
 dependencies:
-  angular: ^4.0.0
-  angular_components: ^0.8.0
-  quiver: ^0.25.0
+  angular: 5.0.0-alpha+11
+  angular_components: 0.9.0-alpha+11
+  build_config: ^0.2.5
 
 dev_dependencies:
   ansicolor: ^0.0.9
   test: ^0.12.22+2
-  angular_test: ^1.0.1
-  browser: ^0.10.0+2
-  angular_utility:
-    git:
-     url: https://github.com/skawa-universe/angular_utility.git
-     ref: 0.1.0-alpha+5
+  angular_test: ^2.0.0-alpha+9
+  pageloader:
+#  browser: ^0.10.0+2
+#  angular_utility:
+#    git:
+#     url: https://github.com/skawa-universe/angular_utility.git
+#     ref: 0.1.0-alpha+5
   html_unescape: ^0.1.5
   mockito: ^1.0.1
   grinder: ^0.8.1
-dependency_overrides:
-  observable:
-    git:
-      url: https://github.com/valakis/observable.git
-      ref: 8e83e38f210c958c3dffaaa12297e8b608752c78
-transformers:
-- angular:
-   entry_points: test/**_test.dart
-- angular/transform/codegen
-- angular/transform/reflection_remover:
-   $include:
-      - test/**_test.dart
-- test/pub_serve:
-   $include: test/**_test.dart
+

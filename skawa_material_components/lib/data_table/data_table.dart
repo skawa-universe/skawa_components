@@ -52,6 +52,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     pipes: const [UnskippedInFooterPipe],
     styleUrls: const ['data_table.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    visibility: Visibility.all,
     preserveWhitespace: false)
 class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   final ChangeDetectorRef changeDetectorRef;
@@ -71,7 +72,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   bool multiSelection = true;
 
   @ContentChildren(SkawaDataTableColComponent)
-  QueryList<SkawaDataTableColComponent> columns;
+  List<SkawaDataTableColComponent> columns;
 
   @Output('change')
   Stream<List<RowData>> onChange;

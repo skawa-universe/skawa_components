@@ -37,7 +37,11 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(selector: 'skawa-data-table-col', template: '', directives: const [SkawaDataColRendererDirective])
+@Component(
+    selector: 'skawa-data-table-col',
+    template: '',
+    directives: const [SkawaDataColRendererDirective],
+    visibility: Visibility.all)
 class SkawaDataTableColComponent implements OnInit, OnDestroy {
   final StreamController<RowData> _triggerController = new StreamController<RowData>.broadcast();
   final SkawaDataColRendererDirective columnRenderer;
@@ -90,6 +94,8 @@ class SkawaDataTableColComponent implements OnInit, OnDestroy {
   }
 }
 
-@Directive(selector: 'skawa-data-table-col[colRenderer]', //
-    inputs: const ['componentRenderer: colRenderer'])
-class SkawaDataColRendererDirective extends HasComponentRenderer<RendersValue, RowData> {}
+@Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
+class SkawaDataColRendererDirective extends HasComponentRenderer<RendersValue, RowData> {
+  @Input('colRenderer')
+  ComponentRenderer<RendersValue, RowData> componentRenderer;
+}

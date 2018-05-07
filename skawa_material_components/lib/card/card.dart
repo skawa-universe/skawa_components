@@ -33,8 +33,10 @@ const List<Type> skawaCardDirectives = const [
 @Component(
   selector: 'skawa-card',
   template: '<ng-content></ng-content>',
+  visibility: Visibility.all,
   styleUrls: const ['card.css'],
 )
+@Injectable()
 class SkawaCardComponent {
   @ContentChild(SkawaCardHeaderComponent)
   SkawaCardHeaderComponent cardHeader;
