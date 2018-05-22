@@ -86,8 +86,7 @@ abstract class TextareaEditorBase implements SkawaEditor {
     selector: 'skawa-markdown-editor',
     templateUrl: 'markdown_editor.html',
     styleUrls: const ['markdown_editor.css'],
-    directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
-    host: const {'[class.mode-edit]': 'displayMode == "edit"', '[class.mode-display]': 'displayMode == "display"'})
+    directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass])
 class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit {
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;
@@ -113,6 +112,12 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   TemplateRef placeholderTemplate;
 
   SkawaMarkdownEditorComponent(this.containerRef, this.changeDetectorRef);
+
+  @HostBinding('class.mode-edit')
+  bool get isEditing => displayMode == "edit";
+
+  @HostBinding('class.mode-display')
+  bool get isDisplaying => displayMode == "display";
 
   @override
   @Output('update')
