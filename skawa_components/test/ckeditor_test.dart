@@ -1,6 +1,6 @@
 @Tags(const ['aot'])
 @TestOn('browser')
-import 'dart:convert' show HTML_ESCAPE;
+import 'dart:convert' show htmlEscape;
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:skawa_components/ckeditor/ckeditor.dart';
@@ -34,6 +34,6 @@ void main() {
 class TestEditorComponent {
   List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 
-  String get escaped => HTML_ESCAPE.convert(_TEST_MARKUP);
+  String get escaped => htmlEscape.convert(_TEST_MARKUP);
   static const String _TEST_MARKUP = 'Some <br /> content <p>comes here.</p>';
 }

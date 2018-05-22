@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
 import 'package:angular_components/material_yes_no_buttons/material_yes_no_buttons.dart';
@@ -47,7 +48,7 @@ class SkawaPromptComponent {
 
   // Only here for testing purposes
   @ViewChild('messageText')
-  ElementRef messageText;
+  HtmlElement messageText;
 
   //Only here for testing purposes
   @ViewChild(MaterialYesNoButtonsComponent)

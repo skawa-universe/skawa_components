@@ -2,15 +2,14 @@ name: skawa_components
 version: 1.0.0-beta
 
 dependencies:
-  angular: 5.0.0-alpha+11
-  angular_components: 0.9.0-alpha+11
+  angular: 5.0.0-alpha+12
+  angular_components: 0.9.0-alpha+12
   build_config: ^0.2.5
-#  quiver: ^0.25.0
   markdown: ^1.1.1
 
 dev_dependencies:
   ansicolor: ^0.0.9
-  test: ^0.12.22+2
+  test: ^0.12.30
   angular_test: ^2.0.0-alpha+9
   pageloader:
   html_unescape: ^0.1.5
