@@ -23,7 +23,6 @@ import '../util/attribute.dart' as attr_util;
     selector: 'skawa-master-detail',
     templateUrl: 'master_detail.html',
     styleUrls: const ['master_detail.css'],
-    host: const {'[attr.expanded]': 'expanded ? "" : null'},
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMasterDetailComponent {
   SkawaMasterDetailComponent(@Optional() @Attribute('expanded') expanded) : expanded = attr_util.isPresent(expanded);
@@ -33,6 +32,9 @@ class SkawaMasterDetailComponent {
   /// Instead of setting this property one can use [expand]
   /// and [collapse] methods.
   bool expanded;
+
+  @HostBinding('attr.expanded')
+  String get isExpanded => expanded ? "" : null;
 
   void expand() {
     expanded = true;
