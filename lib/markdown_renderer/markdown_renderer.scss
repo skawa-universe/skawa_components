@@ -1,0 +1,5 @@
+@import "../markdown_editor/markdown_style";
+
+:host {
+  @include md_style;
+}
