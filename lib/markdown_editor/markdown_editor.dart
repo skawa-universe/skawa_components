@@ -35,6 +35,8 @@ abstract class SkawaEditor {
 /// Base class for an editor that uses a textarea as input
 /// and a Div as a render output
 abstract class TextareaEditorBase implements SkawaEditor {
+  StreamController<String> get _modeController;
+
   set renderTarget(EditorRenderTarget newTarget);
 
   EditorRenderTarget get renderTarget;
@@ -55,6 +57,7 @@ abstract class TextareaEditorBase implements SkawaEditor {
       renderTarget.updateRender(value, classes: newClasses);
     }
     _displayMode = mode;
+    _modeController.add(_displayMode);
   }
 }
 
@@ -87,7 +90,8 @@ abstract class TextareaEditorBase implements SkawaEditor {
     styleUrls: const ['markdown_editor.css'],
     directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
     host: const {'[class.mode-edit]': 'displayMode == "edit"', '[class.mode-display]': 'displayMode == "display"'})
-class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit {
+class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit, OnDestroy {
+  final StreamController<String> _modeController = new StreamController<String>();
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;
 
@@ -116,6 +120,10 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   @override
   @Output('update')
   Stream get onUpdated => renderSource.onUpdated;
+
+  @override
+  @Output('mode')
+  Stream<String> get onMode => _modeController.stream;
 
   @override
   String get value => renderSource.value;
@@ -173,6 +181,9 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
     if (value != '') renderTarget.updateRender(value, classes: [_emulatedCssClass]);
     renderTarget.elementRef.nativeElement;
   }
+
+  @override
+  void ngOnDestroy() => _modeController.close();
 
   void _clonePlaceholderIntoTemplate() {
     renderTarget.elementRef.nativeElement.children.clear();

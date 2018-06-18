@@ -1,5 +1,11 @@
 ## 1.0.0-alpha+3
 
+- Added a new output stream to SkawaMarkdownEditorComponent which emits on displayMode change
+- SkawaMarkdownRendererComponent added
+- SkawaDataTableComponent non-highlightable mode fixed
+
+## 1.0.0-alpha+3
+
 - SkawaInfobarComponent button open the url in a new tab
 - SkawaDataTableComponent can be non highlightable
 

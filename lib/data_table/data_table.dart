@@ -136,7 +136,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   }
 
   bool _canHighlight(Event ev) {
-    if (highlightable) return false;
+    if (!highlightable) return false;
     if (selectable && ev.target is Element && ev.target != ev.currentTarget) {
       Element target = ev.target as Element;
       if (target is Element) {
