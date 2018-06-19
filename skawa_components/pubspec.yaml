@@ -2,18 +2,18 @@ name: skawa_components
 version: 1.0.0-beta
 
 dependencies:
-  angular: 5.0.0-alpha+12
-  angular_components: 0.9.0-alpha+12
+  angular: 5.0.0-alpha+15
+  angular_components: 0.9.0-alpha+15
   build_config: ^0.2.5
   markdown: ^1.1.1
 
 dev_dependencies:
   ansicolor: ^0.0.9
-  test: ^0.12.30
-  angular_test: ^2.0.0-alpha+9
+  test: ^0.12.25
+  angular_test: ^2.0.0-alpha+13
   pageloader:
   html_unescape: ^0.1.5
-  mockito: ^1.0.1
+  mockito: ^3.0.0-beta
   grinder: ^0.8.1
   build_runner: ^0.8.0
   build_test: ^0.10.0

@@ -24,14 +24,14 @@ import '../util/attribute.dart' as attrib;
     templateUrl: 'sidebar_item.html',
     styleUrls: const ['sidebar_item.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    directives: const [MaterialIconComponent, NgIf, NgClass],
-    host: const {'[attr.textOnly]': 'textOnly'})
+    directives: const [MaterialIconComponent, NgIf, NgClass])
 class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
   @Input()
   String icon;
 }
 
 abstract class TextOnlyMixin {
+  @HostBinding('attr.textOnly')
   @Input()
   String textOnly;
 

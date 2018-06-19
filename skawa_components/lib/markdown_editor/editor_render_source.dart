@@ -23,10 +23,7 @@ import 'deferred_callback.dart';
 ///
 ///     <input editorRenderSource value="someInitialValue" >
 ///
-@Directive(
-    selector: '[editorRenderSource]',
-    exportAs: 'editorRenderSource',
-    host: const {'(input)': r'contentChanged($event)'})
+@Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource')
 class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   final HtmlElement htmlElement;
   final StreamController _onUpdatedController = new StreamController.broadcast();
@@ -78,6 +75,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
     _emit(initialValue);
   }
 
+  @HostListener('input')
   void contentChanged(Event ev) {
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);

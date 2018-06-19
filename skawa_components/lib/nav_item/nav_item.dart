@@ -34,29 +34,14 @@ import '../sidebar_item/sidebar_item.dart';
 /// - `textOnly` -- If present, `icon` will be ignored and it's place removed.
 ///
 @Component(
-    selector: 'skawa-nav-item',
-    templateUrl: 'nav_item.html',
-    styleUrls: const ['nav_item.css'],
-    directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
-    preserveWhitespace: false,
-    host: const {
-      '[class.is-disabled]': 'disabled',
-      '[attr.aria-disabled]': 'disabledStr',
-      '[attr.textOnly]': 'textOnly',
-      '[attr.fullWidth]': 'fullWidth',
-      '(mousedown)': r'onMouseDown($event)',
-      '(mouseup)': r'onMouseUp($event)',
-      '(mouseenter)': r'onMouseEnter()',
-      '(mouseout)': r'onMouseOut()',
-      '(click)': r'handleClick($event)',
-      '(keypress)': r'handleKeyPress($event)',
-      '(focus)': r'onFocus($event)',
-      '(blur)': r'onBlur($event)',
-      'role': 'button',
-      'animated': 'true',
-    })
+  selector: 'skawa-nav-item',
+  templateUrl: 'nav_item.html',
+  styleUrls: const ['nav_item.css'],
+  directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
+  preserveWhitespace: false,
+)
 @Injectable()
 class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
   /// Link to navigate to
@@ -69,6 +54,7 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   bool hovering = false;
 
+  @HostBinding('attr.fullWidth')
   @Input()
   bool fullWidth;
 
@@ -82,10 +68,12 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
     _changeDetector.markForCheck();
   }
 
+  @HostListener('mouseenter')
   void onMouseEnter() {
     hovering = true;
   }
 
+  @HostListener('mouseout')
   void onMouseOut() {
     hovering = false;
   }
