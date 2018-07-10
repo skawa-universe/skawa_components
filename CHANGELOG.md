@@ -1,4 +1,8 @@
-## 1.0.0-alpha+3
+## 1.0.0-alpha+5
+
+- SkawaMarkdownEditorComponent can be disabled
+
+## 1.0.0-alpha+4
 
 - Added a new output stream to SkawaMarkdownEditorComponent which emits on displayMode change
 - SkawaMarkdownRendererComponent added
