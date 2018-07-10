@@ -13,6 +13,7 @@
           #renderSource="skawaLangugageDirection"
           (update)="renderSource.setLanguageDirection($event)"
           autoFocus
+          [disabled]="isDisabled"
           [updateDelay]="updateDelay"
           [hidden]="displayMode != 'edit'" [initialValue]="initialValue">
 </textarea>

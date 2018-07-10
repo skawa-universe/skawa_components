@@ -35,6 +35,9 @@ abstract class SkawaEditor {
 /// Base class for an editor that uses a textarea as input
 /// and a Div as a render output
 abstract class TextareaEditorBase implements SkawaEditor {
+  @Input()
+  bool isDisabled = false;
+
   StreamController<String> get _modeController;
 
   set renderTarget(EditorRenderTarget newTarget);

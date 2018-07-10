@@ -1,5 +1,5 @@
 name: skawa_components
-version: 1.0.0-alpha+4
+version: 1.0.0-alpha+5
 
 dependencies:
   angular: ^4.0.0
