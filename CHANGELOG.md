@@ -1,3 +1,7 @@
+## 1.0.0-alpha+6
+
+- SkawaMarkdownEditorComponent disable ex improved
+
 ## 1.0.0-alpha+5
 
 - SkawaMarkdownEditorComponent can be disabled

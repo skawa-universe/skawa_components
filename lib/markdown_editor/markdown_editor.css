@@ -508,6 +508,9 @@
 :host .markdown-container hr {
   border-bottom-color: #eee;
 }
+:host .markdown-container.disabled {
+  cursor: default;
+}
 :host .markdown-container.with-placeholder {
   display: flex;
   align-items: center;

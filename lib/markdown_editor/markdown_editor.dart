@@ -36,7 +36,7 @@ abstract class SkawaEditor {
 /// and a Div as a render output
 abstract class TextareaEditorBase implements SkawaEditor {
   @Input()
-  bool isDisabled = false;
+  bool disabled = false;
 
   StreamController<String> get _modeController;
 
@@ -146,7 +146,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   String get mode => displayMode;
 
   void editMarkdown() {
-    displayMode = EditorMode.EDIT;
+    if (!disabled) displayMode = EditorMode.EDIT;
   }
 
   void previewMarkdown() {
