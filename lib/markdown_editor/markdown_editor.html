@@ -3,9 +3,9 @@
      skawaLangugageDirection
      #renderTarget="skawaLangugageDirection"
      (render)="renderTarget.setLanguageDirection($event)"
-     title="Click to edit"
+     [attr.title]="!disabled ? 'Click to edit' : null"
      (click)="editMarkdown()"
-     [ngClass]="{'with-placeholder': displayPlaceholder}">
+     [ngClass]="{'with-placeholder': displayPlaceholder, 'disabled': disabled}">
 </div>
 
 <textarea editorRenderSource
@@ -13,7 +13,7 @@
           #renderSource="skawaLangugageDirection"
           (update)="renderSource.setLanguageDirection($event)"
           autoFocus
-          [disabled]="isDisabled"
+          [disabled]="disabled"
           [updateDelay]="updateDelay"
           [hidden]="displayMode != 'edit'" [initialValue]="initialValue">
 </textarea>
