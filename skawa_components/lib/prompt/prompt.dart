@@ -28,6 +28,9 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaPromptComponent {
   final ChangeDetectorRef _cd;
+
+  bool pending = false;
+
   @Input('yes')
   Function yesCallback;
 
@@ -50,11 +53,12 @@ class SkawaPromptComponent {
   @ViewChild('messageText')
   HtmlElement messageText;
 
+  @ViewChild(ModalComponent)
+  ModalComponent modal;
+
   //Only here for testing purposes
   @ViewChild(MaterialYesNoButtonsComponent)
   MaterialYesNoButtonsComponent yesNoButtonsComponent;
-
-  bool pending = false;
 
   SkawaPromptComponent(this._cd);
 

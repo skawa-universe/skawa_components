@@ -32,6 +32,7 @@ class DeferredCallback<T, K> {
         _cb = callback;
 
   bool emit() {
+    print(lastReceived.payload);
     bool emitted = false;
     try {
       if (lastReceived != lastEmitted) {
@@ -46,6 +47,7 @@ class DeferredCallback<T, K> {
   }
 
   Future<K> call(T param) {
+    print('param: $param');
     lastReceived = new PayloadWithCompleter<T, K>(param);
     if (_timer == null) {
       if (emit()) resetTimer();

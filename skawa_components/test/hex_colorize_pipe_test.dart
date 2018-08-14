@@ -2,9 +2,9 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:skawa_components/pipes/hex_colorize_pipe.dart';
 import 'package:test/test.dart';
 
-final Matcher throwsATypeError = throwsA(new isInstanceOf<TypeError>());
+final Matcher throwsATypeError = throwsA(new TypeMatcher<TypeError>());
 
-final Matcher throwsAnInvalidPipeArgumentException = throwsA(new isInstanceOf<InvalidPipeArgumentException>());
+final Matcher throwsAnInvalidPipeArgumentException = throwsA(new TypeMatcher<InvalidPipeArgumentException>());
 
 void main() {
   group('HexColorizePipe | ', () {

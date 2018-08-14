@@ -25,14 +25,12 @@ case $TASK in
 
 presubmit)
     dartanalyzer --fatal-warnings .
-    dart tool/grind.dart
     dartfmt lib/ --line-length=120 --set-exit-if-changed -n
     dartfmt test/ --line-length=120 --set-exit-if-changed -n
     ;;
 
 test)
-    pub run test -p vm
-     dart tool/grind.dart test
+    pub run build_runner test -- -p chrome
     ;;
 
   *)

@@ -17,7 +17,7 @@ class LanguageDirectionDirective {
   bool get _elementIsInput => _htmlElement is InputElement || _htmlElement is TextAreaElement;
 
   void setLanguageDirection(String value) {
-    textDirection = intl.Bidi.estimateDirectionOfText(value).spanText;
+    textDirection = intl.Bidi.estimateDirectionOfText(value ?? '').spanText;
     textAlign = _elementIsInput || textDirection == 'ltr' ? null : 'right';
   }
 }

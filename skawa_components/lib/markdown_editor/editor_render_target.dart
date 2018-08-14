@@ -12,14 +12,14 @@ import 'package:markdown/markdown.dart' as markdown;
 class EditorRenderTarget implements OnDestroy {
   final HtmlElement htmlElement;
   final EditorRenderer renderer;
-  final StreamController _onRenderController = new StreamController.broadcast();
+  final StreamController<String> _onRenderController = new StreamController.broadcast();
 
   String _previousRender;
 
   EditorRenderTarget(this.htmlElement, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
   @Output('render')
-  Stream get onRender => _onRenderController.stream;
+  Stream<String> get onRender => _onRenderController.stream;
 
   Element get _element => htmlElement;
 
@@ -27,7 +27,10 @@ class EditorRenderTarget implements OnDestroy {
     _onRenderController.add(newTarget);
     if (newTarget == _previousRender) return;
     _element.children.clear();
-    _element.append(renderer.render(newTarget));
+    var render = renderer.render(newTarget);
+//    print('render: ${render.innerHtml}');
+//    print('render: ${render.text}');
+    _element.append(render);
     _updateElementChildren(_element, classes);
   }
 

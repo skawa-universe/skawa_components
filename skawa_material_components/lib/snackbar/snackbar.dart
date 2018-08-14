@@ -69,6 +69,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   Timer _animationBlocker;
 
   SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
+
   @override
   void ngOnInit() {
     final StreamSubscription subscription = _snackbarService.messages.listen((SnackMessage newMessage) {
