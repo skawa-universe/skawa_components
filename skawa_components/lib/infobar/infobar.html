@@ -1,7 +1,12 @@
-<material-button icon (trigger)="navigate()" [attr.title]="url != null" title="{{url}}" #primaryAction>
+<material-button icon
+                 (trigger)="navigate()"
+                 [attr.title]="url!= null"
+                 title="{{url}}"
+                 [class.hide-without-icon]="icon==null"
+                 [class.without-url]="url==null">
     <material-icon icon="{{icon}}" size="medium"></material-icon>
 </material-button>
-<div class="info-text">
+<div class="info-text" [class.without-icon]="icon==null">
     <span class="ws-truncate-fix">
         <ng-content></ng-content>
     </span>

@@ -40,6 +40,9 @@
     @include md_style;
     min-height: 200px;
     cursor: pointer;
+    &.disabled {
+      cursor: default;
+    }
     &.with-placeholder {
       display: flex;
       align-items: center;

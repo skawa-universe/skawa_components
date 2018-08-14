@@ -1,6 +1,24 @@
 ## 1.0.0-beta
 
 - Splitted the original package, removed the non-material components from this package
+## 1.0.0-alpha+6
+
+- SkawaMarkdownEditorComponent disable ex improved
+
+## 1.0.0-alpha+5
+
+- SkawaMarkdownEditorComponent can be disabled
+
+## 1.0.0-alpha+4
+
+- Added a new output stream to SkawaMarkdownEditorComponent which emits on displayMode change
+- SkawaMarkdownRendererComponent added
+- SkawaDataTableComponent non-highlightable mode fixed
+
+## 1.0.0-alpha+3
+
+- SkawaInfobarComponent button open the url in a new tab
+- SkawaDataTableComponent can be non highlightable
 
 ## 1.0.0-alpha+2
 

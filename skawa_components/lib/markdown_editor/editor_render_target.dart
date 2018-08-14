@@ -27,10 +27,7 @@ class EditorRenderTarget implements OnDestroy {
     _onRenderController.add(newTarget);
     if (newTarget == _previousRender) return;
     _element.children.clear();
-    var render = renderer.render(newTarget);
-//    print('render: ${render.innerHtml}');
-//    print('render: ${render.text}');
-    _element.append(render);
+    _element.append(renderer.render(newTarget));
     _updateElementChildren(_element, classes);
   }
 
