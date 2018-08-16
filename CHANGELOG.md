@@ -1,3 +1,7 @@
+## 1.0.0-alpha+7
+
+- SkawaRawMarkdownRendererComponent added
+
 ## 1.0.0-alpha+6
 
 - SkawaMarkdownEditorComponent disable ex improved

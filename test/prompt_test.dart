@@ -20,7 +20,6 @@ void main() {
 
     test('displays a message', () async {
       final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
@@ -54,7 +53,6 @@ void main() {
 
     test('modal disappears after clicking yes or no if we want it to', () async {
       final fixture = await new NgTestBed<PromptTestComponent>().create();
-      final pageObject = await fixture.resolvePageObject(TestPO);
       await fixture.query<PromptComponent>((debugElement) {
         return debugElement.componentInstance is PromptComponent;
       }, (PromptComponent component) {
