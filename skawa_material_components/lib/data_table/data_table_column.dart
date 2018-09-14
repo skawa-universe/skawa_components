@@ -45,10 +45,10 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     visibility: Visibility.all)
 class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = new StreamController<T>.broadcast();
-  final SkawaDataColRendererDirective columnRenderer;
+  final SkawaDataColRendererDirective<T> columnRenderer;
 
   @Input()
-  DataTableAccessor accessor;
+  DataTableAccessor<T> accessor;
 
   @Input()
   String header;
