@@ -10,9 +10,9 @@ import '../base_implementations/grid/grid.dart';
 @Component(
     selector: 'skawa-grid',
     template: '<div class="grid-container" #grid><ng-content></ng-content></div>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: const ['grid_component.css'],
-    directives: const [GridTileDirective])
+    styleUrls: ['grid_component.css'],
+    directives: [GridTileDirective],
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class GridComponent extends GridBase implements AfterViewInit, OnInit {
   List<GridTile> _tiles;
 

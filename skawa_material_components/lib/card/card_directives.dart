@@ -25,12 +25,8 @@ import 'package:angular/core.dart';
 @Directive(selector: 'skawa-header-title')
 class SkawaCardHeaderTitleDirective {}
 
-@Directive(
-  selector: 'skawa-header-subhead',
-)
+@Directive(selector: 'skawa-header-subhead')
 class SkawaCardHeaderSubheadDirective {}
 
-@Directive(
-  selector: 'skawa-header-image',
-)
+@Directive(selector: 'skawa-header-image')
 class SkawaCardHeaderImageDirective {}

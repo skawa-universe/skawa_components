@@ -53,7 +53,7 @@
         &.selected {
           background-color: #e0e0e0;
         }
-        &.highlighted {
+        &.highlighted, &.odd-row {
           background-color: #EEEEEE;
         }
       }

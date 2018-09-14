@@ -34,14 +34,12 @@ import '../sidebar_item/sidebar_item.dart';
 /// - `textOnly` -- If present, `icon` will be ignored and it's place removed.
 ///
 @Component(
-  selector: 'skawa-nav-item',
-  templateUrl: 'nav_item.html',
-  styleUrls: const ['nav_item.css'],
-  directives: const [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: const [const Provider(ButtonDirective, useExisting: SkawaNavItemComponent)],
-  preserveWhitespace: false,
-)
+    selector: 'skawa-nav-item',
+    templateUrl: 'nav_item.html',
+    styleUrls: ['nav_item.css'],
+    directives: [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [Provider(ButtonDirective, useExisting: SkawaNavItemComponent)])
 @Injectable()
 class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
   /// Link to navigate to

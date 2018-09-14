@@ -5,8 +5,8 @@ import 'package:skawa_components/markdown_editor/editor_render_target.dart';
 @Component(
     selector: 'skawa-markdown-renderer',
     templateUrl: 'markdown_renderer.html',
-    styleUrls: const ['markdown_renderer.css'],
-    directives: const [EditorRenderTarget, LanguageDirectionDirective],
+    styleUrls: ['markdown_renderer.css'],
+    directives: [EditorRenderTarget, LanguageDirectionDirective],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMarkdownRendererComponent implements OnInit {
   String _source;

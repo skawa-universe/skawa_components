@@ -91,8 +91,8 @@ abstract class TextareaEditorBase implements SkawaEditor {
 @Component(
     selector: 'skawa-markdown-editor',
     templateUrl: 'markdown_editor.html',
-    styleUrls: const ['markdown_editor.css'],
-    directives: const [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
+    styleUrls: ['markdown_editor.css'],
+    directives: [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit, OnDestroy {
   final StreamController<String> _modeController = new StreamController<String>();

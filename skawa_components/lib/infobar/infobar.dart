@@ -28,8 +28,8 @@ import 'package:angular_components/material_button/material_button.dart';
     selector: 'skawa-infobar',
     exportAs: 'infobar',
     templateUrl: 'infobar.html',
-    styleUrls: const ['infobar.css'],
-    directives: const [MaterialIconComponent, MaterialButtonComponent],
+    styleUrls: ['infobar.css'],
+    directives: [MaterialIconComponent, MaterialButtonComponent],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaInfobarComponent {
   final ChangeDetectorRef _changeDetectorRef;

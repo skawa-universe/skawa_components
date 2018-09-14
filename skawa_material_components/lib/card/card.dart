@@ -8,7 +8,7 @@ export 'card.dart';
 export 'card_actions.dart';
 export 'card_directives.dart';
 
-const List<Type> skawaCardDirectives = const [
+const List<Type> skawaCardDirectives = [
   SkawaCardHeaderComponent,
   SkawaCardHeaderSubheadDirective,
   SkawaCardHeaderTitleDirective,
@@ -30,11 +30,7 @@ const List<Type> skawaCardDirectives = const [
 ///   - `no-shadow`: Will not add default shadow.
 ///
 @Component(
-  selector: 'skawa-card',
-  template: '<ng-content></ng-content>',
-  visibility: Visibility.all,
-  styleUrls: const ['card.css'],
-)
+    selector: 'skawa-card', template: '<ng-content></ng-content>', styleUrls: ['card.css'], visibility: Visibility.all)
 @Injectable()
 class SkawaCardComponent {
   @ContentChild(SkawaCardHeaderComponent)
@@ -65,7 +61,7 @@ class SkawaCardComponent {
     selector: 'skawa-card-content',
     exportAs: 'cardcontent',
     template: '<ng-content></ng-content>',
-    styleUrls: const ['card_content.css'],
+    styleUrls: ['card_content.css'],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardContentComponent {
   final SkawaCardComponent parentCard;
@@ -100,11 +96,10 @@ class SkawaCardContentComponent {
 ///   - `statusColor: String` -- The color of the box-shadow-top. Accept only rgb() or rgba() formats. Defaults to transparent.
 ///
 @Component(
-  selector: 'skawa-card-header',
-  template: '<ng-content></ng-content>',
-  styleUrls: const ['card_header.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-)
+    selector: 'skawa-card-header',
+    template: '<ng-content></ng-content>',
+    styleUrls: ['card_header.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardHeaderComponent {
   @ContentChild(SkawaCardHeaderTitleDirective)
   SkawaCardHeaderTitleDirective title;

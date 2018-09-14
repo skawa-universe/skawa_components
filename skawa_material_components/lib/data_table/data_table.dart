@@ -48,16 +48,15 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 @Component(
     selector: 'skawa-data-table',
     templateUrl: 'data_table.html',
-    directives: const [MaterialCheckboxComponent, DynamicComponent, NgIf, NgClass, NgFor],
-    pipes: const [UnskippedInFooterPipe],
-    styleUrls: const ['data_table.css'],
+    styleUrls: ['data_table.css'],
+    directives: [MaterialCheckboxComponent, DynamicComponent, NgIf, NgClass, NgFor],
+    pipes: [UnskippedInFooterPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    visibility: Visibility.all,
-    preserveWhitespace: false)
-class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
+    visibility: Visibility.all)
+class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterViewInit {
   final ChangeDetectorRef changeDetectorRef;
-  final StreamController<List<RowData>> _changeController = new StreamController<List<RowData>>.broadcast(sync: true);
-  final StreamController<RowData> _highlightController = new StreamController<RowData>.broadcast(sync: true);
+  final StreamController<List<T>> _changeController = new StreamController<List<T>>.broadcast(sync: true);
+  final StreamController<T> _highlightController = new StreamController<T>.broadcast(sync: true);
   final StreamController<SkawaDataTableColComponent> _sortController =
       new StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
   final Disposer _tearDownDisposer = new Disposer.oneShot();
@@ -69,7 +68,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   bool highlightable = true;
 
   @Input('data')
-  Iterable<RowData> rows;
+  Iterable<T> rows;
 
   @Input()
   bool multiSelection = true;
@@ -78,9 +77,9 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   List<SkawaDataTableColComponent> columns;
 
   @Output('change')
-  Stream<List<RowData>> onChange;
+  Stream<List<T>> onChange;
 
-  RowData highlightedRow;
+  T highlightedRow;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
     _tearDownDisposer
@@ -93,7 +92,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
   }
 
   @Output('highlight')
-  Stream<RowData> get onHighlight => _highlightController.stream;
+  Stream<T> get onHighlight => _highlightController.stream;
 
   @Output('sort')
   Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
@@ -115,7 +114,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
     return span;
   }
 
-  void changeRowSelection(RowData row, bool selected) {
+  void changeRowSelection(T row, bool selected) {
     if (!multiSelection) {
       rows.firstWhere((r) => r.checked, orElse: () => null)?.checked = !selected;
     }
@@ -128,7 +127,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
     if (emit) _emitChange();
   }
 
-  void highlight(RowData row, Event ev) {
+  void highlight(T row, Event ev) {
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
       highlightedRow = row;
@@ -176,7 +175,7 @@ class SkawaDataTableComponent implements OnDestroy, AfterViewInit {
     _tearDownDisposer.dispose();
   }
 
-  static bool _areOfSameCheckedState(List<RowData> a, List<RowData> b) {
+  bool _areOfSameCheckedState(List<T> a, List<T> b) {
     for (int i = 0; i < a.length; ++i) {
       if (a[i].checked != b[i].checked) return false;
     }

@@ -23,8 +23,7 @@ import 'package:angular_components/laminate/components/modal/modal.dart';
 @Component(
     selector: 'skawa-prompt',
     templateUrl: 'prompt.html',
-    directives: const [MaterialDialogComponent, ModalComponent, MaterialYesNoButtonsComponent],
-    preserveWhitespace: false,
+    directives: [MaterialDialogComponent, ModalComponent, MaterialYesNoButtonsComponent],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaPromptComponent {
   final ChangeDetectorRef _cd;
