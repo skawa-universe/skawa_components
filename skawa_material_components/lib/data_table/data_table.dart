@@ -57,8 +57,8 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<T>> _changeController = new StreamController<List<T>>.broadcast(sync: true);
   final StreamController<T> _highlightController = new StreamController<T>.broadcast(sync: true);
-  final StreamController<SkawaDataTableColComponent> _sortController =
-      new StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColComponent<T>> _sortController =
+      new StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
   final Disposer _tearDownDisposer = new Disposer.oneShot();
 
   @Input()
@@ -74,7 +74,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   bool multiSelection = true;
 
   @ContentChildren(SkawaDataTableColComponent)
-  List<SkawaDataTableColComponent> columns;
+  List<SkawaDataTableColComponent<T>> columns;
 
   @Output('change')
   Stream<List<T>> onChange;
@@ -95,9 +95,9 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   Stream<T> get onHighlight => _highlightController.stream;
 
   @Output('sort')
-  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
+  Stream<SkawaDataTableColComponent<T>> get onSort => _sortController.stream;
 
-  int getColspanFor(SkawaDataTableColComponent col, int skippedIndex) {
+  int getColspanFor(SkawaDataTableColComponent<T> col, int skippedIndex) {
     int span = 1;
     if (skippedIndex == 0 && selectable) return 2;
     int colIndex = columns.toList().indexOf(col);
@@ -151,7 +151,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     return true;
   }
 
-  void triggerSort(SkawaDataTableColComponent column) {
+  void triggerSort(SkawaDataTableColComponent<T> column) {
     column.sortModel.toggleSort();
     for (var c in columns) {
       if (c != column && c.sortModel != null) {
