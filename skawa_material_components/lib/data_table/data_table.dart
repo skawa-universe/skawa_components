@@ -54,7 +54,6 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     changeDetection: ChangeDetectionStrategy.OnPush,
     visibility: Visibility.all)
 class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterViewInit {
-  final ChangeDetectorRef changeDetectorRef;
   final StreamController<List<T>> _changeController = new StreamController<List<T>>.broadcast(sync: true);
   final StreamController<T> _highlightController = new StreamController<T>.broadcast(sync: true);
   final StreamController<SkawaDataTableColComponent<T>> _sortController =
@@ -74,21 +73,20 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   bool multiSelection = true;
 
   @ContentChildren(SkawaDataTableColComponent)
-  List<SkawaDataTableColComponent<T>> columns;
+  List<SkawaDataTableColComponent> columns;
 
   @Output('change')
   Stream<List<T>> onChange;
 
   T highlightedRow;
 
-  SkawaDataTableComponent(this.changeDetectorRef) {
+  SkawaDataTableComponent() {
     _tearDownDisposer
       ..addEventSink(_changeController)
       ..addEventSink(_highlightController)
       ..addEventSink(_sortController);
-    onChange = _changeController.stream.distinct((a, b) {
-      return a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b));
-    });
+    onChange =
+        _changeController.stream.distinct((a, b) => a == b || (listsEqual(a, b) && _areOfSameCheckedState(a, b)));
   }
 
   @Output('highlight')
@@ -151,14 +149,15 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     return true;
   }
 
-  void triggerSort(SkawaDataTableColComponent<T> column) {
-    column.sortModel.toggleSort();
+  void triggerSort(SkawaDataTableColComponent column) {
+    var _column = column as SkawaDataTableColComponent<T>;
+    _column.sortModel.toggleSort();
     for (var c in columns) {
-      if (c != column && c.sortModel != null) {
+      if (c != _column && c.sortModel != null) {
         c.sortModel.activeSort = null;
       }
     }
-    _sortController.add(column);
+    _sortController.add(_column);
   }
 
   void _emitChange() {
@@ -197,8 +196,8 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 /// Can set a column skipped by setting skipFooter to true
 @Pipe('unskippedInFooter')
 class UnskippedInFooterPipe implements PipeTransform {
-  Iterable transform(Iterable data) {
-    if (data is! Iterable) {
+  List<SkawaDataTableColComponent> transform(List<SkawaDataTableColComponent> data) {
+    if (data is! List) {
       throw new InvalidPipeArgumentException(UnskippedInFooterPipe, data);
     }
     return data.where((d) => d.skipFooter != true).toList();
