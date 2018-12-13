@@ -1,6 +1,11 @@
 ## 1.0.0-beta
 
 - Splitted the original package, removed the non-material components from this package
+
+## 1.0.0-alpha+7
+
+- SkawaRawMarkdownRendererComponent added
+
 ## 1.0.0-alpha+6
 
 - SkawaMarkdownEditorComponent disable ex improved

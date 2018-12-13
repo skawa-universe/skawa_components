@@ -4,6 +4,29 @@
 - SkawaRandomColorizePipe renamed to SkawaHexColorizePipe
 - SkawaAppbarComponent, SkawaDrawerComponent, SkawaSidebarComponent became deprecated
 
+## 1.0.0-alpha+7
+
+- SkawaRawMarkdownRendererComponent added
+
+## 1.0.0-alpha+6
+
+- SkawaMarkdownEditorComponent disable ex improved
+
+## 1.0.0-alpha+5
+
+- SkawaMarkdownEditorComponent can be disabled
+
+## 1.0.0-alpha+4
+
+- Added a new output stream to SkawaMarkdownEditorComponent which emits on displayMode change
+- SkawaMarkdownRendererComponent added
+- SkawaDataTableComponent non-highlightable mode fixed
+
+## 1.0.0-alpha+3
+
+- SkawaInfobarComponent button open the url in a new tab
+- SkawaDataTableComponent can be non highlightable
+
 ## 1.0.0-alpha+2
 
 - SkawaMarkdownEditorComponent now updates EditorRenderTarget with the proper classes
