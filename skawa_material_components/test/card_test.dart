@@ -120,7 +120,7 @@ void main() {
     <skawa-card-actions class="actions" *ngIf="hasAction"></skawa-card-actions>
     <skawa-card-content *ngIf="hasContent" #f (click)="f.toggle()"></skawa-card-content>
   </skawa-card>
-     ''', directives:  [skawaCardDirectives, NgIf])
+     ''', directives: [skawaCardDirectives, NgIf])
 class CardTestComponent {
   String statusColor;
   bool hasHeader = false;

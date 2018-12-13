@@ -8,7 +8,6 @@ import 'master_detail_test.template.dart' as ng;
 
 part 'master_detail_test.g.dart';
 
-
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
