@@ -24,7 +24,7 @@ EXIT_CODE=1
 case $TASK in
 
 presubmit)
-    dartanalyzer --fatal-warnings .
+    dartanalyzer --fatal-warnings --no-hints --no-lints .
     dartfmt lib/ --line-length=120 --set-exit-if-changed -n
     dartfmt test/ --line-length=120 --set-exit-if-changed -n
     ;;
