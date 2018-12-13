@@ -52,7 +52,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
 
   /// Sets the value of editor
   set value(String val) {
-    print('set value: $val');
     _changeStack.insert(0, value);
     htmlElement.setAttribute('value', val);
   }
@@ -78,7 +77,6 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
 
   @HostListener('input')
   void contentChanged(Event ev) {
-    print('ev: ${(ev as TextEvent).data} // ${(ev as TextEvent).toString()} // ${ev.runtimeType} || value: $value');
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
     }
