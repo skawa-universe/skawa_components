@@ -1,0 +1,9 @@
+# Define tags we expect for this test suite.
+tags:
+  aot:
+    platform: browser
+
+override_platforms:
+  chrome:
+    settings:
+      arguments: --no-sandbox

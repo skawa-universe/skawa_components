@@ -11,6 +11,7 @@ packages
 *.js_
 *.js.deps
 *.js.map
+*.g.dart
 
 # Include when developing application packages.
 pubspec.lock

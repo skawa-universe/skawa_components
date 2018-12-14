@@ -1,8 +1,0 @@
-<modal [visible]="isVisible">
-    <material-dialog info>
-        <p #messageText><ng-content></ng-content>{{message}}</p>
-        <div footer>
-            <material-yes-no-buttons yesHighlighted yesText="{{textYes}}" noText="{{textNo}}" (yes)="yes()" (no)="no()"></material-yes-no-buttons>
-        </div>
-    </material-dialog>
-</modal>

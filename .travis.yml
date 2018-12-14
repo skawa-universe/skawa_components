@@ -4,29 +4,11 @@ dart:
 # - dev currently the dartfmt failing on dev
  - stable
 
+addons:
+  chrome: stable
 
 before_install:
-  # Add a local `bin` folder and add it to the PATH.
-  - mkdir -p bin
-  - export PATH="$PATH:$PWD/bin"
-
-  # Start UI (required for Dartium).
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start &
-  - sleep 3
-
-  # Download the latest stable release of Dartium, extract it, and add a symlink to bin.
-  - wget http://gsdview.appspot.com/dart-archive/channels/stable/release/latest/dartium/dartium-linux-x64-release.zip
-  - unzip dartium-linux-x64-release.zip
-  - rm dartium-linux-x64-release.zip
-  - PATH_TO_DARTIUM=`pwd`/`echo dartium-linux-*`/chrome
-  - ln -sv "$PATH_TO_DARTIUM" "bin/dartium"
-
-  # Sanity check for terminal output.
-  - echo `which dartium`
   - chmod ugo+x tool/travis.sh
-
-script: ./tool/travis.sh
 
 # Only building master means that we don't run two builds for each pull request.
 branches:
@@ -35,3 +17,23 @@ branches:
 cache:
  directories:
    - $HOME/.pub-cache
+
+stages:
+  - presubmit
+  - test
+
+jobs:
+  include:
+    - stage: presubmit
+      env: PKG="skawa_material_components"
+      script: ./tool/travis.sh presubmit
+    - stage: test
+      env: PKG="skawa_material_components"
+      script: ./tool/travis.sh test
+
+    - stage: presubmit
+      env: PKG="skawa_components"
+      script: ./tool/travis.sh presubmit
+    - stage: test
+      env: PKG="skawa_components"
+      script: ./tool/travis.sh test
