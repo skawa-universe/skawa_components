@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Release to pub
+
 ## 1.0.0-beta
 
 - Splitted the original package, removed the non-material components from this package

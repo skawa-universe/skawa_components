@@ -19,7 +19,7 @@ Both packages are being actively maintained, meaning components get added and re
 In case of a component from this list is added to angular_components, it will be 
 deprecated and eventually removed from skawa_material_components.
 
-**Deprecated components:**
+**Removed components:**
 
 * ✓ `<skawa-appbar>`
 * ✓ `<skawa-drawer>`

@@ -1,5 +1,5 @@
 name: skawa_material_components
-version: 1.0.0-beta
+version: 1.0.0
 
 environment:
   sdk: '>=2.1.0'
