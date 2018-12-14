@@ -1,6 +1,7 @@
 ## 1.0.0-beta
 
 - Splitted the original package, removed the non-material components from this package
+- RowData now has additional classes filed to be able style them differently
 
 ## 1.0.0-alpha+7
 

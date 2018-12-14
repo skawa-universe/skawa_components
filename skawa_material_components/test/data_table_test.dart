@@ -22,11 +22,11 @@ void main() {
       var table = pageObject.dataTable.table;
       expect(table.rootElement.classes.contains('non-selectable'), isTrue);
       expect(table.rootElement.classes.contains('selectable'), isFalse);
-//      expect(table.tfoot.tr, isNull);
       expect(table.thead.tr.th.length, 2);
       expect(table.thead.tr.th[0].rootElement.innerText, 'Car make');
       expect(table.thead.tr.th[0].rootElement.classes.contains('text-column--header'), isTrue);
       expect(table.thead.tr.th[1].rootElement.innerText, 'My strong opinion');
+      expect(table.tbody.tr[0].rootElement.classes.contains('trabant'), isTrue);
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) {
         expect(trElement.td.length, 2);
@@ -213,7 +213,6 @@ void main() {
       expect(table.thead.tr.th[2].rootElement.classes.contains('sort'), isTrue);
       expect(table.thead.tr.th[2].rootElement.classes.contains('desc'), isTrue);
 
-//      final updatedPageObject = await fixture.resolvePageObject/*<TestPO>*/(TestPO);
       table = pageObject.dataTable.table;
       trElement = table.tbody.tr[0];
       expect(trElement.td[1].rootElement.innerText, '4. class');
@@ -247,7 +246,7 @@ class NonSelectableDatatableTestComponent {
 }
 
 List<RowData> rowData = <SampleRowData>[
-  new SampleRowData('Trabant', 'Definitely not!'),
+  new SampleRowData('Trabant', 'Definitely not!', classes: ['trabant']),
   new SampleRowData('Barkasz', 'Same as Trabant!'),
   new SampleRowData('Lada', 'Let the Russians have it!'),
   new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
@@ -317,16 +316,12 @@ List<RowData> selectableRowData = <SampleNumericData>[
   new SampleNumericData('4. class', 20, 13, false),
 ];
 
-class SampleRowData implements RowData {
-  /// Default to unchecked
-  @override
-  bool checked = false;
-
+class SampleRowData extends RowData {
   final String name;
 
   final String opinion;
 
-  SampleRowData(this.name, this.opinion);
+  SampleRowData(this.name, this.opinion, {List<String> classes}) : super(false, classes: classes);
 }
 
 class SampleNumericData extends RowData {

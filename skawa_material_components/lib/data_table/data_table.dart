@@ -70,6 +70,9 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   Iterable<T> rows;
 
   @Input()
+  T highlightedRow;
+
+  @Input()
   bool multiSelection = true;
 
   @ContentChildren(SkawaDataTableColComponent)
@@ -77,8 +80,6 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 
   @Output('change')
   Stream<List<T>> onChange;
-
-  T highlightedRow;
 
   SkawaDataTableComponent() {
     _tearDownDisposer
