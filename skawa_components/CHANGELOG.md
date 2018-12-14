@@ -1,3 +1,7 @@
+## 1.0.0+1
+
+- Fixed missing pub constraints
+
 ## 1.0.0
 
 - Release to pub
