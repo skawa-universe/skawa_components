@@ -129,7 +129,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
       highlightedRow = row;
-      _highlightController.add(row);
+      if (!_highlightController.isClosed) _highlightController.add(row);
     }
   }
 
