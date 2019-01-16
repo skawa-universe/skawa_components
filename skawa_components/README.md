@@ -4,8 +4,7 @@
 
 ## "Non-Material" Components
 
-These components are following the Material Design principles,
- but not part of the [material components](https://material.io/guidelines/components/).
+These components are following the Material Design principles, but not part of the [material components](https://material.io/guidelines/components/).
 
 The goal is to share a couple of components which are used internally but not material.
 

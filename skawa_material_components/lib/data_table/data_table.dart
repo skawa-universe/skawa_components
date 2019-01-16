@@ -76,7 +76,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   bool multiSelection = true;
 
   @ContentChildren(SkawaDataTableColComponent)
-  List<SkawaDataTableColComponent> columns;
+  List<SkawaDataTableColComponent<T>> columns;
 
   @Output('change')
   Stream<List<T>> onChange;

@@ -1,10 +1,10 @@
 name: skawa_components
-version: 1.0.0+1
+version: 1.0.0+2
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
-  - Szepeházi András <szepeshazi@gmail.com>
+  - Szepesházi András <szepeshazi@gmail.com>
 description:
-  Additional non Material Design components for AngularDart.
+  Additional components for AngularDart which based material design principles, but not part of the material components.
 homepage: https://github.com/skawa-universe/skawa_components
 
 environment:
@@ -12,7 +12,7 @@ environment:
 
 dependencies:
   angular: ^5.2.0
-  angular_components: ^0.10.1
+  angular_components: ^0.11.0
   markdown: ^2.0.2
   js: ^0.6.1+1
   intl: ^0.15.7
@@ -20,9 +20,7 @@ dependencies:
 dev_dependencies:
   test: ^1.5.1
   angular_test: ^2.1.0
-  # currently necessary for angular 5.2.0 with bumped analyzer version
-  pageloader:
-    git: https://github.com/skawa-universe/pageloader
+  pageloader: ^3.0.3
   html_unescape: ^1.0.1+2
   mockito: ^3.0.0
   build_config: ^0.3.1+4

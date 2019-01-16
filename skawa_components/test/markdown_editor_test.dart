@@ -36,6 +36,7 @@ void main() {
       TextAreaElement textarea = markdownEditorPage.textarea;
 //      String expectedText = "${textarea.seleniumAttributes['value']}$input";
       await textarea.typing(input);
+      await Future.delayed(Duration(milliseconds: 101));
       expect(markdownEditorPage.markdownContainerDiv.displayed, isFalse);
       expect(textarea.displayed, isTrue);
 //      expect(textarea.seleniumAttributes['value'], expectedText);
@@ -47,10 +48,10 @@ void main() {
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = markdownEditorPage.textarea;
       await textarea.typing(input);
-//      String expectedText = "${markdownEditorPage.markdownContainerDiv.innerText}$input";
+      await Future.delayed(Duration(milliseconds: 101));
       await markdownEditorPage.buttons[2].click();
 //      expect(markdownEditorPage.markdownContainerDiv.displayed, isTrue);
-//      expect(markdownEditorPage.markdownContainerDiv.innerText, expectedText);
+      expect(markdownEditorPage.markdownContainerDiv.innerText, input);
     });
   });
 }
@@ -97,7 +98,7 @@ abstract class TextAreaElement {
 @Component(
     selector: 'markdown-test',
     template: '''
-    <skawa-markdown-editor #editor initialValue="hello" [updateDelay]="updateDelay">
+    <skawa-markdown-editor #editor [initialValue]="'hello'" [updateDelay]="updateDelay">
         <div class="placeholder">Nothing to show you yet</div>
     </skawa-markdown-editor>
     <button (click)="editor.renderSource.revertLastUpdate()">Step back</button>

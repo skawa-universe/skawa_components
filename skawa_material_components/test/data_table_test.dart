@@ -234,18 +234,24 @@ void main() {
        <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
        <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
-     ''', directives: const [SkawaDataTableComponent, SkawaDataTableColComponent])
+     ''', directives: const [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SampleRowData>>(),
+  Typed<SkawaDataTableColComponent<SampleRowData>>()
+])
 class NonSelectableDatatableTestComponent {
   String cssClass;
 
-  String makeAccessor(RowData row) => (row as SampleRowData).name;
+  String makeAccessor(SampleRowData row) => row.name;
 
-  String opinionAccessor(RowData row) => (row as SampleRowData).opinion;
+  String opinionAccessor(SampleRowData row) => row.opinion;
 
-  List<RowData> get data => rowData;
+  List<SampleRowData> get data => rowData;
 }
 
-List<RowData> rowData = <SampleRowData>[
+List<SampleRowData> rowData = <SampleRowData>[
   new SampleRowData('Trabant', 'Definitely not!', classes: ['trabant']),
   new SampleRowData('Barkasz', 'Same as Trabant!'),
   new SampleRowData('Lada', 'Let the Russians have it!'),
@@ -263,39 +269,40 @@ List<RowData> rowData = <SampleRowData>[
       <skawa-data-table-col [accessor]="peopleAccessor" sortable="desc"  header="All" [footer]="aggregate(peopleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
-     ''', directives: const [SkawaDataTableComponent, SkawaDataTableColComponent, SkawaDataTableSortDirective])
+     ''', directives: const [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent,
+  SkawaDataTableSortDirective
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SampleNumericData>>(),
+  Typed<SkawaDataTableColComponent<SampleNumericData>>()
+])
 class SelectableDatatableTestComponent {
-  String categoryAccessor(RowData row) => (row as SampleNumericData).category;
+  String categoryAccessor(SampleNumericData row) => row.category;
 
-  String maleAccessor(RowData row) => (row as SampleNumericData).male.toString();
+  String maleAccessor(SampleNumericData row) => row.male.toString();
 
-  String femaleAccessor(RowData row) => (row as SampleNumericData).female.toString();
+  String femaleAccessor(SampleNumericData row) => row.female.toString();
 
-  String peopleAccessor(RowData row) =>
-      ((row as SampleNumericData).female + (row as SampleNumericData).male).toString();
+  String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
 
-  String aggregate(DataTableAccessor<RowData> accessor) {
-    Iterable<String> mapped = rowData.where((row) => row.checked).map(accessor);
+  String aggregate(DataTableAccessor<SampleNumericData> accessor) {
+    Iterable<String> mapped = rowData.where((SampleNumericData row) => row.checked).map(accessor);
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
   void sort(SkawaDataTableColComponent column) {
     if (!column.sortModel.isSorted) {
       // Apply default sorting when no sort is specified
-      rowData.sort((a, b) => (a as SampleNumericData).category.compareTo((b as SampleNumericData).category));
+      rowData.sort((a, b) => a.category.compareTo(b.category));
     } else {
       rowData.sort((a, b) {
         if (column.header == 'Male') {
-          return column.sortModel.isAscending
-              ? (a as SampleNumericData).male - (b as SampleNumericData).male
-              : (b as SampleNumericData).male - (a as SampleNumericData).male;
+          return column.sortModel.isAscending ? a.male - b.male : b.male - a.male;
         } else if (column.header == 'Female') {
-          return column.sortModel.isAscending
-              ? (a as SampleNumericData).female - (b as SampleNumericData).female
-              : (b as SampleNumericData).female - (a as SampleNumericData).female;
+          return column.sortModel.isAscending ? a.female - b.female : b.female - a.female;
         } else if (column.header == 'All') {
-          return ((b as SampleNumericData).male + (b as SampleNumericData).female) -
-              ((a as SampleNumericData).male + (a as SampleNumericData).female);
+          return (b.male + b.female) - (a.male + a.female);
         }
       });
     }
@@ -306,10 +313,10 @@ class SelectableDatatableTestComponent {
     return (int.parse(a) + int.parse(b)).toString();
   }
 
-  List<RowData> get rowData => selectableRowData;
+  List<SampleNumericData> get rowData => selectableRowData;
 }
 
-List<RowData> selectableRowData = <SampleNumericData>[
+List<SampleNumericData> selectableRowData = <SampleNumericData>[
   new SampleNumericData('1. class', 15, 12, false),
   new SampleNumericData('2. class', 11, 18, false),
   new SampleNumericData('3. class', 13, 13, false),

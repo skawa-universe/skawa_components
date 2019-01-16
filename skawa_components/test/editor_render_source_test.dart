@@ -32,10 +32,11 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      expect(fixture.assertOnlyInstance.updates.length, 2);
+      await Future.delayed(Duration(milliseconds: 101));
+      expect(fixture.assertOnlyInstance.updates.length, 3);
       expect(fixture.assertOnlyInstance.updates.last, null);
     });
-  }, skip: "The @HostListener('input') doesn't working now");
+  });
   group('EditorRenderSource | with initial value ', () {
     setUp(() async {
       fixture = await testBed.create(beforeChangeDetection: (testElement) => testElement.initialValue = _initialValue);
@@ -50,55 +51,51 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
-      expect(fixture.assertOnlyInstance.updates.length, 2);
-      expect(fixture.assertOnlyInstance.updates.last, isNull);
+      await Future.delayed(Duration(milliseconds: 101));
+      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.last, '$_first$_second');
     });
     test('can\'t revert beyond initial value with revertLastUpdate', () async {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
-      expect(fixture.assertOnlyInstance.updates.length, 2);
-      expect(fixture.assertOnlyInstance.updates.last, isNull);
+      await Future.delayed(Duration(milliseconds: 101));
+      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
     test('can revert all updates', () async {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      expect(fixture.assertOnlyInstance.updates.length, 2);
-      expect(fixture.assertOnlyInstance.updates.last, isNull);
+      await Future.delayed(Duration(milliseconds: 101));
+      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
     test('can\'t revert beyond initial value with revertAllUpdates', () async {
       await pageObject.type('1');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 2');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 3');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 4');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 5');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 6');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 7');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 8');
-      await Future.delayed(Duration(milliseconds: 200));
+      await pageObject.type('2');
+      await pageObject.type('3');
+      await pageObject.type('4');
+      await Future.delayed(Duration(milliseconds: 101));
+      await pageObject.type('5');
+      await pageObject.type('6');
+      await pageObject.type('7');
+      await Future.delayed(Duration(milliseconds: 101));
+      await pageObject.type('8');
       await pageObject.type('9');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 10');
-      await Future.delayed(Duration(milliseconds: 200));
-      await pageObject.type(' 11');
-      await Future.delayed(Duration(milliseconds: 200));
+      await Future.delayed(Duration(milliseconds: 101));
+      await pageObject.type('10');
+      await pageObject.type('11');
       await pageObject.type('12');
-      await Future.delayed(Duration(milliseconds: 200));
+      await Future.delayed(Duration(milliseconds: 101));
       await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
-      expect(fixture.assertOnlyInstance.updates.length, 4);
-      expect(fixture.assertOnlyInstance.updates.last, isNull);
+      await Future.delayed(Duration(milliseconds: 101));
+      expect(fixture.assertOnlyInstance.updates.length, 7);
+      expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
-  }, skip: "The @HostListener('input') doesn't working now");
+  });
 }
 
 @Component(selector: 'test', template: '''

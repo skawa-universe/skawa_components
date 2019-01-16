@@ -1,3 +1,7 @@
+## 1.0.0+2
+
+- SkawaDataTableComponent tests using components with generic parameter 
+
 ## 1.0.0+1
 
 - Fixed missing pub constraints

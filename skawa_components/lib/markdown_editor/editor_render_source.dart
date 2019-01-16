@@ -26,7 +26,7 @@ import 'deferred_callback.dart';
 @Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource')
 class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   final HtmlElement htmlElement;
-  final StreamController _onUpdatedController = new StreamController.broadcast();
+  final StreamController<String> _onUpdatedController = new StreamController<String>.broadcast();
   final List<String> _changeStack = <String>[];
 
   @Input()
@@ -35,24 +35,35 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   @Input()
   Duration updateDelay;
 
-  DeferredCallback _emit;
+  DeferredCallback<String, void> _emit;
 
   EditorRenderSource(this.htmlElement);
 
   @Output('update')
-  Stream get onUpdated => _onUpdatedController.stream;
+  Stream<String> get onUpdated => _onUpdatedController.stream;
 
-  String get value {
-    if (initialValue != null && _changeStack.isEmpty) {
-      return initialValue;
+  String get _value {
+    if (htmlElement is TextAreaElement) {
+      return (htmlElement as TextAreaElement).value;
+    } else if (htmlElement is InputElement) {
+      return (htmlElement as InputElement).value;
     } else {
       return htmlElement.nodeValue;
     }
   }
 
+  String get value {
+    if (initialValue != null && _changeStack.isEmpty) {
+      return initialValue;
+    } else {
+      return _value;
+    }
+  }
+
   /// Sets the value of editor
-  set value(String val) {
-    _changeStack.insert(0, value);
+  set value(_) {
+    String val = _value;
+    _changeStack.insert(0, val);
     htmlElement.setAttribute('value', val);
   }
 
@@ -96,5 +107,5 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   void ngOnDestroy() => _onUpdatedController.close();
 
   @override
-  void ngOnInit() => _emit = new DeferredCallback(_onUpdatedController.add, updateDelay);
+  void ngOnInit() => _emit = new DeferredCallback<String, void>(_onUpdatedController.add, updateDelay);
 }
