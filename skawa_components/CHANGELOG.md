@@ -1,3 +1,7 @@
+## 1.0.0+2
+
+- Fixed EditorRenderSource
+
 ## 1.0.0+1
 
 - Fixed missing pub constraints

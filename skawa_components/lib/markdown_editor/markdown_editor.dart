@@ -129,7 +129,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
 
   @override
   @Output('update')
-  Stream get onUpdated => renderSource.onUpdated;
+  Stream<String> get onUpdated => renderSource.onUpdated;
 
   @Output('mode')
   Stream<String> get onMode => _modeController.stream;

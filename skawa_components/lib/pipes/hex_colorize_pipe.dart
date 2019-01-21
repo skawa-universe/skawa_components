@@ -20,7 +20,7 @@ class SkawaHexColorizePipe implements PipeTransform {
     }
     int hexHash;
     if (seed is String) {
-      hexHash = int.parse(seed, radix: 16, onError: (s) => s.hashCode);
+      hexHash = int.tryParse(seed, radix: 16) ?? seed.hashCode;
     } else {
       hexHash = seed.hashCode;
     }
