@@ -32,7 +32,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 3);
       expect(fixture.assertOnlyInstance.updates.last, null);
     });
@@ -51,7 +51,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 3);
       expect(fixture.assertOnlyInstance.updates.last, '$_first$_second');
     });
@@ -59,7 +59,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 3);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
@@ -67,7 +67,7 @@ void main() {
       await pageObject.type(_first);
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 3);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
@@ -76,22 +76,22 @@ void main() {
       await pageObject.type('2');
       await pageObject.type('3');
       await pageObject.type('4');
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       await pageObject.type('5');
       await pageObject.type('6');
       await pageObject.type('7');
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       await pageObject.type('8');
       await pageObject.type('9');
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       await pageObject.type('10');
       await pageObject.type('11');
       await pageObject.type('12');
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       await pageObject.type(' 13');
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 7);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
@@ -99,14 +99,13 @@ void main() {
 }
 
 @Component(selector: 'test', template: '''
-    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="updateDelay" (update)="update(\$event)">
+    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="emmitDelay" (update)="update(\$event)">
     </textarea>
     <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
-    ''', directives: const [EditorRenderSource])
+    ''', directives: const [EditorRenderSource], exports: [emmitDelay])
 class RenderSourceTemplateComponent {
   String initialValue;
-  Duration updateDelay = new Duration(milliseconds: 100);
   List<String> updates = [];
 
   @ViewChild(EditorRenderSource)
@@ -114,6 +113,8 @@ class RenderSourceTemplateComponent {
 
   void update(String lastUpdate) => updates.add(lastUpdate);
 }
+
+const Duration emmitDelay = const Duration(milliseconds: 10);
 
 @PageObject()
 @CheckTag('test')

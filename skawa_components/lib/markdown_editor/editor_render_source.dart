@@ -61,10 +61,9 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   }
 
   /// Sets the value of editor
-  set value(_) {
-    String val = _value;
-    _changeStack.insert(0, val);
-    htmlElement.setAttribute('value', val);
+  set value(String value) {
+    _changeStack.insert(0, value);
+    htmlElement.setAttribute('value', value);
   }
 
   /// Gets the previous or initial value

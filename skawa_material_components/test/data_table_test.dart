@@ -30,9 +30,8 @@ void main() {
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) {
         expect(trElement.td.length, 2);
-        expect(trElement.td[0].rootElement.innerText, (rowData[index] as SampleRowData).name);
         expect(trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, (rowData[index] as SampleRowData).opinion);
+        expect(trElement.td[1].rootElement.innerText, rowData[index].opinion);
         index++;
       });
     });
@@ -52,9 +51,9 @@ void main() {
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) async {
         expect(trElement.td.length, 2);
-        expect(trElement.td[0].rootElement.innerText, (rowData[index] as SampleRowData).name);
+        expect(trElement.td[0].rootElement.innerText, rowData[index].name);
         expect(trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, (rowData[index] as SampleRowData).opinion);
+        expect(trElement.td[1].rootElement.innerText, rowData[index].opinion);
         expect(trElement.td[1].rootElement.classes.contains('new-test-class'), isTrue);
         index++;
       });
@@ -76,12 +75,12 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) {
-        int male = (selectableRowData[index] as SampleNumericData).male;
-        int female = (selectableRowData[index] as SampleNumericData).female;
+        int male = selectableRowData[index].male;
+        int female = selectableRowData[index].female;
         expect(trElement.rootElement.classes.contains('selected'), isFalse);
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, (selectableRowData[index] as SampleNumericData).category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -114,12 +113,12 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) async {
-        int male = (selectableRowData[index] as SampleNumericData).male;
-        int female = (selectableRowData[index] as SampleNumericData).female;
+        int male = selectableRowData[index].male;
+        int female = selectableRowData[index].female;
         expect(trElement.rootElement.classes.contains('selected'), isTrue);
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, (selectableRowData[index] as SampleNumericData).category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -157,11 +156,11 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       Future.forEach(table.tbody.tr, (TableRowPO trElement) async {
-        int male = (selectableRowData[index] as SampleNumericData).male;
-        int female = (selectableRowData[index] as SampleNumericData).female;
+        int male = selectableRowData[index].male;
+        int female = selectableRowData[index].female;
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, (selectableRowData[index] as SampleNumericData).category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -252,9 +251,9 @@ class NonSelectableDatatableTestComponent {
 }
 
 List<SampleRowData> rowData = <SampleRowData>[
-  new SampleRowData('Trabant', 'Definitely not!', classes: ['trabant']),
-  new SampleRowData('Barkasz', 'Same as Trabant!'),
-  new SampleRowData('Lada', 'Let the Russians have it!'),
+  new SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
+  new SampleRowData('Jaguar', 'Hrrrrr'),
+  new SampleRowData('Ford', 'Something for everybody'),
   new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
 ];
 
