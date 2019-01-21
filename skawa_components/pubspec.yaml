@@ -4,7 +4,7 @@ authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
 description:
-  Additional components for AngularDart which based material design principles, but not part of the material components.
+  Additional components for AngularDart based on Material Design principles. These reusable components are not part of the official  Material Components (https://material.io/design/components/) library.
 homepage: https://github.com/skawa-universe/skawa_components
 
 environment:
