@@ -252,7 +252,9 @@ class NonSelectableDatatableTestComponent {
 }
 
 List<SampleRowData> rowData = <SampleRowData>[
-  new SampleRowData('Trabant', 'Definitely not!', classes: ['trabant']),
+  new SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
+  new SampleRowData('Jaguar', 'Hrrrrr'),
+  new SampleRowData('Ford', 'Something for everybody')
   new SampleRowData('Barkasz', 'Same as Trabant!'),
   new SampleRowData('Lada', 'Let the Russians have it!'),
   new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
