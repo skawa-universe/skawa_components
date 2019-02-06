@@ -23,10 +23,10 @@ void main() {
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = markdownEditorPage.textarea;
-      String expectedText = markdownEditorPage.markdownContainerDiv.innerText;
+      await Future.delayed(emmitDelay);
       expect(markdownEditorPage.markdownContainerDiv.displayed, isFalse);
       expect(textarea.displayed, isTrue);
-      expect(textarea.seleniumAttributes['value'], expectedText);
+      expect(textarea.rootElement.properties['value'], initialValue);
     });
     test('can be edited and type', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
@@ -34,12 +34,11 @@ void main() {
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = markdownEditorPage.textarea;
-//      String expectedText = "${textarea.seleniumAttributes['value']}$input";
       await textarea.typing(input);
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       expect(markdownEditorPage.markdownContainerDiv.displayed, isFalse);
       expect(textarea.displayed, isTrue);
-//      expect(textarea.seleniumAttributes['value'], expectedText);
+      expect(textarea.rootElement.properties['value'], '$initialValue$input');
     });
     test('can be edited and preview', () async {
       final fixture = await new NgTestBed<AppComponent>().create();
@@ -48,10 +47,10 @@ void main() {
       await markdownEditorPage.editMarkdown();
       TextAreaElement textarea = markdownEditorPage.textarea;
       await textarea.typing(input);
-      await Future.delayed(Duration(milliseconds: 101));
+      await Future.delayed(emmitDelay);
       await markdownEditorPage.buttons[2].click();
 //      expect(markdownEditorPage.markdownContainerDiv.displayed, isTrue);
-      expect(markdownEditorPage.markdownContainerDiv.innerText, input);
+      expect(markdownEditorPage.markdownContainerDiv.innerText, '$initialValue$input');
     });
   });
 }
@@ -65,8 +64,6 @@ abstract class MarkdownEditorPage {
 
   @First(ByClass('markdown-container'))
   PageLoaderElement get markdownContainerDiv;
-
-//  Future<TextAreaElement> get textarea => loader.getInstance(TextAreaElement, loader.globalContext);
 
   @ByTagName('textarea')
   TextAreaElement get textarea;
@@ -90,27 +87,32 @@ abstract class TextAreaElement {
 
   bool get displayed => rootElement.displayed;
 
-  PageLoaderAttributes get seleniumAttributes => rootElement.seleniumAttributes;
-
   Future typing(String input) async => await rootElement.type(input);
 }
 
-@Component(
-    selector: 'markdown-test',
-    template: '''
-    <skawa-markdown-editor #editor [initialValue]="'hello'" [updateDelay]="updateDelay">
+@Component(selector: 'markdown-test', template: '''
+    <skawa-markdown-editor #editor [initialValue]="initialValue" >
         <div class="placeholder">Nothing to show you yet</div>
     </skawa-markdown-editor>
     <button (click)="editor.renderSource.revertLastUpdate()">Step back</button>
     <button (click)="editor.cancelEdit()">Revert all</button>
     <button (click)="editor.previewMarkdown()">Preview</button>
     <button (click)="editor.editMarkdown()">Edit</button>
-   ''',
-    directives: const [SkawaMarkdownEditorComponent],
-    providers: const [popupDebugBindings, const Provider(EditorRenderer, useClass: MarkdownRenderer)])
+   ''', directives: const [
+  SkawaMarkdownEditorComponent
+], providers: const [
+  popupDebugBindings,
+  const Provider(EditorRenderer, useClass: MarkdownRenderer),
+  ValueProvider(Duration, updateDelay)
+], exports: [
+  initialValue
+])
 class AppComponent {
   @ViewChild(SkawaMarkdownEditorComponent)
   SkawaMarkdownEditorComponent markdownEditorComponent;
-
-  Duration updateDelay = new Duration(milliseconds: 100);
 }
+
+const int updateDelayMS = 9;
+const Duration updateDelay = const Duration(milliseconds: updateDelayMS);
+const Duration emmitDelay = const Duration(milliseconds: updateDelayMS + 2);
+const String initialValue = "hello";

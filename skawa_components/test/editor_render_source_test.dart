@@ -33,7 +33,7 @@ void main() {
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
       await Future.delayed(emmitDelay);
-      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.length, 2);
       expect(fixture.assertOnlyInstance.updates.last, null);
     });
   });
@@ -52,15 +52,15 @@ void main() {
       await pageObject.type(_second);
       await pageObject.revertLastUpdate();
       await Future.delayed(emmitDelay);
-      expect(fixture.assertOnlyInstance.updates.length, 3);
-      expect(fixture.assertOnlyInstance.updates.last, '$_first$_second');
+      expect(fixture.assertOnlyInstance.updates.length, 2);
+      expect(fixture.assertOnlyInstance.updates.last, '$_initialValue$_first');
     });
     test('can\'t revert beyond initial value with revertLastUpdate', () async {
       await pageObject.type(_first);
       await pageObject.revertLastUpdate();
       await pageObject.revertLastUpdate();
       await Future.delayed(emmitDelay);
-      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.length, 2);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
     test('can revert all updates', () async {
@@ -68,7 +68,7 @@ void main() {
       await pageObject.type(_second);
       await pageObject.revertAllUpdates();
       await Future.delayed(emmitDelay);
-      expect(fixture.assertOnlyInstance.updates.length, 3);
+      expect(fixture.assertOnlyInstance.updates.length, 2);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
     test('can\'t revert beyond initial value with revertAllUpdates', () async {
@@ -92,18 +92,18 @@ void main() {
       await pageObject.revertAllUpdates();
       await pageObject.revertAllUpdates();
       await Future.delayed(emmitDelay);
-      expect(fixture.assertOnlyInstance.updates.length, 7);
+      expect(fixture.assertOnlyInstance.updates.length, 6);
       expect(fixture.assertOnlyInstance.updates.last, _initialValue);
     });
   });
 }
 
 @Component(selector: 'test', template: '''
-    <textarea editorRenderSource [initialValue]="initialValue" [updateDelay]="emmitDelay" (update)="update(\$event)">
+    <textarea editorRenderSource [initialValue]="initialValue" (update)="update(\$event)">
     </textarea>
     <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
-    ''', directives: const [EditorRenderSource], exports: [emmitDelay])
+    ''', directives: const [EditorRenderSource], providers: [ValueProvider(Duration, updateDelay)])
 class RenderSourceTemplateComponent {
   String initialValue;
   List<String> updates = [];
@@ -114,7 +114,9 @@ class RenderSourceTemplateComponent {
   void update(String lastUpdate) => updates.add(lastUpdate);
 }
 
-const Duration emmitDelay = const Duration(milliseconds: 10);
+const int updateDelayMS = 9;
+const Duration updateDelay = const Duration(milliseconds: updateDelayMS);
+const Duration emmitDelay = const Duration(milliseconds: updateDelayMS + 2);
 
 @PageObject()
 @CheckTag('test')
