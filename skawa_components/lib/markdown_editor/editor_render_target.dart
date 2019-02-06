@@ -54,7 +54,6 @@ abstract class EditorRenderer {
 }
 
 /// Renders HTML source
-@Injectable()
 class HtmlRenderer implements EditorRenderer {
   @override
   DocumentFragment render(String source) {
@@ -63,7 +62,6 @@ class HtmlRenderer implements EditorRenderer {
 }
 
 /// Renders Markdown source
-@Injectable()
 class MarkdownRenderer implements EditorRenderer {
   @override
   DocumentFragment render(String source) {
