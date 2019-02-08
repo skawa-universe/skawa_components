@@ -32,7 +32,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   @Input()
   String initialValue;
 
-  EditorRenderSource(this._htmlElement, Duration updateDelay) {
+  EditorRenderSource(this._htmlElement, @Optional() Duration updateDelay) {
     onUpdated = _onUpdatedController.stream.transform(debounceStream(updateDelay ?? _defaultTimeout));
   }
 
