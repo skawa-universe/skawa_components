@@ -40,7 +40,6 @@ import '../sidebar_item/sidebar_item.dart';
     directives: [SkawaSidebarItemComponent, MaterialRippleComponent, NgClass],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [Provider(ButtonDirective, useExisting: SkawaNavItemComponent)])
-@Injectable()
 class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
   /// Link to navigate to
   @Input()

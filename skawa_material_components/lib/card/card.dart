@@ -31,7 +31,6 @@ const List<Type> skawaCardDirectives = [
 ///
 @Component(
     selector: 'skawa-card', template: '<ng-content></ng-content>', styleUrls: ['card.css'], visibility: Visibility.all)
-@Injectable()
 class SkawaCardComponent {
   @ContentChild(SkawaCardHeaderComponent)
   SkawaCardHeaderComponent cardHeader;

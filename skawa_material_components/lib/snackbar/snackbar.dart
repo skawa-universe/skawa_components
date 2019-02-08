@@ -14,7 +14,6 @@ import 'package:angular_components/utils/disposer/disposer.dart';
 ///     duration: new Duration(seconds: 2),
 ///     action: new SnackAction()..label = 'call me back'..callback = callback);
 ///
-@Injectable()
 class SnackbarService {
   final StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
 

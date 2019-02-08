@@ -102,9 +102,6 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   @Input()
   String initialValue;
 
-  @Input()
-  Duration updateDelay;
-
   String _emulatedCssClass;
   EmbeddedViewRef _placeholderTemplateCache;
   bool _placeholderDefined;
@@ -122,10 +119,10 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
   SkawaMarkdownEditorComponent(this.containerRef, this.changeDetectorRef);
 
   @HostBinding('class.mode-edit')
-  bool get isEditing => displayMode == "edit";
+  bool get isEditing => displayMode == EditorMode.EDIT;
 
   @HostBinding('class.mode-display')
-  bool get isDisplaying => displayMode == "display";
+  bool get isDisplaying => displayMode == EditorMode.DISPLAY;
 
   @override
   @Output('update')
@@ -139,6 +136,7 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
 
   @override
   set value(String val) {
+    print('editor set value: $value');
     renderSource.value = val;
   }
 

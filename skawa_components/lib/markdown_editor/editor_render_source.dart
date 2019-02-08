@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:angular/core.dart';
-import 'deferred_callback.dart';
+import 'package:angular_components/utils/async/async.dart';
 
 /// Content source part of a SkawaEditor Component. It works in tandem
 /// with EditorRenderTarget directive.
@@ -24,31 +24,38 @@ import 'deferred_callback.dart';
 ///     <input editorRenderSource value="someInitialValue" >
 ///
 @Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource')
-class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
-  final HtmlElement htmlElement;
+class EditorRenderSource implements AfterViewInit, OnDestroy {
+  final HtmlElement _htmlElement;
   final StreamController<String> _onUpdatedController = new StreamController<String>.broadcast();
   final List<String> _changeStack = <String>[];
 
   @Input()
   String initialValue;
 
-  @Input()
-  Duration updateDelay;
-
-  DeferredCallback<String, void> _emit;
-
-  EditorRenderSource(this.htmlElement);
+  EditorRenderSource(this._htmlElement, @Optional() Duration updateDelay) {
+    onUpdated = _onUpdatedController.stream.transform(debounceStream(updateDelay ?? _defaultTimeout));
+  }
 
   @Output('update')
-  Stream<String> get onUpdated => _onUpdatedController.stream;
+  Stream<String> onUpdated;
 
   String get _value {
-    if (htmlElement is TextAreaElement) {
-      return (htmlElement as TextAreaElement).value;
-    } else if (htmlElement is InputElement) {
-      return (htmlElement as InputElement).value;
+    if (_htmlElement is TextAreaElement) {
+      return (_htmlElement as TextAreaElement).value;
+    } else if (_htmlElement is InputElement) {
+      return (_htmlElement as InputElement).value;
     } else {
-      return htmlElement.nodeValue;
+      return _htmlElement.nodeValue;
+    }
+  }
+
+  set _value(String value) {
+    if (_htmlElement is TextAreaElement) {
+      (_htmlElement as TextAreaElement).value = value;
+    } else if (_htmlElement is InputElement) {
+      (_htmlElement as InputElement).value = value;
+    } else {
+      _htmlElement.setAttribute('value', value);
     }
   }
 
@@ -63,7 +70,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
   /// Sets the value of editor
   set value(String value) {
     _changeStack.insert(0, value);
-    htmlElement.setAttribute('value', value);
+    _value = value;
   }
 
   /// Gets the previous or initial value
@@ -74,15 +81,15 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
       revertAllUpdates();
     } else {
       _changeStack.removeAt(0);
-      htmlElement.setAttribute('value', _changeStack.first);
-      _emit(value);
+      _value = initialValue = _changeStack.first;
+      _onUpdatedController.add(value);
     }
   }
 
   void revertAllUpdates() {
     value = initialValue;
     _changeStack.clear();
-    _emit(initialValue);
+    _onUpdatedController.add(initialValue);
   }
 
   @HostListener('input')
@@ -90,21 +97,20 @@ class EditorRenderSource implements AfterViewInit, OnDestroy, OnInit {
     if (_changeStack.isEmpty || _changeStack.first != value) {
       _changeStack.insert(0, value);
     }
-    _emit(value);
+    _onUpdatedController.add(value);
     ev.stopPropagation();
   }
 
   @override
   void ngAfterViewInit() {
     // sync initial value to DOM
-    _emit(initialValue);
-    if (initialValue != null) htmlElement.setAttribute('value', initialValue);
-    htmlElement.onInput.listen(contentChanged);
+    _onUpdatedController.add(initialValue);
+    if (initialValue != null) _value = initialValue;
+    _htmlElement.onInput.listen(contentChanged);
   }
 
   @override
   void ngOnDestroy() => _onUpdatedController.close();
 
-  @override
-  void ngOnInit() => _emit = new DeferredCallback<String, void>(_onUpdatedController.add, updateDelay);
+  static final Duration _defaultTimeout = new Duration(milliseconds: 500);
 }
