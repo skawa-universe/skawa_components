@@ -1,3 +1,7 @@
+## 1.0.0+3
+
+- Fixed SkawaMarkdownEditorComponent
+
 ## 1.0.0+2
 
 - Fixed EditorRenderSource
