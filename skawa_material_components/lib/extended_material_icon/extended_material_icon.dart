@@ -1,7 +1,7 @@
 import 'package:angular/angular.dart';
 
-/// A material styled icon component. On the top of the official icons it is at least 3000 icons from the community.
-/// Currently this component supports only the dead-weight way.
+/// A material styled icon component. On the top of the official icons it is containing
+/// at least 3000 icons from the community. Currently this component supports only the dead-weight way.
 ///
 /// This stylesheet should be included at the top of the page:
 ///
