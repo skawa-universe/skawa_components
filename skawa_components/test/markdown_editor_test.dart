@@ -18,7 +18,7 @@ void main() {
     tearDown(disposeAnyRunningTest);
     final String input = "cica";
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
@@ -29,7 +29,7 @@ void main() {
       expect(textarea.rootElement.properties['value'], initialValue);
     });
     test('can be edited and type', () async {
-      final fixture = await new NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
@@ -41,7 +41,7 @@ void main() {
       expect(textarea.rootElement.properties['value'], '$initialValue$input');
     });
     test('can be edited and preview', () async {
-      final fixture = await new NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
@@ -98,11 +98,11 @@ abstract class TextAreaElement {
     <button (click)="editor.cancelEdit()">Revert all</button>
     <button (click)="editor.previewMarkdown()">Preview</button>
     <button (click)="editor.editMarkdown()">Edit</button>
-   ''', directives: const [
+   ''', directives: [
   SkawaMarkdownEditorComponent
-], providers: const [
+], providers: [
   popupDebugBindings,
-  const Provider(EditorRenderer, useClass: MarkdownRenderer),
+  Provider(EditorRenderer, useClass: MarkdownRenderer),
   ValueProvider(Duration, updateDelay)
 ], exports: [
   initialValue

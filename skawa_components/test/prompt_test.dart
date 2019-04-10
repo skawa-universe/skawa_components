@@ -14,7 +14,7 @@ part 'prompt_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<PromptTestComponent>();
+  final testBed = NgTestBed<PromptTestComponent>();
   NgTestFixture<PromptTestComponent> fixture;
   TestPO pageObject;
   group('Prompt |', () {
@@ -30,7 +30,7 @@ void main() {
     });
     test('calls yes function', () async {
       await fixture.update(
-          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.yesButton..handleClick(new MouseEvent('test')));
+          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.yesButton..handleClick(MouseEvent('test')));
       expect(fixture.assertOnlyInstance.prompt.messageText.text, ' Should you?');
       expect(pageObject.messageSpan.innerText, 'Yes');
       expect(fixture.assertOnlyInstance.prompt.modal.visible, isFalse);
@@ -38,7 +38,7 @@ void main() {
 
     test('calls no function', () async {
       await fixture.update(
-          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test')));
+          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.noButton.handleClick(MouseEvent('test')));
       expect(fixture.assertOnlyInstance.prompt.messageText.text, ' Should you?');
       expect(pageObject.messageSpan.innerText, 'No');
       expect(fixture.assertOnlyInstance.prompt.modal.visible, isFalse);
@@ -46,7 +46,7 @@ void main() {
 
     test('modal disappears after clicking yes or no if we want it to', () async {
       await fixture.update(
-          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.noButton.handleClick(new MouseEvent('test')));
+          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.noButton.handleClick(MouseEvent('test')));
       expect(fixture.assertOnlyInstance.prompt.modal.visible, isFalse);
     });
   });

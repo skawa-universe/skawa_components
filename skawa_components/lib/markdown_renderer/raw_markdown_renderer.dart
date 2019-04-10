@@ -6,7 +6,7 @@ import 'package:skawa_components/markdown_renderer/markdown_renderer.dart';
 @Component(
     selector: 'skawa-raw-markdown-renderer',
     templateUrl: 'markdown_renderer.html',
-    styles: const [':host{display:block}'],
-    directives: const [EditorRenderTarget, LanguageDirectionDirective],
+    styles: [':host{display:block}'],
+    directives: [EditorRenderTarget, LanguageDirectionDirective],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaRawMarkdownRendererComponent extends SkawaMarkdownRendererComponent {}

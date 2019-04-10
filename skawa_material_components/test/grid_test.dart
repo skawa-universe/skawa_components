@@ -14,7 +14,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Grid | ', () {
     test('initialization with 3 grid', () async {
-      final fixture = await new NgTestBed<GridTestComponent>().create();
+      final fixture = await NgTestBed<GridTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.grid, isNotNull);
@@ -31,7 +31,7 @@ void main() {
     <div gridTile>Dog</div>
     <div gridTile>Wolf</div>
   </skawa-grid>
-     ''', directives: const [GridComponent, GridTileDirective])
+     ''', directives: [GridComponent, GridTileDirective])
 class GridTestComponent {}
 
 @PageObject()

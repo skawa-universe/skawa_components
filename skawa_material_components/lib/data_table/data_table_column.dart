@@ -44,7 +44,7 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     directives: [SkawaDataColRendererDirective],
     visibility: Visibility.all)
 class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy {
-  final StreamController<T> _triggerController = new StreamController<T>.broadcast();
+  final StreamController<T> _triggerController = StreamController<T>.broadcast();
   final SkawaDataColRendererDirective<T> columnRenderer;
 
   @Input()
@@ -90,7 +90,7 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
   @override
   void ngOnInit() {
     if (_triggerController.hasListener && useColumnRenderer) {
-      throw new ArgumentError('Cannot use [colRenderer] together with (trigger)');
+      throw ArgumentError('Cannot use [colRenderer] together with (trigger)');
     }
   }
 }

@@ -2,9 +2,9 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 import 'package:skawa_components/pipes/hex_colorize_pipe.dart';
 import 'package:test/test.dart';
 
-final Matcher throwsATypeError = throwsA(new TypeMatcher<TypeError>());
+final Matcher throwsATypeError = throwsA(TypeMatcher<TypeError>());
 
-final Matcher throwsAnInvalidPipeArgumentException = throwsA(new TypeMatcher<InvalidPipeArgumentException>());
+final Matcher throwsAnInvalidPipeArgumentException = throwsA(TypeMatcher<InvalidPipeArgumentException>());
 
 void main() {
   group('HexColorizePipe | ', () {
@@ -12,7 +12,7 @@ void main() {
     final int intSeed = 1234;
     final String stringSeed = 'seed';
     final String hexSeed = '2cbe4e';
-    setUp(() => pipe = new SkawaHexColorizePipe());
+    setUp(() => pipe = SkawaHexColorizePipe());
     test('accepts int', () {
       expect(() {
         pipe.transform(intSeed);
@@ -22,7 +22,7 @@ void main() {
       expect(() => pipe.transform(stringSeed), returnsNormally);
     });
     test('throws for types not int or String', () {
-      expect(() => pipe.transform(new Object()), throwsAnInvalidPipeArgumentException);
+      expect(() => pipe.transform(Object()), throwsAnInvalidPipeArgumentException);
     });
     test('returns same color for the same int seed', () {
       String a = pipe.transform(intSeed);

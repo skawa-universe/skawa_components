@@ -11,7 +11,7 @@ part 'master_detail_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<MasterDetailTestComponent>();
+  final testBed = NgTestBed<MasterDetailTestComponent>();
   NgTestFixture<MasterDetailTestComponent> fixture;
   TestPO pageObject;
   group('MasterDetail | ', () {
@@ -60,7 +60,7 @@ void main() {
     <button (click)="masterDetail.expand()" expand-button></button>
     <button (click)="masterDetail.collapse()" collapse-button></button>
     <button (click)="masterDetail.toggle()" toggle-button></button>
-     ''', directives: const [SkawaMasterDetailComponent])
+     ''', directives: [SkawaMasterDetailComponent])
 class MasterDetailTestComponent {}
 
 @PageObject()

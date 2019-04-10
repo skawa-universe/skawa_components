@@ -17,14 +17,14 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('EditorRenderTarget | ', () {
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>(rootInjector: rootInjector).create();
+      final fixture = await NgTestBed<TestComponent>(rootInjector: rootInjector).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await pageObject.counter.click();
       expect(pageObject.renderTarget.innerText, isEmpty);
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>(rootInjector: rootInjector)
+      final fixture = await NgTestBed<TestComponent>(rootInjector: rootInjector)
           .create(beforeChangeDetection: (testElement) => testElement.content = '<div> Cat <span>Lion</span></div>');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
@@ -36,7 +36,7 @@ void main() {
           .forEach((child) => expect(child.classes, isEmpty));
     });
     test('can be edited displays data', () async {
-      final fixture = await new NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);

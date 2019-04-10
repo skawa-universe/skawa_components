@@ -1,5 +1,5 @@
 name: skawa_components
-version: 1.0.0+3
+version: 1.0.0+4
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
@@ -12,18 +12,19 @@ environment:
 
 dependencies:
   angular: ^5.2.0
-  angular_components: ^0.11.0
+  angular_components: ^0.12.0
   markdown: ^2.0.2
   js: ^0.6.1+1
   intl: ^0.15.7
+  sass_builder: ^2.1.2
 
 dev_dependencies:
   test: ^1.5.1
   angular_test: ^2.1.0
   pageloader: ^3.0.3
   html_unescape: ^1.0.1+2
-  mockito: ^3.0.0
+  mockito: ^4.0.0
   build_config: ^0.3.1+4
-  build_test: ^0.10.3+4
-  build_runner: ^1.1.2
-  build_web_compilers: ^1.0.0
+  build_test: ^0.10.6
+  build_runner: ^1.2.3
+  build_web_compilers: ^1.1.0

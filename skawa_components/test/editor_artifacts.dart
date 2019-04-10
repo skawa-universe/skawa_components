@@ -7,7 +7,7 @@ class MockRenderer extends Mock implements EditorRenderer {
     print('created');
     when(this.render('')).thenAnswer((Invocation inv) {
       var str = inv.positionalArguments[0];
-      return new DocumentFragment.html('$str');
+      return DocumentFragment.html('$str');
     });
   }
 }

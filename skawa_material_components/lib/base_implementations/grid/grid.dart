@@ -35,9 +35,7 @@ abstract class DomTransformReposition {
 
   int get height => tile.clientHeight;
 
-  void reposition(Point<int> pos) {
-    tile.style.transform = 'translate(${pos.x}px, ${pos.y}px)';
-  }
+  void reposition(Point<int> pos) => tile.style.transform = 'translate(${pos.x}px, ${pos.y}px)';
 }
 
 abstract class GridBase implements Grid {
@@ -45,16 +43,15 @@ abstract class GridBase implements Grid {
   ///
   /// Default gutter size (spacing between tiles) is 16px
   @override
-  GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize: 16}) {
+  GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize = 16}) {
     final int tileWidth = tiles.first.width;
     final int tileWidthWithGutter = (tileWidth + gutterSize);
     final int colNumber = gridWidth ~/ tileWidthWithGutter == 0 ? 1 : gridWidth ~/ tileWidthWithGutter;
     final int xAdjustmentForCentering = (gridWidth - tileWidthWithGutter * colNumber - gutterSize) ~/ 2;
-    final List<int> xTranslations = new List.generate(
-        colNumber, (int index) => index * tileWidthWithGutter + xAdjustmentForCentering,
-        growable: false);
-    final List<int> yTranslationForCol = new List.filled(colNumber, 0, growable: false);
-    final List<Point<int>> tileTransformations = new List<Point<int>>(tiles.length);
+    final List<int> xTranslations =
+        List.generate(colNumber, (int index) => index * tileWidthWithGutter + xAdjustmentForCentering, growable: false);
+    final List<int> yTranslationForCol = List.filled(colNumber, 0, growable: false);
+    final List<Point<int>> tileTransformations = List<Point<int>>(tiles.length);
 
     int colIndex = 0;
     for (int tileNumber = 0; tileNumber < tiles.length; ++tileNumber) {
@@ -65,7 +62,7 @@ abstract class GridBase implements Grid {
       if (!multiple && maxColIndex == colIndex) {
         colIndex = (colIndex + 1) % colNumber;
       }
-      tileTransformations[tileNumber] = new Point<int>(xTranslations[colIndex], yTranslationForCol[colIndex]);
+      tileTransformations[tileNumber] = Point<int>(xTranslations[colIndex], yTranslationForCol[colIndex]);
       int tileBottom = tile.height + yTranslationForCol[colIndex] + gutterSize;
       yTranslationForCol[colIndex] = tileBottom;
       colIndex = (colIndex + 1) % colNumber;
@@ -78,7 +75,7 @@ abstract class GridBase implements Grid {
 
 abstract class Grid {
   factory Grid(Element grid, List<GridTile> tiles) {
-    return new _DomGrid(grid, tiles);
+    return _DomGrid(grid, tiles);
   }
 
   Iterable<GridTile> get tiles;
@@ -87,7 +84,7 @@ abstract class Grid {
 
   bool get visible;
 
-  GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize: 16});
+  GridUpdate calculateGridUpdate(int gridWidth, {int gutterSize = 16});
 
   /// Updates the grid
   void updateAndDisplay(bool forceRefresh);
@@ -105,9 +102,7 @@ class _DomGridTile implements GridTile {
   int get height => _tile.clientHeight;
 
   @override
-  void reposition(Point<int> pos) {
-    _tile.style.transform = 'translate(${pos.x}px, ${pos.y}px)';
-  }
+  void reposition(Point<int> pos) => _tile.style.transform = 'translate(${pos.x}px, ${pos.y}px)';
 }
 
 class _DomGrid extends GridBase {
@@ -132,7 +127,5 @@ class _DomGrid extends GridBase {
   bool get visible => _grid.style.visibility != 'hidden';
 
   @override
-  set visible(bool val) {
-    _grid.style.visibility = val ? '' : 'hidden';
-  }
+  set visible(bool val) => _grid.style.visibility = val ? '' : 'hidden';
 }

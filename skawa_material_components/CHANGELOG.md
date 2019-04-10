@@ -1,3 +1,8 @@
+## 1.0.0+3
+
+- Pub constraints updated
+- ExtendedMaterialIconComponent added
+
 ## 1.0.0+2
 
 - SkawaDataTableComponent tests using components with generic parameter 

@@ -6,14 +6,8 @@ import 'package:test/test.dart';
 void main() {
   group('GridUpdate | ', () {
     test('constructor', () {
-      List<Point<int>> pointList = [
-        new Point(12, 13),
-        new Point(13122, 1),
-        new Point(412, 163),
-        new Point(312, 153),
-        new Point(212, 7613)
-      ];
-      GridUpdate gridUpdate = new GridUpdate(pointList, 116);
+      List<Point<int>> pointList = [Point(12, 13), Point(13122, 1), Point(412, 163), Point(312, 153), Point(212, 7613)];
+      GridUpdate gridUpdate = GridUpdate(pointList, 116);
       expect(gridUpdate.tilePositions, pointList);
       expect(gridUpdate.gridHeight, 116);
     });
@@ -21,19 +15,19 @@ void main() {
   group('GridTile | ', () {
     Element tileElement;
     setUp(() {
-      tileElement = new Element.div();
+      tileElement = Element.div();
       tileElement.style.height = '116px';
       tileElement.style.width = '16px';
       document.body.append(tileElement);
     });
     test('constructor', () {
-      GridTile gridTile = new GridTile(tileElement);
+      GridTile gridTile = GridTile(tileElement);
       expect(gridTile.height, 116);
       expect(gridTile.width, 16);
     });
     test('reposition method', () async {
-      GridTile gridTile = new GridTile(tileElement);
-      Point<int> point = new Point(321, 543);
+      GridTile gridTile = GridTile(tileElement);
+      Point<int> point = Point(321, 543);
       gridTile.reposition(point);
       expect(gridTile.height, 116);
       expect(gridTile.width, 16);
@@ -47,36 +41,35 @@ void main() {
     setUp(() {
       tileList = [];
       tileElementList = [];
-      gridElement = new Element.div();
+      gridElement = Element.div();
       gridElement.style.height = '116px';
       gridElement.style.width = '48px';
       document.body.append(gridElement);
       for (int i = 0; i < 5; i++) {
-        Element tileElement = new Element.div();
+        Element tileElement = Element.div();
         tileElement.style.height = '116px';
         tileElement.style.width = '16px';
         document.body.append(tileElement);
         tileElementList.add(tileElement);
-        tileList.add(new GridTile(tileElement));
+        tileList.add(GridTile(tileElement));
       }
     });
     test('constructor', () {
-      Grid grid = new Grid(gridElement, tileList);
+      Grid grid = Grid(gridElement, tileList);
       expect(grid.tiles, tileList);
       expect(grid.visible, isTrue);
     });
     test('calculateGridUpdate method', () {
-      Grid grid = new Grid(gridElement, tileList);
+      Grid grid = Grid(gridElement, tileList);
       GridUpdate gridUpdate = grid.calculateGridUpdate(64);
       expect(grid.tiles, tileList);
       expect(grid.visible, isTrue);
       expect(gridUpdate.gridHeight, 412);
       expect(gridUpdate.tilePositions.length, grid.tiles.length);
-      expect(gridUpdate.tilePositions,
-          [new Point(-8, 0), new Point(24, 0), new Point(-8, 132), new Point(24, 132), new Point(-8, 264)]);
+      expect(gridUpdate.tilePositions, [Point(-8, 0), Point(24, 0), Point(-8, 132), Point(24, 132), Point(-8, 264)]);
     });
     test('updateAndDisplay method', () {
-      Grid grid = new Grid(gridElement, tileList);
+      Grid grid = Grid(gridElement, tileList);
       grid.visible = false;
       grid.updateAndDisplay(true);
       List<String> actual = [];

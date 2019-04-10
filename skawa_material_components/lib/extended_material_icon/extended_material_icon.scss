@@ -1,0 +1,39 @@
+$x-small: 12px;
+$small: 13px;
+$medium: 16px;
+$large: 18px;
+$x-large: 20px;
+$default: 24px;
+
+// Local size method which is on elements which don't need deep.
+@mixin _material-icon-size($size) {
+  .mdi {
+    font-size: $size;
+  }
+}
+
+:host {
+  display: inline-flex;
+
+  @include _material-icon-size($default);
+
+  &[size="x-small"] {
+    @include _material-icon-size($x-small);
+  }
+
+  &[size="small"] {
+    @include _material-icon-size($small);
+  }
+
+  &[size="medium"] {
+    @include _material-icon-size($medium);
+  }
+
+  &[size="large"] {
+    @include _material-icon-size($large);
+  }
+
+  &[size="x-large"] {
+    @include _material-icon-size($x-large);
+  }
+}

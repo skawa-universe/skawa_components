@@ -15,18 +15,18 @@ import 'package:angular_components/utils/disposer/disposer.dart';
 ///     action: new SnackAction()..label = 'call me back'..callback = callback);
 ///
 class SnackbarService {
-  final StreamController<SnackMessage> _messageQueue = new StreamController<SnackMessage>();
+  final StreamController<SnackMessage> _messageQueue = StreamController<SnackMessage>();
 
   Stream<SnackMessage> get messages => _messageQueue.stream;
 
   void showMessage(String message, {Duration duration, SnackAction action}) {
-    _messageQueue.add(new SnackMessage()
+    _messageQueue.add(SnackMessage()
       ..text = message
       ..duration = duration ?? _defaultDuration
       ..action = action);
   }
 
-  static final Duration _defaultDuration = new Duration(seconds: 3);
+  static final Duration _defaultDuration = Duration(seconds: 3);
 }
 
 class SnackAction {
@@ -58,7 +58,7 @@ class SnackMessage {
 class SkawaSnackbarComponent implements OnInit, OnDestroy {
   final ChangeDetectorRef _changeDetectorRef;
   final SnackbarService _snackbarService;
-  final Disposer _tearDownDisposer = new Disposer.oneShot();
+  final Disposer _tearDownDisposer = Disposer.oneShot();
 
   SnackMessage message;
   SnackMessage nextMessage;
@@ -121,9 +121,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   }
 
   @override
-  void ngOnDestroy() {
-    _tearDownDisposer.dispose();
-  }
+  void ngOnDestroy() => _tearDownDisposer.dispose();
 
-  static final Duration _minimumSlideInDelay = new Duration(milliseconds: 100);
+  static final Duration _minimumSlideInDelay = Duration(milliseconds: 100);
 }

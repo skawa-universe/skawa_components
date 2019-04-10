@@ -1,3 +1,7 @@
+## 1.0.0+4
+
+- Pub constraints updated
+
 ## 1.0.0+3
 
 - Fixed SkawaMarkdownEditorComponent

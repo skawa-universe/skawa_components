@@ -15,7 +15,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Card | ', () {
     test('initialization a raw card', () async {
-      final fixture = await new NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.card, isNotNull);

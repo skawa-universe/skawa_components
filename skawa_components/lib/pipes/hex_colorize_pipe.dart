@@ -16,7 +16,7 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 class SkawaHexColorizePipe implements PipeTransform {
   String transform(dynamic seed) {
     if (!_supportedInput(seed)) {
-      throw new InvalidPipeArgumentException(SkawaHexColorizePipe, seed);
+      throw InvalidPipeArgumentException(SkawaHexColorizePipe, seed);
     }
     int hexHash;
     if (seed is String) {
