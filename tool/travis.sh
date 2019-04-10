@@ -27,7 +27,7 @@ presubmit)
     dartfmt lib/ --line-length=120 --set-exit-if-changed -n
     dartfmt test/ --line-length=120 --set-exit-if-changed -n
     pub run build_runner build
-    dartanalyzer --fatal-warnings --no-hints --no-lints .
+    dartanalyzer --fatal-warnings --no-hints --no-lints ./lib
     ;;
 
 test)
