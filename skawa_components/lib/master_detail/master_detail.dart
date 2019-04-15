@@ -36,15 +36,9 @@ class SkawaMasterDetailComponent {
   @HostBinding('attr.expanded')
   String get isExpanded => expanded ? "" : null;
 
-  void expand() {
-    expanded = true;
-  }
+  void expand() => expanded = true;
 
-  void collapse() {
-    expanded = false;
-  }
+  void collapse() => expanded = false;
 
-  void toggle() {
-    expanded = !expanded;
-  }
+  void toggle() => expanded = !expanded;
 }

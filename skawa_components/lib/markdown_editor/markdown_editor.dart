@@ -95,7 +95,7 @@ abstract class TextareaEditorBase implements SkawaEditor {
     directives: [AutoFocusDirective, EditorRenderSource, EditorRenderTarget, LanguageDirectionDirective, NgClass],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit, AfterViewInit, OnDestroy {
-  final StreamController<String> _modeController = new StreamController<String>();
+  final StreamController<String> _modeController = StreamController<String>();
   final ViewContainerRef containerRef;
   final ChangeDetectorRef changeDetectorRef;
 

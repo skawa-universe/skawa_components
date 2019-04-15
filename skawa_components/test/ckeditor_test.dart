@@ -12,7 +12,7 @@ void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {
-    var bed = new NgTestBed<TestEditorComponent>();
+    var bed = NgTestBed<TestEditorComponent>();
     var fixture = await bed.create();
     await fixture.update();
     expect(fixture.assertOnlyInstance.editor.editorName, "editor");
@@ -21,16 +21,16 @@ void main() {
       return plugin.path == '/plugin' && plugin.name == 'some-plugin' && plugin.entrypoint == 'plugin.js';
     }));
     expect(fixture.assertOnlyInstance.editor.configUrl, '/some-url');
-    expect(new HtmlUnescape().convert(fixture.assertOnlyInstance.editor.value), TestEditorComponent._TEST_MARKUP);
+    expect(HtmlUnescape().convert(fixture.assertOnlyInstance.editor.value), TestEditorComponent._TEST_MARKUP);
   });
 }
 
 @Component(selector: 'dummy-cke', template: '''
   <skawa-ckeditor editorName="editor" [extraPlugins]="plugins" configUrl="/some-url" [content]="escaped">
   </skawa-ckeditor>
-  ''', directives: const [SkawaCkeditorComponent])
+  ''', directives: [SkawaCkeditorComponent])
 class TestEditorComponent {
-  List<ExtraPlugin> plugins = [new ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
+  List<ExtraPlugin> plugins = [ExtraPlugin('some-plugin', '/plugin', 'plugin.js')];
 
   @ViewChild(SkawaCkeditorComponent)
   SkawaCkeditorComponent editor;

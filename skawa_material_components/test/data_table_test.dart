@@ -16,7 +16,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Datatable | ', () {
     test('initialization a non selectable datatable', () async {
-      final fixture = await new NgTestBed<NonSelectableDatatableTestComponent>().create();
+      final fixture = await NgTestBed<NonSelectableDatatableTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -36,7 +36,7 @@ void main() {
       });
     });
     test('initialization a non selectable datatable with a custom class on a column', () async {
-      final fixture = await new NgTestBed<NonSelectableDatatableTestComponent>()
+      final fixture = await NgTestBed<NonSelectableDatatableTestComponent>()
           .create(beforeChangeDetection: (testComponent) => testComponent.cssClass = 'new-test-class');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
@@ -59,7 +59,7 @@ void main() {
       });
     });
     test('initialization a selectable datatable', () async {
-      final fixture = await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -96,7 +96,7 @@ void main() {
       expect(trElement.td[3].rootElement.innerText, '-');
     });
     test('selectable datatable then selectall', () async {
-      final fixture = await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -134,7 +134,7 @@ void main() {
       expect(trElement.td[3].rootElement.innerText, '115');
     });
     test('selectable datatable then select second and fourth row', () async {
-      final fixture = await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -177,7 +177,7 @@ void main() {
     });
 
     test('sortable datatable sort descending by second column', () async {
-      final fixture = await new NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -233,7 +233,7 @@ void main() {
        <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
        <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
-     ''', directives: const [
+     ''', directives: [
   SkawaDataTableComponent,
   SkawaDataTableColComponent
 ], directiveTypes: [
@@ -251,10 +251,10 @@ class NonSelectableDatatableTestComponent {
 }
 
 List<SampleRowData> rowData = <SampleRowData>[
-  new SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
-  new SampleRowData('Jaguar', 'Hrrrrr'),
-  new SampleRowData('Ford', 'Something for everybody'),
-  new SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
+  SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
+  SampleRowData('Jaguar', 'Hrrrrr'),
+  SampleRowData('Ford', 'Something for everybody'),
+  SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
 ];
 
 @Component(selector: 'test', template: '''
@@ -268,7 +268,7 @@ List<SampleRowData> rowData = <SampleRowData>[
       <skawa-data-table-col [accessor]="peopleAccessor" sortable="desc"  header="All" [footer]="aggregate(peopleAccessor)"
                           [skipFooter]="false"></skawa-data-table-col>
     </skawa-data-table>
-     ''', directives: const [
+     ''', directives: [
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
   SkawaDataTableSortDirective
@@ -316,10 +316,10 @@ class SelectableDatatableTestComponent {
 }
 
 List<SampleNumericData> selectableRowData = <SampleNumericData>[
-  new SampleNumericData('1. class', 15, 12, false),
-  new SampleNumericData('2. class', 11, 18, false),
-  new SampleNumericData('3. class', 13, 13, false),
-  new SampleNumericData('4. class', 20, 13, false),
+  SampleNumericData('1. class', 15, 12, false),
+  SampleNumericData('2. class', 11, 18, false),
+  SampleNumericData('3. class', 13, 13, false),
+  SampleNumericData('4. class', 20, 13, false),
 ];
 
 class SampleRowData extends RowData {

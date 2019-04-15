@@ -32,9 +32,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   bool get visible => visibility != 'hidden';
 
   @override
-  set visible(bool val) {
-    visibility = val ? '' : 'hidden';
-  }
+  set visible(bool val) => visibility = val ? '' : 'hidden';
 
   @ViewChild('grid')
   HtmlElement grid;
@@ -44,7 +42,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   @override
   void updateAndDisplay(bool forceRefresh) {
     _resizeTimer?.cancel();
-    _resizeTimer = new Timer(new Duration(milliseconds: 100), () {
+    _resizeTimer = Timer(Duration(milliseconds: 100), () {
       // there are no tiles to update, return
       if (tiles.isEmpty) return;
       var gridWidth = grid.clientWidth;
@@ -63,9 +61,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   }
 
   @override
-  void ngAfterViewInit() {
-    updateAndDisplay(true);
-  }
+  void ngAfterViewInit() => updateAndDisplay(true);
 
   @override
   void ngOnInit() {
@@ -78,9 +74,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   int _previousWidth = -1;
 }
 
-@Directive(
-  selector: '[gridTile]',
-)
+@Directive(selector: '[gridTile]')
 class GridTileDirective extends Object with DomTransformReposition implements GridTile {
   @override
   final HtmlElement tile;

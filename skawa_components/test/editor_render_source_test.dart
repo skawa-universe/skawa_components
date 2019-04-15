@@ -12,7 +12,7 @@ part 'editor_render_source_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<RenderSourceTemplateComponent>();
+  final testBed = NgTestBed<RenderSourceTemplateComponent>();
   NgTestFixture<RenderSourceTemplateComponent> fixture;
   TestPO pageObject;
   final String _first = 'first';
@@ -103,7 +103,7 @@ void main() {
     </textarea>
     <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
     <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
-    ''', directives: const [EditorRenderSource], providers: [ValueProvider(Duration, updateDelay)])
+    ''', directives: [EditorRenderSource], providers: [ValueProvider(Duration, updateDelay)])
 class RenderSourceTemplateComponent {
   String initialValue;
   List<String> updates = [];

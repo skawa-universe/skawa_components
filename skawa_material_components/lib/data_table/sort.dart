@@ -51,13 +51,13 @@ class SkawaDataTableSortDirective {
       throw new ArgumentError(
           'SkawaDataTableSortDirective accepts only "asc" and/or "desc" as sort directions. Use comma separated values for both directions.');
     }
-    column.sortModel = new SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
+    column.sortModel = SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
   }
 
   @Input()
   set initialSort(String sort) {
     if (directionMap[sort] == null) {
-      throw new ArgumentError('SkawaDataTableSortDirective initial sort value can only be "asc" or "desc"');
+      throw ArgumentError('SkawaDataTableSortDirective initial sort value can only be "asc" or "desc"');
     }
     column.sortModel.activeSort = directionMap[sort];
   }

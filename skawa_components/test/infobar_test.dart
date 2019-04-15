@@ -11,7 +11,7 @@ part 'infobar_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<InfobarTestComponent>();
+  final testBed = NgTestBed<InfobarTestComponent>();
   NgTestFixture<InfobarTestComponent> fixture;
   TestPO pageObject;
   group('Infobar | ', () {
@@ -67,7 +67,7 @@ void main() {
 @Component(selector: 'test', template: '''
     <skawa-infobar [icon]="icon" [url]="url" (trigger)="increment()"></skawa-infobar>
     <div increment>{{triggered}}</div>
-     ''', directives: const [SkawaInfobarComponent])
+     ''', directives: [SkawaInfobarComponent])
 class InfobarTestComponent {
   String icon;
   String url;

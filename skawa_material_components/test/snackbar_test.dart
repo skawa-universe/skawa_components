@@ -15,7 +15,7 @@ final InjectorFactory rootInjector = ng.rootInjector$Injector;
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<SnackbarTestComponent>(rootInjector: rootInjector);
+  final testBed = NgTestBed<SnackbarTestComponent>(rootInjector: rootInjector);
   NgTestFixture<SnackbarTestComponent> fixture;
   TestPO pageObject;
   group('Snackbar |', () {
@@ -36,7 +36,7 @@ void main() {
 
     test('slides out after default duration (3 seconds)', () async {
       await pageObject.messageSpan.click();
-      await new Future.delayed(new Duration(seconds: 5), () => null);
+      await Future.delayed(Duration(seconds: 5), () => null);
       expect(pageObject.snackbar.rootElement.displayed, isFalse);
     });
 
@@ -44,10 +44,10 @@ void main() {
       await fixture.update((testElement) {
         testElement
           ..callbackString = 'hello'
-          ..callbackDuration = (new Duration(seconds: 2));
+          ..callbackDuration = (Duration(seconds: 2));
       });
       await pageObject.messageSpan.click();
-      await new Future.delayed(new Duration(seconds: 3), () => null);
+      await Future.delayed(Duration(seconds: 3), () => null);
       expect(pageObject.snackbar.snackbarContainer.computedStyle['transform'], 'translate(-50%, 100%)');
     });
 
@@ -100,7 +100,7 @@ class SnackbarTestComponent {
   void showMessage(String message, [Duration duration]) => _snackbarService.showMessage(message, duration: duration);
 
   void showMessageWithCallback(String message, [Duration duration, Function callback]) {
-    SnackAction action = new SnackAction()
+    SnackAction action = SnackAction()
       ..label = 'call me back'
       ..callback = callback;
     _snackbarService.showMessage(message, duration: duration, action: action);

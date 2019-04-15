@@ -12,7 +12,7 @@ import 'package:markdown/markdown.dart' as markdown;
 class EditorRenderTarget implements OnDestroy {
   final HtmlElement htmlElement;
   final EditorRenderer renderer;
-  final StreamController<String> _onRenderController = new StreamController.broadcast();
+  final StreamController<String> _onRenderController = StreamController.broadcast();
 
   String _previousRender;
 
@@ -56,15 +56,11 @@ abstract class EditorRenderer {
 /// Renders HTML source
 class HtmlRenderer implements EditorRenderer {
   @override
-  DocumentFragment render(String source) {
-    return new DocumentFragment.html(source);
-  }
+  DocumentFragment render(String source) => DocumentFragment.html(source);
 }
 
 /// Renders Markdown source
 class MarkdownRenderer implements EditorRenderer {
   @override
-  DocumentFragment render(String source) {
-    return new DocumentFragment.html(markdown.markdownToHtml(source));
-  }
+  DocumentFragment render(String source) => DocumentFragment.html(markdown.markdownToHtml(source));
 }

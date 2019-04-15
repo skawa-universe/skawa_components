@@ -11,7 +11,7 @@ part 'nav_item_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = new NgTestBed<NavItemTestComponent>();
+  final testBed = NgTestBed<NavItemTestComponent>();
   NgTestFixture<NavItemTestComponent> fixture;
   TestPO pageObject;
   group('NavItem | ', () {
@@ -44,8 +44,8 @@ void main() {
 }
 
 @Component(selector: 'test', template: '''
-    <skawa-nav-item [icon]="icon" [textOnly]="textOnly" ></skawa-nav-item>
-     ''', directives: const [SkawaNavItemComponent])
+    <skawa-nav-item [icon]="icon" [textOnly]="textOnly"></skawa-nav-item>
+     ''', directives: [SkawaNavItemComponent])
 class NavItemTestComponent {
   String textOnly;
   String icon;

@@ -11,7 +11,30 @@ $sidenav-width: $increment * 4;
 
 // https://material.io/guidelines/material-design/elevation-shadows.html#elevation-shadows-elevation-android
 
-$mat-card-subhead-font-size: $mat-button-font-size;
+$mat-card-subhead-font-size: $mat-font-size-button;
+
+@mixin mat-type-body() {
+  font-size: $mat-font-size-body;
+  font-weight: $mat-font-weight-regular;
+}
+
+
+@mixin mat-type-caption() {
+  font-size: $mat-font-size-caption;
+  font-weight: $mat-font-weight-regular;
+}
+
+
+@mixin mat-type-headline() {
+  font-size: $mat-font-size-headline;
+  font-weight: $mat-font-weight-regular;
+}
+
+@mixin mat-type-title() {
+  font-size: $mat-font-size-title;
+  font-weight: $mat-font-weight-medium;
+}
+
 
 @mixin shadow-2dp() {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
@@ -98,7 +121,7 @@ $animation-curve-fast-out-linear-in: cubic-bezier(0.4, 0, 1, 1) !default;
 
 @mixin typo-title--dense {
   @include typo-title;
-  font-size: $mat-subhead-font-size;
+  font-size: $mat-font-size-subhead;
   line-height: 20px;
 }
 

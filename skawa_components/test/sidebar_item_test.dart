@@ -13,14 +13,14 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('SidebarItem | ', () {
     test('initialization with zero input', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>().create();
+      final fixture = await NgTestBed<SidebarItemTestComponent>().create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.sideBarItemList.span.classes.contains('text-only'), isFalse);
       expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>()
+      final fixture = await NgTestBed<SidebarItemTestComponent>()
           .create(beforeChangeDetection: (testElement) => testElement.icon = 'alarm');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
@@ -29,7 +29,7 @@ void main() {
       expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon but with textOnly', () async {
-      final fixture = await new NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
         testElement
           ..icon = 'alarm'
           ..textOnly = '';
@@ -42,9 +42,10 @@ void main() {
   });
 }
 
-@Component(selector: 'test', template: '''
-    <skawa-sidebar-item [icon]="icon" [textOnly]="textOnly"></skawa-sidebar-item>
-     ''', directives: const [SkawaSidebarItemComponent])
+@Component(
+    selector: 'test',
+    template: '<skawa-sidebar-item [icon]="icon" [textOnly]="textOnly"></skawa-sidebar-item>',
+    directives: [SkawaSidebarItemComponent])
 class SidebarItemTestComponent {
   String textOnly;
   String icon;

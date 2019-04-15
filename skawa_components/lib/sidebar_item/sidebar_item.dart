@@ -23,7 +23,7 @@ import '../util/attribute.dart' as attrib;
     selector: 'skawa-sidebar-item',
     templateUrl: 'sidebar_item.html',
     styleUrls: ['sidebar_item.css'],
-    directives: [MaterialIconComponent, NgIf, NgClass],
+    directives: [MaterialIconComponent, NgIf],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
   @Input()

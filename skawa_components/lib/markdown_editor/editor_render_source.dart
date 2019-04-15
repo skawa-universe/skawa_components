@@ -26,7 +26,7 @@ import 'package:angular_components/utils/async/async.dart';
 @Directive(selector: '[editorRenderSource]', exportAs: 'editorRenderSource')
 class EditorRenderSource implements AfterViewInit, OnDestroy {
   final HtmlElement _htmlElement;
-  final StreamController<String> _onUpdatedController = new StreamController<String>.broadcast();
+  final StreamController<String> _onUpdatedController = StreamController<String>.broadcast();
   final List<String> _changeStack = <String>[];
 
   @Input()
@@ -74,7 +74,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   }
 
   /// Gets the previous or initial value
-  String get previousValue => _changeStack.length > 0 ? _changeStack.first : initialValue;
+  String get previousValue => _changeStack.isNotEmpty ? _changeStack.first : initialValue;
 
   void revertLastUpdate() {
     if (_changeStack.length <= 1) {
@@ -112,5 +112,5 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   @override
   void ngOnDestroy() => _onUpdatedController.close();
 
-  static final Duration _defaultTimeout = new Duration(milliseconds: 500);
+  static final Duration _defaultTimeout = Duration(milliseconds: 500);
 }

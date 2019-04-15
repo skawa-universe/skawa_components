@@ -54,11 +54,11 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     changeDetection: ChangeDetectionStrategy.OnPush,
     visibility: Visibility.all)
 class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterViewInit {
-  final StreamController<List<T>> _changeController = new StreamController<List<T>>.broadcast(sync: true);
-  final StreamController<T> _highlightController = new StreamController<T>.broadcast(sync: true);
+  final StreamController<List<T>> _changeController = StreamController<List<T>>.broadcast(sync: true);
+  final StreamController<T> _highlightController = StreamController<T>.broadcast(sync: true);
   final StreamController<SkawaDataTableColComponent<T>> _sortController =
-      new StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
-  final Disposer _tearDownDisposer = new Disposer.oneShot();
+      StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
+  final Disposer _tearDownDisposer = Disposer.oneShot();
 
   @Input()
   bool selectable;

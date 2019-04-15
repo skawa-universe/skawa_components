@@ -23,7 +23,6 @@ import '../sidebar_item/sidebar_item.dart';
 ///     <skawa-nav-item [icon]="'home'" (trigger)="doSomething()">Event</skawa-nav-item>
 ///
 /// __Properties:__
-/// - `link: String` -- Link to navigate to when clicked. Defaults to nothing, no action will happen.
 /// - `icon: String` -- Icon name to display.
 ///
 /// __Events:__
@@ -41,37 +40,27 @@ import '../sidebar_item/sidebar_item.dart';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [Provider(ButtonDirective, useExisting: SkawaNavItemComponent)])
 class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
-  /// Link to navigate to
-  @Input()
-  String link;
+  final ChangeDetectorRef _changeDetector;
+
+  bool hovering = false;
 
   /// MaterialIcon name to use as icon
   @Input()
   String icon;
 
-  bool hovering = false;
-
   @HostBinding('attr.fullWidth')
   @Input()
   bool fullWidth;
-
-  final ChangeDetectorRef _changeDetector;
 
   SkawaNavItemComponent(HtmlElement element, this._changeDetector, @Attribute('role') String role)
       : super(element, role);
 
   @override
-  void focusedStateChanged() {
-    _changeDetector.markForCheck();
-  }
+  void focusedStateChanged() => _changeDetector.markForCheck();
 
   @HostListener('mouseenter')
-  void onMouseEnter() {
-    hovering = true;
-  }
+  void onMouseEnter() => hovering = true;
 
   @HostListener('mouseout')
-  void onMouseOut() {
-    hovering = false;
-  }
+  void onMouseOut() => hovering = false;
 }
