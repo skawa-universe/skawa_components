@@ -28,5 +28,4 @@ dev_dependencies:
   build_test: ^0.10.6
   build_runner: ^1.2.3
   build_web_compilers: ^1.1.0
-dependency_overrides:
   package_resolver: 1.0.6

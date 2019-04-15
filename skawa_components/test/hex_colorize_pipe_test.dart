@@ -27,7 +27,7 @@ void main() {
     test('returns same color for the same int seed', () {
       String a = pipe.transform(intSeed);
       String b = pipe.transform(intSeed);
-      expect(a, allOf(const isInstanceOf<String>(), b));
+      expect(a, allOf(const TypeMatcher<String>(), b));
     });
     test('returns valid css color', () {
       String a = pipe.transform(intSeed);
