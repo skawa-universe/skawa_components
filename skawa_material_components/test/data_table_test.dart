@@ -225,6 +225,32 @@ void main() {
       expect(trElement.td[3].rootElement.innerText, '12');
       expect(trElement.td[4].rootElement.innerText, '27');
     });
+
+    test('resorting updates odd classes properly', () async {
+      final fixture = await NgTestBed<SortableDatatableTestComponent>().create();
+      final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
+      final pageObject = TestPO.create(context);
+      var rows = pageObject.dataTable.table.tbody.tr;
+
+      final oddMatcher = (bool shouldBeOdd) {
+        return predicate<String>((m) => m.contains('odd') == shouldBeOdd);
+      };
+
+      for(int i = 0; i < rows.length; ++i) {
+        bool shouldBeOdd = i % 2 != 0;
+        final row = rows[i];
+        expect(row.classes, oddMatcher(shouldBeOdd));
+      }
+
+      await pageObject.dataTable.table.thead.tr.th.first.sortLink.click();
+      await fixture.update();
+      rows = pageObject.dataTable.table.tbody.tr;
+      for(int i = 0; i < rows.length; ++i) {
+        bool shouldBeOdd = i % 2 != 0;
+        final row = rows[i];
+        expect(row.classes, oddMatcher(shouldBeOdd));
+      }
+    });
   });
 }
 
@@ -315,12 +341,54 @@ class SelectableDatatableTestComponent {
   List<SampleNumericData> get rowData => selectableRowData;
 }
 
+@Component(selector: 'test', template: '''
+    <skawa-data-table [data]="data" (sort)="sort(\$event)" [selectable]="false">
+       <skawa-data-table-col sortable [accessor]="dataAccessor" header="Test column" class="text-column"></skawa-data-table-col>       
+    </skawa-data-table>
+     ''', directives: [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent,
+  SkawaDataTableSortDirective
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SortableRowData>>(),
+  Typed<SkawaDataTableColComponent<SortableRowData>>()
+])
+class SortableDatatableTestComponent {
+  String dataAccessor(SortableRowData row) => row.data;
+
+  List<SortableRowData> get data => _sortableDataset;
+
+  void sort(SkawaDataTableColComponent column) {
+    if (!column.sortModel.isSorted) {
+      _sortableDataset.sort((a, b) => a.data.compareTo(b.data));
+    } else {
+      // sort in lexicographic order
+      _sortableDataset.sort((a, b) {
+        return column.sortModel.isAscending ? a.data.compareTo(b.data) : b.data.compareTo(a.data);
+      });
+    }
+  }
+
+  static final _sortableDataset = <SortableRowData>[
+    SortableRowData('b'),
+    SortableRowData('a'),
+    SortableRowData('d'),
+    SortableRowData('c'),
+  ];
+}
+
 List<SampleNumericData> selectableRowData = <SampleNumericData>[
   SampleNumericData('1. class', 15, 12, false),
   SampleNumericData('2. class', 11, 18, false),
   SampleNumericData('3. class', 13, 13, false),
   SampleNumericData('4. class', 20, 13, false),
 ];
+
+class SortableRowData extends RowData {
+  final String data;
+
+  SortableRowData(this.data, {bool checked = false}) : super(checked);
+}
 
 class SampleRowData extends RowData {
   final String name;

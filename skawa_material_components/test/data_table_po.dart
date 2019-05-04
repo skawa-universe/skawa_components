@@ -83,6 +83,8 @@ abstract class TableRowPO {
 
   @ByTagName('td')
   List<TableCellPO> get td;
+
+  String get classes => rootElement.attributes['class'];
 }
 
 @PageObject()
