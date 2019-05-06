@@ -24,8 +24,8 @@
     <tr *ngFor="let row of rows; let index=index"
         [ngClass]="row.classes"
         [class.selected]="row.checked"
-        [class.odd-row]="index % 2 != 0"
-        [class.even-row]="index % 2 == 0"
+        [class.odd-row]="index % 2 != 0 && colorOddRows"
+        [class.even-row]="index % 2 == 0 && colorOddRows"
         (click)="highlight(row, $event); $event.stopPropagation()"
         [class.highlighted]="row == highlightedRow">
         <td *ngIf="selectable">
@@ -35,7 +35,7 @@
                     [checked]="row.checked">
             </material-checkbox>
         </td>
-        <td *ngFor="let c of columns; let i = index" [ngClass]="c.getClasses()">
+        <td *ngFor="let c of columns" [ngClass]="c.getClasses()">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
                         [componentFactory]="c.columnRenderer.factoryRenderer(row)"

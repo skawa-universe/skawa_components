@@ -76,6 +76,9 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   @Input()
   bool multiSelection = true;
 
+  @Input()
+  bool colorOddRows = true;
+
   @ContentChildren(SkawaDataTableColComponent)
   List<SkawaDataTableColComponent<T>> columns;
 
