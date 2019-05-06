@@ -3,9 +3,11 @@
 :host {
   display: block;
   background-color: white;
+
   table {
     width: 100%;
     box-sizing: border-box;
+
     &.selectable {
       th, td {
         &:nth-child(2) {
@@ -16,6 +18,7 @@
           text-align: center;
           color: black;
           width: 72px;
+
           material_checkbox {
             margin: 0;
             width: 24px;
@@ -24,6 +27,7 @@
           }
         }
       }
+
       tfoot {
         tr {
           td {
@@ -35,6 +39,7 @@
         }
       }
     }
+
     &.non-selectable {
       th, td {
         &:first-of-type {
@@ -42,71 +47,90 @@
         }
       }
     }
+
     tbody {
       tr {
         transition-duration: .28s;
         transition-timing-function: cubic-bezier(.4, 0, .2, 1);
         transition-property: background-color;
-        &:hover {
-          background-color: #EEEEEE !important;
+
+        &:hover, &.highlighted {
+          background-color: rgba(158, 158, 158, 0.2) !important;
         }
+
         &.selected {
-          background-color: #e0e0e0;
+          background-color: rgba(158, 158, 158, 0.3);
         }
-        &.highlighted, &.odd-row {
-          background-color: #EEEEEE;
+
+        &.odd-row {
+          background-color: rgba(158, 158, 158, 0.1);
         }
       }
     }
+
     tr {
       &:first-of-type, &:last-of-type {
         height: 56px;
       }
+
       border-bottom: 1px solid #d0d0d0;
+
       td, th {
         padding-left: 56px;
         text-align: right;
         vertical-align: middle;
         @include typo-body;
         height: 48px;
+
         &:first-of-type {
           padding-left: 0;
         }
+
         &:last-of-type {
           padding-right: 24px;
         }
       }
+
       td {
         font-size: 13px;
       }
+
       th {
         font-size: 12px;
+
         &.sort-enabled {
           a {
             cursor: pointer;
+
             &:before {
               font-family: 'Material Icons';
               content: 'arrow_downwards';
               opacity: 0;
             }
+
             &:hover {
               font-weight: bold;
+
               &:before {
                 opacity: 0.38;
               }
             }
           }
         }
+
         &.sort {
           font-weight: bold;
+
           a {
             cursor: pointer;
+
             &:before {
               font-family: 'Material Icons';
               content: 'arrow_upwards';
               opacity: 0.87;
             }
           }
+
           &.desc {
             a:before {
               content: 'arrow_downwards';
@@ -121,6 +145,7 @@
   .text-column, .text-column--header, .text-column--footer {
     text-align: left !important;
   }
+
   .numeric-column, .numeric-column--header, .numeric-column--footer {
     text-align: right;
   }

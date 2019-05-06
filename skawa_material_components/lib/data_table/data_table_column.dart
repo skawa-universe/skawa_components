@@ -73,7 +73,7 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
 
   bool get useAccessorAsLink => _triggerController.hasListener;
 
-  bool get useColumnRenderer => columnRenderer != null;
+  bool get useColumnRenderer => columnRenderer?.factoryRenderer != null;
 
   void trigger(T row) {
     _triggerController.add(row);
