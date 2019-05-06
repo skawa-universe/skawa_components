@@ -25,11 +25,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let row of rows; let odd=odd"
+    <tr *ngFor="let row of rows; let index=index"
         [ngClass]="row.classes"
         [class.selected]="row.checked"
-        [class.odd-row]="odd"
-        [class.even-row]="!odd"
+        [class.odd-row]="index % 2 != 0"
+        [class.even-row]="index % 2 == 0"
         (click)="highlight(row, $event); $event.stopPropagation()"
         [class.highlighted]="row == highlightedRow">
         <td *ngIf="selectable">
