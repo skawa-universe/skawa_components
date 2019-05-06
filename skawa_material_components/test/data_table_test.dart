@@ -236,7 +236,7 @@ void main() {
         return predicate<String>((m) => m.contains('odd') == shouldBeOdd);
       };
 
-      for(int i = 0; i < rows.length; ++i) {
+      for (int i = 0; i < rows.length; ++i) {
         bool shouldBeOdd = i % 2 != 0;
         final row = rows[i];
         expect(row.classes, oddMatcher(shouldBeOdd));
@@ -245,7 +245,7 @@ void main() {
       await pageObject.dataTable.table.thead.tr.th.first.sortLink.click();
       await fixture.update();
       rows = pageObject.dataTable.table.tbody.tr;
-      for(int i = 0; i < rows.length; ++i) {
+      for (int i = 0; i < rows.length; ++i) {
         bool shouldBeOdd = i % 2 != 0;
         final row = rows[i];
         expect(row.classes, oddMatcher(shouldBeOdd));

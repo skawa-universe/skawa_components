@@ -59,6 +59,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   final StreamController<SkawaDataTableColComponent<T>> _sortController =
       StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
   final Disposer _tearDownDisposer = Disposer.oneShot();
+  final ChangeDetectorRef changeDetectorRef;
 
   @Input()
   bool selectable;
@@ -75,13 +76,16 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   @Input()
   bool multiSelection = true;
 
+  @Input()
+  bool colorOddRows = true;
+
   @ContentChildren(SkawaDataTableColComponent)
   List<SkawaDataTableColComponent<T>> columns;
 
   @Output('change')
   Stream<List<T>> onChange;
 
-  SkawaDataTableComponent() {
+  SkawaDataTableComponent(this.changeDetectorRef) {
     _tearDownDisposer
       ..addEventSink(_changeController)
       ..addEventSink(_highlightController)
@@ -166,9 +170,9 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     _changeController.add(_selectedRows);
   }
 
-  bool get isEveryRowChecked => rows.every((row) => row.checked);
+  bool get isEveryRowChecked => rows?.every((row) => row.checked);
 
-  bool get isEveryRowSkippedInFooter => columns.every((col) => col.skipFooter);
+  bool get isEveryRowSkippedInFooter => columns?.every((col) => col.skipFooter) ?? true;
 
   @override
   void ngOnDestroy() {
@@ -184,7 +188,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 
   @override
   void ngAfterViewInit() {
-    var initialSorts = columns.where((c) => c.sortModel?.activeSort != null).toList(growable: false);
+    var initialSorts = columns?.where((c) => c.sortModel?.activeSort != null)?.toList(growable: false) ?? [];
     if (initialSorts.length > 1) {
       throw new ArgumentError(
           'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
