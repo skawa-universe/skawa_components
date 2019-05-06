@@ -13,51 +13,48 @@
             [class.sort-enabled]="c.sortModel != null && !c.sortModel.isSorted"
             [class.sort]="c.sortModel?.isSorted ?? false"
             [class.desc]="c.sortModel?.isDescending ?? false">
-            <template [ngIf]="c.sortModel == null">
-                {{c.header}}
-            </template>
+            <template [ngIf]="c.sortModel == null">{{c.header}}</template>
             <template [ngIf]="c.sortModel != null">
-                <a (click)="triggerSort(c)">
-                    {{c.header}}
-                </a>
+                <a (click)="triggerSort(c)">{{c.header}} </a>
             </template>
         </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let row of rows; let odd=odd"
+    <tr *ngFor="let row of rows; let index=index"
         [ngClass]="row.classes"
         [class.selected]="row.checked"
-        [class.odd-row]="odd"
-        [class.even-row]="!odd"
+        [class.odd-row]="index % 2 != 0"
+        [class.even-row]="index % 2 == 0"
         (click)="highlight(row, $event); $event.stopPropagation()"
         [class.highlighted]="row == highlightedRow">
         <td *ngIf="selectable">
             <material-checkbox
                     class="selector-checkbox"
                     (checkedChange)="changeRowSelection(row, $event)"
-                    [checked]="row.checked"></material-checkbox>
+                    [checked]="row.checked">
+            </material-checkbox>
         </td>
         <td *ngFor="let c of columns; let i = index" [ngClass]="c.getClasses()">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
                         [componentFactory]="c.columnRenderer.factoryRenderer(row)"
-                        [value]="row"></dynamic-component>
+                        [value]="row">
+                </dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
                 <a (click)="c.trigger(row); $event.preventDefault(); $event.stopPropagation()" class="has-action">
                     {{c.accessor(row)}}
                 </a>
             </template>
-            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">
-                {{c.accessor(row)}}
-            </template>
+            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">{{c.accessor(row)}}</template>
         </td>
     </tr>
     </tbody>
     <tfoot *ngIf="!isEveryRowSkippedInFooter">
     <tr>
-        <td *ngFor="let c of columns | unskippedInFooter; let i = index" [attr.colspan]="getColspanFor(c, i)"
+        <td *ngFor="let c of columns | unskippedInFooter; let i = index"
+            [attr.colspan]="getColspanFor(c, i)"
             [ngClass]="c.getClasses('--footer')">
             {{c.footer}}
         </td>
