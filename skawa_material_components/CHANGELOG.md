@@ -1,3 +1,7 @@
+## 1.1.0
+
+- Pub constraints updated
+
 ## 1.0.0+4
 
 - SkawaDataTableComponent columns can be updated at runtime, and coloring won't be messed up after sorting 

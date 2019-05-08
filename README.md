@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/skawa-universe/skawa_components.svg?branch=master)](https://travis-ci.org/skawa-universe/skawa_components)
 
-These components and directives are built with [AngularDart](https://pub.dartlang.org/packages/angular), and
+These components and directives are built with [AngularDart](https://pub.dev/packages/angular), and
  based on following the [Material Design principles](https://material.io/guidelines/).
 
 Skawa Material Components goal is to provide a couple of components that seems to be missing from `package:angular_components`.

@@ -1,6 +1,6 @@
 # skawa_components
 
-[![Pub Package](https://img.shields.io/pub/v/skawa_components.svg)](https://pub.dartlang.org/packages/skawa_components)
+[![Pub Package](https://img.shields.io/pub/v/skawa_components.svg)](https://pub.dev/packages/skawa_components)
 
 ## "Non-Material" Components
 
