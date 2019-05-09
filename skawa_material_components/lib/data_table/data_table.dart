@@ -62,7 +62,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   final ChangeDetectorRef changeDetectorRef;
 
   @Input()
-  bool selectable;
+  bool selectable = false;
 
   @Input()
   bool highlightable = true;

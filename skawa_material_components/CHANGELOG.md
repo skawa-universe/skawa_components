@@ -1,3 +1,7 @@
+## 1.1.0+1
+
+- Fix: SkawaDataTableComponent selectable field has a default value, to evade errors after 2.3 dart version
+
 ## 1.1.0
 
 - Pub constraints updated
