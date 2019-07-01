@@ -35,7 +35,9 @@
                     [checked]="row.checked">
             </material-checkbox>
         </td>
-        <td *ngFor="let c of columns" [ngClass]="c.getClasses()">
+        <td *ngFor="let c of columns"
+            [ngClass]="c.getClasses()"
+            [attr.title]="c.titleAccessor != null ? c.titleAccessor(row) : null">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
                         [componentFactory]="c.columnRenderer.factoryRenderer(row)"

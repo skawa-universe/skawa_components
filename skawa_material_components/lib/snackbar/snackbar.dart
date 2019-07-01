@@ -88,7 +88,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
 
   void _slideIn() {
     show = true;
-    _animationBlocker = new Timer(_minimumSlideInDelay, () {
+    _animationBlocker = new Timer(minimumSlideInDelay, () {
       _animationBlocker = null;
       if (nextMessage != null) {
         _slideOut();
@@ -123,5 +123,5 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   @override
   void ngOnDestroy() => _tearDownDisposer.dispose();
 
-  static final Duration _minimumSlideInDelay = Duration(milliseconds: 100);
+  static final Duration minimumSlideInDelay = Duration(milliseconds: 100);
 }

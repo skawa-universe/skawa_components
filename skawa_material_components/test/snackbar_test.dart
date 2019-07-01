@@ -28,18 +28,16 @@ void main() {
     test('displays a message', () async {
       await fixture.update((testElement) => testElement.callbackString = 'hello');
       await pageObject.messageSpan.click();
-      print(pageObject.snackbar);
+      await Future.delayed(SkawaSnackbarComponent.minimumSlideInDelay);
       expect(pageObject.snackbar.rootElement.displayed, isTrue);
       expect(pageObject.snackbar.messageContainer.visibleText, 'hello');
-      expect(pageObject.snackbar.snackbarContainer.classes.contains('show'), isTrue);
+      expect(pageObject.snackbar.rootElement.classes.contains('show'), isTrue);
     });
-
     test('slides out after default duration (3 seconds)', () async {
       await pageObject.messageSpan.click();
       await Future.delayed(Duration(seconds: 5), () => null);
-      expect(pageObject.snackbar.rootElement.displayed, isFalse);
+      expect(pageObject.snackbar.rootElement.classes.contains('show'), isFalse);
     });
-
     test('slides out after specified duration(2 seconds)', () async {
       await fixture.update((testElement) {
         testElement
@@ -48,9 +46,8 @@ void main() {
       });
       await pageObject.messageSpan.click();
       await Future.delayed(Duration(seconds: 3), () => null);
-      expect(pageObject.snackbar.snackbarContainer.computedStyle['transform'], 'translate(-50%, 100%)');
+      expect(pageObject.snackbar.rootElement.classes.contains('show'), isFalse);
     });
-
     test('displays button if callback is specified', () async {
       await fixture.update((testElement) async {
         testElement
@@ -58,11 +55,11 @@ void main() {
           ..callbackFunction = (() => print('call me back'));
       });
       await pageObject.callbackP.click();
+      await Future.delayed(SkawaSnackbarComponent.minimumSlideInDelay);
       PageLoaderElement button = pageObject.snackbar.materialButton;
       expect(button, isNotNull);
       expect(button.visibleText, 'call me back');
     });
-
     test('callback on button click', () async {
       await fixture.update((testElement) async {
         testElement
@@ -70,15 +67,16 @@ void main() {
           ..callbackFunction = (() => testElement.callbackValue = 'callback done');
       });
       await pageObject.callbackP.click();
+      await Future.delayed(SkawaSnackbarComponent.minimumSlideInDelay);
       await pageObject.snackbar.materialButton.click();
-      expect(pageObject.messageSpan.innerText, contains('callback done'));
+      expect(pageObject.callbackP.innerText, contains('callback done'));
     });
-  }, skip: "No way to test popups");
+  });
 }
 
 @Component(selector: 'test', template: '''
                 <skawa-snackbar></skawa-snackbar>
-                <span (click)="showMessage(callbackString,callbackDuration)">{{callbackValue}}</span>
+                <span (click)="showMessage(callbackString,callbackDuration)"></span>
                 <p (click)="showMessageWithCallback(callbackString,callbackDuration,callbackFunction)">
                   {{callbackValue}}
                 </p>
@@ -97,7 +95,9 @@ class SnackbarTestComponent {
 
   SnackbarTestComponent(this._snackbarService, this.cd);
 
-  void showMessage(String message, [Duration duration]) => _snackbarService.showMessage(message, duration: duration);
+  void showMessage(String message, [Duration duration]) {
+    _snackbarService.showMessage(message, duration: duration);
+  }
 
   void showMessageWithCallback(String message, [Duration duration, Function callback]) {
     SnackAction action = SnackAction()

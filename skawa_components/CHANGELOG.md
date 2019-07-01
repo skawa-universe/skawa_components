@@ -1,3 +1,7 @@
+## 1.2.0
+
+- added support fro the dart 2.4 and angular 6.0.0-alpha
+
 ## 1.1.0
 
 - Pub constraints updated

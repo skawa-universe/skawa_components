@@ -18,11 +18,11 @@ void main() {
     expect(fixture.assertOnlyInstance.editor.editorName, "editor");
     expect(fixture.assertOnlyInstance.editor.extraPlugins, allOf(isList, hasLength(1)));
     expect(fixture.assertOnlyInstance.editor.extraPlugins.first, predicate((ExtraPlugin plugin) {
-      return plugin.path == '/plugin' && plugin.name == 'some-plugin' && plugin.entrypoint == 'plugin.js';
+      return plugin.path == '/ckeditor/dartlogo/plugin.js' && plugin.name == 'dartlogo' && plugin.entrypoint == '';
     }));
-    expect(fixture.assertOnlyInstance.editor.configUrl, '/some-url');
+    expect(fixture.assertOnlyInstance.editor.configUrl, '/dartlogo/config.js');
     expect(HtmlUnescape().convert(fixture.assertOnlyInstance.editor.value), TestEditorComponent._TEST_MARKUP);
-  }, skip: "Currently the js bridge is broken");
+  });
 }
 
 @Component(selector: 'dummy-cke', template: '''

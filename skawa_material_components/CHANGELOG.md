@@ -1,3 +1,8 @@
+## 1.2.0
+
+- added support for the dart 2.4 and angular 6.0.0-alpha
+- `titleAccessor` added to SkawaDataTableColComponent
+
 ## 1.1.0+1
 
 - Fix: SkawaDataTableComponent selectable field has a default value, to evade errors after 2.3 dart version

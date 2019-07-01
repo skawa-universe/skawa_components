@@ -51,6 +51,9 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
   DataTableAccessor<T> accessor;
 
   @Input()
+  DataTableAccessor<T> titleAccessor;
+
+  @Input()
   String header;
 
   @Input()

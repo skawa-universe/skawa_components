@@ -9,7 +9,7 @@ abstract class TestPO {
 
   factory TestPO.create(PageLoaderElement context) = $TestPO.create;
 
-  @ByTagName('skawa-snackbar')
+  @Global(ByClass('snackbar-container'))
   SnackbarPO get snackbar;
 
   @ByTagName('span')
@@ -27,9 +27,6 @@ abstract class SnackbarPO {
 
   @root
   PageLoaderElement get rootElement;
-
-  @ByTagName('div')
-  PageLoaderElement get snackbarContainer;
 
   @ByTagName('span')
   PageLoaderElement get messageContainer;
