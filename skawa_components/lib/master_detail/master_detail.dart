@@ -25,7 +25,8 @@ import '../util/attribute.dart' as attr_util;
     styleUrls: ['master_detail.css'],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMasterDetailComponent {
-  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') expanded) : expanded = attr_util.isPresent(expanded);
+  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') String expanded)
+      : expanded = attr_util.isPresent(expanded);
 
   /// Expands/collapses the details view
   ///

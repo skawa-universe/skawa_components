@@ -6,14 +6,15 @@ import 'ckeditor_interop.dart' as js_ck;
 
 /// Simple CKEditor wrapper component.
 ///
-/// *Note:* CKEditor component uses ckeditor.js, make sure it is available
+/// *Note:* CKEditor component uses ckeditor.js, make sure it is available, this component compatible with the 4.*.4 version
 ///
 /// __Example usage:__
 ///
 ///     <skawa-ckeditor editorName="editor"
 ///         [extraPlugins]="[ somePlugin ]"
 ///         configUrl="/ckeditor/config.js"
-///         (change)="editorChanged($event)" ></skawa-ckeditor>
+///         (change)="editorChanged($event)">
+///     </skawa-ckeditor>
 ///
 /// __Events:__
 /// - `change: String` -- Triggered when editor content changes
@@ -23,6 +24,7 @@ import 'ckeditor_interop.dart' as js_ck;
 /// - `extraPlugins: List<ExtraPlugin>` -- extra plugins to load with CKEditor
 /// - `configUrl: String` -- url of the config file to load for CKEditor
 /// - `content: String` -- initial value of editor
+///
 @Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   final _changeController = new StreamController<String>.broadcast();

@@ -101,5 +101,6 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
 @Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
 class SkawaDataColRendererDirective<T extends RowData> extends HasFactoryRenderer<RendersValue, T> {
   @Input('colRenderer')
+  // ignore: overridden_fields
   FactoryRenderer<RendersValue, T> factoryRenderer;
 }

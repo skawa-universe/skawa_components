@@ -1,0 +1,12 @@
+<textarea #textarea></textarea>
+
+<template [ngIf]="withLint">
+    <div class="error-row" *ngIf="errorList.isNotEmpty">
+        <material-icon icon="cancel" size="medium" class="error-icon"></material-icon>
+        {{errorList.length}} error(s) found
+    </div>
+    <div class="error-row" *ngIf="warningList.isNotEmpty">
+        <material-icon icon="warning" size="medium" class="warning-icon"></material-icon>
+        {{warningList.length}} warning(s) found
+    </div>
+</template>
