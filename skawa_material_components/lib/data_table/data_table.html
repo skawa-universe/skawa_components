@@ -21,13 +21,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let row of rows; let index=index"
+    <tr *ngFor="let row of data.rows; let index=index"
         [ngClass]="row.classes"
         [class.selected]="row.checked"
         [class.odd-row]="index % 2 != 0 && colorOddRows"
         [class.even-row]="index % 2 == 0 && colorOddRows"
         (click)="highlight(row, $event); $event.stopPropagation()"
-        [class.highlighted]="row == highlightedRow">
+        [class.highlighted]="row == data.highlightedRow">
         <td *ngIf="selectable">
             <material-checkbox
                     class="selector-checkbox"
@@ -35,21 +35,21 @@
                     [checked]="row.checked">
             </material-checkbox>
         </td>
-        <td *ngFor="let c of columns"
+        <td *ngFor="let c of columns; let columnIndex = index"
             [ngClass]="c.getClasses()"
-            [attr.title]="c.titleAccessor != null ? c.titleAccessor(row) : null">
+            [attr.title]="c.titleAccessor != null ? c.titleAccessor(row.data) : null">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
-                        [componentFactory]="c.columnRenderer.factoryRenderer(row)"
-                        [value]="row">
+                        [componentFactory]="c.columnRenderer.factoryRenderer(c.columnDataForRow(row, columnIndex))"
+                        [value]="c.columnDataForRow(row, columnIndex)">
                 </dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
-                <a (click)="c.trigger(row); $event.preventDefault(); $event.stopPropagation()" class="has-action">
-                    {{c.accessor(row)}}
+                <a (click)="c.trigger(row.data); $event.preventDefault(); $event.stopPropagation()" class="has-action">
+                    {{c.accessor(row.data)}}
                 </a>
             </template>
-            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">{{c.accessor(row)}}</template>
+            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">{{c.accessor(row.data)}}</template>
         </td>
     </tr>
     </tbody>

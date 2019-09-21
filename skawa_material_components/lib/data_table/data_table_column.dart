@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:angular/core.dart';
 import 'package:angular_components/model/ui/has_factory.dart';
-
 import 'package:angular_components/model/ui/has_renderer.dart';
-import 'row_data.dart';
+import 'package:skawa_material_components/data_table/table_row.dart';
+
+import 'column_row_data.dart';
 import 'sort.dart';
 
 export 'sort.dart';
 
-typedef String DataTableAccessor<T extends RowData>(T rowData);
+typedef String DataTableAccessor<T>(T rowData);
 
 /// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
 ///
@@ -43,8 +44,9 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     template: '',
     directives: [SkawaDataColRendererDirective],
     visibility: Visibility.all)
-class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy {
+class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
+
   final SkawaDataColRendererDirective<T> columnRenderer;
 
   @Input()
@@ -58,6 +60,9 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
 
   @Input()
   String footer;
+
+  @Input()
+  Map<String, dynamic> parameters;
 
   SortModel sortModel;
 
@@ -96,11 +101,14 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
       throw ArgumentError('Cannot use [colRenderer] together with (trigger)');
     }
   }
+
+  ColumnRowData<T> columnDataForRow(TableRow<T> row, int columnIndex) =>
+      ColumnRowData<T>(row.data, columnIndex, header, parameters);
 }
 
 @Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
-class SkawaDataColRendererDirective<T extends RowData> extends HasFactoryRenderer<RendersValue, T> {
+class SkawaDataColRendererDirective<T> extends HasFactoryRenderer<RendersValue, ColumnRowData<T>> {
   @Input('colRenderer')
   // ignore: overridden_fields
-  FactoryRenderer<RendersValue, T> factoryRenderer;
+  FactoryRenderer<RendersValue, ColumnRowData<T>> factoryRenderer;
 }
