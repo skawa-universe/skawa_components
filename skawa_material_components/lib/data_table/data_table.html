@@ -39,9 +39,8 @@
             [ngClass]="c.getClasses()"
             [attr.title]="c.titleAccessor != null ? c.titleAccessor(row.data) : null">
             <template [ngIf]="c.useColumnRenderer">
-                <dynamic-component
-                        [componentFactory]="c.columnRenderer.factoryRenderer(c.columnDataForRow(row, columnIndex))"
-                        [value]="c.columnDataForRow(row, columnIndex)">
+                <dynamic-component [componentFactory]="c.factoryRenderer(c.accessor(row.data))"
+                                   [value]="c.accessor(row.data)">
                 </dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">

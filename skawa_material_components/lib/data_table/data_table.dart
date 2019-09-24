@@ -18,7 +18,6 @@ export 'table_row.dart';
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
-  SkawaDataColRendererDirective,
   SkawaDataTableSortDirective
 ];
 
@@ -58,8 +57,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
 
   final StreamController<T> _highlightController = StreamController<T>.broadcast(sync: true);
 
-  final StreamController<SkawaDataTableColComponent<T>> _sortController =
-      StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColComponent<T, dynamic>> _sortController =
+      StreamController<SkawaDataTableColComponent<T, dynamic>>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = Disposer.oneShot();
   final ChangeDetectorRef changeDetectorRef;
@@ -79,8 +78,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   @Input()
   bool colorOddRows = true;
 
-  @ContentChildren(SkawaDataTableColComponent)
-  List<SkawaDataTableColComponent<T>> columns;
+  @Input()
+  List<SkawaDataTableColComponent<T, dynamic>> columns;
 
   @Output('change')
   Stream<List<T>> onChange;
@@ -97,9 +96,9 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   Stream<T> get onHighlight => _highlightController.stream;
 
   @Output('sort')
-  Stream<SkawaDataTableColComponent<T>> get onSort => _sortController.stream;
+  Stream<SkawaDataTableColComponent<T, dynamic>> get onSort => _sortController.stream;
 
-  int getColspanFor(SkawaDataTableColComponent<T> col, int skippedIndex) {
+  int getColspanFor(SkawaDataTableColComponent<T, dynamic> col, int skippedIndex) {
     int span = 1;
     if (skippedIndex == 0 && selectable) return 2;
     int colIndex = columns.toList().indexOf(col);
@@ -154,7 +153,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   }
 
   void triggerSort(SkawaDataTableColComponent column) {
-    var _column = column as SkawaDataTableColComponent<T>;
+    var _column = column as SkawaDataTableColComponent<T, dynamic>;
     _column.sortModel.toggleSort();
     for (var c in columns) {
       if (c != _column && c.sortModel != null) {
@@ -165,7 +164,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   }
 
   void _emitChange() {
-    List<T> _selectedRows = data.rows.where((r) => r.checked).map((TableRow<T> row) => row.data).toList(growable: false);
+    List<T> _selectedRows =
+        data.rows.where((r) => r.checked).map((TableRow<T> row) => row.data).toList(growable: false);
     _changeController.add(_selectedRows);
   }
 

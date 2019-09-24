@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:angular/core.dart';
 import 'package:angular_components/model/ui/has_factory.dart';
 import 'package:angular_components/model/ui/has_renderer.dart';
-import 'package:skawa_material_components/data_table/table_row.dart';
-
-import 'column_row_data.dart';
 import 'sort.dart';
 
 export 'sort.dart';
 
-typedef String DataTableAccessor<T>(T rowData);
+typedef K DataTableAccessor<T, K>(T rowData);
 
 /// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
 ///
@@ -39,21 +36,15 @@ typedef String DataTableAccessor<T>(T rowData);
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(
-    selector: 'skawa-data-table-col',
-    template: '',
-    directives: [SkawaDataColRendererDirective],
-    visibility: Visibility.all)
-class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
+@Component(selector: 'skawa-data-table-col', template: '', visibility: Visibility.all)
+class SkawaDataTableColComponent<T, K> extends HasFactoryRenderer<RendersValue<K>, K> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
 
-  final SkawaDataColRendererDirective<T> columnRenderer;
+  @Input()
+  DataTableAccessor<T, K> accessor;
 
   @Input()
-  DataTableAccessor<T> accessor;
-
-  @Input()
-  DataTableAccessor<T> titleAccessor;
+  DataTableAccessor<T, K> titleAccessor;
 
   @Input()
   String header;
@@ -61,8 +52,9 @@ class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
   @Input()
   String footer;
 
-  @Input()
-  Map<String, dynamic> parameters;
+  @Input('colRenderer')
+  // ignore: overridden_fields
+  FactoryRenderer<RendersValue<K>, K> factoryRenderer;
 
   SortModel sortModel;
 
@@ -74,26 +66,20 @@ class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
   @Input('class')
   String classString;
 
-  SkawaDataTableColComponent(@Optional() @Self() this.columnRenderer);
-
   @Output('trigger')
   Stream<T> get onTrigger => _triggerController.stream;
 
   bool get useAccessorAsLink => _triggerController.hasListener;
 
-  bool get useColumnRenderer => columnRenderer?.factoryRenderer != null;
+  bool get useColumnRenderer => factoryRenderer != null;
 
-  void trigger(T row) {
-    _triggerController.add(row);
-  }
+  void trigger(T row) => _triggerController.add(row);
 
   Iterable<String> getClasses([String suffix]) =>
       classString?.trim()?.split(' ')?.map((className) => suffix != null ? '$className$suffix' : className);
 
   @override
-  void ngOnDestroy() {
-    _triggerController.close();
-  }
+  void ngOnDestroy() => _triggerController.close();
 
   @override
   void ngOnInit() {
@@ -101,14 +87,4 @@ class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
       throw ArgumentError('Cannot use [colRenderer] together with (trigger)');
     }
   }
-
-  ColumnRowData<T> columnDataForRow(TableRow<T> row, int columnIndex) =>
-      ColumnRowData<T>(row.data, columnIndex, header, parameters);
-}
-
-@Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
-class SkawaDataColRendererDirective<T> extends HasFactoryRenderer<RendersValue, ColumnRowData<T>> {
-  @Input('colRenderer')
-  // ignore: overridden_fields
-  FactoryRenderer<RendersValue, ColumnRowData<T>> factoryRenderer;
 }
