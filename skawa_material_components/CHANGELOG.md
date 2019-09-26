@@ -1,6 +1,6 @@
 ## 1.2.1
 
-- added support for the dart 2.5
+- added support for Dart 2.5
 - CardOverflowDirective added
 
 ## 1.2.0

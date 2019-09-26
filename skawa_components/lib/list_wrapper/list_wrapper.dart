@@ -3,12 +3,12 @@ import 'dart:html';
 
 import 'package:angular/core.dart';
 
-/// This component combined with the `SkawaForDirective` are used to be a minimal implementation for the
-/// (flyweight pattern)[https://en.wikipedia.org/wiki/Flyweight_pattern]. The concept is if you have a list with potentially
-/// 2-3000+ element with not small logic, it will a huge burden for the browser. Therefore this component will have some visible
-/// element (depends on height and the promised element height) and the other part will be filled up with 2 empty div
-/// (one on the top on e and the bottom). Pro it will much faster and have more fps then the normal `NgFor`,
-/// but you can't search in it with normal browser search (only the visible element are rendered).
+/// This component combined with the `SkawaForDirective` can be used to efficiently display lists of arbitrary length.
+/// The component and the directive together work by only leaving the currently visible list items in the DOM,
+/// and replacing the out-of-view items with two empty div elements (one at the top and one the bottom).
+/// This will result in a smooth list rendering and scrolling experience.
+/// One caveat is that the browser "Find" command will not be able to search through all list items, as the non-visible
+/// ones are physically removed from the DOM.
 ///
 ///
 /// __Example usage:__
@@ -19,8 +19,8 @@ import 'package:angular/core.dart';
 ///
 /// __Events:__
 ///
-/// - `reachBottom: Event` -- Published when the list will scrolled down to the bottom fully. I can be combined with
-///                            auto loading data from the backend.
+/// - `reachBottom: Event` -- Published when the list is scrolled down to the bottom.
+///                             It can be used to trigger loading further elements from a service.
 ///
 
 @Component(

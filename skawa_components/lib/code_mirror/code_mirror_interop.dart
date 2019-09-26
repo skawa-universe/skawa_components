@@ -37,4 +37,3 @@ class CodeMirrorHint {
   @JS('javascript')
   external static void jsHint();
 }
-
