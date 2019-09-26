@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:angular/core.dart';
 import 'package:angular_components/model/ui/has_factory.dart';
 import 'package:angular_components/model/ui/has_renderer.dart';
-import 'package:skawa_material_components/data_table/table_row.dart';
 
-import 'column_row_data.dart';
 import 'sort.dart';
 
 export 'sort.dart';
@@ -43,7 +41,7 @@ typedef String DataTableAccessor<T>(T rowData);
     selector: 'skawa-data-table-col',
     template: '',
     visibility: Visibility.all)
-class SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, T>,  OnInit, OnDestroy {
+class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
 
   @Input()
@@ -58,9 +56,6 @@ class SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, 
   @Input()
   String footer;
 
-  @Input()
-  Map<String, dynamic> parameters;
-
   SortModel sortModel;
 
   /// If set to true, footer will not display this column and
@@ -71,16 +66,12 @@ class SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, 
   @Input('class')
   String classString;
 
-  @override
-  @Input('colRenderer')
-  FactoryRenderer<RendersValue, T> factoryRenderer;
-
   @Output('trigger')
   Stream<T> get onTrigger => _triggerController.stream;
 
   bool get useAccessorAsLink => _triggerController.hasListener;
 
-  bool get useColumnRenderer => factoryRenderer != null;
+  bool get useColumnRenderer => false;
 
   void trigger(T row) {
     _triggerController.add(row);
@@ -100,8 +91,21 @@ class SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, 
       throw ArgumentError('Cannot use [colRenderer] together with (trigger)');
     }
   }
+}
 
-  ColumnRowData<T> columnDataForRow(TableRow<T> row, int columnIndex) =>
-      ColumnRowData<T>(row.data, columnIndex, header, parameters);
+typedef K RenderValueProducer<K, T>(T row);
 
+@Component(selector: 'skawa-data-table-render-col', template: '',
+    visibility: Visibility.all)
+class SkawaDataTableRenderColComponent<T, K> extends SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, K> {
+
+  @Input()
+  @override
+  FactoryRenderer<RendersValue, K> factoryRenderer;
+
+  @Input()
+  RenderValueProducer<K, T> valueProducer;
+
+  @override
+  bool get useColumnRenderer => true;
 }
