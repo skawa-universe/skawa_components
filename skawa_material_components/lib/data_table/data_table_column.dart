@@ -42,12 +42,9 @@ typedef String DataTableAccessor<T>(T rowData);
 @Component(
     selector: 'skawa-data-table-col',
     template: '',
-    directives: [SkawaDataColRendererDirective],
     visibility: Visibility.all)
-class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
+class SkawaDataTableColComponent<T> implements HasFactoryRenderer<RendersValue, T>,  OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
-
-  final SkawaDataColRendererDirective<T> columnRenderer;
 
   @Input()
   DataTableAccessor<T> accessor;
@@ -74,14 +71,16 @@ class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
   @Input('class')
   String classString;
 
-  SkawaDataTableColComponent(@Optional() @Self() this.columnRenderer);
+  @override
+  @Input('colRenderer')
+  FactoryRenderer<RendersValue, T> factoryRenderer;
 
   @Output('trigger')
   Stream<T> get onTrigger => _triggerController.stream;
 
   bool get useAccessorAsLink => _triggerController.hasListener;
 
-  bool get useColumnRenderer => columnRenderer?.factoryRenderer != null;
+  bool get useColumnRenderer => factoryRenderer != null;
 
   void trigger(T row) {
     _triggerController.add(row);
@@ -104,11 +103,5 @@ class SkawaDataTableColComponent<T> implements OnInit, OnDestroy {
 
   ColumnRowData<T> columnDataForRow(TableRow<T> row, int columnIndex) =>
       ColumnRowData<T>(row.data, columnIndex, header, parameters);
-}
 
-@Directive(selector: 'skawa-data-table-col[colRenderer]', visibility: Visibility.all)
-class SkawaDataColRendererDirective<T> extends HasFactoryRenderer<RendersValue, ColumnRowData<T>> {
-  @Input('colRenderer')
-  // ignore: overridden_fields
-  FactoryRenderer<RendersValue, ColumnRowData<T>> factoryRenderer;
 }

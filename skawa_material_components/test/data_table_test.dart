@@ -1,14 +1,14 @@
 @TestOn('browser')
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_material_components/data_table/data_table.dart';
 import 'package:skawa_material_components/data_table/data_table_column.dart';
-import 'package:skawa_material_components/data_table/row_data.dart';
 import 'package:test/test.dart';
-import 'data_table_po.dart';
 
+import 'data_table_po.dart';
 import 'data_table_test.template.dart' as ng;
 
 void main() {
@@ -138,14 +138,26 @@ void main() {
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
-      await table.tbody.tr[1].td[0].materialCheckbox.click();
-      await table.tbody.tr[3].td[0].materialCheckbox.click();
-      expect(table.tbody.tr[0].rootElement.classes.contains('selected'), isTrue);
-      expect(table.tbody.tr[1].rootElement.classes.contains('selected'), isFalse);
-      expect(table.tbody.tr[2].rootElement.classes.contains('selected'), isTrue);
-//      expect(table.tbody.tr[3].rootElement.classes.contains('selected'), isFalse);
+
+      // Data table should be selectable
       expect(table.rootElement.classes.contains('selectable'), isTrue);
       expect(table.rootElement.classes.contains('non-selectable'), isFalse);
+
+      // Initially none of the rows are selected
+      expect(table.tbody.tr[0].rootElement.classes.contains('selected'), isFalse);
+      expect(table.tbody.tr[1].rootElement.classes.contains('selected'), isFalse);
+      expect(table.tbody.tr[2].rootElement.classes.contains('selected'), isFalse);
+      expect(table.tbody.tr[3].rootElement.classes.contains('selected'), isFalse);
+
+      await table.tbody.tr[1].td[0].materialCheckbox.click();
+      await table.tbody.tr[3].td[0].materialCheckbox.click();
+
+      // After clicks, 2nd and 4th rows are selected
+      expect(table.tbody.tr[0].rootElement.classes.contains('selected'), isFalse);
+      expect(table.tbody.tr[1].rootElement.classes.contains('selected'), isTrue);
+      expect(table.tbody.tr[2].rootElement.classes.contains('selected'), isFalse);
+      // expect(table.tbody.tr[3].rootElement.classes.contains('selected'), isTrue);
+
       expect(table.tfoot.tr[0].td.length, 4);
       expect(table.thead.tr.th.length, 5);
       expect(table.thead.tr.th[1].rootElement.innerText, 'Class');
@@ -273,18 +285,20 @@ class NonSelectableDatatableTestComponent {
 
   String opinionAccessor(SampleRowData row) => row.opinion;
 
-  List<SampleRowData> get data => rowData;
+  TableRows<SampleRowData> get data => TableRows<SampleRowData>(null)
+    ..addRow(rowData.take(1).first, classes: ["trabant"])
+    ..addRows(rowData.skip(1));
 }
 
-List<SampleRowData> rowData = <SampleRowData>[
-  SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
+const List<SampleRowData> rowData = <SampleRowData>[
+  SampleRowData('Trabant', 'Eastern delight'),
   SampleRowData('Jaguar', 'Hrrrrr'),
   SampleRowData('Ford', 'Something for everybody'),
   SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
 ];
 
 @Component(selector: 'test', template: '''
-    <skawa-data-table [data]="rowData" [selectable]="true" (sort)="sort(\$event)">
+    <skawa-data-table [data]="rowData" [selectable]="true" (change)="selectedRows = \$event" (sort)="sort(\$event)">
       <skawa-data-table-col [accessor]="categoryAccessor" header="Class" footer="Total:" class="text-column"
                           [skipFooter]="false"></skawa-data-table-col>
       <skawa-data-table-col [accessor]="maleAccessor" sortable header="Male" [footer]="aggregate(maleAccessor)"
@@ -311,23 +325,25 @@ class SelectableDatatableTestComponent {
 
   String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
 
+  List<SampleNumericData> selectedRows;
+
   String aggregate(DataTableAccessor<SampleNumericData> accessor) {
-    Iterable<String> mapped = rowData.where((SampleNumericData row) => row.checked).map(accessor);
+    Iterable<String> mapped = (selectedRows ?? []).map(accessor);
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
   void sort(SkawaDataTableColComponent column) {
     if (!column.sortModel.isSorted) {
       // Apply default sorting when no sort is specified
-      rowData.sort((a, b) => a.category.compareTo(b.category));
+      rowData.rows.sort((a, b) => a.data.category.compareTo(b.data.category));
     } else {
-      rowData.sort((a, b) {
+      rowData.rows.sort((a, b) {
         if (column.header == 'Male') {
-          return column.sortModel.isAscending ? a.male - b.male : b.male - a.male;
+          return column.sortModel.isAscending ? a.data.male - b.data.male : b.data.male - a.data.male;
         } else if (column.header == 'Female') {
-          return column.sortModel.isAscending ? a.female - b.female : b.female - a.female;
+          return column.sortModel.isAscending ? a.data.female - b.data.female : b.data.female - a.data.female;
         } else if (column.header == 'All') {
-          return (b.male + b.female) - (a.male + a.female);
+          return (b.data.male + b.data.female) - (a.data.male + a.data.female);
         }
         return 0;
       });
@@ -339,7 +355,12 @@ class SelectableDatatableTestComponent {
     return (int.parse(a) + int.parse(b)).toString();
   }
 
-  List<SampleNumericData> get rowData => selectableRowData;
+  TableRows<SampleNumericData> _rowData;
+
+  TableRows<SampleNumericData> get rowData {
+    _rowData ??= TableRows<SampleNumericData>(selectableRowData);
+    return _rowData;
+  }
 }
 
 @Component(selector: 'test', template: '''
@@ -357,7 +378,7 @@ class SelectableDatatableTestComponent {
 class SortableDatatableTestComponent {
   String dataAccessor(SortableRowData row) => row.data;
 
-  List<SortableRowData> get data => _sortableDataset;
+  TableRows<SortableRowData> get data => TableRows<SortableRowData>(_sortableDataset);
 
   void sort(SkawaDataTableColComponent column) {
     if (!column.sortModel.isSorted) {
@@ -370,7 +391,7 @@ class SortableDatatableTestComponent {
     }
   }
 
-  static final _sortableDataset = <SortableRowData>[
+  static const _sortableDataset = <SortableRowData>[
     SortableRowData('b'),
     SortableRowData('a'),
     SortableRowData('d'),
@@ -378,31 +399,31 @@ class SortableDatatableTestComponent {
   ];
 }
 
-List<SampleNumericData> selectableRowData = <SampleNumericData>[
-  SampleNumericData('1. class', 15, 12, false),
-  SampleNumericData('2. class', 11, 18, false),
-  SampleNumericData('3. class', 13, 13, false),
-  SampleNumericData('4. class', 20, 13, false),
+const List<SampleNumericData> selectableRowData = <SampleNumericData>[
+  SampleNumericData('1. class', 15, 12),
+  SampleNumericData('2. class', 11, 18),
+  SampleNumericData('3. class', 13, 13),
+  SampleNumericData('4. class', 20, 13),
 ];
 
-class SortableRowData extends RowData {
+class SortableRowData {
   final String data;
 
-  SortableRowData(this.data, {bool checked = false}) : super(checked);
+  const SortableRowData(this.data);
 }
 
-class SampleRowData extends RowData {
+class SampleRowData {
   final String name;
 
   final String opinion;
 
-  SampleRowData(this.name, this.opinion, {List<String> classes}) : super(false, classes: classes);
+  const SampleRowData(this.name, this.opinion);
 }
 
-class SampleNumericData extends RowData {
+class SampleNumericData {
   final String category;
   final int male;
   final int female;
 
-  SampleNumericData(this.category, this.male, this.female, bool selected) : super(selected);
+  const SampleNumericData(this.category, this.male, this.female);
 }

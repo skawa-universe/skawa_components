@@ -40,7 +40,7 @@
             [attr.title]="c.titleAccessor != null ? c.titleAccessor(row.data) : null">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
-                        [componentFactory]="c.columnRenderer.factoryRenderer(c.columnDataForRow(row, columnIndex))"
+                        [componentFactory]="c.factoryRenderer(c.columnDataForRow(row, columnIndex))"
                         [value]="c.columnDataForRow(row, columnIndex)">
                 </dynamic-component>
             </template>

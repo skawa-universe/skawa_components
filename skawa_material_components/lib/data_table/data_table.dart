@@ -18,7 +18,6 @@ export 'table_row.dart';
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
-  SkawaDataColRendererDirective,
   SkawaDataTableSortDirective
 ];
 
