@@ -1,4 +1,5 @@
-![SkawaComponets](https://raw.githubusercontent.com/)
+<img src="https://github.com/skawa-universe/skawa_components/blob/master/skawa_logo.png">
+
 
 [![Build Status](https://travis-ci.org/skawa-universe/skawa_components.svg?branch=master)](https://travis-ci.org/skawa-universe/skawa_components)
 

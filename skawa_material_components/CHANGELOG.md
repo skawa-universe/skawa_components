@@ -1,3 +1,8 @@
+## 1.2.1
+
+- added support for Dart 2.5
+- CardOverflowDirective added
+
 ## 1.2.0
 
 - added support for the dart 2.4 and angular 6.0.0-alpha

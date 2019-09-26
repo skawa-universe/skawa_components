@@ -12,15 +12,16 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 /// __Limitations__:
 ///
 /// Can only accept seeds of `String` and `int` types also support hexadecimal numbers
-@Pipe('hedColorize')
+@Pipe('hexColorize')
 class SkawaHexColorizePipe implements PipeTransform {
   String transform(dynamic seed) {
+//    print('seed: $seed');
     if (!_supportedInput(seed)) {
       throw InvalidPipeArgumentException(SkawaHexColorizePipe, seed);
     }
     int hexHash;
     if (seed is String) {
-      hexHash = int.tryParse(seed, radix: 16) ?? seed.hashCode;
+      hexHash = int.tryParse(seed ?? '', radix: 16) ?? (seed ?? '').hashCode;
     } else {
       hexHash = seed.hashCode;
     }
@@ -36,5 +37,5 @@ class SkawaHexColorizePipe implements PipeTransform {
 
   static const validHashLength = const [3, 4, 6, 8];
 
-  bool _supportedInput(dynamic input) => input is String || input is num;
+  bool _supportedInput(dynamic input) => input == null || input is String || input is num;
 }

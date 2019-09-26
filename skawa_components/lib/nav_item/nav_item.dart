@@ -55,6 +55,8 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
   SkawaNavItemComponent(HtmlElement element, this._changeDetector, @Attribute('role') String role)
       : super(element, role);
 
+  Map<String, bool> get ngClasses => {'hovering': hovering, 'icon-padding': icon == null};
+
   @override
   void focusedStateChanged() => _changeDetector.markForCheck();
 

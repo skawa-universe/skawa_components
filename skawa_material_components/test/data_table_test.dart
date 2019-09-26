@@ -329,6 +329,7 @@ class SelectableDatatableTestComponent {
         } else if (column.header == 'All') {
           return (b.male + b.female) - (a.male + a.female);
         }
+        return 0;
       });
     }
   }

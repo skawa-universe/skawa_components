@@ -1,0 +1,5 @@
+<template ngFor let-diff [ngForOf]="diffList">
+    <ins *ngIf="diff.operation == DIFF_INSERT">{{diff.text}}</ins>
+    <del *ngIf="diff.operation == DIFF_DELETE">{{diff.text}}</del>
+    <span *ngIf="diff.operation == DIFF_EQUAL">{{diff.text}}</span>
+</template>

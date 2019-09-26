@@ -1,6 +1,7 @@
-## 1.2.0
+## 1.2.1
 
-- added support fro the dart 2.4 and angular 6.0.0-alpha
+- added support for Dart 2.5
+- CodeMirrorComponent, DiffComponent and SkawaListWrapperComponent added
 
 ## 1.1.0
 

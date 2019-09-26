@@ -147,6 +147,8 @@ class SkawaMarkdownEditorComponent extends TextareaEditorBase implements OnInit,
     return false;
   }
 
+  Map<String, bool> get ngClasses => {'with-placeholder': displayPlaceholder, 'disabled': disabled};
+
   String get mode => displayMode;
 
   void editMarkdown() {

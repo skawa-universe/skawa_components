@@ -1,5 +1,5 @@
 name: skawa_components
-version: 1.2.0
+version: 1.2.1
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
@@ -9,7 +9,7 @@ description:
 homepage: https://github.com/skawa-universe/skawa_components
 
 environment:
-  sdk: '>=2.4.0 <3.0.0'
+  sdk: '>=2.5.0 <3.0.0'
 
 dependencies:
   angular: ^6.0.0-alpha
@@ -18,6 +18,7 @@ dependencies:
   markdown: ^2.0.3
   js: ^0.6.1+1
   intl: ^0.15.7
+  diff_match_patch: ^0.3.0
 
 dev_dependencies:
   html_unescape: ^1.0.1+2
@@ -25,7 +26,7 @@ dev_dependencies:
   test: ^1.6.2
   angular_test: ^2.3.0
   pageloader: ^3.2.0
-  build_config: ^0.3.2
+  build_config: ^0.4.1+1
   build_test: ^0.10.7
-  build_runner: ^1.3.3
+  build_runner: ^1.7.0
   build_web_compilers: ^2.0.0
