@@ -273,10 +273,10 @@ void main() {
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
-  SkawaDataTableColComponent
+  SkawaDataTableColumn
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SampleRowData>>(),
-  Typed<SkawaDataTableColComponent<SampleRowData>>()
+  Typed<SkawaDataTableColumn<SampleRowData>>()
 ])
 class NonSelectableDatatableTestComponent {
   String cssClass;
@@ -310,11 +310,11 @@ const List<SampleRowData> rowData = <SampleRowData>[
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
+  SkawaDataTableColumn,
   SkawaDataTableSortDirective
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SampleNumericData>>(),
-  Typed<SkawaDataTableColComponent<SampleNumericData>>()
+  Typed<SkawaDataTableColumn<SampleNumericData>>()
 ])
 class SelectableDatatableTestComponent {
   String categoryAccessor(SampleNumericData row) => row.category;
@@ -332,7 +332,7 @@ class SelectableDatatableTestComponent {
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
-  void sort(SkawaDataTableColComponent column) {
+  void sort(SkawaDataTableColumn column) {
     if (!column.sortModel.isSorted) {
       // Apply default sorting when no sort is specified
       rowData.rows.sort((a, b) => a.data.category.compareTo(b.data.category));
@@ -369,18 +369,18 @@ class SelectableDatatableTestComponent {
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
+  SkawaDataTableColumn,
   SkawaDataTableSortDirective
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SortableRowData>>(),
-  Typed<SkawaDataTableColComponent<SortableRowData>>()
+  Typed<SkawaDataTableColumn<SortableRowData>>()
 ])
 class SortableDatatableTestComponent {
   String dataAccessor(SortableRowData row) => row.data;
 
   TableRows<SortableRowData> get data => TableRows<SortableRowData>(_sortableDataset);
 
-  void sort(SkawaDataTableColComponent column) {
+  void sort(SkawaDataTableColumn column) {
     if (!column.sortModel.isSorted) {
       _sortableDataset.sort((a, b) => a.data.compareTo(b.data));
     } else {

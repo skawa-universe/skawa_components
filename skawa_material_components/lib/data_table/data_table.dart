@@ -17,12 +17,12 @@ export 'table_row.dart';
 /// Directive list for data tables
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
-  SkawaDataTableRenderColComponent,
+  SkawaDataTableColumn,
+  SkawaDataTableRenderColumn,
   SkawaDataTableSortDirective
 ];
 
-/// A datatable component. A wrapper for the [SkawaDataTableColComponent].
+/// A datatable component. A wrapper for the [SkawaDataTableColumn].
 /// [See more at](https://material.io/guidelines/components/data-tables.html#)
 /// This data table component is designed on our expectations,
 /// maybe need some modification for sortable, searchable, etc. table implementation.
@@ -53,13 +53,13 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     pipes: [UnskippedInFooterPipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
     visibility: Visibility.all)
-class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
+class SkawaDataTableComponent<T> implements OnDestroy, OnInit {
   final StreamController<List<T>> _changeController = StreamController<List<T>>.broadcast(sync: true);
 
   final StreamController<T> _highlightController = StreamController<T>.broadcast(sync: true);
 
-  final StreamController<SkawaDataTableColComponent<T>> _sortController =
-      StreamController<SkawaDataTableColComponent<T>>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColumn<T>> _sortController =
+      StreamController<SkawaDataTableColumn<T>>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = Disposer.oneShot();
   final ChangeDetectorRef changeDetectorRef;
@@ -79,8 +79,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   @Input()
   bool colorOddRows = true;
 
-  @ContentChildren(SkawaDataTableColComponent)
-  List<SkawaDataTableColComponent<T>> columns;
+  @Input()
+  List<SkawaDataTableColumn<T>> columns;
 
   @Output('change')
   Stream<List<T>> onChange;
@@ -97,9 +97,9 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   Stream<T> get onHighlight => _highlightController.stream;
 
   @Output('sort')
-  Stream<SkawaDataTableColComponent<T>> get onSort => _sortController.stream;
+  Stream<SkawaDataTableColumn<T>> get onSort => _sortController.stream;
 
-  int getColspanFor(SkawaDataTableColComponent<T> col, int skippedIndex) {
+  int getColspanFor(SkawaDataTableColumn<T> col, int skippedIndex) {
     int span = 1;
     if (skippedIndex == 0 && selectable) return 2;
     int colIndex = columns.toList().indexOf(col);
@@ -153,8 +153,10 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
     return true;
   }
 
-  void triggerSort(SkawaDataTableColComponent column) {
-    var _column = column as SkawaDataTableColComponent<T>;
+  asRenderColumn(SkawaDataTableColumn column) => column as SkawaDataTableRenderColumn;
+
+  void triggerSort(SkawaDataTableColumn column) {
+    var _column = column as SkawaDataTableColumn<T>;
     _column.sortModel.toggleSort();
     for (var c in columns) {
       if (c != _column && c.sortModel != null) {
@@ -179,7 +181,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   }
 
   @override
-  void ngAfterViewInit() {
+  void ngOnInit() {
     var initialSorts = columns?.where((c) => c.sortModel?.activeSort != null)?.toList(growable: false) ?? [];
     if (initialSorts.length > 1) {
       throw new ArgumentError(
@@ -193,7 +195,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
 /// Can set a column skipped by setting skipFooter to true
 @Pipe('unskippedInFooter')
 class UnskippedInFooterPipe implements PipeTransform {
-  List<SkawaDataTableColComponent> transform(List<SkawaDataTableColComponent> data) {
+  List<SkawaDataTableColumn> transform(List<SkawaDataTableColumn> data) {
     if (data is! List) {
       throw new InvalidPipeArgumentException(UnskippedInFooterPipe, data);
     }

@@ -35,7 +35,7 @@ class SortModel {
 
 @Directive(selector: '[sortable]')
 class SkawaDataTableSortDirective {
-  final SkawaDataTableColComponent column;
+  final SkawaDataTableColumn column;
 
   SkawaDataTableSortDirective(this.column);
 
