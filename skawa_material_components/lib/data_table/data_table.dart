@@ -18,13 +18,11 @@ export 'table_row.dart';
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
   SkawaDataTableColComponent,
-  SkawaDataTableSortDirective
+  SortDirective
 ];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].
 /// [See more at](https://material.io/guidelines/components/data-tables.html#)
-/// This data table component is designed on our expectations,
-/// maybe need some modification for sortable, searchable, etc. table implementation.
 ///
 /// __Example usage:__
 ///             <skawa-data-table [data]="rowData">
@@ -35,7 +33,7 @@ const List<Type> skawaDataTableDirectives = const <Type>[
 ///              </skawa-data-table>
 ///
 /// __Properties:__
-/// - `selectable: bool` -- Whether to rows can be selectable.
+/// - `selectable: bool` -- Whether the rows can be selectable.
 /// - `data: Iterable<T>` -- The rows of the table can be displayed depend on this Iterable.
 /// - `multiSelection: bool` -- Whether to allow multiSelection. Defaults to true
 ///
@@ -57,8 +55,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
 
   final StreamController<T> _highlightController = StreamController<T>.broadcast(sync: true);
 
-  final StreamController<SkawaDataTableColComponent<T, dynamic>> _sortController =
-      StreamController<SkawaDataTableColComponent<T, dynamic>>.broadcast(sync: true);
+  final StreamController<SkawaDataTableColComponent> _sortController =
+      StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
 
   final Disposer _tearDownDisposer = Disposer.oneShot();
   final ChangeDetectorRef changeDetectorRef;
@@ -78,7 +76,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   @Input()
   bool colorOddRows = true;
 
-  @Input()
+  @ContentChildren(SkawaDataTableColComponent)
   List<SkawaDataTableColComponent<T, dynamic>> columns;
 
   @Output('change')
@@ -96,7 +94,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   Stream<T> get onHighlight => _highlightController.stream;
 
   @Output('sort')
-  Stream<SkawaDataTableColComponent<T, dynamic>> get onSort => _sortController.stream;
+  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
 
   int getColspanFor(SkawaDataTableColComponent<T, dynamic> col, int skippedIndex) {
     int span = 1;

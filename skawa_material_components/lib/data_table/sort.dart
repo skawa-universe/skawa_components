@@ -1,7 +1,10 @@
 import 'package:angular/angular.dart';
-import 'data_table_column.dart';
 
 enum SortDirection { asc, desc }
+
+abstract class SortEnabled {
+  SortModel sortModel;
+}
 
 class SortModel {
   final List<SortDirection> allowedDirections;
@@ -33,11 +36,22 @@ class SortModel {
   bool get isSorted => activeSort != null;
 }
 
+/// Adds sorting capabilities to any host component implementing the [SortEnabled] interface
+/// One example would be the SkawaDataTableColComponent
 @Directive(selector: '[sortable]')
-class SkawaDataTableSortDirective {
-  final SkawaDataTableColComponent column;
+class SortDirective {
+  final SortEnabled sortEnabledHost;
 
-  SkawaDataTableSortDirective(this.column);
+  SortDirective(@Host() this.sortEnabledHost);
+
+  @HostBinding('class.sort-enabled')
+  bool get sortEnabled => sortEnabledHost.sortModel != null && !sortEnabledHost.sortModel.isSorted;
+
+  @HostBinding('class.sort')
+  bool get isSorted => sortEnabledHost.sortModel?.isSorted ?? false;
+
+  @HostBinding('class.desc')
+  bool get isDescending => sortEnabledHost.sortModel?.isDescending ?? false;
 
   @Input('sortable')
   set allowedSorts(String allowedSorts) {
@@ -51,7 +65,7 @@ class SkawaDataTableSortDirective {
       throw new ArgumentError(
           'SkawaDataTableSortDirective accepts only "asc" and/or "desc" as sort directions. Use comma separated values for both directions.');
     }
-    column.sortModel = SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
+    sortEnabledHost.sortModel = SortModel(directions.map((s) => directionMap[s]).toList(growable: false));
   }
 
   @Input()
@@ -59,7 +73,7 @@ class SkawaDataTableSortDirective {
     if (directionMap[sort] == null) {
       throw ArgumentError('SkawaDataTableSortDirective initial sort value can only be "asc" or "desc"');
     }
-    column.sortModel.activeSort = directionMap[sort];
+    sortEnabledHost.sortModel.activeSort = directionMap[sort];
   }
 
   static const String asc = 'asc';

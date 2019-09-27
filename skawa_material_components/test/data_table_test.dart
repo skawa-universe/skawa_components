@@ -293,7 +293,7 @@ TableRows<SampleRowData> rowData = TableRows([
     <skawa-data-table [data]="rowData" [selectable]="true" (sort)="sort(\$event)" [columns]="columns">
     </skawa-data-table>
      ''',
-    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SkawaDataTableSortDirective],
+    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SortDirective],
     directiveTypes: [Typed<SkawaDataTableComponent<SampleNumericData>>()])
 class SelectableDatatableTestComponent {
   List<SkawaDataTableColComponent<SampleNumericData, dynamic>> columns = [
@@ -367,7 +367,7 @@ class SelectableDatatableTestComponent {
     <skawa-data-table [data]="data" (sort)="sort(\$event)" [selectable]="false" [columns]="columns">
     </skawa-data-table>
      ''',
-    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SkawaDataTableSortDirective],
+    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SortDirective],
     directiveTypes: [Typed<SkawaDataTableComponent<SortableRowData>>()])
 class SortableDatatableTestComponent {
   List<SkawaDataTableColComponent<SortableRowData, dynamic>> columns = [

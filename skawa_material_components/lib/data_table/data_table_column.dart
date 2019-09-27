@@ -7,6 +7,7 @@ import 'sort.dart';
 
 export 'sort.dart';
 
+/// A function signature for accessing a specific column value for a given row
 typedef K DataTableAccessor<T, K>(T rowData);
 
 /// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
@@ -21,23 +22,28 @@ typedef K DataTableAccessor<T, K>(T rowData);
 ///
 /// __Properties:__
 ///
-/// - `accessor: bool` -- A function which return with the data to display in the cells.
-/// - `colRenderer: ComponentRenderer` -- component renderer function reference - if specified, accessor is ignored
+/// - `accessor: DataTableAccessor` -- A function which returns the data to display in cells.
+/// - `colRenderer: ComponentRenderer` -- An optional component renderer function reference
 /// - `header: String` -- Header name of the column to display.
 /// - `footer: String` -- Footer name of the column to display.
 /// - `skipFooter: bool` -- Whether to display the footer. Defaults to true.
 ///
 /// __Outputs:__
 ///
-/// - `trigger: RowData` -- Triggered when user clicks on text content of the cell.
+/// - `trigger: T` -- Triggered when user clicks on text content of the cell.
 ///
 /// __Notes:__
 /// `ComponentRenderer` is part of `package:angular_components`. It can be used to customize how a column is
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(selector: 'skawa-data-table-col', template: '', visibility: Visibility.all)
-class SkawaDataTableColComponent<T, K> extends HasFactoryRenderer<RendersValue<K>, K> implements OnInit, OnDestroy {
+@Component(
+    selector: 'skawa-data-table-col',
+    template: '',
+    providers: [ExistingProvider<SortEnabled>(SortEnabled, SkawaDataTableColComponent)],
+    visibility: Visibility.all)
+class SkawaDataTableColComponent<T, K>
+    implements HasFactoryRenderer<RendersValue<K>, K>, SortEnabled, OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
 
   @Input()
@@ -53,7 +59,6 @@ class SkawaDataTableColComponent<T, K> extends HasFactoryRenderer<RendersValue<K
   String footer;
 
   @Input('colRenderer')
-  // ignore: overridden_fields
   FactoryRenderer<RendersValue<K>, K> factoryRenderer;
 
   SortModel sortModel;
