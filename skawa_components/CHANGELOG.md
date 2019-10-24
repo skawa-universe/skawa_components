@@ -1,6 +1,6 @@
 ## 1.2.1
 
-- added support for the dart 2.5
+- added support for Dart 2.5
 - CodeMirrorComponent, DiffComponent and SkawaListWrapperComponent added
 
 ## 1.1.0

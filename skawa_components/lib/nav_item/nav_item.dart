@@ -57,7 +57,6 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   Map<String, bool> get ngClasses => {'hovering': hovering, 'icon-padding': icon == null};
 
-
   @override
   void focusedStateChanged() => _changeDetector.markForCheck();
 
