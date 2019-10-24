@@ -7,9 +7,9 @@ import 'package:angular_components/dynamic_component/dynamic_component.dart';
 import 'package:angular_components/material_checkbox/material_checkbox.dart';
 import 'package:angular_components/utils/disposer/disposer.dart';
 import 'package:quiver/collection.dart';
-import 'package:skawa_material_components/data_table/table_row.dart';
 
 import 'data_table_column.dart';
+import 'table_row.dart';
 
 export 'data_table_column.dart';
 export 'table_row.dart';
@@ -17,8 +17,7 @@ export 'table_row.dart';
 /// Directive list for data tables
 const List<Type> skawaDataTableDirectives = const <Type>[
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
-  SortDirective
+  SkawaDataTableColComponent
 ];
 
 /// A datatable component. A wrapper for the [SkawaDataTableColComponent].
@@ -52,29 +51,12 @@ const List<Type> skawaDataTableDirectives = const <Type>[
     visibility: Visibility.all)
 class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   final StreamController<List<T>> _changeController = StreamController<List<T>>.broadcast(sync: true);
-
   final StreamController<T> _highlightController = StreamController<T>.broadcast(sync: true);
-
-  final StreamController<SkawaDataTableColComponent> _sortController =
-      StreamController<SkawaDataTableColComponent>.broadcast(sync: true);
-
   final Disposer _tearDownDisposer = Disposer.oneShot();
   final ChangeDetectorRef changeDetectorRef;
 
   @Input()
-  bool selectable = false;
-
-  @Input()
-  bool highlightable = true;
-
-  @Input()
   TableRows<T> data;
-
-  @Input()
-  bool multiSelection = true;
-
-  @Input()
-  bool colorOddRows = true;
 
   @ContentChildren(SkawaDataTableColComponent)
   List<SkawaDataTableColComponent<T, dynamic>> columns;
@@ -83,22 +65,16 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   Stream<List<T>> onChange;
 
   SkawaDataTableComponent(this.changeDetectorRef) {
-    _tearDownDisposer
-      ..addEventSink(_changeController)
-      ..addEventSink(_highlightController)
-      ..addEventSink(_sortController);
+    _tearDownDisposer..addEventSink(_changeController)..addEventSink(_highlightController);
     onChange = _changeController.stream.distinct((a, b) => a == b || (listsEqual(a, b)));
   }
 
   @Output('highlight')
   Stream<T> get onHighlight => _highlightController.stream;
 
-  @Output('sort')
-  Stream<SkawaDataTableColComponent> get onSort => _sortController.stream;
-
   int getColspanFor(SkawaDataTableColComponent<T, dynamic> col, int skippedIndex) {
     int span = 1;
-    if (skippedIndex == 0 && selectable) return 2;
+    if (skippedIndex == 0 && data.selectable) return 2;
     int colIndex = columns.toList().indexOf(col);
     for (int i = colIndex; i >= 0; i--) {
       int prevIndex = i - 1;
@@ -114,7 +90,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   }
 
   void changeRowSelection(TableRow<T> row, bool selected) {
-    if (!multiSelection) {
+    if (!data.multiSelection) {
       data.rows.firstWhere((r) => r.checked, orElse: () => null)?.checked = !selected;
     }
     row.checked = selected;
@@ -135,8 +111,8 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   }
 
   bool _canHighlight(Event ev) {
-    if (!highlightable) return false;
-    if (selectable && ev.target is Element && ev.target != ev.currentTarget) {
+    if (!data.highlightable) return false;
+    if (data.selectable && ev.target is Element && ev.target != ev.currentTarget) {
       Element target = ev.target as Element;
       if (target is Element) {
         while (target != ev.currentTarget && target.tagName != 'TR' && target != null) {
@@ -158,7 +134,7 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
         c.sortModel.activeSort = null;
       }
     }
-    _sortController.add(_column);
+    data.sort((TableRow<T> a, TableRow<T> b) => _column.sortModel.sort(a, b, _column.sortModel.activeSort));
   }
 
   void _emitChange() {
@@ -172,11 +148,6 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
   bool get isEveryRowSkippedInFooter => columns?.every((col) => col.skipFooter) ?? true;
 
   @override
-  void ngOnDestroy() {
-    _tearDownDisposer.dispose();
-  }
-
-  @override
   void ngAfterViewInit() {
     var initialSorts = columns?.where((c) => c.sortModel?.activeSort != null)?.toList(growable: false) ?? [];
     if (initialSorts.length > 1) {
@@ -184,6 +155,9 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterViewInit {
           'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
     }
   }
+
+  @override
+  void ngOnDestroy() => _tearDownDisposer.dispose();
 }
 
 /// Filters for those SkawaDataTableColComponents, that are not skipped in footer

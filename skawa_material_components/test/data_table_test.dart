@@ -253,14 +253,18 @@ void main() {
   });
 }
 
-@Component(
-    selector: 'test',
-    template: '''
-    <skawa-data-table [data]="data" [selectable]="false" [columns]="columns">
+@Component(selector: 'test', template: '''
+    <skawa-data-table [data]="data">
+      <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
+      <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
-     ''',
-    directives: [SkawaDataTableComponent, SkawaDataTableColComponent],
-    directiveTypes: [Typed<SkawaDataTableComponent<SampleRowData>>()])
+     ''', directives: [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SampleRowData>>(),
+  Typed<SkawaDataTableColComponent<SampleRowData, dynamic>>()
+])
 class NonSelectableDatatableTestComponent {
   String cssClass;
 
@@ -280,45 +284,50 @@ class NonSelectableDatatableTestComponent {
   ];
 }
 
-TableRows<SampleRowData> rowData = TableRows([
-  SampleRowData('Trabant', 'Eastern delight'),
-  SampleRowData('Jaguar', 'Hrrrrr'),
-  SampleRowData('Ford', 'Something for everybody'),
-  SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?')
-]);
+TableRows<SampleRowData> rowData = TableRows()
+  ..selectable = false
+  ..addRow(SampleRowData('Trabant', 'Eastern delight'), classes: ['trabant'])
+  ..addRows([
+    SampleRowData('Jaguar', 'Hrrrrr'),
+    SampleRowData('Ford', 'Something for everybody'),
+    SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?')
+  ]);
 
-@Component(
-    selector: 'test',
-    template: '''
-    <skawa-data-table [data]="rowData" [selectable]="true" (sort)="sort(\$event)" [columns]="columns">
+@Component(selector: 'test', template: '''
+    <skawa-data-table [data]="rowData">
+       <skawa-data-table-col [accessor]="categoryAccessor" 
+                            header="Class" 
+                            footer="Total:"
+                            class="text-column"
+                            [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="maleAccessor" 
+                              [sortModel]="maleSort"
+                              header="Male"
+                              [footer]="aggregate(maleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="femaleAccessor"
+                              [sortModel]="femaleSort" 
+                              header="Female" 
+                              [footer]="aggregate(femaleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="peopleAccessor"
+                              [sortModel]="allSort"
+                              header="All"
+                              [footer]="aggregate(peopleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
     </skawa-data-table>
-     ''',
-    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SortDirective],
-    directiveTypes: [Typed<SkawaDataTableComponent<SampleNumericData>>()])
+     ''', directives: [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SampleNumericData>>(),
+  Typed<SkawaDataTableColComponent<SampleNumericData, dynamic>>()
+])
 class SelectableDatatableTestComponent {
-  List<SkawaDataTableColComponent<SampleNumericData, dynamic>> columns = [
-    SkawaDataTableColComponent<SampleNumericData, dynamic>()
-      ..accessor = categoryAccessor
-      ..header = 'Class'
-      ..footer = 'Total:'
-      ..skipFooter = false,
-    SkawaDataTableColComponent<SampleNumericData, dynamic>()
-      ..accessor = maleAccessor
-      ..header = 'Male'
-      ..footer = aggregate(maleAccessor)
-      ..skipFooter = false,
-    SkawaDataTableColComponent<SampleNumericData, dynamic>()
-      ..accessor = femaleAccessor
-      ..header = 'Female'
-      ..footer = aggregate(femaleAccessor)
-      ..skipFooter = false,
-    SkawaDataTableColComponent<SampleNumericData, dynamic>()
-      ..accessor = peopleAccessor
-      ..header = 'All'
-      ..footer = aggregate(peopleAccessor)
-      ..skipFooter = false,
-  ];
-
   static String categoryAccessor(SampleNumericData row) => row.category;
 
   static String maleAccessor(SampleNumericData row) => row.male.toString();
@@ -327,68 +336,56 @@ class SelectableDatatableTestComponent {
 
   static String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
 
-  static String aggregate(DataTableAccessor<SampleNumericData, String> accessor) {
-//    Iterable<String> mapped = rowData.rows
-//        .where((TableRow<SampleNumericData> row) => row.checked)
-//        .map((TableRow<SampleNumericData> row) => accessor(row.data));
-//    return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
-  return '';
+  String aggregate(DataTableAccessor<SampleNumericData, String> accessor) {
+    Iterable<String> mapped = rowData.rows
+        .where((TableRow<SampleNumericData> row) => row.checked)
+        .map((TableRow<SampleNumericData> row) => accessor(row.data));
+    return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
-  void sort(SkawaDataTableColComponent column) {
-    if (!column.sortModel.isSorted) {
-      // Apply default sorting when no sort is specified
-      rowData.rows.sort((a, b) => a.data.category.compareTo(b.data.category));
-    } else {
-      rowData.rows.sort((a, b) {
-        if (column.header == 'Male') {
-          return column.sortModel.isAscending ? a.data.male - b.data.male : b.data.male - a.data.male;
-        } else if (column.header == 'Female') {
-          return column.sortModel.isAscending ? a.data.female - b.data.female : b.data.female - a.data.female;
-        } else if (column.header == 'All') {
-          return (b.data.male + b.data.female) - (a.data.male + a.data.female);
-        }
-        return 0;
-      });
-    }
-  }
+  SortModel<SampleNumericData> maleSort = SortModel<SampleNumericData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.male - b.data.male : b.data.male - a.data.male);
 
-//  String _aggregateReducer(String a, String b) {
-//    if (a == null || b == null) return a ?? b;
-//    return (int.parse(a) + int.parse(b)).toString();
-//  }
+  SortModel<SampleNumericData> femaleSort = SortModel<SampleNumericData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.female - b.data.female : b.data.female - a.data.female);
+
+  SortModel<SampleNumericData> allSort = SortModel<SampleNumericData>(
+      allowedDirections: [SortDirection.desc],
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          (b.data.male + b.data.female) - (a.data.male + a.data.female));
+
+  String _aggregateReducer(String a, String b) {
+    if (a == null || b == null) return a ?? b;
+    return (int.parse(a) + int.parse(b)).toString();
+  }
 
   TableRows<SampleNumericData> get rowData => selectableRowData;
 }
 
-@Component(
-    selector: 'test',
-    template: '''
-    <skawa-data-table [data]="data" (sort)="sort(\$event)" [selectable]="false" [columns]="columns">
+@Component(selector: 'test', template: '''
+    <skawa-data-table [data]="data">
+           <skawa-data-table-col [sortModel]="sortModel" [accessor]="dataAccessor" header="Test column" class="text-column"></skawa-data-table-col>       
     </skawa-data-table>
-     ''',
-    directives: [SkawaDataTableComponent, SkawaDataTableColComponent, SortDirective],
-    directiveTypes: [Typed<SkawaDataTableComponent<SortableRowData>>()])
+     ''', directives: [
+  SkawaDataTableComponent,
+  SkawaDataTableColComponent
+], directiveTypes: [
+  Typed<SkawaDataTableComponent<SortableRowData>>(),
+  Typed<SkawaDataTableColComponent<SortableRowData, dynamic>>()
+])
 class SortableDatatableTestComponent {
-  List<SkawaDataTableColComponent<SortableRowData, dynamic>> columns = [
-    SkawaDataTableColComponent<SortableRowData, String>()
-      ..accessor = dataAccessor
-      ..header = 'Test column'
-  ];
   static String dataAccessor(SortableRowData row) => row.data;
 
-  TableRows<SortableRowData> get data => TableRows(_sortableDataset);
+  TableRows<SortableRowData> get data => TableRows(_sortableDataset)..selectable = false;
 
-  void sort(SkawaDataTableColComponent column) {
-    if (!column.sortModel.isSorted) {
-      _sortableDataset.sort((a, b) => a.data.compareTo(b.data));
-    } else {
-      // sort in lexicographic order
-      _sortableDataset.sort((a, b) {
-        return column.sortModel.isAscending ? a.data.compareTo(b.data) : b.data.compareTo(a.data);
-      });
-    }
-  }
+  SortModel<SortableRowData> sortModel = SortModel<SortableRowData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SortableRowData> a, TableRow<SortableRowData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.data.compareTo(b.data.data) : b.data.data.compareTo(a.data.data));
 
   static final _sortableDataset = <SortableRowData>[
     SortableRowData('b'),
@@ -403,7 +400,8 @@ TableRows<SampleNumericData> selectableRowData = TableRows([
   SampleNumericData('2. class', 11, 18),
   SampleNumericData('3. class', 13, 13),
   SampleNumericData('4. class', 20, 13)
-]);
+])
+  ..selectable = true;
 
 class SortableRowData {
   final String data;

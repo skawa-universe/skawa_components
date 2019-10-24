@@ -3,12 +3,11 @@ import 'dart:async';
 import 'package:angular/core.dart';
 import 'package:angular_components/model/ui/has_factory.dart';
 import 'package:angular_components/model/ui/has_renderer.dart';
-import 'sort.dart';
-
-export 'sort.dart';
+import 'table_row.dart';
 
 /// A function signature for accessing a specific column value for a given row
 typedef K DataTableAccessor<T, K>(T rowData);
+typedef int DataTableSort<T>(TableRow<T> a, TableRow<T> b, SortDirection direction);
 
 /// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
 ///
@@ -37,13 +36,8 @@ typedef K DataTableAccessor<T, K>(T rowData);
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(
-    selector: 'skawa-data-table-col',
-    template: '',
-    providers: [ExistingProvider<SortEnabled>(SortEnabled, SkawaDataTableColComponent)],
-    visibility: Visibility.all)
-class SkawaDataTableColComponent<T, K>
-    implements HasFactoryRenderer<RendersValue<K>, K>, SortEnabled, OnInit, OnDestroy {
+@Component(selector: 'skawa-data-table-col', template: '')
+class SkawaDataTableColComponent<T, K> implements HasFactoryRenderer<RendersValue<K>, K>, OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
 
   @Input()
@@ -61,7 +55,8 @@ class SkawaDataTableColComponent<T, K>
   @Input('colRenderer')
   FactoryRenderer<RendersValue<K>, K> factoryRenderer;
 
-  SortModel sortModel;
+  @Input()
+  SortModel<T> sortModel;
 
   /// If set to true, footer will not display this column and
   /// colspan of td element will be set accordingly
@@ -86,6 +81,15 @@ class SkawaDataTableColComponent<T, K>
   @override
   void ngOnDestroy() => _triggerController.close();
 
+  @HostBinding('class.sort-enabled')
+  bool get sortEnabled => sortModel != null && !isSorted;
+
+  @HostBinding('class.sort')
+  bool get isSorted => sortModel?.activeSort != null;
+
+  @HostBinding('class.desc')
+  bool get isDescending => sortModel?.isDescending ?? false;
+
   @override
   void ngOnInit() {
     if (_triggerController.hasListener && useColumnRenderer) {
@@ -93,3 +97,38 @@ class SkawaDataTableColComponent<T, K>
     }
   }
 }
+
+class SortModel<T> {
+  DataTableSort<T> sort;
+  SortDirection activeSort;
+  List<SortDirection> allowedDirections;
+
+  SortModel({this.sort, this.allowedDirections, this.activeSort});
+
+  bool get isAscending => activeSort == SortDirection.asc;
+
+  bool get isDescending => activeSort == SortDirection.desc;
+
+  void toggleSort() {
+    if (((allowedDirections ?? const [])).isEmpty) {
+      throw new ArgumentError('SortModel does not have any allowed sort directions');
+    }
+    if (activeSort == null) {
+      activeSort = allowedDirections.first;
+    } else {
+      int directionIndex = allowedDirections.indexOf(activeSort);
+      if (directionIndex == allowedDirections.length - 1) {
+        activeSort = null;
+      } else {
+        activeSort = allowedDirections[directionIndex + 1];
+      }
+    }
+  }
+
+  static const String asc = 'asc';
+  static const String desc = 'desc';
+
+  static const Map<String, SortDirection> directionMap = const {asc: SortDirection.asc, desc: SortDirection.desc};
+}
+
+enum SortDirection { asc, desc }

@@ -1,17 +1,17 @@
-<table [class.selectable]="selectable" [class.non-selectable]="!selectable">
+<table [class.selectable]="data.selectable" [class.non-selectable]="!data.selectable">
     <thead>
     <tr>
-        <th *ngIf="selectable">
+        <th *ngIf="data.selectable">
             <material-checkbox #markAllCheckbox
                                (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation()"
                                [checked]="isEveryRowChecked"
-                               *ngIf="multiSelection">
+                               *ngIf="data.multiSelection">
             </material-checkbox>
         </th>
         <th *ngFor="let c of columns; let i = index"
             [ngClass]="c.getClasses('--header')"
-            [class.sort-enabled]="c.sortModel != null && !c.sortModel.isSorted"
-            [class.sort]="c.sortModel?.isSorted ?? false"
+            [class.sort-enabled]="c.sortModel != null && !c.isSorted"
+            [class.sort]="c.isSorted"
             [class.desc]="c.sortModel?.isDescending ?? false">
             <template [ngIf]="c.sortModel == null">{{c.header}}</template>
             <template [ngIf]="c.sortModel != null">
@@ -24,11 +24,11 @@
     <tr *ngFor="let row of data.rows; let index=index"
         [ngClass]="row.classes"
         [class.selected]="row.checked"
-        [class.odd-row]="index % 2 != 0 && colorOddRows"
-        [class.even-row]="index % 2 == 0 && colorOddRows"
+        [class.odd-row]="index % 2 != 0 && data.colorOddRows"
+        [class.even-row]="index % 2 == 0 && data.colorOddRows"
         (click)="highlight(row, $event); $event.stopPropagation()"
         [class.highlighted]="row == data.highlightedRow">
-        <td *ngIf="selectable">
+        <td *ngIf="data.selectable">
             <material-checkbox
                     class="selector-checkbox"
                     (checkedChange)="changeRowSelection(row, $event)"
