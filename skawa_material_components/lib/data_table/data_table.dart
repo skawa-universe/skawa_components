@@ -190,7 +190,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   void ngAfterViewInit() {
     var initialSorts = columns?.where((c) => c.sortModel?.activeSort != null)?.toList(growable: false) ?? [];
     if (initialSorts.length > 1) {
-      throw new ArgumentError(
+      throw ArgumentError(
           'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
     }
   }
@@ -203,7 +203,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 class UnskippedInFooterPipe implements PipeTransform {
   List<SkawaDataTableColComponent> transform(List<SkawaDataTableColComponent> data) {
     if (data is! List) {
-      throw new InvalidPipeArgumentException(UnskippedInFooterPipe, data);
+      throw InvalidPipeArgumentException(UnskippedInFooterPipe, data);
     }
     return data.where((d) => d.skipFooter != true).toList();
   }

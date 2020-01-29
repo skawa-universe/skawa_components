@@ -13,7 +13,7 @@ import 'package:angular/core.dart';
 ///
 /// __Example usage:__
 ///           <list-wrapper >
-///               <span *skawaFor="let item of list;itemHeight:75" style="height: 75px; display: block">{{item}}</span>
+///               <span *skawaFor="let item of list" style="height: 75px; display: block">{{item}}</span>
 ///           </list-wrapper>
 ///
 ///

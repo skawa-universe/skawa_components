@@ -5,7 +5,7 @@ import 'dart:html';
 
 class BaseLoader {
   Future<bool> load(LoadedElement linkToLoad,
-      {void loadCallback(), void errorCallback(), bool force: false, bool skipCallBack = false}) async {
+      {void loadCallback(), void errorCallback(), bool force = false, bool skipCallBack = false}) async {
     if (force) {
       _cleanDom(linkToLoad);
       _removeCachedLoadResult(linkToLoad);
@@ -26,7 +26,7 @@ class BaseLoader {
   }
 
   Future loadList(List<LoadedElement> linkToLoadList,
-      {void loadCallback(), void errorCallback(), bool force: false}) async {
+      {void loadCallback(), void errorCallback(), bool force = false}) async {
 //    print('linkToLoadList: ${linkToLoadList.map((LoadedElement elem) => elem.linkToLoad).toList()}');
     await Future.wait(linkToLoadList.map((LoadedElement linkToLoad) => load(linkToLoad,
         loadCallback: loadCallback, errorCallback: errorCallback, force: force, skipCallBack: true))).catchError((_) {

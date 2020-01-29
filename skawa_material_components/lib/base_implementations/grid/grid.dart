@@ -15,7 +15,7 @@ class GridUpdate {
 /// Represents a tile in the Grid
 abstract class GridTile {
   factory GridTile(Element gridTile) {
-    return new _DomGridTile(gridTile);
+    return _DomGridTile(gridTile);
   }
 
   /// Width of the grid tile
@@ -69,7 +69,7 @@ abstract class GridBase implements Grid {
     }
 
     int newGridHeight = yTranslationForCol.reduce(max) + gutterSize;
-    return new GridUpdate(tileTransformations, newGridHeight);
+    return GridUpdate(tileTransformations, newGridHeight);
   }
 }
 

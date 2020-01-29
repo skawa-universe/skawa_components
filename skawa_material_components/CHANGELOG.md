@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Minor styling on SkawaDataTableComponent
+
 ## 1.2.1
 
 - added support for Dart 2.5

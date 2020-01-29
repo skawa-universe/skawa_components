@@ -35,11 +35,11 @@ class CodeMirrorModeWithLink extends CodeMirrorMode {
 
   static const String _replaceString = 'REPLACE';
   static const String _hintCdnLink =
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/hint/$_replaceString-hint.js';
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/$_replaceString-hint.js';
   static const String _lintCdnLink =
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/addon/lint/$_replaceString-lint.js';
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/lint/$_replaceString-lint.js';
   static const String _modeCdnLink =
-      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.43.0/mode/$_replaceString/$_replaceString.js';
+      'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/$_replaceString/$_replaceString.js';
   static const String cssLint = 'https://unpkg.com/csslint@1.0.5/dist/csslint.js';
 
   static const String jsLint = 'https://codemirror.net/addon/lint/javascript-lint.js';
@@ -57,7 +57,7 @@ class CodeMirrorModeWithLink extends CodeMirrorMode {
       mode: 'htmlmixed',
       hint: 'html',
       lint: 'html',
-      linterScript: '/_el/dart/app/dashboard/web/htmlhint.js',
+      linterScript: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/hint/html-hint.js',
       linter: 'html',
       additionalModes: const [javascript, css, xml, _json]);
   static const CodeMirrorModeWithLink xml = const CodeMirrorModeWithLink(mode: 'xml', hint: 'xml');
@@ -67,7 +67,7 @@ class CodeMirrorModeWithLink extends CodeMirrorMode {
       hint: 'javascript',
       lint: 'javascript',
       linterScript: 'https://cdnjs.cloudflare.com/ajax/libs/jshint/2.9.5/jshint.min.js',
-      linterJsScript: '/_el/dart/app/dashboard/web/javascript-lint.js',
+      linterJsScript: 'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/addon/lint/javascript-lint.js',
       linter: 'json',
       additionalModes: const [_json]);
   static const CodeMirrorModeWithLink _json = const CodeMirrorModeWithLink(

@@ -1,3 +1,8 @@
+## 1.2.2
+
+- SkawaForDirective onLoad ouput stream added
+- CodeMirrorModeWithLink static constants fixed
+
 ## 1.2.1
 
 - added support for Dart 2.5

@@ -12,7 +12,7 @@ class SortModel {
 
   void toggleSort() {
     if (((allowedDirections ?? const [])).isEmpty) {
-      throw new ArgumentError('SortModel does not have any allowed sort directions');
+      throw ArgumentError('SortModel does not have any allowed sort directions');
     }
     if (activeSort == null) {
       activeSort = allowedDirections.first;
@@ -48,7 +48,7 @@ class SkawaDataTableSortDirective {
       directions = directionMap.keys.toList(growable: false);
     }
     if (directions.isEmpty || directions.any((s) => directionMap[s] == null)) {
-      throw new ArgumentError(
+      throw ArgumentError(
           'SkawaDataTableSortDirective accepts only "asc" and/or "desc" as sort directions. Use comma separated values for both directions.');
     }
     column.sortModel = SortModel(directions.map((s) => directionMap[s]).toList(growable: false));

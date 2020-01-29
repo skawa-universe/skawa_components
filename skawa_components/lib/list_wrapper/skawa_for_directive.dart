@@ -3,7 +3,6 @@ import 'dart:html';
 import 'dart:math';
 
 import 'package:angular/angular.dart';
-
 import 'package:angular_components/utils/disposer/disposer.dart';
 
 import 'list_wrapper.dart';
@@ -39,6 +38,9 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
   int _itemHeight;
 
   SkawaForDirective(this.viewContainerRef, this._templateRef, this.skawaListParent, this._ngZone);
+
+  @Output('load')
+  Stream<Null> get onLoad => _loadController.stream;
 
   @Input()
   set skawaForOf(SkawaForSource<T> value) {
