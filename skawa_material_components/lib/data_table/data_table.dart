@@ -190,8 +190,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   void ngAfterViewInit() {
     var initialSorts = columns?.where((c) => c.sortModel?.activeSort != null)?.toList(growable: false) ?? [];
     if (initialSorts.length > 1) {
-      throw ArgumentError(
-          'Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
+      throw ArgumentError('Initial sort can only be set on one column at most, found ${initialSorts.length} columns');
     }
   }
 }

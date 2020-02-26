@@ -1,3 +1,9 @@
+## 1.3.0
+
+- From this minor version, there will be a path version for the angular alpha version too
+- SkawaMaterialBannerComponent added
+
+
 ## 1.2.2
 
 - Minor styling on SkawaDataTableComponent

@@ -1,3 +1,8 @@
+## 1.3.0
+
+- From this minor version, there will be a path version for the angular alpha version too
+- Performance update on SkawaListWrapperComponent for normal use cases
+
 ## 1.2.2
 
 - SkawaForDirective onLoad ouput stream added

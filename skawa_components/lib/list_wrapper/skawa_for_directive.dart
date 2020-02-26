@@ -29,23 +29,25 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
   final NgZone _ngZone;
   final Map<T, int> _heightMap = {};
 
-  List<T> _dataSource;
   int topHeight = 0;
   int scrollHeight = 0;
   int startIndex = 0;
   int _renderedComponentNumber = 0;
   int _lastScrollTop = 0;
-  int _itemHeight;
+  SkawaForSource<T> _source;
 
   SkawaForDirective(this.viewContainerRef, this._templateRef, this.skawaListParent, this._ngZone);
 
   @Output('load')
   Stream<Null> get onLoad => _loadController.stream;
 
+  List<T> get _dataSource => _source.source;
+
+  int get _itemHeight => _source.height;
+
   @Input()
   set skawaForOf(SkawaForSource<T> value) {
-    _dataSource = value.source;
-    _itemHeight = value.height;
+    _source = value;
     _tearDown(value.resetList);
     _renderOnResize(null, shouldTriggerBottomReach: false);
     skawaListParent.htmlElement.scrollTop = _lastScrollTop;
@@ -128,7 +130,7 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
       ..setLocal('even', index.isEven)
       ..setLocal('odd', index.isOdd)
       ..markForCheck();
-    if (_heightMap[dataSource] == null || _heightMap[dataSource] == 0) {
+    if (!_source.defaultHeight && (_heightMap[dataSource] == null || _heightMap[dataSource] == 0)) {
       _ngZone.runAfterChangesObserved(() {
         _heightMap[dataSource] = viewRef.rootNodes.first.parent.children[localIndex].offsetHeight;
         completer.complete();
@@ -146,12 +148,23 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
     skawaListParent.setUpHeights(topHeight, bottomHeight, shouldTriggerBottomReach);
   }
 
-  int subListHeight(int startIndex, [int endIndex]) => _dataSource
-      .sublist(startIndex, endIndex)
-      .fold<int>(0, (int height, T item) => height + calculatedItemHeight(item));
+  int subListHeight(int startIndex, [int endIndex]) {
+    if (_source.defaultHeight) {
+      return _source.height * ((endIndex ?? _dataSource.length) - startIndex);
+    } else {
+      return _dataSource
+          .sublist(startIndex, endIndex)
+          .fold<int>(0, (int height, T item) => height + calculatedItemHeight(item));
+    }
+  }
 
-  int calculatedItemHeight(T item) =>
-      _heightMap[item] != 0 && _heightMap[item] != null ? _heightMap[item] : _itemHeight;
+  int calculatedItemHeight(T item) {
+    if (_source.defaultHeight) {
+      return _source.height;
+    } else {
+      return _heightMap[item] != 0 && _heightMap[item] != null ? _heightMap[item] : _itemHeight;
+    }
+  }
 
   @override
   void ngOnInit() {
@@ -170,6 +183,7 @@ class SkawaForSource<T> {
   List<T> source;
   bool resetList;
   int height;
+  bool defaultHeight;
 
-  SkawaForSource(this.source, this.resetList, this.height);
+  SkawaForSource(this.source, this.resetList, this.height, {this.defaultHeight = false});
 }
