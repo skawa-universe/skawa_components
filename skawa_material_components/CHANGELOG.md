@@ -1,3 +1,7 @@
+## 1.3.3
+
+- patch version for 6.0.0-alpha
+
 ## 1.3.2
 
 - SkawaMaterialBannerComponent renamed to SkawaBannerComponent, added missing styling
