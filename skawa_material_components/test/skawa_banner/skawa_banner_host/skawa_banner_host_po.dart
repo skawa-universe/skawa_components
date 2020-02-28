@@ -1,14 +1,14 @@
 import 'package:pageloader/pageloader.dart';
 
-import '../skawa_material_banner_po.dart';
+import '../skawa_banner_po.dart';
 
-part 'skawa_material_banner_host_po.g.dart';
+part 'skawa_banner_host_po.g.dart';
 
 @PageObject()
-abstract class SkawaMaterialBannerHostPO {
-  SkawaMaterialBannerHostPO();
+abstract class SkawaBannerHostPO {
+  SkawaBannerHostPO();
 
-  factory SkawaMaterialBannerHostPO.create(PageLoaderElement context) = $SkawaMaterialBannerHostPO.create;
+  factory SkawaBannerHostPO.create(PageLoaderElement context) = $SkawaBannerHostPO.create;
 
   @root
   PageLoaderElement get rootElement;
@@ -17,7 +17,7 @@ abstract class SkawaMaterialBannerHostPO {
   PageLoaderElement get header;
 
   @ByCheckTag()
-  SkawaMaterialBannerPO get banner;
+  SkawaBannerPO get banner;
 
   @ByCss('.main-content')
   PageLoaderElement get content;

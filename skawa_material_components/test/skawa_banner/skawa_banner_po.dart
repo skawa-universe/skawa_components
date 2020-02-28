@@ -1,13 +1,13 @@
 import 'package:pageloader/pageloader.dart';
 
-part 'skawa_material_banner_po.g.dart';
+part 'skawa_banner_po.g.dart';
 
 @PageObject()
-@CheckTag('skawa-material-banner')
-abstract class SkawaMaterialBannerPO {
-  SkawaMaterialBannerPO();
+@CheckTag('skawa-banner')
+abstract class SkawaBannerPO {
+  SkawaBannerPO();
 
-  factory SkawaMaterialBannerPO.create(PageLoaderElement context) = $SkawaMaterialBannerPO.create;
+  factory SkawaBannerPO.create(PageLoaderElement context) = $SkawaBannerPO.create;
 
   @root
   PageLoaderElement get rootElement;

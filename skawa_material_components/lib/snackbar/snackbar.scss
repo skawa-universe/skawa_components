@@ -45,9 +45,3 @@
     align-self: center;
   }
 }
-
-:host-context(.touch-enabled) {
-  .snackbar-container {
-    height: 96px;
-  }
-}

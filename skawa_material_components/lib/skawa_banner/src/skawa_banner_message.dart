@@ -1,6 +1,6 @@
-part of skawa_material_banner;
+part of skawa_banner;
 
-class SkawaMaterialBannerMessage {
+class SkawaBannerMessage {
   /// The message text to display
   /// Messages breaking into more than two lines will be truncated
   final String text;
@@ -47,7 +47,7 @@ class SkawaMaterialBannerMessage {
   /// Will not be completed (triggered) if the message was overridden by another message
   Completer<DateTime> dismissEvent = Completer();
 
-  SkawaMaterialBannerMessage(this.text,
+  SkawaBannerMessage(this.text,
       {this.icon,
       List<BannerAction> actions,
       this.actionsBelow = true,
@@ -58,7 +58,7 @@ class SkawaMaterialBannerMessage {
         timeCreated = DateTime.now();
 
   /// Redirect constructor for an information message with an icon
-  SkawaMaterialBannerMessage.info(String text,
+  SkawaBannerMessage.info(String text,
       {List<BannerAction> actions,
       bool actionsBelow,
       BannerMessagePriority priority = BannerMessagePriority.low,
@@ -73,7 +73,7 @@ class SkawaMaterialBannerMessage {
             beforeDispatch: beforeDispatch);
 
   /// Redirect constructor for a warning message with an icon
-  SkawaMaterialBannerMessage.warning(String text,
+  SkawaBannerMessage.warning(String text,
       {List<BannerAction> actions,
       bool actionsBelow = true,
       BannerMessagePriority priority = BannerMessagePriority.normal,
@@ -88,7 +88,7 @@ class SkawaMaterialBannerMessage {
             beforeDispatch: beforeDispatch);
 
   /// Redirect constructor for an error message with an icon
-  SkawaMaterialBannerMessage.error(String text,
+  SkawaBannerMessage.error(String text,
       {List<BannerAction> actions,
       bool actionsBelow = true,
       BannerMessagePriority priority = BannerMessagePriority.normal,

@@ -4,6 +4,19 @@
 :host {
   font-size: 14px;
 
+  .color-info {
+    color: #3f51b5;
+  }
+
+  .color-warning {
+    color: rgb(251, 192, 45);
+  }
+
+  .color-error {
+    color: rgb(255, 0, 0);
+  }
+
+
   @keyframes fadeIn {
     0% {
       opacity: 0;
