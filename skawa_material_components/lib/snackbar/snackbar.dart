@@ -88,7 +88,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
 
   void _slideIn() {
     show = true;
-    _animationBlocker = new Timer(minimumSlideInDelay, () {
+    _animationBlocker = Timer(minimumSlideInDelay, () {
       _animationBlocker = null;
       if (nextMessage != null) {
         _slideOut();
@@ -104,7 +104,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
 
   void transitionEnd(_) {
     if (show) {
-      _messageTimer = new Timer(message.duration, () {
+      _messageTimer = Timer(message.duration, () {
         _messageTimer = null;
         _slideOut();
       });

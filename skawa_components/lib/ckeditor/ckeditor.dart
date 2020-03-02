@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:js_util';
+
 import 'package:angular/angular.dart';
 
 import 'ckeditor_interop.dart' as js_ck;
 
 /// Simple CKEditor wrapper component.
 ///
-/// *Note:* CKEditor component uses ckeditor.js, make sure it is available, this component compatible with the 4.*.4 version
+/// *Note:* CKEditor component uses ckeditor.js, make sure it is available, this component compatible with the 4.* version
 ///
 /// __Example usage:__
 ///
@@ -27,7 +28,7 @@ import 'ckeditor_interop.dart' as js_ck;
 ///
 @Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
-  final _changeController = new StreamController<String>.broadcast();
+  final _changeController = StreamController<String>.broadcast();
   _CKEditor _ckeditor;
 
   @Input()

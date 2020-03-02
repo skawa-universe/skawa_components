@@ -54,16 +54,16 @@
         transition-timing-function: cubic-bezier(.4, 0, .2, 1);
         transition-property: background-color;
 
-        &:hover, &.highlighted {
-          background-color: rgba(158, 158, 158, 0.2) !important;
-        }
-
         &.selected {
           background-color: rgba(158, 158, 158, 0.3);
         }
 
         &.odd-row {
           background-color: rgba(158, 158, 158, 0.1);
+        }
+
+        &:hover, &.highlighted {
+          background-color: rgba(158, 158, 158, 0.2);
         }
       }
     }

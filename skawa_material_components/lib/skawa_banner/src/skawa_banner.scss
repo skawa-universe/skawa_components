@@ -1,0 +1,117 @@
+@import 'package:angular_components/css/mdc_web/card/mdc-card';
+@import 'package:skawa_material_components/css/_responsiveness';
+
+:host {
+  font-size: 14px;
+
+  .color-info {
+    color: #3f51b5;
+  }
+
+  .color-warning {
+    color: rgb(251, 192, 45);
+  }
+
+  .color-error {
+    color: rgb(255, 0, 0);
+  }
+
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    33% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    66% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  section.banner {
+    width: 100%;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 900;
+    top: 0;
+    max-height: 0;
+    padding: 0 8px 0 16px;
+    opacity: 0;
+    transition: max-height 0.3s ease, padding-top 0.3s ease, padding-bottom 0.3s ease;
+    animation: fadeOut 0.3s;
+
+    &.actions-below {
+      flex-direction: column;
+    }
+
+    &.show {
+      max-height: 72px;
+      padding: 10px 8px 8px 16px;
+      opacity: 1;
+      animation: fadeIn 0.3s;
+
+      div.message {
+        padding-right: 36px;
+
+        @include tablet() {
+          padding-right: 90px;
+        }
+      }
+
+      &.actions-below {
+        max-height: 120px;
+        padding: 24px 8px 8px 16px;
+
+        div.message {
+          padding-right: 16px;
+        }
+
+        div.actions {
+          padding-top: 12px;
+        }
+
+      }
+    }
+
+    div.message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+
+      span {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      material-icon {
+        padding: 0 16px 0 16px;
+        @include tablet() {
+          padding: 0 24px 0 16px;
+        }
+      }
+    }
+
+    div.actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

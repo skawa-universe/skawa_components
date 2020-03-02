@@ -1,0 +1,21 @@
+<section
+        *ngIf="active"
+        class="mdc-card mdc-card--outlined banner"
+        [class.show]="show"
+        [class.actions-below]="message?.actionsBelow ?? false"
+        (animationend)="animationEnd">
+    <div class="message">
+        <material-icon *ngIf="message?.icon != null"
+                       [icon]="message?.icon?.icon"
+                       class="icon-large {{message?.icon?.iconClass}}">
+        </material-icon>
+        <span>{{message?.text}}</span>
+    </div>
+    <div class="actions" *ngIf="hasActions">
+        <material-button *ngFor="let action of message.actions"
+                         class="color--primary-action"
+                         (trigger)="handleAction(action)">
+            {{action.message}}
+        </material-button>
+    </div>
+</section>

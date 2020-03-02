@@ -1,3 +1,5 @@
+@import 'package:skawa_material_components/css/_responsiveness';
+
 @mixin shadow-2dp() {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
   0 3px 1px -2px rgba(0, 0, 0, 0.14),
@@ -8,7 +10,7 @@
   @include shadow-2dp;
   position: fixed;
   left: 50%;
-  bottom: 0px;
+  bottom: 0;
   transform: translate(-50%, 100%);
   font-size: 14px;
   z-index: 10000;
@@ -21,6 +23,16 @@
   border-radius: 2px;
   transition: transform 0.5s ease;
 
+  @include mobile() {
+    height: 96px;
+  }
+  @include tablet-only() {
+    height: 72px;
+  }
+  @include desktop() {
+    height: 48px;
+  }
+
   material-button {
     align-self: center;
   }
@@ -31,11 +43,5 @@
 
   .message, .action {
     align-self: center;
-  }
-}
-
-:host-context(.touch-enabled) {
-  .snackbar-container {
-    height: 96px;
   }
 }
