@@ -41,6 +41,9 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   String content;
 
   @Input()
+  Map<String, dynamic> config;
+
+  @Input()
   String configUrl;
 
   @Output('change')
@@ -49,7 +52,8 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   String get value => _ckeditor.getEditorData();
 
   @override
-  void ngAfterViewInit() => _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl);
+  void ngAfterViewInit() =>
+      _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl, config: config);
 
   @override
   void ngOnDestroy() {
@@ -70,12 +74,16 @@ class _CKEditor {
   js_ck.CKEditorInstance _jsEditorInstance;
 
   _CKEditor(String editorElementSelector,
-      {Iterable<ExtraPlugin> extraPlugins = const [], String configUrl = '/ckeditor/config.js'}) {
+      {Iterable<ExtraPlugin> extraPlugins = const [],
+      String configUrl = '/ckeditor/config.js',
+      Map<String, dynamic> config}) {
     /// add external plugins
     _maybeAddExtraPlugins(extraPlugins);
 
     /// Load editor
-    _jsEditorInstance = js_ck.CKEditor.replace(editorElementSelector, jsify({'customConfig': configUrl}));
+    _jsEditorInstance = (config != null)
+        ? js_ck.CKEditor.replace(editorElementSelector, jsify(config))
+        : js_ck.CKEditor.replace(editorElementSelector, jsify({'customConfig': configUrl}));
   }
 
   String getEditorData() {

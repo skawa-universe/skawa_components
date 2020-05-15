@@ -6,12 +6,14 @@ import 'package:skawa_components/ckeditor/ckeditor.dart';
 import 'package:test/test.dart';
 import 'package:html_unescape/html_unescape.dart';
 
+import './dartlogo/config.dart';
 import 'ckeditor_test.template.dart' as ng;
 
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {
+    print('edit');
     var bed = NgTestBed<TestEditorComponent>();
     var fixture = await bed.create();
     await fixture.update();
@@ -22,6 +24,12 @@ void main() {
     }));
     expect(fixture.assertOnlyInstance.editor.configUrl, '/dartlogo/config.js');
     expect(HtmlUnescape().convert(fixture.assertOnlyInstance.editor.value), TestEditorComponent._TEST_MARKUP);
+  });
+  test('CKEditorConfig', () async {
+    var bed = NgTestBed<ConfigEditorComponent>();
+    var fixture = await bed.create();
+    await fixture.update();
+    expect(fixture.assertOnlyInstance.editor.config['language'], 'en');
   });
 }
 
@@ -41,4 +49,16 @@ class TestEditorComponent {
   String get escaped => htmlEscape.convert(_TEST_MARKUP);
 
   static const String _TEST_MARKUP = 'Some <br /> content <p>comes here.</p>';
+}
+
+@Component(selector: 'config-cke', template: '''
+  <skawa-ckeditor editorName="editor" 
+                  [config]="config">
+  </skawa-ckeditor>
+  ''', directives: [SkawaCkeditorComponent])
+class ConfigEditorComponent {
+  Map<String, dynamic> config = editorConfig();
+
+  @ViewChild(SkawaCkeditorComponent)
+  SkawaCkeditorComponent editor;
 }
