@@ -13,7 +13,6 @@ void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
   test('CKEditor', () async {
-    print('edit');
     var bed = NgTestBed<TestEditorComponent>();
     var fixture = await bed.create();
     await fixture.update();
