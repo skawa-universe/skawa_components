@@ -6,7 +6,6 @@ import 'package:skawa_components/ckeditor/ckeditor.dart';
 import 'package:test/test.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-import './dartlogo/config.dart';
 import 'ckeditor_test.template.dart' as ng;
 
 void main() {
@@ -56,7 +55,7 @@ class TestEditorComponent {
   </skawa-ckeditor>
   ''', directives: [SkawaCkeditorComponent])
 class ConfigEditorComponent {
-  Map<String, dynamic> config = editorConfig();
+  Map<String, dynamic> config = { 'language': 'en' };
 
   @ViewChild(SkawaCkeditorComponent)
   SkawaCkeditorComponent editor;
