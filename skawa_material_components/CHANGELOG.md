@@ -1,3 +1,15 @@
+## 1.3.3
+
+- patch version for 6.0.0-alpha
+
+## 1.3.2
+
+- SkawaMaterialBannerComponent renamed to SkawaBannerComponent, added missing styling
+
+## 1.3.1
+
+- patch version for 6.0.0-alpha
+
 ## 1.3.0
 
 - From this minor version, there will be a path version for the angular alpha version too

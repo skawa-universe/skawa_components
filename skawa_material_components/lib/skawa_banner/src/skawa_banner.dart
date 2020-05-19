@@ -1,21 +1,21 @@
-part of skawa_material_banner;
+part of skawa_banner;
 
 @Component(
-    selector: 'skawa-material-banner',
-    templateUrl: 'src/skawa_material_banner.html',
-    styleUrls: ['src/skawa_material_banner.css'],
+    selector: 'skawa-banner',
+    templateUrl: 'src/skawa_banner.html',
+    styleUrls: ['src/skawa_banner.css'],
     directives: [MaterialIconComponent, MaterialButtonComponent, coreDirectives],
     changeDetection: ChangeDetectionStrategy.OnPush)
-class SkawaMaterialBannerComponent implements OnInit, OnDestroy {
+class SkawaBannerComponent implements OnInit, OnDestroy {
   final ChangeDetectorRef _changeDetectorRef;
-  final SkawaMaterialBannerService _bannerService;
+  final SkawaBannerService _bannerService;
   final Disposer disposer = Disposer.oneShot();
 
   bool active = false;
   bool show = false;
-  SkawaMaterialBannerMessage message;
+  SkawaBannerMessage message;
 
-  SkawaMaterialBannerComponent(this._changeDetectorRef, this._bannerService);
+  SkawaBannerComponent(this._changeDetectorRef, this._bannerService);
 
   bool get hasActions => message?.actions != null && message.actions.isNotEmpty;
 
@@ -40,7 +40,7 @@ class SkawaMaterialBannerComponent implements OnInit, OnDestroy {
 
   @override
   Future<void> ngOnInit() async {
-    disposer.addStreamSubscription(_bannerService.dispatch.listen((SkawaMaterialBannerMessage event) async {
+    disposer.addStreamSubscription(_bannerService.dispatch.listen((SkawaBannerMessage event) async {
       message = null;
       show = false;
       active = true;

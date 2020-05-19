@@ -1,19 +1,19 @@
-part of skawa_material_banner;
+part of skawa_banner;
 
-class SkawaMaterialBannerService {
+class SkawaBannerService {
   /// The message currently displayed by the banner component
-  SkawaMaterialBannerMessage current;
+  SkawaBannerMessage current;
 
   /// Messages waiting in the queue for later appearance
-  final List<SkawaMaterialBannerMessage> messageQueue = [];
+  final List<SkawaBannerMessage> messageQueue = [];
 
-  final StreamController<SkawaMaterialBannerMessage> _dispatchController =
-      StreamController<SkawaMaterialBannerMessage>.broadcast();
+  final StreamController<SkawaBannerMessage> _dispatchController =
+      StreamController<SkawaBannerMessage>.broadcast();
 
-  Stream<SkawaMaterialBannerMessage> get dispatch => _dispatchController.stream;
+  Stream<SkawaBannerMessage> get dispatch => _dispatchController.stream;
 
   /// Either displays the message or puts it in the queue, based on message priority and already displayed message
-  Future<DateTime> showMessage(SkawaMaterialBannerMessage message) {
+  Future<DateTime> showMessage(SkawaBannerMessage message) {
     if (message.priority == BannerMessagePriority.normal || current == null) {
       // Dispatch immediately
       _dispatch(message);
@@ -26,7 +26,7 @@ class SkawaMaterialBannerService {
 
   void _dispatchNext() {
     current = null;
-    SkawaMaterialBannerMessage nextMessage;
+    SkawaBannerMessage nextMessage;
     while (nextMessage == null && messageQueue.isNotEmpty) {
       nextMessage = messageQueue.removeAt(0);
       // Check if this message is still relevant (i.e. its TTL value is not yet expired)
@@ -45,7 +45,7 @@ class SkawaMaterialBannerService {
     }
   }
 
-  void _dispatch(SkawaMaterialBannerMessage message) {
+  void _dispatch(SkawaBannerMessage message) {
     current = message;
     current.dispatch();
     _dispatchController.add(current);
