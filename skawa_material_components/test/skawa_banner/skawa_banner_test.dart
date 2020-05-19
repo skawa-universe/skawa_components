@@ -23,8 +23,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
 
   group('Banner', () {
-    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(
-        ng.SkawaBannerHostComponentNgFactory,
+    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
         rootInjector: rootInjector);
     NgTestFixture<SkawaBannerHostComponent> fixture;
 
@@ -39,8 +38,7 @@ void main() {
       expect(bannerHostPO.content.visibleText, contains("doge"));
       expect(bannerHostPO.banner.section, notExists);
       await bannerHostPO.showWarning();
-      await fixture
-          .update((SkawaBannerHostComponent host) async => await host.warningMessage.dispatchEvent.future);
+      await fixture.update((SkawaBannerHostComponent host) async => await host.warningMessage.dispatchEvent.future);
       expect(bannerHostPO.banner.section, exists);
       expect(bannerHostPO.banner.message, equals("This is a warning"));
       expect(bannerHostPO.banner.iconName, equals("warning"));
@@ -50,8 +48,7 @@ void main() {
     test('low priority message gets queued', () async {
       // Send a normal priority message
       await bannerHostPO.showError();
-      await fixture
-          .update((SkawaBannerHostComponent host) async => await host.errorMessage.dispatchEvent.future);
+      await fixture.update((SkawaBannerHostComponent host) async => await host.errorMessage.dispatchEvent.future);
       expect(bannerHostPO.banner.section, exists);
       expect(bannerHostPO.banner.message, equals("This is an error"));
       expect(bannerHostPO.banner.iconName, equals("error"));
@@ -68,23 +65,20 @@ void main() {
 
       // Dismiss the first message, and expect the second message to be dispatched
       await bannerHostPO.banner.trigger(0);
-      await fixture
-          .update((SkawaBannerHostComponent host) async => await host.errorMessage.dismissEvent.future);
+      await fixture.update((SkawaBannerHostComponent host) async => await host.errorMessage.dismissEvent.future);
       await fixture.update();
-      await fixture
-          .update((SkawaBannerHostComponent host) async {
-            await host.infoMessage.dispatchEvent.future;
-            expect(bannerHostPO.banner.message, equals("This is an info"));
-            expect(bannerHostPO.banner.iconName, equals("info"));
-            expect(bannerHostPO.banner.iconClass, equals("color-info"));
-          });
+      await fixture.update((SkawaBannerHostComponent host) async {
+        await host.infoMessage.dispatchEvent.future;
+        expect(bannerHostPO.banner.message, equals("This is an info"));
+        expect(bannerHostPO.banner.iconName, equals("info"));
+        expect(bannerHostPO.banner.iconClass, equals("color-info"));
+      });
     });
 
     test('beforeDispatch callback can be used to discard obsolete messages', () async {
       // Send a normal priority message
       await bannerHostPO.showError();
-      await fixture
-          .update((SkawaBannerHostComponent host) async => await host.errorMessage.dispatchEvent.future);
+      await fixture.update((SkawaBannerHostComponent host) async => await host.errorMessage.dispatchEvent.future);
       await fixture.update();
       expect(bannerHostPO.banner.section, exists);
       expect(bannerHostPO.banner.message, equals("This is an error"));
@@ -103,17 +97,15 @@ void main() {
       // returning false
       await bannerHostPO.banner.trigger(0);
       await fixture.update();
-      await fixture
-          .update((SkawaBannerHostComponent host) async {
-            await host.errorMessage.dismissEvent.future;
-            expect(bannerHostPO.banner.section, notExists);
+      await fixture.update((SkawaBannerHostComponent host) async {
+        await host.errorMessage.dismissEvent.future;
+        expect(bannerHostPO.banner.section, notExists);
       });
     });
   });
 
   group('Layout (html)', () {
-    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(
-        ng.SkawaBannerHostComponentNgFactory,
+    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
         rootInjector: rootInjector);
     NgTestFixture<SkawaBannerHostComponent> fixture;
 
@@ -126,8 +118,7 @@ void main() {
     test('banner is sticky', () async {
       const int scrollY = 200;
       await bannerHostPO.showWarning();
-      await fixture
-          .update((SkawaBannerHostComponent host) async => await host.warningMessage.dispatchEvent.future);
+      await fixture.update((SkawaBannerHostComponent host) async => await host.warningMessage.dispatchEvent.future);
       await fixture.update();
       num hostInitialPosition = bannerHostPO.rootElement.getBoundingClientRect().top;
       window.scrollTo(0, scrollY);
