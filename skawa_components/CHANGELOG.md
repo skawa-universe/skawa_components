@@ -1,3 +1,7 @@
+## 1.3.2
+
+- CKEditor can be used with custom config map
+
 ## 1.3.1
 
 - patch version for 6.0.0-alpha

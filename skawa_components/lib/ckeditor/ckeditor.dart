@@ -80,10 +80,10 @@ class _CKEditor {
     /// add external plugins
     _maybeAddExtraPlugins(extraPlugins);
 
+    Map _config = config ?? {'customConfig': configUrl};
+
     /// Load editor
-    _jsEditorInstance = (config != null)
-        ? js_ck.CKEditor.replace(editorElementSelector, jsify(config))
-        : js_ck.CKEditor.replace(editorElementSelector, jsify({'customConfig': configUrl}));
+    _jsEditorInstance = js_ck.CKEditor.replace(editorElementSelector, jsify(_config));
   }
 
   String getEditorData() {

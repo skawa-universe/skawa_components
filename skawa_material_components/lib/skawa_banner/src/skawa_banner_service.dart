@@ -7,8 +7,7 @@ class SkawaBannerService {
   /// Messages waiting in the queue for later appearance
   final List<SkawaBannerMessage> messageQueue = [];
 
-  final StreamController<SkawaBannerMessage> _dispatchController =
-      StreamController<SkawaBannerMessage>.broadcast();
+  final StreamController<SkawaBannerMessage> _dispatchController = StreamController<SkawaBannerMessage>.broadcast();
 
   Stream<SkawaBannerMessage> get dispatch => _dispatchController.stream;
 

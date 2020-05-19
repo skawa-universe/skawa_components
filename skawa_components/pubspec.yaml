@@ -1,9 +1,10 @@
 name: skawa_components
-version: 1.3.1
+version: 1.3.2
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
   - Varga-Hali Daniel <https://github.com/daniel-v>
+  - Farmasi Bulcsú <https://github.com/BulcsuFarmasi>
 description:
   Additional components for AngularDart based on Material Design principles. These reusable components are not part of the official  Material Components library.
 homepage: https://github.com/skawa-universe/skawa_components

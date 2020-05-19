@@ -55,7 +55,7 @@ class TestEditorComponent {
   </skawa-ckeditor>
   ''', directives: [SkawaCkeditorComponent])
 class ConfigEditorComponent {
-  Map<String, dynamic> config = { 'language': 'en' };
+  Map<String, dynamic> config = {'language': 'en'};
 
   @ViewChild(SkawaCkeditorComponent)
   SkawaCkeditorComponent editor;
