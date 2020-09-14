@@ -6,7 +6,6 @@ import 'package:meta/meta.dart' show visibleForTesting;
 ///
 /// Used by [FeatureToggleEnabledDirective] & [FeatureToggleDisabledDirective]
 abstract class FeatureToggleService {
-
   /// Determines if a feature is enabled or not
   bool isEnabled(String featureName);
 }
@@ -38,7 +37,6 @@ abstract class FeatureToggleBase {
   bool _previouslyShown;
   String _previousFeature;
 }
-
 
 @Directive(
   selector: '[featureEnabled]',
