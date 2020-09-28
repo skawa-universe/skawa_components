@@ -123,7 +123,7 @@ void main() {
     tearDown(() async {
       await disposeAnyRunningTest();
     });
-    test('changing eature updates UI', () async {
+    test('changing feature updates UI', () async {
       final mockService = MockToggleService();
       when(mockService.isEnabled(captureAny)).thenAnswer((realInvocation) {
         final featureName = realInvocation.positionalArguments.first as String;
@@ -181,7 +181,17 @@ class TestStructuralComponent {}
   changeDetection: ChangeDetectionStrategy.OnPush,
 )
 class TestUpdatableStructuralComponent {
-  String featureName = 'disabledFeature';
+  final ChangeDetectorRef changeDetectorRef;
+  String _featureName = 'disabledFeature';
+
+  TestUpdatableStructuralComponent(this.changeDetectorRef);
+
+  String get featureName => _featureName;
+
+  set featureName(String value) {
+    _featureName = value;
+    changeDetectorRef.markForCheck();
+  }
 }
 
 class TestFeatureToggleImpl extends FeatureToggleBase {
