@@ -18,6 +18,7 @@ abstract class FeatureToggleBase {
 
   bool shouldDisplay(String featureName);
 
+  /// Inserts or removes [_templateRef] based on the enabled state of a feature
   void toggleDisplay(String name, TemplateRef _templateRef, ViewContainerRef _viewContainer) {
     final isFeatureShown = shouldDisplay(name);
     // if feature is the same and its state is the same as previously,
@@ -26,6 +27,7 @@ abstract class FeatureToggleBase {
       return;
     }
     if (isFeatureShown) {
+      _viewContainer.clear();
       _viewContainer.createEmbeddedView(_templateRef);
     } else {
       _viewContainer.clear();
@@ -45,9 +47,8 @@ class FeatureToggleEnabledDirective extends FeatureToggleBase {
   final TemplateRef _templateRef;
   final ViewContainerRef _viewContainer;
 
-  FeatureToggleEnabledDirective(this._templateRef, this._viewContainer, @Optional() FeatureToggleService toggleService)
-      : assert(toggleService != null),
-        super(toggleService);
+  FeatureToggleEnabledDirective(this._templateRef, this._viewContainer, FeatureToggleService toggleService)
+      : super(toggleService);
 
   @Input('featureEnabled')
   set featureName(String name) {
@@ -68,8 +69,7 @@ class FeatureToggleDisabledDirective extends FeatureToggleBase {
   final ViewContainerRef _viewContainer;
 
   FeatureToggleDisabledDirective(this._templateRef, this._viewContainer, FeatureToggleService toggleService)
-      : assert(toggleService != null),
-        super(toggleService);
+      : super(toggleService);
 
   @Input('featureDisabled')
   set featureName(String name) {
