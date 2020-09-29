@@ -42,7 +42,7 @@ void main() {
       expect(pageObject.listWrapper.spanList.length, 8);
       expect(pageObject.listWrapper.spanList.first.innerText, sampleList[sampleList.length - 9]);
     });
-  });
+  }, skip: 'Scrolling is not consistent on ci');
 }
 
 @Component(
