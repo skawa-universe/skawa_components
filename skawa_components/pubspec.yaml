@@ -1,5 +1,5 @@
 name: skawa_components
-version: 1.3.3
+version: 1.4.0
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
@@ -20,6 +20,7 @@ dependencies:
   js: ^0.6.1+1
   intl: ^0.15.7
   diff_match_patch: ^0.3.0
+  meta: ^1.2.2
 
 dev_dependencies:
   html_unescape: ^1.0.1+2

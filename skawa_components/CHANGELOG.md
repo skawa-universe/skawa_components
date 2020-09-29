@@ -1,3 +1,7 @@
+## 1.4.0
+
+- New structural directives: `[featureEnabled]` and `[featureDisabled]`
+
 ## 1.3.3
 
 - patch version for 6.0.0-alpha
