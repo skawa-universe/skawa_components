@@ -125,12 +125,14 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     _emitChange();
   }
 
-  void markAllRowsChecked(bool checked, [bool emit = false]) {
+  void markAllRowsChecked(bool checked, Event event) {
     rows.forEach((row) => row.checked = checked);
-    if (emit) _emitChange();
+    _emitChange();
+    event.stopPropagation();
   }
 
   void highlight(T row, Event ev) {
+    ev.stopPropagation();
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
       highlightedRow = row != highlightedRow ? row : null;
@@ -152,6 +154,12 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
       }
     }
     return true;
+  }
+
+  void triggerCell(SkawaDataTableColComponent c, RowData row, Event event) {
+    c.trigger(row);
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   void triggerSort(SkawaDataTableColComponent column) {

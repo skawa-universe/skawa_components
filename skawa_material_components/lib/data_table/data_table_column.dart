@@ -42,6 +42,7 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     selector: 'skawa-data-table-col',
     template: '',
     directives: [SkawaDataColRendererDirective],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     visibility: Visibility.all)
 class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();

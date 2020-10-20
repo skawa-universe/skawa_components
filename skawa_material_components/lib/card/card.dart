@@ -30,7 +30,11 @@ const List<Type> skawaCardDirectives = [
 ///   - `no-shadow`: Will not add default shadow.
 ///
 @Component(
-    selector: 'skawa-card', template: '<ng-content></ng-content>', styleUrls: ['card.css'], visibility: Visibility.all)
+    selector: 'skawa-card',
+    template: '<ng-content></ng-content>',
+    styleUrls: ['card.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    visibility: Visibility.all)
 class SkawaCardComponent {
   @ContentChild(SkawaCardHeaderComponent)
   SkawaCardHeaderComponent cardHeader;
