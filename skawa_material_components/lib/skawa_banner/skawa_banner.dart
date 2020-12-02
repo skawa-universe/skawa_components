@@ -10,5 +10,7 @@ import 'package:angular_components/utils/disposer/disposer.dart';
 import 'package:intl/intl.dart';
 
 part 'src/skawa_banner.dart';
+
 part 'src/skawa_banner_message.dart';
+
 part 'src/skawa_banner_service.dart';

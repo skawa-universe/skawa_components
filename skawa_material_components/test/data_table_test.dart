@@ -5,7 +5,6 @@ import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_material_components/data_table/data_table.dart';
 import 'package:skawa_material_components/data_table/data_table_column.dart';
-import 'package:skawa_material_components/data_table/row_data.dart';
 import 'package:test/test.dart';
 
 import 'data_table_po/test_po.dart';
@@ -32,7 +31,7 @@ void main() {
       table.tbody.tr.forEach((TableRowPO trElement) {
         expect(trElement.td.length, 2);
         expect(trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, rowData[index].opinion);
+        expect(trElement.td[1].rootElement.innerText, rowData.rows[index].data.opinion);
         index++;
       });
     });
@@ -52,9 +51,9 @@ void main() {
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) async {
         expect(trElement.td.length, 2);
-        expect(trElement.td[0].rootElement.innerText, rowData[index].name);
+        expect(trElement.td[0].rootElement.innerText, rowData.rows[index].data.name);
         expect(trElement.td[0].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, rowData[index].opinion);
+        expect(trElement.td[1].rootElement.innerText, rowData.rows[index].data.opinion);
         expect(trElement.td[1].rootElement.classes.contains('new-test-class'), isTrue);
         index++;
       });
@@ -76,12 +75,12 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) {
-        int male = selectableRowData[index].male;
-        int female = selectableRowData[index].female;
+        int male = selectableRowData.rows[index].data.male;
+        int female = selectableRowData.rows[index].data.female;
         expect(trElement.rootElement.classes.contains('selected'), isFalse);
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData.rows[index].data.category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -114,12 +113,12 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       table.tbody.tr.forEach((TableRowPO trElement) async {
-        int male = selectableRowData[index].male;
-        int female = selectableRowData[index].female;
+        int male = selectableRowData.rows[index].data.male;
+        int female = selectableRowData.rows[index].data.female;
         expect(trElement.rootElement.classes.contains('selected'), isTrue);
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData.rows[index].data.category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -157,11 +156,11 @@ void main() {
       expect(table.thead.tr.th[1].rootElement.classes.contains('text-column--header'), isTrue);
       int index = 0;
       Future.forEach(table.tbody.tr, (TableRowPO trElement) async {
-        int male = selectableRowData[index].male;
-        int female = selectableRowData[index].female;
+        int male = selectableRowData.rows[index].data.male;
+        int female = selectableRowData.rows[index].data.female;
         expect(trElement.td.length, 5);
         expect(trElement.td[1].rootElement.classes.contains('text-column'), isTrue);
-        expect(trElement.td[1].rootElement.innerText, selectableRowData[index].category);
+        expect(trElement.td[1].rootElement.innerText, selectableRowData.rows[index].data.category);
         expect(trElement.td[2].rootElement.innerText, male.toString());
         expect(trElement.td[3].rootElement.innerText, female.toString());
         expect(trElement.td[4].rootElement.innerText, (male + female).toString());
@@ -256,120 +255,138 @@ void main() {
 }
 
 @Component(selector: 'test', template: '''
-    <skawa-data-table [data]="data" [selectable]="false">
-       <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
-       <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
+    <skawa-data-table [data]="data">
+      <skawa-data-table-col [accessor]="makeAccessor" header="Car make" class="text-column"></skawa-data-table-col>
+      <skawa-data-table-col [accessor]="opinionAccessor" header="My strong opinion" [class]="cssClass"></skawa-data-table-col>
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
   SkawaDataTableColComponent
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SampleRowData>>(),
-  Typed<SkawaDataTableColComponent<SampleRowData>>()
+  Typed<SkawaDataTableColComponent<SampleRowData, dynamic>>()
 ])
 class NonSelectableDatatableTestComponent {
   String cssClass;
 
-  String makeAccessor(SampleRowData row) => row.name;
+  static String makeAccessor(SampleRowData row) => row.name;
 
-  String opinionAccessor(SampleRowData row) => row.opinion;
+  static String opinionAccessor(SampleRowData row) => row.opinion;
 
-  List<SampleRowData> get data => rowData;
+  TableRows<SampleRowData> get data => rowData;
+
+  List<SkawaDataTableColComponent<SampleRowData, dynamic>> columns = [
+    SkawaDataTableColComponent<SampleRowData, dynamic>()
+      ..accessor = makeAccessor
+      ..header = 'Car make',
+    SkawaDataTableColComponent<SampleRowData, dynamic>()
+      ..accessor = opinionAccessor
+      ..header = 'My strong opinion'
+  ];
 }
 
-List<SampleRowData> rowData = <SampleRowData>[
-  SampleRowData('Trabant', 'Eastern delight', classes: ['trabant']),
-  SampleRowData('Jaguar', 'Hrrrrr'),
-  SampleRowData('Ford', 'Something for everybody'),
-  SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?'),
-];
+TableRows<SampleRowData> rowData = TableRows()
+  ..selectable = false
+  ..addRow(SampleRowData('Trabant', 'Eastern delight'), classes: ['trabant'])
+  ..addRows([
+    SampleRowData('Jaguar', 'Hrrrrr'),
+    SampleRowData('Ford', 'Something for everybody'),
+    SampleRowData('Renault', 'Well, RedBull F1 team uses them, why not?')
+  ]);
 
 @Component(selector: 'test', template: '''
-    <skawa-data-table [data]="rowData" [selectable]="true" (sort)="sort(\$event)">
-      <skawa-data-table-col [accessor]="categoryAccessor" header="Class" footer="Total:" class="text-column"
-                          [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="maleAccessor" sortable header="Male" [footer]="aggregate(maleAccessor)"
-                          [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="femaleAccessor" sortable="desc, asc" header="Female" [footer]="aggregate(femaleAccessor)"
-                          [skipFooter]="false"></skawa-data-table-col>
-      <skawa-data-table-col [accessor]="peopleAccessor" sortable="desc"  header="All" [footer]="aggregate(peopleAccessor)"
-                          [skipFooter]="false"></skawa-data-table-col>
+    <skawa-data-table [data]="rowData">
+       <skawa-data-table-col [accessor]="categoryAccessor" 
+                            header="Class" 
+                            footer="Total:"
+                            class="text-column"
+                            [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="maleAccessor" 
+                              [sortModel]="maleSort"
+                              header="Male"
+                              [footer]="aggregate(maleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="femaleAccessor"
+                              [sortModel]="femaleSort" 
+                              header="Female" 
+                              [footer]="aggregate(femaleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
+        <skawa-data-table-col [accessor]="peopleAccessor"
+                              [sortModel]="allSort"
+                              header="All"
+                              [footer]="aggregate(peopleAccessor)"
+                              [skipFooter]="false">
+        </skawa-data-table-col>
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
-  SkawaDataTableSortDirective
+  SkawaDataTableColComponent
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SampleNumericData>>(),
-  Typed<SkawaDataTableColComponent<SampleNumericData>>()
+  Typed<SkawaDataTableColComponent<SampleNumericData, dynamic>>()
 ])
 class SelectableDatatableTestComponent {
-  String categoryAccessor(SampleNumericData row) => row.category;
+  static String categoryAccessor(SampleNumericData row) => row.category;
 
-  String maleAccessor(SampleNumericData row) => row.male.toString();
+  static String maleAccessor(SampleNumericData row) => row.male.toString();
 
-  String femaleAccessor(SampleNumericData row) => row.female.toString();
+  static String femaleAccessor(SampleNumericData row) => row.female.toString();
 
-  String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
+  static String peopleAccessor(SampleNumericData row) => (row.female + row.male).toString();
 
-  String aggregate(DataTableAccessor<SampleNumericData> accessor) {
-    Iterable<String> mapped = rowData.where((SampleNumericData row) => row.checked).map(accessor);
+  String aggregate(DataTableAccessor<SampleNumericData, String> accessor) {
+    Iterable<String> mapped = rowData.rows
+        .where((TableRow<SampleNumericData> row) => row.checked)
+        .map((TableRow<SampleNumericData> row) => accessor(row.data));
     return mapped.isNotEmpty ? mapped.reduce(_aggregateReducer) : '-';
   }
 
-  void sort(SkawaDataTableColComponent column) {
-    if (!column.sortModel.isSorted) {
-      // Apply default sorting when no sort is specified
-      rowData.sort((a, b) => a.category.compareTo(b.category));
-    } else {
-      rowData.sort((a, b) {
-        if (column.header == 'Male') {
-          return column.sortModel.isAscending ? a.male - b.male : b.male - a.male;
-        } else if (column.header == 'Female') {
-          return column.sortModel.isAscending ? a.female - b.female : b.female - a.female;
-        } else if (column.header == 'All') {
-          return (b.male + b.female) - (a.male + a.female);
-        }
-        return 0;
-      });
-    }
-  }
+  SortModel<SampleNumericData> maleSort = SortModel<SampleNumericData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.male - b.data.male : b.data.male - a.data.male);
+
+  SortModel<SampleNumericData> femaleSort = SortModel<SampleNumericData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.female - b.data.female : b.data.female - a.data.female);
+
+  SortModel<SampleNumericData> allSort = SortModel<SampleNumericData>(
+      allowedDirections: [SortDirection.desc],
+      sort: (TableRow<SampleNumericData> a, TableRow<SampleNumericData> b, SortDirection direction) =>
+          (b.data.male + b.data.female) - (a.data.male + a.data.female));
 
   String _aggregateReducer(String a, String b) {
     if (a == null || b == null) return a ?? b;
     return (int.parse(a) + int.parse(b)).toString();
   }
 
-  List<SampleNumericData> get rowData => selectableRowData;
+  TableRows<SampleNumericData> get rowData => selectableRowData;
 }
 
 @Component(selector: 'test', template: '''
-    <skawa-data-table [data]="data" (sort)="sort(\$event)" [selectable]="false">
-       <skawa-data-table-col sortable [accessor]="dataAccessor" header="Test column" class="text-column"></skawa-data-table-col>       
+    <skawa-data-table [data]="data">
+           <skawa-data-table-col [sortModel]="sortModel" [accessor]="dataAccessor" header="Test column" class="text-column"></skawa-data-table-col>       
     </skawa-data-table>
      ''', directives: [
   SkawaDataTableComponent,
-  SkawaDataTableColComponent,
-  SkawaDataTableSortDirective
+  SkawaDataTableColComponent
 ], directiveTypes: [
   Typed<SkawaDataTableComponent<SortableRowData>>(),
-  Typed<SkawaDataTableColComponent<SortableRowData>>()
+  Typed<SkawaDataTableColComponent<SortableRowData, dynamic>>()
 ])
 class SortableDatatableTestComponent {
-  String dataAccessor(SortableRowData row) => row.data;
+  static String dataAccessor(SortableRowData row) => row.data;
 
-  List<SortableRowData> get data => _sortableDataset;
+  TableRows<SortableRowData> get data => TableRows(_sortableDataset)..selectable = false;
 
-  void sort(SkawaDataTableColComponent column) {
-    if (!column.sortModel.isSorted) {
-      _sortableDataset.sort((a, b) => a.data.compareTo(b.data));
-    } else {
-      // sort in lexicographic order
-      _sortableDataset.sort((a, b) {
-        return column.sortModel.isAscending ? a.data.compareTo(b.data) : b.data.compareTo(a.data);
-      });
-    }
-  }
+  SortModel<SortableRowData> sortModel = SortModel<SortableRowData>(
+      allowedDirections: SortDirection.values,
+      sort: (TableRow<SortableRowData> a, TableRow<SortableRowData> b, SortDirection direction) =>
+          direction == SortDirection.asc ? a.data.data.compareTo(b.data.data) : b.data.data.compareTo(a.data.data));
 
   static final _sortableDataset = <SortableRowData>[
     SortableRowData('b'),
@@ -379,31 +396,32 @@ class SortableDatatableTestComponent {
   ];
 }
 
-List<SampleNumericData> selectableRowData = <SampleNumericData>[
-  SampleNumericData('1. class', 15, 12, false),
-  SampleNumericData('2. class', 11, 18, false),
-  SampleNumericData('3. class', 13, 13, false),
-  SampleNumericData('4. class', 20, 13, false),
-];
+TableRows<SampleNumericData> selectableRowData = TableRows([
+  SampleNumericData('1. class', 15, 12),
+  SampleNumericData('2. class', 11, 18),
+  SampleNumericData('3. class', 13, 13),
+  SampleNumericData('4. class', 20, 13)
+])
+  ..selectable = true;
 
-class SortableRowData extends RowData {
+class SortableRowData {
   final String data;
 
-  SortableRowData(this.data, {bool checked = false}) : super(checked);
+  SortableRowData(this.data);
 }
 
-class SampleRowData extends RowData {
+class SampleRowData {
   final String name;
 
   final String opinion;
 
-  SampleRowData(this.name, this.opinion, {List<String> classes}) : super(false, classes: classes);
+  SampleRowData(this.name, this.opinion);
 }
 
-class SampleNumericData extends RowData {
+class SampleNumericData {
   final String category;
   final int male;
   final int female;
 
-  SampleNumericData(this.category, this.male, this.female, bool selected) : super(selected);
+  SampleNumericData(this.category, this.male, this.female);
 }
