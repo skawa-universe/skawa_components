@@ -3,17 +3,6 @@ import 'package:pageloader/pageloader.dart';
 part 'data_table_po.g.dart';
 
 @PageObject()
-@CheckTag('test')
-abstract class TestPO {
-  TestPO();
-
-  factory TestPO.create(PageLoaderElement context) = $TestPO.create;
-
-  @ByTagName('skawa-data-table')
-  DatatablePO get dataTable;
-}
-
-@PageObject()
 abstract class DatatablePO {
   DatatablePO();
 

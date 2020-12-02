@@ -36,7 +36,11 @@ typedef int DataTableSort<T>(TableRow<T> a, TableRow<T> b, SortDirection directi
 /// displayed allowing implementations to use custom components within the cell. Components must use `RendersValue`
 /// mixin.
 ///
-@Component(selector: 'skawa-data-table-col', template: '')
+@Component(
+    selector: 'skawa-data-table-col',
+    template: '',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    visibility: Visibility.all)
 class SkawaDataTableColComponent<T, K> implements HasFactoryRenderer<RendersValue<K>, K>, OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
 

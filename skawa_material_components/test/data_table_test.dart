@@ -6,8 +6,9 @@ import 'package:pageloader/html.dart';
 import 'package:skawa_material_components/data_table/data_table.dart';
 import 'package:skawa_material_components/data_table/data_table_column.dart';
 import 'package:test/test.dart';
-import 'data_table_po.dart';
 
+import 'data_table_po/test_po.dart';
+import 'data_table_po/data_table_po.dart';
 import 'data_table_test.template.dart' as ng;
 
 void main() {

@@ -1,3 +1,7 @@
+## 1.5.0
+
+- angular updated to the stable 6.0.0 version
+
 ## 1.3.3
 
 - patch version for 6.0.0-alpha

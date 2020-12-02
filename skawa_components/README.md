@@ -17,6 +17,10 @@ The goal is to share a couple of components which are used internally but not ma
 * ✓ `<skawa-nav-item>`
 * ✓ `<skawa-sidebar-item>`
 
+**Currently Available directives**:
+
+* ✓ `*featureEnabled` and `*featureDisabled`
+
 **Currently Available pipes:**
 
 * ✓ `hexColorize`

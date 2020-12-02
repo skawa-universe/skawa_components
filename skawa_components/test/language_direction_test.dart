@@ -72,7 +72,7 @@ void main() {
 @Component(
     selector: 'test',
     template:
-        '''<div skawaLangugageDirection #f="skawaLangugageDirection" (click)="f.setLanguageDirection(content)"></div>''',
+        '''<div class="dir" skawaLangugageDirection #f="skawaLangugageDirection" (click)="f.setLanguageDirection(content)"></div>''',
     directives: [LanguageDirectionDirective])
 class DivTemplateComponent {
   String content;
@@ -85,7 +85,7 @@ abstract class DivTestPO {
 
   factory DivTestPO.create(PageLoaderElement context) = $DivTestPO.create;
 
-  @ByTagName('div')
+  @ByClass('dir')
   PageLoaderElement get languageDirection;
 }
 

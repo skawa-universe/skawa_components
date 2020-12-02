@@ -103,12 +103,14 @@ class SkawaDataTableComponent<T> implements OnDestroy, AfterContentInit, DoCheck
     _emitChange();
   }
 
-  void markAllRowsChecked(bool checked, [bool emit = false]) {
+  void markAllRowsChecked(bool checked, Event event) {
     data.rows.forEach((row) => row.checked = checked);
-    if (emit) _emitChange();
+    _emitChange();
+    event.stopPropagation();
   }
 
   void highlight(TableRow<T> row, Event ev) {
+    ev.stopPropagation();
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
       data.highlightedRow = row != data.highlightedRow ? row : null;

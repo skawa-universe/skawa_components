@@ -3,7 +3,7 @@
     <tr>
         <th *ngIf="data.selectable">
             <material-checkbox #markAllCheckbox
-                               (click)="markAllRowsChecked(markAllCheckbox.checked, true); $event.stopPropagation()"
+                               (click)="markAllRowsChecked(markAllCheckbox.checked, $event)"
                                [checked]="isEveryRowChecked"
                                *ngIf="data.multiSelection">
             </material-checkbox>
@@ -26,7 +26,7 @@
         [class.selected]="row.checked"
         [class.odd-row]="index % 2 != 0 && data.colorOddRows"
         [class.even-row]="index % 2 == 0 && data.colorOddRows"
-        (click)="highlight(row, $event); $event.stopPropagation()"
+        (click)="highlight(row, $event)"
         [class.highlighted]="row == data.highlightedRow">
         <td *ngIf="data.selectable">
             <material-checkbox
@@ -44,7 +44,7 @@
                 </dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
-                <a (click)="c.trigger(row.data); $event.preventDefault(); $event.stopPropagation()" class="has-action">
+                <a (click)="c.trigger(row.data, $event)" class="has-action">
                     {{c.accessor(row.data)}}
                 </a>
             </template>

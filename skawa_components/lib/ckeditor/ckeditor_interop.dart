@@ -7,6 +7,9 @@ import 'package:js/js.dart';
 abstract class CKEditor {
   @JS('replace')
   external static CKEditorInstance replace(String element, Object config);
+
+  @JS("config")
+  external Map<String, dynamic> get config;
 }
 
 @JS()
