@@ -17,7 +17,11 @@ class CKEditorInstance {
   external String get name;
 
   external String getData();
+
+  external void on(String eventName, EventCallback callback)
 }
 
 @JS('CKEDITOR.plugins.addExternal')
 external void addExternalPlugin(String name, String path, String fileName);
+
+typedef EventCallback = void Function();
