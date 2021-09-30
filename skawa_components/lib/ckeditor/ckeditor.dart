@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:js_util';
 
 import 'package:angular/angular.dart';
+import 'package:js/js.dart';
 
 import 'ckeditor_interop.dart' as js_ck;
 
@@ -51,9 +52,10 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
 
   String get value => _ckeditor.getEditorData();
 
+
+
   @override
   void ngAfterViewInit() {
-
       _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl, config: config);
       _ckeditor.on('change', () {
         _changeController.add(value);
@@ -96,7 +98,8 @@ class _CKEditor {
   }
 
   void on(String eventName, js_ck.EventCallback callback) {
-    return _jsEditorInstance.on(eventName, callback);
+    print(eventName);
+    return _jsEditorInstance.on(eventName, allowInterop(callback));
   }
 
   void _maybeAddExtraPlugins(Iterable<ExtraPlugin> extraPlugins) {
