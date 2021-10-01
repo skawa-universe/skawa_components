@@ -24,9 +24,9 @@ class CKEditorInstance {
 @JS()
 @anonymous
 class EventInfo {
-    external CKEditorInstance get editor;
+  external CKEditorInstance get editor;
 
-    external factory EventInfo({CKEditorInstance editor});
+  external factory EventInfo({CKEditorInstance editor});
 }
 
 @JS('CKEDITOR.plugins.addExternal')

@@ -52,14 +52,12 @@ class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
 
   String get value => _ckeditor.getEditorData();
 
-
-
   @override
   void ngAfterViewInit() {
-      _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl, config: config);
-      _ckeditor.on('change', (_) {
-        _changeController.add(value);
-      });
+    _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl, config: config);
+    _ckeditor.on('change', (_) {
+      _changeController.add(value);
+    });
   }
 
   @override
