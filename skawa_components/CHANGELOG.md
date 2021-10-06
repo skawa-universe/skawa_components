@@ -1,3 +1,7 @@
+## 1.5.1
+
+- Made CKEditor change event working
+
 ## 1.5.0
 
 - angular updated to the stable 6.0.0 version

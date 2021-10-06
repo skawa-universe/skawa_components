@@ -1,5 +1,5 @@
 name: skawa_components
-version: 1.5.0
+version: 1.5.1
 authors:
   - Harsányi Tamás (valakis) <tams.harsnyi@google.com>
   - Szepesházi András <szepeshazi@gmail.com>
@@ -27,7 +27,10 @@ dev_dependencies:
   mockito: ^4.0.0
   test: ^1.6.2
   angular_test: ^3.0.0
-  pageloader: ^3.2.0
+  pageloader:
+    git:
+      url: https://github.com/skawa-universe/pageloader.git
+      ref: analyzer-40
   build_config: ^0.4.1+1
   build_test: ^1.0.0
   build_runner: ^1.7.0
