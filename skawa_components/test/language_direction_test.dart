@@ -1,9 +1,11 @@
+// @dart=2.10
 @TestOn('browser')
-import 'package:pageloader/html.dart';
-import 'package:test/test.dart';
-import 'package:angular/core.dart';
-import 'package:skawa_components/directives/language_direction_directive.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
+import 'package:pageloader/html.dart';
+import 'package:skawa_components/directives/language_direction_directive.dart';
+import 'package:test/test.dart';
+
 import 'language_direction_test.template.dart' as ng;
 
 part 'language_direction_test.g.dart';
@@ -17,14 +19,14 @@ void main() {
     final String start = 'start';
     final String ltr = 'ltr';
     test('initialization on div element', () async {
-      final fixture = await NgTestBed<DivTemplateComponent>().create();
+      final fixture = await NgTestBed<DivTemplateComponent>(ng.DivTemplateComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = DivTestPO.create(context);
       expect(pageObject.languageDirection.computedStyle[textAlign], start);
       expect(pageObject.languageDirection.computedStyle[direction], ltr);
     });
     test('setLanguageDirection on div element by latin text', () async {
-      final fixture = await NgTestBed<DivTemplateComponent>()
+      final fixture = await NgTestBed<DivTemplateComponent>(ng.DivTemplateComponentNgFactory)
           .create(beforeChangeDetection: (testElement) => testElement.content = 'cat');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = DivTestPO.create(context);
@@ -33,7 +35,7 @@ void main() {
       expect(pageObject.languageDirection.computedStyle[direction], ltr);
     });
     test('setLanguageDirection on div element by arabic text', () async {
-      final fixture = await NgTestBed<DivTemplateComponent>()
+      final fixture = await NgTestBed<DivTemplateComponent>(ng.DivTemplateComponentNgFactory)
           .create(beforeChangeDetection: (testElement) => testElement.content = 'عن فكانت اسبوعين');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = DivTestPO.create(context);
@@ -42,14 +44,14 @@ void main() {
       expect(pageObject.languageDirection.computedStyle[direction], 'rtl');
     });
     test('initialization on div element', () async {
-      final fixture = await NgTestBed<InputTemplateComponent>().create();
+      final fixture = await NgTestBed<InputTemplateComponent>(ng.InputTemplateComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = InputTestPO.create(context);
       expect(pageObject.languageDirection.computedStyle[textAlign], start);
       expect(pageObject.languageDirection.computedStyle[direction], ltr);
     });
     test('setLanguageDirection on input element by latin text', () async {
-      final fixture = await NgTestBed<InputTemplateComponent>()
+      final fixture = await NgTestBed<InputTemplateComponent>(ng.InputTemplateComponentNgFactory)
           .create(beforeChangeDetection: (testElement) => testElement.content = 'cat');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = InputTestPO.create(context);
@@ -58,7 +60,7 @@ void main() {
       expect(pageObject.languageDirection.computedStyle[direction], ltr);
     });
     test('setLanguageDirection on input element by arabic text', () async {
-      final fixture = await NgTestBed<InputTemplateComponent>()
+      final fixture = await NgTestBed<InputTemplateComponent>(ng.InputTemplateComponentNgFactory)
           .create(beforeChangeDetection: (testElement) => testElement.content = 'عن فكانت اسبوعين');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = InputTestPO.create(context);

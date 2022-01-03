@@ -1,10 +1,13 @@
+// @dart=2.10
 @TestOn('browser')
-import 'package:pageloader/html.dart';
-import 'package:test/test.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
-import 'package:angular/core.dart';
+import 'package:pageloader/html.dart';
 import 'package:skawa_components/list_wrapper/list_wrapper.dart';
 import 'package:skawa_components/list_wrapper/skawa_for_directive.dart';
+import 'package:test/test.dart';
+
+
 import 'list_wrapper_test.template.dart' as ng;
 
 part 'list_wrapper_test.g.dart';
@@ -15,7 +18,7 @@ void main() {
 
   setUpAll(() {});
   group('SkawaListWrapperComponent', () {
-    final testBed = NgTestBed<ListWrapperTestComponent>();
+    final testBed = NgTestBed<ListWrapperTestComponent>(ng.ListWrapperTestComponentNgFactory);
     NgTestFixture<ListWrapperTestComponent> fixture;
     TestPO pageObject;
     setUp(() async {

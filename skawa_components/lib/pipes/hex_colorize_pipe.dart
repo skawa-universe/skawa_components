@@ -1,4 +1,4 @@
-import "package:angular/di.dart" show PipeTransform, Pipe;
+import "package:angular/di.dart" show Pipe;
 import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 
 /// Based on [seed] provided to the pipe, return a css consumable color
@@ -13,14 +13,14 @@ import 'package:angular/src/common/pipes/invalid_pipe_argument_exception.dart';
 ///
 /// Can only accept seeds of `String` and `int` types also support hexadecimal numbers
 @Pipe('hexColorize')
-class SkawaHexColorizePipe implements PipeTransform {
+class SkawaHexColorizePipe {
   String transform(dynamic seed) {
 //    print('seed: $seed');
     if (!_supportedInput(seed)) {
       throw InvalidPipeArgumentException(SkawaHexColorizePipe, seed);
     }
     int hexHash;
-    if (seed is String) {
+    if (seed is String?) {
       hexHash = int.tryParse(seed ?? '', radix: 16) ?? (seed ?? '').hashCode;
     } else {
       hexHash = seed.hashCode;

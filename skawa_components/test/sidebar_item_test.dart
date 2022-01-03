@@ -1,3 +1,4 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
@@ -13,14 +14,14 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('SidebarItem | ', () {
     test('initialization with zero input', () async {
-      final fixture = await NgTestBed<SidebarItemTestComponent>().create();
+      final fixture = await NgTestBed<SidebarItemTestComponent>(ng.SidebarItemTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.sideBarItemList.span.classes.contains('text-only'), isFalse);
       expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon', () async {
-      final fixture = await NgTestBed<SidebarItemTestComponent>()
+      final fixture = await NgTestBed<SidebarItemTestComponent>(ng.SidebarItemTestComponentNgFactory)
           .create(beforeChangeDetection: (testElement) => testElement.icon = 'alarm');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
@@ -29,7 +30,8 @@ void main() {
       expect(pageObject.sideBarItemList.rootElement.attributes['textOnly'], isNull);
     });
     test('initialization with icon but with textOnly', () async {
-      final fixture = await NgTestBed<SidebarItemTestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await NgTestBed<SidebarItemTestComponent>(ng.SidebarItemTestComponentNgFactory).create(
+          beforeChangeDetection: (testElement) {
         testElement
           ..icon = 'alarm'
           ..textOnly = '';

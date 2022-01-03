@@ -1,4 +1,4 @@
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 
 import 'card.dart';
 
@@ -26,7 +26,7 @@ import 'card.dart';
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardActionsComponent {
   /// Header component actions were embedded in
-  final SkawaCardHeaderComponent cardHeader;
+  final SkawaCardHeaderComponent? cardHeader;
 
   SkawaCardActionsComponent(@Optional() this.cardHeader);
 

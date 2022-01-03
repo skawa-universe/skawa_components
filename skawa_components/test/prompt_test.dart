@@ -1,11 +1,13 @@
+// @dart=2.10
 @TestOn('browser')
 import 'dart:html';
+
 import 'package:angular/angular.dart';
-import 'package:angular_test/angular_test.dart';
 import 'package:angular_components/laminate/popup/module.dart';
+import 'package:angular_test/angular_test.dart';
+import 'package:pageloader/html.dart';
 import 'package:skawa_components/prompt/prompt.dart';
 import 'package:test/test.dart';
-import 'package:pageloader/html.dart';
 
 import 'prompt_test.template.dart' as ng;
 
@@ -14,7 +16,7 @@ part 'prompt_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<PromptTestComponent>();
+  final testBed = NgTestBed<PromptTestComponent>(ng.PromptTestComponentNgFactory);
   NgTestFixture<PromptTestComponent> fixture;
   TestPO pageObject;
   group('Prompt |', () {
@@ -30,7 +32,7 @@ void main() {
     });
     test('calls yes function', () async {
       await fixture.update(
-          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.yesButton..handleClick(MouseEvent('test')));
+          (PromptTestComponent cmp) => cmp.prompt.yesNoButtonsComponent.yesButton.handleClick(MouseEvent('test')));
       expect(fixture.assertOnlyInstance.prompt.messageText.text, ' Should you?');
       expect(pageObject.messageSpan.innerText, 'Yes');
       expect(fixture.assertOnlyInstance.prompt.modal.visible, isFalse);

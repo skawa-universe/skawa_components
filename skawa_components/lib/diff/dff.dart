@@ -12,5 +12,5 @@ import 'package:diff_match_patch/diff_match_patch.dart';
     changeDetection: ChangeDetectionStrategy.OnPush)
 class DiffComponent {
   @Input()
-  List<Diff> diffList;
+  late List<Diff> diffList;
 }

@@ -1,3 +1,4 @@
+// @dart=2.10
 import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:skawa_material_components/skawa_banner/skawa_banner.dart';

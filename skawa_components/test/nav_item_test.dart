@@ -1,9 +1,11 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_components/nav_item/nav_item.dart';
 import 'package:test/test.dart';
+
 import 'nav_item_test.template.dart' as ng;
 
 part 'nav_item_test.g.dart';
@@ -11,7 +13,7 @@ part 'nav_item_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<NavItemTestComponent>();
+  final testBed = NgTestBed<NavItemTestComponent>(ng.NavItemTestComponentNgFactory);
   NgTestFixture<NavItemTestComponent> fixture;
   TestPO pageObject;
   group('NavItem | ', () {

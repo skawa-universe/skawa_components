@@ -1,9 +1,11 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:pageloader/html.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_test/angular_test.dart';
 import 'package:skawa_components/markdown_editor/editor_render_target.dart';
 import 'package:test/test.dart';
-import 'package:angular/core.dart';
-import 'package:angular_test/angular_test.dart';
+
 import 'editor_artifacts.dart';
 import 'editor_render_target_test.template.dart' as ng;
 
@@ -17,14 +19,14 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('EditorRenderTarget | ', () {
     test('can be edited displays data', () async {
-      final fixture = await NgTestBed<TestComponent>(rootInjector: rootInjector).create();
+      final fixture = await NgTestBed<TestComponent>(ng.TestComponentNgFactory, rootInjector: rootInjector).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await pageObject.counter.click();
       expect(pageObject.renderTarget.innerText, isEmpty);
     });
     test('can be edited displays data', () async {
-      final fixture = await NgTestBed<TestComponent>(rootInjector: rootInjector)
+      final fixture = await NgTestBed<TestComponent>(ng.TestComponentNgFactory, rootInjector: rootInjector)
           .create(beforeChangeDetection: (testElement) => testElement.content = '<div> Cat <span>Lion</span></div>');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
@@ -36,7 +38,8 @@ void main() {
           .forEach((child) => expect(child.classes, isEmpty));
     });
     test('can be edited displays data', () async {
-      final fixture = await NgTestBed<TestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture =
+          await NgTestBed<TestComponent>(ng.TestComponentNgFactory).create(beforeChangeDetection: (testElement) {
         testElement.content = '<div> Cat <span>Lion</span></div>';
       });
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
@@ -76,7 +79,7 @@ void main() {
     <div class="counter" (click)="update()">{{renderedContent}}</div>
   ''', directives: [EditorRenderTarget], providers: [ClassProvider(EditorRenderer, useClass: HtmlRenderer)])
 class TestComponent {
-  String content;
+  String content = "";
   String renderedContent;
   List<String> cssClasses = [];
 

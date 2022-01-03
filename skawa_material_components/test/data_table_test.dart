@@ -1,15 +1,15 @@
+// @dart=2.10
 @TestOn('browser')
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_material_components/data_table/data_table.dart';
-import 'package:skawa_material_components/data_table/data_table_column.dart';
-import 'package:skawa_material_components/data_table/row_data.dart';
 import 'package:test/test.dart';
 
-import 'data_table_po/test_po.dart';
 import 'data_table_po/data_table_po.dart';
+import 'data_table_po/test_po.dart';
 import 'data_table_test.template.dart' as ng;
 
 void main() {
@@ -17,7 +17,9 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Datatable | ', () {
     test('initialization a non selectable datatable', () async {
-      final fixture = await NgTestBed<NonSelectableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<NonSelectableDatatableTestComponent>(ng.NonSelectableDatatableTestComponentNgFactory)
+              .create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -37,8 +39,9 @@ void main() {
       });
     });
     test('initialization a non selectable datatable with a custom class on a column', () async {
-      final fixture = await NgTestBed<NonSelectableDatatableTestComponent>()
-          .create(beforeChangeDetection: (testComponent) => testComponent.cssClass = 'new-test-class');
+      final fixture =
+          await NgTestBed<NonSelectableDatatableTestComponent>(ng.NonSelectableDatatableTestComponentNgFactory)
+              .create(beforeChangeDetection: (testComponent) => testComponent.cssClass = 'new-test-class');
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -60,7 +63,8 @@ void main() {
       });
     });
     test('initialization a selectable datatable', () async {
-      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<SelectableDatatableTestComponent>(ng.SelectableDatatableTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -97,7 +101,8 @@ void main() {
       expect(trElement.td[3].rootElement.innerText, '-');
     });
     test('selectable datatable then selectall', () async {
-      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<SelectableDatatableTestComponent>(ng.SelectableDatatableTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -135,7 +140,8 @@ void main() {
       expect(trElement.td[3].rootElement.innerText, '115');
     });
     test('selectable datatable then select second and fourth row', () async {
-      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<SelectableDatatableTestComponent>(ng.SelectableDatatableTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -178,7 +184,8 @@ void main() {
     });
 
     test('sortable datatable sort descending by second column', () async {
-      final fixture = await NgTestBed<SelectableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<SelectableDatatableTestComponent>(ng.SelectableDatatableTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var table = pageObject.dataTable.table;
@@ -228,7 +235,8 @@ void main() {
     });
 
     test('resorting updates odd classes properly', () async {
-      final fixture = await NgTestBed<SortableDatatableTestComponent>().create();
+      final fixture =
+          await NgTestBed<SortableDatatableTestComponent>(ng.SortableDatatableTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       var rows = pageObject.dataTable.table.tbody.tr;
@@ -336,7 +344,7 @@ class SelectableDatatableTestComponent {
   }
 
   String _aggregateReducer(String a, String b) {
-    if (a == null || b == null) return a ?? b;
+    if (a == null || b == null) return a ?? b ?? "";
     return (int.parse(a) + int.parse(b)).toString();
   }
 
@@ -397,7 +405,7 @@ class SampleRowData extends RowData {
 
   final String opinion;
 
-  SampleRowData(this.name, this.opinion, {List<String> classes}) : super(false, classes: classes);
+  SampleRowData(this.name, this.opinion, {List<String> classes = const []}) : super(false, classes: classes);
 }
 
 class SampleNumericData extends RowData {

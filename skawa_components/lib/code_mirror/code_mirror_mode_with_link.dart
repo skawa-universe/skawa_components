@@ -1,16 +1,16 @@
 import 'code_mirror_mode.dart';
 
 class CodeMirrorModeWithLink extends CodeMirrorMode {
-  final String hint;
-  final String lint;
-  final String linterScript;
-  final String linterJsScript;
-  final List<CodeMirrorModeWithLink> additionalModes;
+  final String? hint;
+  final String? lint;
+  final String? linterScript;
+  final String? linterJsScript;
+  final List<CodeMirrorModeWithLink>? additionalModes;
 
   const CodeMirrorModeWithLink(
-      {String mode,
-      String modeName,
-      String linter,
+      {String? mode,
+      String? modeName,
+      String? linter,
       String theme = 'eclipse',
       this.hint,
       this.lint,
@@ -20,17 +20,17 @@ class CodeMirrorModeWithLink extends CodeMirrorMode {
       : super(mode: mode, modeName: modeName, linter: linter, theme: theme);
 
   List<String> get scriptList => [
-        if (mode != null) _modeCdnLink.replaceAll(_replaceString, mode),
-        if (hint != null) _hintCdnLink.replaceAll(_replaceString, hint),
+        if (mode != null) _modeCdnLink.replaceAll(_replaceString, mode!),
+        if (hint != null) _hintCdnLink.replaceAll(_replaceString, hint!),
         if (additionalModes != null)
-          ...additionalModes.fold<List<String>>([], (list, mode) => list..addAll(mode.scriptList))
+          ...additionalModes!.fold<List<String>>([], (list, mode) => list..addAll(mode.scriptList))
       ];
 
   List<String> get linterScriptList => [
-        if (linterJsScript != null || lint != null) linterJsScript ?? _lintCdnLink.replaceAll(_replaceString, lint),
-        if (linterScript != null) linterScript,
+        if (linterJsScript != null || lint != null) linterJsScript ?? _lintCdnLink.replaceAll(_replaceString, lint!),
+        if (linterScript != null) linterScript!,
         if (additionalModes != null)
-          ...additionalModes.fold<List<String>>([], (list, mode) => list..addAll(mode.linterScriptList))
+          ...additionalModes!.fold<List<String>>([], (list, mode) => list..addAll(mode.linterScriptList))
       ];
 
   static const String _replaceString = 'REPLACE';

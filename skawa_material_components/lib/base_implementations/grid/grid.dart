@@ -51,7 +51,7 @@ abstract class GridBase implements Grid {
     final List<int> xTranslations =
         List.generate(colNumber, (int index) => index * tileWidthWithGutter + xAdjustmentForCentering, growable: false);
     final List<int> yTranslationForCol = List.filled(colNumber, 0, growable: false);
-    final List<Point<int>> tileTransformations = List<Point<int>>(tiles.length);
+    final List<Point<int>> tileTransformations = List<Point<int>>.generate(tiles.length, (_) => Point<int>(0, 0));
 
     int colIndex = 0;
     for (int tileNumber = 0; tileNumber < tiles.length; ++tileNumber) {

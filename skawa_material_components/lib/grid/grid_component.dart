@@ -14,14 +14,14 @@ import '../base_implementations/grid/grid.dart';
     directives: [GridTileDirective],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class GridComponent extends GridBase implements AfterViewInit, OnInit {
-  List<GridTile> _tiles;
+  late List<GridTile> _tiles;
 
   @HostBinding('style.visibility')
-  String visibility;
+  String? visibility;
 
   @ContentChildren(GridTileDirective)
-  set tiles(List<GridTile> tiles) {
-    _tiles = tiles;
+  set tiles(List<GridTile>? tiles) {
+    _tiles = tiles!;
     updateAndDisplay(true);
   }
 
@@ -35,7 +35,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
   set visible(bool val) => visibility = val ? '' : 'hidden';
 
   @ViewChild('grid')
-  HtmlElement grid;
+  HtmlElement? grid;
 
   List<GridTile> get tiles => _tiles;
 
@@ -45,14 +45,14 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
     _resizeTimer = Timer(Duration(milliseconds: 100), () {
       // there are no tiles to update, return
       if (tiles.isEmpty) return;
-      var gridWidth = grid.clientWidth;
+      var gridWidth = grid!.clientWidth;
       // width did not change, return
       if (_previousWidth == gridWidth && !forceRefresh) return;
       _previousWidth = gridWidth;
 
       GridUpdate gridUpdate = calculateGridUpdate(gridWidth, gutterSize: int.parse(gridGutter));
       visible = true;
-      grid.style..height = '${gridUpdate.gridHeight}px';
+      grid!.style..height = '${gridUpdate.gridHeight}px';
       for (int i = 0; i < gridUpdate.tilePositions.length; ++i) {
         Point<int> newPosition = gridUpdate.tilePositions[i];
         tiles.elementAt(i).reposition(newPosition);
@@ -70,7 +70,7 @@ class GridComponent extends GridBase implements AfterViewInit, OnInit {
     });
   }
 
-  Timer _resizeTimer;
+  Timer? _resizeTimer;
   int _previousWidth = -1;
 }
 

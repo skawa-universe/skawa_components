@@ -6,7 +6,7 @@ class SkawaBannerMessage {
   final String text;
 
   /// An optional supplementary icon to the message
-  final SkawaMaterialIcon icon;
+  final SkawaMaterialIcon? icon;
 
   /// Available actions for this message
   final List<BannerAction> actions;
@@ -27,18 +27,18 @@ class SkawaBannerMessage {
   /// Only relevant for [BannerMessagePriority.low] messages, as normal priority messages will be displayed immediately
   /// If a low priority message spends more time waiting in the queue than this value, it will be silently discarded
   /// Set to zero if the message has only immediate relevance
-  final int ttlInQueue;
+  final int? ttlInQueue;
 
   /// A callback function that will be invoked just before the message is displayed
   /// Only gets called for queued messages
   /// Use in combination with [ttlInQueue] to abort displaying an already obsolete message waiting in the queue
-  final BannerBeforeDispatchCallback beforeDispatch;
+  final BannerBeforeDispatchCallback? beforeDispatch;
 
   /// DateTime when the message object was dispatched (displayed on screen)
-  DateTime _dispatchTime;
+  DateTime? _dispatchTime;
 
   /// DateTime when the message object was dismissed (removed from screen)
-  DateTime _dismissTime;
+  DateTime? _dismissTime;
 
   /// Will be completed when the message is dispatched (i.e. displayed on screen)
   Completer<DateTime> dispatchEvent = Completer();
@@ -49,7 +49,7 @@ class SkawaBannerMessage {
 
   SkawaBannerMessage(this.text,
       {this.icon,
-      List<BannerAction> actions,
+      List<BannerAction>? actions,
       this.actionsBelow = true,
       this.priority = BannerMessagePriority.normal,
       this.ttlInQueue,
@@ -59,11 +59,11 @@ class SkawaBannerMessage {
 
   /// Redirect constructor for an information message with an icon
   SkawaBannerMessage.info(String text,
-      {List<BannerAction> actions,
-      bool actionsBelow,
+      {List<BannerAction>? actions,
+      bool actionsBelow = true,
       BannerMessagePriority priority = BannerMessagePriority.low,
-      int ttlInQueue,
-      BannerBeforeDispatchCallback beforeDispatch})
+      int? ttlInQueue,
+      BannerBeforeDispatchCallback? beforeDispatch})
       : this(text,
             icon: SkawaMaterialIcon("info", "color-info"),
             actions: actions ?? [BannerAction.dismiss()],
@@ -74,11 +74,11 @@ class SkawaBannerMessage {
 
   /// Redirect constructor for a warning message with an icon
   SkawaBannerMessage.warning(String text,
-      {List<BannerAction> actions,
+      {List<BannerAction>? actions,
       bool actionsBelow = true,
       BannerMessagePriority priority = BannerMessagePriority.normal,
-      int ttlInQueue,
-      BannerBeforeDispatchCallback beforeDispatch})
+      int? ttlInQueue,
+      BannerBeforeDispatchCallback? beforeDispatch})
       : this(text,
             icon: SkawaMaterialIcon("warning", "color-warning"),
             actions: actions ?? [BannerAction.dismiss()],
@@ -89,11 +89,11 @@ class SkawaBannerMessage {
 
   /// Redirect constructor for an error message with an icon
   SkawaBannerMessage.error(String text,
-      {List<BannerAction> actions,
+      {List<BannerAction>? actions,
       bool actionsBelow = true,
       BannerMessagePriority priority = BannerMessagePriority.normal,
-      int ttlInQueue,
-      BannerBeforeDispatchCallback beforeDispatch})
+      int? ttlInQueue,
+      BannerBeforeDispatchCallback? beforeDispatch})
       : this(text,
             icon: SkawaMaterialIcon("error", "color-error"),
             actions: actions ?? [BannerAction.dismiss()],
@@ -114,7 +114,7 @@ class SkawaBannerMessage {
     dismissEvent.complete(_dismissTime);
   }
 
-  DateTime get dispatchTime => _dispatchTime;
+  DateTime? get dispatchTime => _dispatchTime;
 }
 
 class SkawaMaterialIcon {
@@ -134,7 +134,7 @@ class BannerAction {
   /// A callback function that will be invoked when clicking the action button
   /// The bannser message will only be dismissed if and when the Future<bool> value returned by this function
   /// resolves to true.
-  final BannerActionCallback callback;
+  final BannerActionCallback? callback;
 
   const BannerAction(this.message, {this.callback});
 

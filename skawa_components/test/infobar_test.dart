@@ -1,9 +1,11 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_components/infobar/infobar.dart';
 import 'package:test/test.dart';
+
 import 'infobar_test.template.dart' as ng;
 
 part 'infobar_test.g.dart';
@@ -11,7 +13,7 @@ part 'infobar_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<InfobarTestComponent>();
+  final testBed = NgTestBed<InfobarTestComponent>(ng.InfobarTestComponentNgFactory);
   NgTestFixture<InfobarTestComponent> fixture;
   TestPO pageObject;
   group('Infobar | ', () {
@@ -66,7 +68,7 @@ void main() {
 
 @Component(selector: 'test', template: '''
     <skawa-infobar [icon]="icon" [url]="url" (trigger)="increment()"></skawa-infobar>
-    <div increment>{{triggered}}</div>
+    <div class="increment">{{triggered}}</div>
      ''', directives: [SkawaInfobarComponent])
 class InfobarTestComponent {
   String icon;
@@ -86,7 +88,7 @@ abstract class TestPO {
   @ByTagName('skawa-infobar')
   InforbarPO get infobar;
 
-  @ByTagName('[increment]')
+  @ByClass('increment')
   PageLoaderElement get trigger;
 }
 

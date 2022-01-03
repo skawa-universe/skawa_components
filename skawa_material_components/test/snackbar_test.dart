@@ -1,10 +1,12 @@
+// @dart=2.10
 @TestOn('browser')
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
+import 'package:pageloader/html.dart';
 import 'package:skawa_material_components/snackbar/snackbar.dart';
 import 'package:test/test.dart';
-import 'package:pageloader/html.dart';
 
 import 'snackbar_test.template.dart' as ng;
 import 'snackbar_test_po.dart';
@@ -15,7 +17,7 @@ final InjectorFactory rootInjector = ng.rootInjector$Injector;
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<SnackbarTestComponent>(rootInjector: rootInjector);
+  final testBed = NgTestBed<SnackbarTestComponent>(ng.SnackbarTestComponentNgFactory, rootInjector: rootInjector);
   NgTestFixture<SnackbarTestComponent> fixture;
   TestPO pageObject;
   group('Snackbar |', () {

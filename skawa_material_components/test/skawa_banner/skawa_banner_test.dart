@@ -1,7 +1,6 @@
-import 'dart:html';
-
+// @dart=2.10
 @TestOn('browser')
-//import 'dart:html';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
@@ -23,7 +22,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
 
   group('Banner', () {
-    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
+    final defaultTestBed = NgTestBed<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
         rootInjector: rootInjector);
     NgTestFixture<SkawaBannerHostComponent> fixture;
 
@@ -105,7 +104,7 @@ void main() {
   });
 
   group('Layout (html)', () {
-    final defaultTestBed = NgTestBed.forComponent<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
+    final defaultTestBed = NgTestBed<SkawaBannerHostComponent>(ng.SkawaBannerHostComponentNgFactory,
         rootInjector: rootInjector);
     NgTestFixture<SkawaBannerHostComponent> fixture;
 

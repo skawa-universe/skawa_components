@@ -19,14 +19,14 @@ class CodeMirrorComponent implements OnDestroy {
   final StreamController<String> _changeController = StreamController<String>.broadcast();
   final ChangeDetectorRef changeDetectorRef;
 
-  js_ck.CodeMirror _codeMirror;
+  js_ck.CodeMirror? _codeMirror;
   String _value = '';
-  CodeMirrorMode _mode;
+  late CodeMirrorMode _mode;
   List<CodeMirrorError> errorList = [];
   List<CodeMirrorError> warningList = [];
 
   @ViewChild('textarea')
-  HtmlElement textarea;
+  HtmlElement? textarea;
 
   @Input()
   bool withLint = true;
@@ -47,10 +47,10 @@ class CodeMirrorComponent implements OnDestroy {
   }
 
   @Input()
-  set value(String value) {
-    String validValue = value ?? '';
+  set value(String? value) {
+    String? validValue = value ?? '';
     if (validValue != _value && _codeMirror != null) {
-      _codeMirror.setValue(validValue);
+      _codeMirror!.setValue(validValue);
       _lint(_mode);
     }
     _value = validValue;
@@ -63,24 +63,24 @@ class CodeMirrorComponent implements OnDestroy {
 
   void load(CodeMirrorMode mode) {
     _codeMirror = js_ck.CodeMirror.fromTextArea(
-        textarea,
+        textarea!,
         CodeMirrorConfig(
             mode: mode.modeName ?? mode.mode,
             theme: mode.theme,
             extraKeys: {'Ctrl-Space': allowInterop(_showHint), 'Cmd-Space': allowInterop(_showHint)},
             gutters: ["CodeMirror-lint-markers"]).toJsConfig);
-    _codeMirror.setValue(_value);
+    _codeMirror!.setValue(_value);
     _lint(mode);
-    _codeMirror.on('change', _onChange(mode));
+    _codeMirror!.on('change', _onChange(mode));
     _mode = mode;
   }
 
   Function _onChange(CodeMirrorMode mode) => allowInterop((_, __) {
-        _value = _codeMirror.getValue();
+        _value = _codeMirror!.getValue();
         _lint(mode);
       });
 
-  void _showHint(_) => _codeMirror.showHint(_codeMirror, js_ck.CodeMirrorHint.jsHint);
+  void _showHint(_) => _codeMirror!.showHint(_codeMirror!, js_ck.CodeMirrorHint.jsHint);
 
   void _lint(CodeMirrorMode mode) {
     if (withLint) {

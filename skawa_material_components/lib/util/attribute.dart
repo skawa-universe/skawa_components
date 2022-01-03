@@ -27,7 +27,7 @@ bool isPresent(dynamic input) => input != null;
 ///         toggleAttribute(someInput);
 ///       }
 ///     }
-bool toggleAttribute(bool val) {
+bool? toggleAttribute(bool? val) {
   // In Angular, an attribute is removed if it's value is `null` and added
   // if it's anything else, like
   return !isPresent(val) ? true : null;

@@ -1,3 +1,4 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
@@ -15,7 +16,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Card | ', () {
     test('initialization a raw card', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.card, isNotNull);
@@ -27,7 +28,8 @@ void main() {
     final String withSubhead = 'with-subhead';
     final String withTitleImage = 'with-title-image';
     test('initialization a card with action and content', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create(beforeChangeDetection: (testElement) {
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create(
+          beforeChangeDetection: (testElement) {
         testElement
           ..hasAction = true
           ..hasContent = true;
@@ -39,7 +41,7 @@ void main() {
       expect(pageObject.card.content.rootElement.classes.contains(collapsed), isFalse);
     });
     test('initialization a card with action and content then toogle the content 1X', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await fixture.update((testElement) {
@@ -54,7 +56,7 @@ void main() {
       expect(pageObject.card.content.rootElement.classes.contains(collapsed), isTrue);
     });
     test('initialization a card with action and content then toogle the content 2X', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await fixture.update((testElement) {
@@ -70,7 +72,7 @@ void main() {
       expect(content.classes.contains(collapsed), isFalse);
     });
     test('initialization a card with action, content, header and an action in the header', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await fixture.update((testElement) {
@@ -88,7 +90,7 @@ void main() {
       expect(pageObject.card.header.rootElement.classes.contains(withTitleImage), isFalse);
     });
     test('initialization a card with action, content and a header with action, title, subheader and image', () async {
-      final fixture = await NgTestBed<CardTestComponent>().create();
+      final fixture = await NgTestBed<CardTestComponent>(ng.CardTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       await fixture.update((testElement) {

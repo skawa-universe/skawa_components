@@ -1,7 +1,7 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular_test/angular_test.dart';
 import 'package:angular/angular.dart';
-import 'package:angular/src/di/injector/hierarchical.dart';
 import 'package:mockito/mockito.dart';
 import 'package:skawa_components/feature_toggle/feature_toggle.dart';
 import 'package:test/test.dart';
@@ -56,15 +56,15 @@ void main() {
       final rootInjectorCb = ([Injector parent]) {
         return Injector.map({
           FeatureToggleService: enabledTestService,
-        }, parent as HierarchicalInjector);
+        }, parent);
       };
       test('with [featureEnabled] creates embedded view', () async {
-        final bed = NgTestBed.forComponent(self.TestEnabledComponentNgFactory, rootInjector: rootInjectorCb);
+        final bed = NgTestBed(self.TestEnabledComponentNgFactory, rootInjector: rootInjectorCb);
         final fixture = await bed.create();
         expect(fixture.text, contains('Displayed'));
       });
       test('with [featureDisabled] clears embedded view', () async {
-        final bed = NgTestBed.forComponent(self.TestDisabledComponentNgFactory, rootInjector: rootInjectorCb);
+        final bed = NgTestBed(self.TestDisabledComponentNgFactory, rootInjector: rootInjectorCb);
         final fixture = await bed.create();
         expect(fixture.text, isEmpty);
       });
@@ -76,15 +76,15 @@ void main() {
       final rootInjectorCb = ([Injector parent]) {
         return Injector.map({
           FeatureToggleService: disabledTestService,
-        }, parent as HierarchicalInjector);
+        }, parent);
       };
       test('with [featureEnabled] clears embedded view', () async {
-        final bed = NgTestBed.forComponent(self.TestEnabledComponentNgFactory, rootInjector: rootInjectorCb);
+        final bed = NgTestBed(self.TestEnabledComponentNgFactory, rootInjector: rootInjectorCb);
         final fixture = await bed.create();
         expect(fixture.text, isEmpty);
       });
       test('with [featureDisabled] creates embedded view', () async {
-        final bed = NgTestBed.forComponent(self.TestDisabledComponentNgFactory, rootInjector: rootInjectorCb);
+        final bed = NgTestBed(self.TestDisabledComponentNgFactory, rootInjector: rootInjectorCb);
         final fixture = await bed.create();
         expect(fixture.text, contains('Displayed'));
       });
@@ -95,20 +95,20 @@ void main() {
       await disposeAnyRunningTest();
     });
     test('when feature is enabled, should display and hide appropriately', () async {
-      final bed = NgTestBed.forComponent(self.TestStructuralComponentNgFactory, rootInjector: ([Injector parent]) {
+      final bed = NgTestBed(self.TestStructuralComponentNgFactory, rootInjector: ([Injector parent]) {
         return Injector.map({
           FeatureToggleService: enabledTestService,
-        }, parent as HierarchicalInjector);
+        }, parent);
       });
       final fixture = await bed.create();
       expect(fixture.text, contains('EnabledCheck'));
       expect(fixture.text, isNot(contains('DisabledCheck')));
     });
     test('when feature is disabled, should display and hide appropriately', () async {
-      final bed = NgTestBed.forComponent(self.TestStructuralComponentNgFactory, rootInjector: ([Injector parent]) {
+      final bed = NgTestBed(self.TestStructuralComponentNgFactory, rootInjector: ([Injector parent]) {
         return Injector.map({
           FeatureToggleService: disabledTestService,
-        }, parent as HierarchicalInjector);
+        }, parent);
       });
       final fixture = await bed.create();
       expect(fixture.text, isNot(contains('EnabledCheck')));
@@ -129,11 +129,11 @@ void main() {
         final featureName = realInvocation.positionalArguments.first as String;
         return features[featureName];
       });
-      final bed = NgTestBed.forComponent<TestUpdatableStructuralComponent>(
-          self.TestUpdatableStructuralComponentNgFactory, rootInjector: ([Injector parent]) {
+      final bed = NgTestBed<TestUpdatableStructuralComponent>(self.TestUpdatableStructuralComponentNgFactory,
+          rootInjector: ([Injector parent]) {
         return Injector.map({
           FeatureToggleService: mockService,
-        }, parent as HierarchicalInjector);
+        }, parent);
       });
       final fixture = await bed.create();
       expect(fixture.text, isEmpty);

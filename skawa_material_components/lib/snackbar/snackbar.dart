@@ -19,7 +19,7 @@ class SnackbarService {
 
   Stream<SnackMessage> get messages => _messageQueue.stream;
 
-  void showMessage(String message, {Duration duration, SnackAction action}) {
+  void showMessage(String message, {Duration? duration, SnackAction? action}) {
     _messageQueue.add(SnackMessage()
       ..text = message
       ..duration = duration ?? _defaultDuration
@@ -30,14 +30,14 @@ class SnackbarService {
 }
 
 class SnackAction {
-  String label;
-  Function callback;
+  String? label;
+  Function? callback;
 }
 
 class SnackMessage {
-  String text;
-  Duration duration;
-  SnackAction action;
+  late String text;
+  late Duration duration;
+  SnackAction? action;
 }
 
 /// A Snackbar component. See more at: https://material.io/guidelines/components/snackbars-toasts.html
@@ -60,11 +60,11 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
   final SnackbarService _snackbarService;
   final Disposer _tearDownDisposer = Disposer.oneShot();
 
-  SnackMessage message;
-  SnackMessage nextMessage;
-  Timer _messageTimer;
-  bool show;
-  Timer _animationBlocker;
+  SnackMessage? message;
+  SnackMessage? nextMessage;
+  Timer? _messageTimer;
+  bool show = false;
+  Timer? _animationBlocker;
 
   SkawaSnackbarComponent(this._changeDetectorRef, this._snackbarService);
 
@@ -104,7 +104,7 @@ class SkawaSnackbarComponent implements OnInit, OnDestroy {
 
   void transitionEnd(_) {
     if (show) {
-      _messageTimer = Timer(message.duration, () {
+      _messageTimer = Timer(message!.duration, () {
         _messageTimer = null;
         _slideOut();
       });

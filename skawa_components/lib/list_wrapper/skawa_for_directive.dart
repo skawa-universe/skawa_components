@@ -34,16 +34,16 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
   int startIndex = 0;
   int _renderedComponentNumber = 0;
   int _lastScrollTop = 0;
-  SkawaForSource<T> _source;
+  SkawaForSource<T>? _source;
 
   SkawaForDirective(this.viewContainerRef, this._templateRef, this.skawaListParent, this._ngZone);
 
   @Output('load')
   Stream<Null> get onLoad => _loadController.stream;
 
-  List<T> get _dataSource => _source.source;
+  List<T>? get _dataSource => _source!.source;
 
-  int get _itemHeight => _source.height;
+  int get _itemHeight => _source!.height;
 
   @Input()
   set skawaForOf(SkawaForSource<T> value) {
@@ -68,10 +68,10 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
   Future _checkTopDivPositions() async {
     int difference = topHeight - _lastScrollTop;
     await Future.doWhile(() async {
-      if (!(startIndex > 0 && difference > -calculatedItemHeight(_dataSource[startIndex - 1]))) return false;
+      if (!(startIndex > 0 && difference > -calculatedItemHeight(_dataSource![startIndex - 1]))) return false;
       await _scrollRefresh(startIndex - 1, false);
-      difference = difference - calculatedItemHeight(_dataSource[startIndex]);
-      return startIndex > 0 && difference > -calculatedItemHeight(_dataSource[startIndex - 1]);
+      difference = difference - calculatedItemHeight(_dataSource![startIndex]);
+      return startIndex > 0 && difference > -calculatedItemHeight(_dataSource![startIndex - 1]);
     });
   }
 
@@ -80,11 +80,11 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
         _lastScrollTop + scrollHeight - topHeight - subListHeight(startIndex, startIndex + _renderedComponentNumber);
     int index = _renderedComponentNumber + startIndex;
     await Future.doWhile(() async {
-      if (!(index < _dataSource.length && difference > -calculatedItemHeight(_dataSource[index]))) return false;
+      if (!(index < _dataSource!.length && difference > -calculatedItemHeight(_dataSource![index]))) return false;
       await _scrollRefresh(index, true);
-      difference = difference - calculatedItemHeight(_dataSource[index]);
+      difference = difference - calculatedItemHeight(_dataSource![index]);
       index++;
-      return index < _dataSource.length && difference > -calculatedItemHeight(_dataSource[index]);
+      return index < _dataSource!.length && difference > -calculatedItemHeight(_dataSource![index]);
     });
   }
 
@@ -98,22 +98,22 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
     _setUpHeights();
   }
 
-  Future _checkPositionOnScroll(Event e) async {
-    _lastScrollTop = (e?.target as Element)?.scrollTop ?? 0;
+  Future _checkPositionOnScroll(Event? e) async {
+    _lastScrollTop = (e?.target as Element?)?.scrollTop ?? 0;
     await _checkBottomDivPositions();
     await _checkTopDivPositions();
   }
 
-  void _renderOnResize(Event e, {bool shouldTriggerBottomReach = true}) {
+  void _renderOnResize(Event? e, {bool shouldTriggerBottomReach = true}) {
     if (_dataSource == null) return;
     scrollHeight = skawaListParent.htmlElement.offsetHeight;
-    final int calculatedComponentNumber = min(scrollHeight ~/ _itemHeight + 4, _dataSource.length);
+    final int calculatedComponentNumber = min(scrollHeight ~/ _itemHeight + 4, _dataSource!.length);
     while (calculatedComponentNumber < _renderedComponentNumber) {
       viewContainerRef.remove();
       _renderedComponentNumber--;
     }
     while (calculatedComponentNumber > _renderedComponentNumber &&
-        _renderedComponentNumber + startIndex < _dataSource.length) {
+        _renderedComponentNumber + startIndex < _dataSource!.length) {
       int index = startIndex + _renderedComponentNumber;
       EmbeddedViewRef viewRef = viewContainerRef.createEmbeddedView(_templateRef);
       _updateValue(viewRef, index, _renderedComponentNumber + 1);
@@ -124,15 +124,15 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
 
   Future _updateValue(EmbeddedViewRef viewRef, int index, int localIndex) async {
     Completer completer = Completer();
-    T dataSource = _dataSource[index];
+    T dataSource = _dataSource![index];
     viewRef
       ..setLocal(r'$implicit', dataSource)
       ..setLocal('even', index.isEven)
       ..setLocal('odd', index.isOdd)
       ..markForCheck();
-    if (!_source.defaultHeight && (_heightMap[dataSource] == null || _heightMap[dataSource] == 0)) {
+    if (!_source!.defaultHeight && (_heightMap[dataSource] == null || _heightMap[dataSource] == 0)) {
       _ngZone.runAfterChangesObserved(() {
-        _heightMap[dataSource] = viewRef.rootNodes.first.parent.children[localIndex].offsetHeight;
+        _heightMap[dataSource] = viewRef.rootNodes.first.parent!.children[localIndex].offsetHeight;
         completer.complete();
       });
     } else {
@@ -148,21 +148,21 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
     skawaListParent.setUpHeights(topHeight, bottomHeight, shouldTriggerBottomReach);
   }
 
-  int subListHeight(int startIndex, [int endIndex]) {
-    if (_source.defaultHeight) {
-      return _source.height * ((endIndex ?? _dataSource.length) - startIndex);
+  int subListHeight(int startIndex, [int? endIndex]) {
+    if (_source!.defaultHeight) {
+      return _source!.height * ((endIndex ?? _dataSource!.length) - startIndex);
     } else {
-      return _dataSource
+      return _dataSource!
           .sublist(startIndex, endIndex)
           .fold<int>(0, (int height, T item) => height + calculatedItemHeight(item));
     }
   }
 
   int calculatedItemHeight(T item) {
-    if (_source.defaultHeight) {
-      return _source.height;
+    if (_source!.defaultHeight) {
+      return _source!.height;
     } else {
-      return _heightMap[item] != 0 && _heightMap[item] != null ? _heightMap[item] : _itemHeight;
+      return _heightMap[item] != 0 && _heightMap[item] != null ? _heightMap[item]! : _itemHeight;
     }
   }
 
@@ -180,7 +180,7 @@ class SkawaForDirective<T> implements OnInit, OnDestroy {
 }
 
 class SkawaForSource<T> {
-  List<T> source;
+  List<T>? source;
   bool resetList;
   int height;
   bool defaultHeight;

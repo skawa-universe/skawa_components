@@ -10,7 +10,7 @@
         </th>
         <th *ngFor="let c of columns; let i = index"
             [ngClass]="c.getClasses('--header')"
-            [class.sort-enabled]="c.sortModel != null && !c.sortModel.isSorted"
+            [class.sort-enabled]="c.sortModel != null && !c.sortModel!.isSorted"
             [class.sort]="c.sortModel?.isSorted ?? false"
             [class.desc]="c.sortModel?.isDescending ?? false">
             <template [ngIf]="c.sortModel == null">{{c.header}}</template>
@@ -37,25 +37,25 @@
         </td>
         <td *ngFor="let c of columns"
             [ngClass]="c.getClasses()"
-            [attr.title]="c.titleAccessor != null ? c.titleAccessor(row) : null">
+            [attr.title]="c.titleAccessor != null ? c.titleAccessor!(row) : null">
             <template [ngIf]="c.useColumnRenderer">
                 <dynamic-component
-                        [componentFactory]="c.columnRenderer.factoryRenderer(row)"
+                        [componentFactory]="c.columnRenderer!.factoryRenderer!(row)"
                         [value]="row">
                 </dynamic-component>
             </template>
             <template [ngIf]="!c.useColumnRenderer && c.useAccessorAsLink">
                 <a (click)="triggerCell(c,row,$event)" class="has-action">
-                    {{c.accessor(row)}}
+                    {{c.accessor!(row)}}
                 </a>
             </template>
-            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">{{c.accessor(row)}}</template>
+            <template [ngIf]="!c.useColumnRenderer && !c.useAccessorAsLink">{{c.accessor!(row)}}</template>
         </td>
     </tr>
     </tbody>
     <tfoot *ngIf="!isEveryRowSkippedInFooter">
     <tr>
-        <td *ngFor="let c of columns | unskippedInFooter; let i = index"
+        <td *ngFor="let c of columns; let i = index"
             [attr.colspan]="getColspanFor(c, i)"
             [ngClass]="c.getClasses('--footer')">
             {{c.footer}}

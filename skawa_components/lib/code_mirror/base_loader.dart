@@ -5,7 +5,7 @@ import 'dart:html';
 
 class BaseLoader {
   Future<bool> load(LoadedElement linkToLoad,
-      {void loadCallback(), void errorCallback(), bool force = false, bool skipCallBack = false}) async {
+      {Function? loadCallback, Function? errorCallback, bool force = false, bool skipCallBack = false}) async {
     if (force) {
       _cleanDom(linkToLoad);
       _removeCachedLoadResult(linkToLoad);
@@ -26,7 +26,7 @@ class BaseLoader {
   }
 
   Future loadList(List<LoadedElement> linkToLoadList,
-      {void loadCallback(), void errorCallback(), bool force = false}) async {
+      {Function? loadCallback, Function? errorCallback, bool force = false}) async {
 //    print('linkToLoadList: ${linkToLoadList.map((LoadedElement elem) => elem.linkToLoad).toList()}');
     await Future.wait(linkToLoadList.map((LoadedElement linkToLoad) => load(linkToLoad,
         loadCallback: loadCallback, errorCallback: errorCallback, force: force, skipCallBack: true))).catchError((_) {
@@ -36,13 +36,13 @@ class BaseLoader {
     loadCallback != null ? loadCallback() : _noop();
   }
 
-  void _triggerCallbacks(String linkToLoad, void loadCallback(), void errorCallback()) {
+  void _triggerCallbacks(String linkToLoad, Function? loadCallback, Function? errorCallback) {
     // will still trigger callbacks based on the previous state of script
-    if (loadCallback != null && _loadedResult[linkToLoad]) loadCallback();
-    if (errorCallback != null && !_loadedResult[linkToLoad]) errorCallback();
+    if (loadCallback != null && _loadedResult[linkToLoad]!) loadCallback();
+    if (errorCallback != null && !_loadedResult[linkToLoad]!) errorCallback();
   }
 
-  Future _waitForLoad(String linkToLoad) => _loadingResult[linkToLoad].first;
+  Future _waitForLoad(String linkToLoad) => _loadingResult[linkToLoad]!.first;
 
   bool _previouslyLoaded(String linkToLoad) => _loadedResult.containsKey(linkToLoad);
 
@@ -56,7 +56,8 @@ class BaseLoader {
     _loadingResult.remove(linkToLoad.linkToLoad);
   }
 
-  Future _domLoadScript(LoadedElement linkToLoad, void loadCallback(), void errorCallback(), bool skipCallBack) async {
+  Future _domLoadScript(
+      LoadedElement linkToLoad, Function? loadCallback, Function? errorCallback, bool skipCallBack) async {
     linkToLoad.createNewElement();
     _loadingResult[linkToLoad.linkToLoad] = linkToLoad._element.onLoad;
     Completer loadCompleter = Completer();
@@ -72,14 +73,14 @@ class BaseLoader {
       errorCallback != null ? errorCallback() : _noop();
     });
     // some trickery - need to append first
-    document.head.append(linkToLoad._element);
+    document.head!.append(linkToLoad._element);
     linkToLoad.updateElement();
     await loadCompleter.future;
   }
 
   static void _remove(Element element) => element.remove();
 
-  static void _noop([Event ev]) {}
+  static void _noop([Event? ev]) {}
 
   /// scripts that are loaded and loadCallbacks are triggered
   static final Map<String, bool> _loadedResult = Map<String, bool>();
@@ -89,7 +90,7 @@ class BaseLoader {
 }
 
 abstract class LoadedElement {
-  Element _element;
+  late Element _element;
 
   Element get element => _element;
 

@@ -12,7 +12,7 @@
         <span>{{message?.text}}</span>
     </div>
     <div class="actions" *ngIf="hasActions">
-        <material-button *ngFor="let action of message.actions"
+        <material-button *ngFor="let action of message!.actions"
                          class="color--primary-action"
                          (trigger)="handleAction(action)">
             {{action.message}}

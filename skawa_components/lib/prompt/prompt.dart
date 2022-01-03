@@ -31,13 +31,13 @@ class SkawaPromptComponent {
   bool pending = false;
 
   @Input('yes')
-  Function yesCallback;
+  Function? yesCallback;
 
   @Input('no')
-  Function noCallback;
+  Function? noCallback;
 
   @Input()
-  String message;
+  late String message;
 
   @Input()
   String textYes = _textYes;
@@ -50,20 +50,20 @@ class SkawaPromptComponent {
 
   // Only here for testing purposes
   @ViewChild('messageText')
-  HtmlElement messageText;
+  HtmlElement? messageText;
 
   @ViewChild(ModalComponent)
-  ModalComponent modal;
+  ModalComponent? modal;
 
   //Only here for testing purposes
   @ViewChild(MaterialYesNoButtonsComponent)
-  MaterialYesNoButtonsComponent yesNoButtonsComponent;
+  MaterialYesNoButtonsComponent? yesNoButtonsComponent;
 
   SkawaPromptComponent(this._cd);
 
   void yes() {
     if (yesCallback == null) return;
-    var yesReturn = yesCallback();
+    var yesReturn = yesCallback!();
     if (yesReturn is Future) {
       pending = true;
       _cd.markForCheck();
@@ -76,7 +76,7 @@ class SkawaPromptComponent {
 
   void no() {
     if (noCallback == null) return;
-    var noReturn = noCallback();
+    var noReturn = noCallback!();
     if (noReturn is Future) {
       pending = true;
       _cd.markForCheck();

@@ -1,4 +1,4 @@
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 
 import '../util/attribute.dart' as attr_util;
 import 'card_actions.dart';
@@ -37,10 +37,10 @@ const List<Type> skawaCardDirectives = [
     visibility: Visibility.all)
 class SkawaCardComponent {
   @ContentChild(SkawaCardHeaderComponent)
-  SkawaCardHeaderComponent cardHeader;
+  SkawaCardHeaderComponent? cardHeader;
 
   @ContentChild(SkawaCardContentComponent)
-  SkawaCardContentComponent cardContent;
+  SkawaCardContentComponent? cardContent;
 
   bool get hasHeader => cardHeader != null;
 }
@@ -75,7 +75,7 @@ class SkawaCardContentComponent {
   bool get withHeader => parentCard.hasHeader;
 
   @Input()
-  bool collapsed;
+  bool? collapsed;
 
   @HostBinding('class.skawa-collapsed')
   bool get isCollapsed => attr_util.isPresent(collapsed);
@@ -105,16 +105,16 @@ class SkawaCardContentComponent {
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCardHeaderComponent {
   @ContentChild(SkawaCardHeaderTitleDirective)
-  SkawaCardHeaderTitleDirective title;
+  SkawaCardHeaderTitleDirective? title;
 
   @ContentChild(SkawaCardHeaderSubheadDirective)
-  SkawaCardHeaderSubheadDirective subhead;
+  SkawaCardHeaderSubheadDirective? subhead;
 
   @ContentChild(SkawaCardHeaderImageDirective)
-  SkawaCardHeaderImageDirective image;
+  SkawaCardHeaderImageDirective? image;
 
   @ContentChild(SkawaCardActionsComponent)
-  SkawaCardActionsComponent headerActions;
+  SkawaCardActionsComponent? headerActions;
 
   @HostBinding('class.with-title-image')
   bool get withTitleImage => image != null;
@@ -130,16 +130,16 @@ class SkawaCardHeaderComponent {
   /// Must be provided in rgb() or rgba() format, hex values are
   /// not picked up.
   @Input()
-  String statusColor = 'transparent';
+  String? statusColor = 'transparent';
 
   @HostBinding('style.box-shadow')
-  String get statusStyle {
+  String? get statusStyle {
     // if set to null remove styling
     if (statusColor == null) {
       return null;
     }
     // if matches rgb() or rgba() format, use it
-    if (_rgbaRegexp.hasMatch(statusColor)) {
+    if (_rgbaRegexp.hasMatch(statusColor!)) {
       return 'inset 0 4px 0 0 $statusColor';
     }
     return null;

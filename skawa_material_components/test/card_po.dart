@@ -1,3 +1,4 @@
+// @dart=2.10
 import 'package:pageloader/html.dart';
 import 'package:pageloader/webdriver.dart';
 

@@ -32,7 +32,7 @@ import 'package:angular/angular.dart';
     changeDetection: ChangeDetectionStrategy.OnPush)
 class ExtendedMaterialIconComponent {
   @Input()
-  String icon;
+  late String icon;
 
   @Input()
   bool flipVertical = false;
@@ -44,12 +44,12 @@ class ExtendedMaterialIconComponent {
   bool spin = false;
 
   @Input()
-  int rotate;
+  int? rotate;
 
   Map<String, bool> get extraClasses => {
         "mdi-flip-h": flipHorizontal,
         "mdi-flip-v": flipVertical,
         "mdi-spin": spin,
-        'mdi-rotate-${(rotate ?? 0) % 360}': !flipHorizontal && !flipVertical && rotate != null && rotate % 45 == 0
+        'mdi-rotate-${(rotate ?? 0) % 360}': !flipHorizontal && !flipVertical && rotate != null && rotate! % 45 == 0
       };
 }

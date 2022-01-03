@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 import 'package:markdown/markdown.dart' as markdown;
 
 /// Target where rendered output of EditorRendererSource will be inserted
@@ -14,7 +14,7 @@ class EditorRenderTarget implements OnDestroy {
   final EditorRenderer renderer;
   final StreamController<String> _onRenderController = StreamController.broadcast();
 
-  String _previousRender;
+  String? _previousRender;
 
   EditorRenderTarget(this.htmlElement, @SkipSelf() @Inject(EditorRenderer) this.renderer);
 
@@ -23,7 +23,7 @@ class EditorRenderTarget implements OnDestroy {
 
   Element get _element => htmlElement;
 
-  void updateRender(String newTarget, {List<String> classes}) {
+  void updateRender(String newTarget, {List<String>? classes}) {
     _onRenderController.add(newTarget);
     if (newTarget == _previousRender) return;
     _element.children.clear();
@@ -31,7 +31,7 @@ class EditorRenderTarget implements OnDestroy {
     _updateElementChildren(_element, classes);
   }
 
-  void _updateElementChildren(Element element, List<String> classes) {
+  void _updateElementChildren(Element element, List<String>? classes) {
     if (classes != null && classes.isNotEmpty && element.children.isNotEmpty) {
       element.children.forEach((Element child) {
         child.classes.addAll(classes);

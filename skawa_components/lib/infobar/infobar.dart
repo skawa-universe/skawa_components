@@ -34,32 +34,32 @@ import 'package:angular_components/material_button/material_button.dart';
 class SkawaInfobarComponent {
   final ChangeDetectorRef _changeDetectorRef;
 
-  String _icon;
+  String? _icon;
 
   SkawaInfobarComponent(this._changeDetectorRef);
 
   @Input()
-  set icon(String icon) {
+  set icon(String? icon) {
     _icon = icon;
     _changeDetectorRef.markForCheck();
   }
 
-  String get icon {
+  String? get icon {
     if (_icon != null) return _icon;
     if (url != null) return 'info';
     return null;
   }
 
   @Input()
-  String url;
+  String? url;
 
   @ViewChild(MaterialButtonComponent)
-  MaterialButtonComponent primaryActionButton;
+  MaterialButtonComponent? primaryActionButton;
 
   @Output('trigger')
-  Stream<UIEvent> get onTrigger => primaryActionButton.trigger;
+  Stream<UIEvent> get onTrigger => primaryActionButton!.trigger;
 
   void navigate() {
-    if (url != null) window.open(url, '_blank');
+    if (url != null) window.open(url!, '_blank');
   }
 }

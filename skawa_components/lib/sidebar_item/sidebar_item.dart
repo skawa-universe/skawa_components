@@ -27,13 +27,13 @@ import '../util/attribute.dart' as attrib;
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaSidebarItemComponent extends Object with TextOnlyMixin {
   @Input()
-  String icon;
+  String? icon;
 }
 
 abstract class TextOnlyMixin {
   @HostBinding('attr.textOnly')
   @Input()
-  String textOnly;
+  String? textOnly;
 
   bool get isTextOnly => attrib.isPresent(textOnly);
 }

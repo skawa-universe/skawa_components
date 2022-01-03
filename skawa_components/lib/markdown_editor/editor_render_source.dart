@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:html';
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_components/utils/async/async.dart';
 
 /// Content source part of a SkawaEditor Component. It works in tandem
@@ -16,7 +16,7 @@ import 'package:angular_components/utils/async/async.dart';
 ///
 /// __Methods__:
 ///
-/// - `revertAllUpdates(): void` -- revert all updates since directiv e was created
+/// - `revertAllUpdates(): void` -- revert all updates since directive was created
 /// - `revertLastUpdate(): void` -- revert last update
 ///
 /// __Example__:
@@ -30,16 +30,16 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   final List<String> _changeStack = <String>[];
 
   @Input()
-  String initialValue;
+  String initialValue  = '';
 
-  EditorRenderSource(this._htmlElement, @Optional() Duration updateDelay) {
+  EditorRenderSource(this._htmlElement, @Optional() Duration? updateDelay) {
     onUpdated = _onUpdatedController.stream.transform(debounceStream(updateDelay ?? _defaultTimeout));
   }
 
   @Output('update')
-  Stream<String> onUpdated;
+  late Stream<String> onUpdated;
 
-  String get _value {
+  String? get _value {
     if (_htmlElement is TextAreaElement) {
       return (_htmlElement as TextAreaElement).value;
     } else if (_htmlElement is InputElement) {
@@ -49,21 +49,21 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
     }
   }
 
-  set _value(String value) {
+  set _value(String? value) {
     if (_htmlElement is TextAreaElement) {
       (_htmlElement as TextAreaElement).value = value;
     } else if (_htmlElement is InputElement) {
       (_htmlElement as InputElement).value = value;
     } else {
-      _htmlElement.setAttribute('value', value);
+      _htmlElement.setAttribute('value', value ?? '');
     }
   }
 
   String get value {
-    if (initialValue != null && _changeStack.isEmpty) {
+    if (_changeStack.isEmpty) {
       return initialValue;
     } else {
-      return _value;
+      return _value!;
     }
   }
 
@@ -74,7 +74,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   }
 
   /// Gets the previous or initial value
-  String get previousValue => _changeStack.isNotEmpty ? _changeStack.first : initialValue;
+  String? get previousValue => _changeStack.isNotEmpty ? _changeStack.first : initialValue;
 
   void revertLastUpdate() {
     if (_changeStack.length <= 1) {
@@ -105,7 +105,7 @@ class EditorRenderSource implements AfterViewInit, OnDestroy {
   void ngAfterViewInit() {
     // sync initial value to DOM
     _onUpdatedController.add(initialValue);
-    if (initialValue != null) _value = initialValue;
+    _value = initialValue;
     _htmlElement.onInput.listen(contentChanged);
   }
 

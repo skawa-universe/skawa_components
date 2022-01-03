@@ -1,10 +1,13 @@
+// @dart=2.10
 @TestOn('browser')
 import 'dart:async';
+
+import 'package:angular/angular.dart';
+import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_components/markdown_editor/editor_render_source.dart';
 import 'package:test/test.dart';
-import 'package:angular/core.dart';
-import 'package:angular_test/angular_test.dart';
+
 import 'editor_render_source_test.template.dart' as ng;
 
 part 'editor_render_source_test.g.dart';
@@ -12,7 +15,7 @@ part 'editor_render_source_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<RenderSourceTemplateComponent>();
+  final testBed = NgTestBed<RenderSourceTemplateComponent>(ng.RenderSourceTemplateComponentNgFactory);
   NgTestFixture<RenderSourceTemplateComponent> fixture;
   TestPO pageObject;
   final String _first = 'first';
@@ -26,7 +29,7 @@ void main() {
     });
     test('initialized to empty', () async {
       expect(fixture.assertOnlyInstance.updates.length, 1);
-      expect(fixture.assertOnlyInstance.updates.last, isNull);
+      expect(fixture.assertOnlyInstance.updates.last, "");
     });
     test('can revert to empty', () async {
       await pageObject.type(_first);
@@ -34,7 +37,7 @@ void main() {
       await pageObject.revertAllUpdates();
       await Future.delayed(emmitDelay);
       expect(fixture.assertOnlyInstance.updates.length, 2);
-      expect(fixture.assertOnlyInstance.updates.last, null);
+      expect(fixture.assertOnlyInstance.updates.last, '');
     });
   });
   group('EditorRenderSource | with initial value ', () {
@@ -101,8 +104,8 @@ void main() {
 @Component(selector: 'test', template: '''
     <textarea editorRenderSource [initialValue]="initialValue" (update)="update(\$event)">
     </textarea>
-    <button revertLastUpdate (click)="renderSource.revertLastUpdate()"></button>
-    <button revertAllUpdates (click)="renderSource.revertAllUpdates()"></button>
+    <button class="revertLastUpdate" (click)="renderSource.revertLastUpdate()"></button>
+    <button class="revertAllUpdates" (click)="renderSource.revertAllUpdates()"></button>
     ''', directives: [EditorRenderSource], providers: [ValueProvider(Duration, updateDelay)])
 class RenderSourceTemplateComponent {
   String initialValue;
@@ -138,9 +141,9 @@ abstract class TestPO {
 
   String actualValue() => _revertLastUpdate.innerText;
 
-  @ByTagName('[revertLastUpdate]')
+  @ByClass('revertLastUpdate')
   PageLoaderElement get _revertLastUpdate;
 
-  @ByTagName('[revertAllUpdates]')
+  @ByClass('revertAllUpdates')
   PageLoaderElement get _revertAllUpdates;
 }

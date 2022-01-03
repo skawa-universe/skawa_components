@@ -1,28 +1,28 @@
 import 'package:js/js_util.dart';
 
 class CodeMirrorConfig {
-  final String value;
-  final String mode;
-  final String lineSeparator;
-  final String theme;
+  final String? value;
+  final String? mode;
+  final String? lineSeparator;
+  final String? theme;
   final int indentUnit;
 
   final bool smartIndent;
   final int tabSize;
   final bool indentWithTabs;
   final bool electricChars;
-  final RegExp specialChars;
+  final RegExp? specialChars;
 
   /// function(char) → Element
-  final Function specialCharPlaceholder;
+  final Function? specialCharPlaceholder;
 
   ///  "ltr" | "rtl"
-  final String direction;
+  final String? direction;
 
-  final bool rtlMoveVisually;
+  final bool? rtlMoveVisually;
 
   /// "emacs" | "sublime" | "vim"
-  final String keyMap;
+  final String? keyMap;
 
   final bool lineWrapping;
 
@@ -30,28 +30,28 @@ class CodeMirrorConfig {
   final int firstLineNumber;
 
   /// function(line: integer) → string
-  final Function lineNumberFormatter;
+  final Function? lineNumberFormatter;
 
-  final List<String> gutters;
-  final bool fixedGutter;
-  final String scrollbarStyle;
-  final bool coverGutterNextToScrollbar;
-  final String inputStyle;
-  final bool readOnly;
+  final List<String>? gutters;
+  final bool? fixedGutter;
+  final String? scrollbarStyle;
+  final bool? coverGutterNextToScrollbar;
+  final String? inputStyle;
+  final bool? readOnly;
   final bool showCursorWhenSelecting;
-  final bool lineWiseCopyCut;
-  final bool pasteLinesPerSelection;
+  final bool? lineWiseCopyCut;
+  final bool? pasteLinesPerSelection;
   final int undoDepth;
 
   final int historyEventDelay;
 
-  final int tabindex;
-  final bool autofocus;
-  final bool dragDrop;
-  final List<String> allowDropFileTypes;
-  final int cursorBlinkRate;
-  final int cursorScrollMargin;
-  final int cursorHeight;
+  final int? tabindex;
+  final bool? autofocus;
+  final bool? dragDrop;
+  final List<String>? allowDropFileTypes;
+  final int? cursorBlinkRate;
+  final int? cursorScrollMargin;
+  final int? cursorHeight;
 
   final bool resetSelectionOnContextMenu;
 
@@ -60,12 +60,12 @@ class CodeMirrorConfig {
   final int workDelay;
 
   final int pollInterval;
-  final bool flattenSpans;
-  final bool addModeClass;
+  final bool? flattenSpans;
+  final bool? addModeClass;
   final int maxHighlightLength;
 
   final int viewportMargin;
-  final Map<String, Function> extraKeys;
+  final Map<String, Function>? extraKeys;
   final bool styleActiveLine;
   final bool lint;
 

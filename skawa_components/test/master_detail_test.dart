@@ -1,9 +1,11 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
 import 'package:pageloader/html.dart';
 import 'package:skawa_components/master_detail/master_detail.dart';
 import 'package:test/test.dart';
+
 import 'master_detail_test.template.dart' as ng;
 
 part 'master_detail_test.g.dart';
@@ -11,7 +13,7 @@ part 'master_detail_test.g.dart';
 void main() {
   ng.initReflector();
   tearDown(disposeAnyRunningTest);
-  final testBed = NgTestBed<MasterDetailTestComponent>();
+  final testBed = NgTestBed<MasterDetailTestComponent>(ng.MasterDetailTestComponentNgFactory);
   NgTestFixture<MasterDetailTestComponent> fixture;
   TestPO pageObject;
   group('MasterDetail | ', () {
@@ -57,9 +59,9 @@ void main() {
 
 @Component(selector: 'test', template: '''
     <skawa-master-detail #masterDetail></skawa-master-detail>
-    <button (click)="masterDetail.expand()" expand-button></button>
-    <button (click)="masterDetail.collapse()" collapse-button></button>
-    <button (click)="masterDetail.toggle()" toggle-button></button>
+    <button (click)="masterDetail.expand()" class="expand-button"></button>
+    <button (click)="masterDetail.collapse()" class="collapse-button"></button>
+    <button (click)="masterDetail.toggle()" class="toggle-button"></button>
      ''', directives: [SkawaMasterDetailComponent])
 class MasterDetailTestComponent {}
 
@@ -70,13 +72,13 @@ abstract class TestPO {
 
   factory TestPO.create(PageLoaderElement context) = $TestPO.create;
 
-  @ByCss('[expand-button]')
+  @ByClass('expand-button')
   PageLoaderElement get expand;
 
-  @ByCss('[collapse-button]')
+  @ByClass('collapse-button')
   PageLoaderElement get collapse;
 
-  @ByCss('[toggle-button]')
+  @ByClass('toggle-button')
   PageLoaderElement get toggle;
 
   @ByTagName('skawa-master-detail')

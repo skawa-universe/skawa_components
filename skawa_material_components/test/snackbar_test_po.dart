@@ -1,3 +1,4 @@
+// @dart=2.10
 import 'package:pageloader/pageloader.dart';
 
 part 'snackbar_test_po.g.dart';

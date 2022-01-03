@@ -9,23 +9,23 @@ import 'package:skawa_components/markdown_editor/editor_render_target.dart';
     directives: [EditorRenderTarget, LanguageDirectionDirective],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMarkdownRendererComponent implements OnInit {
-  List<String> _emulatedCssClass;
-  String _source;
+  List<String>? _emulatedCssClass;
+  late String _source;
 
   @ViewChild(EditorRenderTarget)
-  EditorRenderTarget editorRenderTarget;
+  EditorRenderTarget? editorRenderTarget;
 
   @Input()
-  set source(String source) {
+  set source(String? source) {
     _source = source ?? '';
-    editorRenderTarget.updateRender(_source, classes: _emulatedCssClass);
+    editorRenderTarget!.updateRender(_source, classes: _emulatedCssClass);
   }
 
   @override
   void ngOnInit() {
     Iterable<String> classes =
-        editorRenderTarget.htmlElement.classes.where((String cssClass) => !cssClass.contains('markdown-container'));
+        editorRenderTarget!.htmlElement.classes.where((String cssClass) => !cssClass.contains('markdown-container'));
     _emulatedCssClass = classes.isNotEmpty ? classes.toList() : [];
-    editorRenderTarget.updateRender(_source, classes: _emulatedCssClass);
+    editorRenderTarget!.updateRender(_source, classes: _emulatedCssClass);
   }
 }

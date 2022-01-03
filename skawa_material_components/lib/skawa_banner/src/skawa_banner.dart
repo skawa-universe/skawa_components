@@ -13,15 +13,15 @@ class SkawaBannerComponent implements OnInit, OnDestroy {
 
   bool active = false;
   bool show = false;
-  SkawaBannerMessage message;
+  SkawaBannerMessage? message;
 
   SkawaBannerComponent(this._changeDetectorRef, this._bannerService);
 
-  bool get hasActions => message?.actions != null && message.actions.isNotEmpty;
+  bool get hasActions => message?.actions != null && message!.actions.isNotEmpty;
 
   void animationEnd() {
     if (!show) {
-      message.dismiss();
+      message!.dismiss();
       message = null;
       active = false;
     }
@@ -30,7 +30,7 @@ class SkawaBannerComponent implements OnInit, OnDestroy {
   Future<void> handleAction(BannerAction action) async {
     bool canDismiss = true;
     if (action.callback != null) {
-      canDismiss = await action.callback();
+      canDismiss = await action.callback!();
     }
     if (canDismiss) {
       show = false;

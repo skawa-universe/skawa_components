@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 
 /// This component combined with the `SkawaForDirective` can be used to efficiently display lists of arbitrary length.
 /// The component and the directive together work by only leaving the currently visible list items in the DOM,
@@ -35,10 +35,10 @@ class SkawaListWrapperComponent implements OnDestroy {
   final HtmlElement htmlElement;
 
   @ViewChild('topPlaceHolder')
-  HtmlElement topPlaceHolder;
+  HtmlElement? topPlaceHolder;
 
   @ViewChild('bottomPlaceholder')
-  HtmlElement bottomPlaceholder;
+  HtmlElement? bottomPlaceholder;
 
   SkawaListWrapperComponent(this.changeDetectorRef, this.htmlElement);
 
@@ -46,8 +46,8 @@ class SkawaListWrapperComponent implements OnDestroy {
   Stream<Null> get onReachBottom => _reachBottomController.stream;
 
   void setUpHeights(int topHeight, int bottomHeight, bool shouldTriggerBottomReach) {
-    bottomPlaceholder.style.height = "${bottomHeight}px";
-    topPlaceHolder.style.height = "${topHeight}px";
+    bottomPlaceholder!.style.height = "${bottomHeight}px";
+    topPlaceHolder!.style.height = "${topHeight}px";
     if (bottomHeight == 0 && shouldTriggerBottomReach) _reachBottomController.add(null);
     if (topHeight == 0) _reachTopController.add(null);
   }

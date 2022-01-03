@@ -1,4 +1,4 @@
-import 'package:angular/angular.dart' show TemplateRef, ViewContainerRef, Directive, Input, Optional;
+import 'package:angular/angular.dart' show TemplateRef, ViewContainerRef, Directive, Input;
 import 'package:meta/meta.dart' show visibleForTesting;
 
 /// Base class for FeatureToggle directives that is queried
@@ -36,8 +36,8 @@ abstract class FeatureToggleBase {
     _previousFeature = name;
   }
 
-  bool _previouslyShown;
-  String _previousFeature;
+  late bool _previouslyShown;
+  String? _previousFeature;
 }
 
 @Directive(

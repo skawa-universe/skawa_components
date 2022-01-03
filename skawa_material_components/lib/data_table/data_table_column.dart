@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 import 'package:angular_components/model/ui/has_factory.dart';
 
-import 'package:angular_components/model/ui/has_renderer.dart';
 import 'row_data.dart';
 import 'sort.dart';
 
@@ -46,21 +45,21 @@ typedef String DataTableAccessor<T extends RowData>(T rowData);
     visibility: Visibility.all)
 class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy {
   final StreamController<T> _triggerController = StreamController<T>.broadcast();
-  final SkawaDataColRendererDirective<T> columnRenderer;
+  final SkawaDataColRendererDirective<T>? columnRenderer;
 
   @Input()
-  DataTableAccessor<T> accessor;
+  DataTableAccessor<T>? accessor;
 
   @Input()
-  DataTableAccessor<T> titleAccessor;
+  DataTableAccessor<T>? titleAccessor;
 
   @Input()
-  String header;
+  String? header;
 
   @Input()
-  String footer;
+  String? footer;
 
-  SortModel sortModel;
+  SortModel? sortModel;
 
   /// If set to true, footer will not display this column and
   /// colspan of td element will be set accordingly
@@ -68,7 +67,7 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
   bool skipFooter = true;
 
   @Input('class')
-  String classString;
+  String? classString;
 
   SkawaDataTableColComponent(@Optional() @Self() this.columnRenderer);
 
@@ -83,8 +82,8 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
     _triggerController.add(row);
   }
 
-  Iterable<String> getClasses([String suffix]) =>
-      classString?.trim()?.split(' ')?.map((className) => suffix != null ? '$className$suffix' : className);
+  Iterable<String>? getClasses([String? suffix]) =>
+      classString?.trim().split(' ').map((className) => suffix != null ? '$className$suffix' : className);
 
   @override
   void ngOnDestroy() {
@@ -103,5 +102,5 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
 class SkawaDataColRendererDirective<T extends RowData> extends HasFactoryRenderer<RendersValue, T> {
   @Input('colRenderer')
   // ignore: overridden_fields
-  FactoryRenderer<RendersValue, T> factoryRenderer;
+  FactoryRenderer<RendersValue, T?>? factoryRenderer;
 }

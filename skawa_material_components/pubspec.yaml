@@ -9,20 +9,28 @@ description:
 homepage: https://github.com/skawa-universe/skawa_components
 
 environment:
-  sdk: '>=2.9.0 <3.0.0'
+  sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
-  angular: ^6.0.0
-  angular_components: ^1.0.0
-  quiver: ^2.0.3
+  angular: ^7.0.0
+  angular_components:
+    git:
+      url: https://github.com/skawa-universe/angular_components.git
+      ref: nnbd-2
+      path: angular_components
+  quiver: ^3.0.0
   sass_builder: ^2.1.2
-  intl: ^0.16.0
+  intl: ^0.17.0
+  collection:
 
 dev_dependencies:
   test: ^1.6.2
-  angular_test: ^3.0.0
-  pageloader: ^3.2.0
-  build_config: ^0.4.1+1
-  build_test: ^1.0.0
-  build_runner: ^1.7.0
-  build_web_compilers: ^2.0.0
+  angular_test: ^4.0.0
+  pageloader:
+    git:
+      url: https://github.com/daniel-v/pageloader.git
+      ref: analyzer-2_0_0
+  build_config: ^1.0.0
+  build_test: ^2.0.0
+  build_runner: ^2.0.0
+  build_web_compilers: ^3.0.0

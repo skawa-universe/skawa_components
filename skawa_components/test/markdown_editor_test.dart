@@ -1,5 +1,7 @@
+// @dart=2.10
 @TestOn('browser')
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_components/laminate/popup/module.dart';
 import 'package:angular_test/angular_test.dart';
@@ -7,6 +9,7 @@ import 'package:pageloader/html.dart';
 import 'package:skawa_components/markdown_editor/editor_render_target.dart';
 import 'package:skawa_components/markdown_editor/markdown_editor.dart';
 import 'package:test/test.dart';
+
 import 'markdown_editor_test.template.dart' as ng;
 
 part 'markdown_editor_test.g.dart';
@@ -18,7 +21,7 @@ void main() {
     tearDown(disposeAnyRunningTest);
     final String input = "cica";
     test('can be edited displays data', () async {
-      final fixture = await NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>(ng.AppComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
@@ -29,7 +32,7 @@ void main() {
       expect(textarea.rootElement.properties['value'], initialValue);
     });
     test('can be edited and type', () async {
-      final fixture = await NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>(ng.AppComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();
@@ -41,7 +44,7 @@ void main() {
       expect(textarea.rootElement.properties['value'], '$initialValue$input');
     });
     test('can be edited and preview', () async {
-      final fixture = await NgTestBed<AppComponent>().create();
+      final fixture = await NgTestBed<AppComponent>(ng.AppComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final markdownEditorPage = MarkdownEditorPage.create(context);
       await markdownEditorPage.editMarkdown();

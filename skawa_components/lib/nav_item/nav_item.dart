@@ -46,14 +46,16 @@ class SkawaNavItemComponent extends MaterialButtonBase with TextOnlyMixin {
 
   /// MaterialIcon name to use as icon
   @Input()
-  String icon;
+  String? icon;
+
+  @Input()
+  bool? fullWidth;
+
+  SkawaNavItemComponent(HtmlElement element, this._changeDetector, @Attribute('role') String? role)
+      : super(element, role);
 
   @HostBinding('attr.fullWidth')
-  @Input()
-  bool fullWidth;
-
-  SkawaNavItemComponent(HtmlElement element, this._changeDetector, @Attribute('role') String role)
-      : super(element, role);
+  String? get withFullWidth => fullWidth?.toString();
 
   Map<String, bool> get ngClasses => {'hovering': hovering, 'icon-padding': icon == null};
 

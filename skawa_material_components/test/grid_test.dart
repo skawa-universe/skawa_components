@@ -1,3 +1,4 @@
+// @dart=2.10
 @TestOn('browser')
 import 'package:angular/angular.dart';
 import 'package:angular_test/angular_test.dart';
@@ -5,6 +6,7 @@ import 'package:pageloader/html.dart';
 import 'package:pageloader/webdriver.dart';
 import 'package:skawa_material_components/grid/grid_component.dart';
 import 'package:test/test.dart';
+
 import 'grid_test.template.dart' as ng;
 
 part 'grid_test.g.dart';
@@ -14,7 +16,7 @@ void main() {
   tearDown(disposeAnyRunningTest);
   group('Grid | ', () {
     test('initialization with 3 grid', () async {
-      final fixture = await NgTestBed<GridTestComponent>().create();
+      final fixture = await NgTestBed<GridTestComponent>(ng.GridTestComponentNgFactory).create();
       final context = HtmlPageLoaderElement.createFromElement(fixture.rootElement);
       final pageObject = TestPO.create(context);
       expect(pageObject.grid, isNotNull);

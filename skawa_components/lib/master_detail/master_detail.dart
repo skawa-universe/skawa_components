@@ -1,4 +1,4 @@
-import 'package:angular/core.dart';
+import 'package:angular/angular.dart';
 
 import '../util/attribute.dart' as attr_util;
 
@@ -25,7 +25,7 @@ import '../util/attribute.dart' as attr_util;
     styleUrls: ['master_detail.css'],
     changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaMasterDetailComponent {
-  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') String expanded)
+  SkawaMasterDetailComponent(@Optional() @Attribute('expanded') String? expanded)
       : expanded = attr_util.isPresent(expanded);
 
   /// Expands/collapses the details view
@@ -35,7 +35,7 @@ class SkawaMasterDetailComponent {
   bool expanded;
 
   @HostBinding('attr.expanded')
-  String get isExpanded => expanded ? "" : null;
+  String? get isExpanded => expanded ? "" : null;
 
   void expand() => expanded = true;
 

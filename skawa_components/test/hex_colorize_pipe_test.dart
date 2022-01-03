@@ -8,7 +8,7 @@ final Matcher throwsAnInvalidPipeArgumentException = throwsA(TypeMatcher<Invalid
 
 void main() {
   group('HexColorizePipe | ', () {
-    SkawaHexColorizePipe pipe;
+    late SkawaHexColorizePipe pipe;
     final int intSeed = 1234;
     final String stringSeed = 'seed';
     final String hexSeed = '2cbe4e';

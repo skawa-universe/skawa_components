@@ -30,33 +30,33 @@ import 'ckeditor_interop.dart' as js_ck;
 @Component(selector: 'skawa-ckeditor', templateUrl: 'ckeditor.html', changeDetection: ChangeDetectionStrategy.OnPush)
 class SkawaCkeditorComponent implements AfterViewInit, OnDestroy {
   final _changeController = StreamController<String>.broadcast();
-  _CKEditor _ckeditor;
+  _CKEditor? _ckeditor;
 
   @Input()
-  String editorName;
+  late String editorName;
 
   @Input()
-  List<ExtraPlugin> extraPlugins;
+  List<ExtraPlugin>? extraPlugins;
 
   @Input()
-  String content;
+  String? content;
 
   @Input()
-  Map<String, dynamic> config;
+  Map<String, dynamic>? config;
 
   @Input()
-  String configUrl;
+  String? configUrl;
 
   @Output('change')
   Stream<String> get onChange => _changeController.stream;
 
-  String get value => _ckeditor.getEditorData();
+  String? get value => _ckeditor?.getEditorData();
 
   @override
   void ngAfterViewInit() {
     _ckeditor ??= _CKEditor(editorName, extraPlugins: extraPlugins, configUrl: configUrl, config: config);
-    _ckeditor.on('change', (_) {
-      _changeController.add(value);
+    _ckeditor!.on('change', (_) {
+      _changeController.add(value!);
     });
   }
 
@@ -76,12 +76,12 @@ class ExtraPlugin {
 }
 
 class _CKEditor {
-  js_ck.CKEditorInstance _jsEditorInstance;
+  late js_ck.CKEditorInstance _jsEditorInstance;
 
   _CKEditor(String editorElementSelector,
-      {Iterable<ExtraPlugin> extraPlugins = const [],
-      String configUrl = '/ckeditor/config.js',
-      Map<String, dynamic> config}) {
+      {Iterable<ExtraPlugin>? extraPlugins = const [],
+      String? configUrl = '/ckeditor/config.js',
+      Map<String, dynamic>? config}) {
     /// add external plugins
     _maybeAddExtraPlugins(extraPlugins);
 
@@ -99,7 +99,7 @@ class _CKEditor {
     return _jsEditorInstance.on(eventName, allowInterop(callback));
   }
 
-  void _maybeAddExtraPlugins(Iterable<ExtraPlugin> extraPlugins) {
+  void _maybeAddExtraPlugins(Iterable<ExtraPlugin>? extraPlugins) {
     if (extraPlugins == null) return;
     for (ExtraPlugin extraPlugin in extraPlugins) {
       js_ck.addExternalPlugin(extraPlugin.name, extraPlugin.path, extraPlugin.entrypoint);
