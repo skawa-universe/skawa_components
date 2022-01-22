@@ -102,5 +102,5 @@ class SkawaDataTableColComponent<T extends RowData> implements OnInit, OnDestroy
 class SkawaDataColRendererDirective<T extends RowData> extends HasFactoryRenderer<RendersValue, T> {
   @Input('colRenderer')
   // ignore: overridden_fields
-  FactoryRenderer<RendersValue, T?>? factoryRenderer;
+  FactoryRenderer<RendersValue, T>? factoryRenderer;
 }
