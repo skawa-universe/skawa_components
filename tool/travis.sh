@@ -26,12 +26,12 @@ case $TASK in
 presubmit)
     dartfmt lib/ --line-length=120 --set-exit-if-changed -n
     dartfmt test/ --line-length=120 --set-exit-if-changed -n
-    pub run build_runner build
-    dartanalyzer --fatal-warnings --no-hints --no-lints ./lib
+    dart run build_runner build
+    dart analyze --fatal-warnings --no-hints --no-lints ./lib
     ;;
 
 test)
-    pub run build_runner test -- -p chrome
+    dart run build_runner test -- -p chrome
     ;;
 
   *)

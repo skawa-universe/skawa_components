@@ -8,7 +8,7 @@ import 'sort.dart';
 
 export 'sort.dart';
 
-typedef String DataTableAccessor<T extends RowData>(T rowData);
+typedef String? DataTableAccessor<T extends RowData>(T rowData);
 
 /// A column of the SkawaDataTableComponent. Usable only with a SkawaDataTableComponent.
 ///
