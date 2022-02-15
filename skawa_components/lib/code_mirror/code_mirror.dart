@@ -21,7 +21,7 @@ class CodeMirrorComponent implements OnDestroy {
 
   js_ck.CodeMirror? _codeMirror;
   String _value = '';
-  late CodeMirrorMode _mode;
+  CodeMirrorMode? _mode;
   List<CodeMirrorError> errorList = [];
   List<CodeMirrorError> warningList = [];
 
@@ -38,7 +38,7 @@ class CodeMirrorComponent implements OnDestroy {
   @Input()
   set mode(CodeMirrorMode mode) {
     if (_mode != mode) {
-      _codeMirror?.off('change', _onChange(_mode));
+      if (_mode != null) _codeMirror?.off('change', _onChange(_mode!));
       _codeMirror?.toTextArea();
       load(mode);
     } else {
@@ -51,7 +51,7 @@ class CodeMirrorComponent implements OnDestroy {
     String? validValue = value ?? '';
     if (validValue != _value && _codeMirror != null) {
       _codeMirror!.setValue(validValue);
-      _lint(_mode);
+      _lint(_mode!);
     }
     _value = validValue;
   }
@@ -92,7 +92,7 @@ class CodeMirrorComponent implements OnDestroy {
               _value,
               jsify({"indent": 1})
             ])
-            ?.map<CodeMirrorError>((Object object) => CodeMirrorError.fromObject(object as JsObject))
+            ?.map<CodeMirrorError>((object) => CodeMirrorError.fromObject(object as JsObject))
             ?.forEach((CodeMirrorError error) {
               if (error.severity == CodeMirrorError.error) {
                 errorList.add(error);

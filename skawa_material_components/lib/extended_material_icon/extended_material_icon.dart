@@ -32,7 +32,7 @@ import 'package:angular/angular.dart';
     changeDetection: ChangeDetectionStrategy.OnPush)
 class ExtendedMaterialIconComponent {
   @Input()
-  late String icon;
+  String? icon;
 
   @Input()
   bool flipVertical = false;

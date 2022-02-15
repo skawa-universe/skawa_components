@@ -138,7 +138,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
     event.stopPropagation();
   }
 
-  void highlight(T row, Event ev) {
+  void highlight(T? row, Event ev) {
     ev.stopPropagation();
     bool canHighlight = _canHighlight(ev);
     if (canHighlight) {
