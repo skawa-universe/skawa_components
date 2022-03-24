@@ -130,10 +130,10 @@ class CodeMirrorError {
 }
 
 class CodeMirrorPosition {
-  final int line;
-  final int ch;
+  final double line;
+  final double ch;
 
   CodeMirrorPosition.fromJsObject(JsObject object)
-      : this.line = object['line'] as int,
-        this.ch = object['ch'] as int;
+      : this.line = object['line'] as double,
+        this.ch = object['ch'] as double;
 }

@@ -1,6 +1,11 @@
+## 1.5.1
+
+- Added disabled field to the RowData classes
+
+
 ## 1.5.0
 
-- angular updated to the stable 6.0.0 version
+- angular updated to the stable 6.0.0 version`
 
 ## 1.3.3
 

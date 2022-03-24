@@ -68,7 +68,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   bool highlightable = true;
 
   @Input('data')
-  Iterable<T> rows;
+  Iterable<T> rows = [];
 
   @Input()
   T highlightedRow;
@@ -100,6 +100,8 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   @Output('sort')
   Stream<SkawaDataTableColComponent<T>> get onSort => _sortController.stream;
 
+  bool get markAllDisabled => rows.every((r) => r.disabled);
+
   int getColspanFor(SkawaDataTableColComponent<T> col, int skippedIndex) {
     int span = 1;
     if (skippedIndex == 0 && selectable) return 2;
@@ -126,7 +128,9 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   }
 
   void markAllRowsChecked(bool checked, Event event) {
-    rows.forEach((row) => row.checked = checked);
+    rows.forEach((row) {
+      if (!row.disabled) row.checked = checked;
+    });
     _emitChange();
     event.stopPropagation();
   }
