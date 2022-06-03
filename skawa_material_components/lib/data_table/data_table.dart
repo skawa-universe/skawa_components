@@ -70,7 +70,7 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   bool highlightable = true;
 
   @Input('data')
-  Iterable<T>? rows;
+  Iterable<T> rows = [];
 
   @Input()
   T? highlightedRow;
@@ -107,6 +107,8 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 
   List<SkawaDataTableColComponent<T>>? get columns => _columns;
 
+  bool get markAllDisabled => rows.every((r) => r.disabled);
+
   String getColspanFor(SkawaDataTableColComponent<T> col, int skippedIndex) {
     int span = 1;
     if (skippedIndex == 0 && selectable) return "2";
@@ -126,14 +128,16 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
 
   void changeRowSelection(T row, bool selected) {
     if (!multiSelection) {
-      rows!.firstWhereOrNull((r) => r.checked)?.checked = !selected;
+      rows.firstWhereOrNull((r) => r.checked)?.checked = !selected;
     }
     row.checked = selected;
     _emitChange();
   }
 
   void markAllRowsChecked(bool checked, Event event) {
-    rows!.forEach((row) => row.checked = checked);
+    rows.forEach((row) {
+      if (!row.disabled) row.checked = checked;
+    });
     _emitChange();
     event.stopPropagation();
   }
@@ -181,11 +185,11 @@ class SkawaDataTableComponent<T extends RowData> implements OnDestroy, AfterView
   }
 
   void _emitChange() {
-    var _selectedRows = rows!.where((r) => r.checked).toList(growable: false);
+    var _selectedRows = rows.where((r) => r.checked).toList(growable: false);
     _changeController.add(_selectedRows);
   }
 
-  bool get isEveryRowChecked => rows?.every((row) => row.checked) ?? false;
+  bool get isEveryRowChecked => rows.every((row) => row.checked);
 
   bool get isEveryRowSkippedInFooter => columns?.every((col) => col.skipFooter) ?? true;
 

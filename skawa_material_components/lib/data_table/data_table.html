@@ -3,6 +3,7 @@
     <tr>
         <th *ngIf="selectable">
             <material-checkbox #markAllCheckbox
+                               [disabled]="markAllDisabled"
                                (click)="markAllRowsChecked(markAllCheckbox.checked, $event)"
                                [checked]="isEveryRowChecked"
                                *ngIf="multiSelection">
@@ -29,10 +30,10 @@
         (click)="highlight(row, $event)"
         [class.highlighted]="row == highlightedRow">
         <td *ngIf="selectable">
-            <material-checkbox
-                    class="selector-checkbox"
-                    (checkedChange)="changeRowSelection(row, $event)"
-                    [checked]="row.checked">
+            <material-checkbox [disabled]="row.disabled"
+                               class="selector-checkbox"
+                               (checkedChange)="changeRowSelection(row, $event)"
+                               [checked]="row.checked">
             </material-checkbox>
         </td>
         <td *ngFor="let c of columns"

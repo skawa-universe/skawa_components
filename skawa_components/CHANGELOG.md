@@ -1,3 +1,7 @@
+## 1.5.2
+
+- Fixes CodeMirrorComponent component in case of minified scripts
+
 ## 1.5.1
 
 - Made CKEditor change event working
