@@ -1,3 +1,7 @@
+## 1.5.3
+
+- Fixes CodeMirrorComponent component loading for javascript editor
+
 ## 1.5.2
 
 - Fixes CodeMirrorComponent component in case of minified scripts

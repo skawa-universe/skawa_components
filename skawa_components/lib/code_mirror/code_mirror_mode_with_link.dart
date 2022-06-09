@@ -42,7 +42,7 @@ class CodeMirrorModeWithLink extends CodeMirrorMode {
       'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/$_replaceString/$_replaceString.js';
   static const String cssLint = 'https://unpkg.com/csslint@1.0.5/dist/csslint.js';
 
-  static const String jsLint = 'https://codemirror.net/addon/lint/javascript-lint.js';
+  static const String jsLint = 'https://codemirror.net/5/addon/lint/javascript-lint.js';
 
   static const CodeMirrorModeWithLink javascript = const CodeMirrorModeWithLink(
       mode: 'javascript',
