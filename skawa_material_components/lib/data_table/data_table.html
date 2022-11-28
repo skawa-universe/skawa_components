@@ -56,11 +56,13 @@
     </tbody>
     <tfoot *ngIf="!isEveryRowSkippedInFooter">
     <tr>
-        <td *ngFor="let c of columns; let i = index"
-            [attr.colspan]="getColspanFor(c, i)"
-            [ngClass]="c.getClasses('--footer')">
-            {{c.footer}}
-        </td>
+        <template ngFor let-c [ngForOf]="columns" let-i="index">
+            <td *ngIf="!c.skipFooter"
+                [attr.colspan]="getColspanFor(c, i)"
+                [ngClass]="c.getClasses('--footer')">
+                {{c.footer}}
+            </td>
+        </template>
     </tr>
     </tfoot>
 </table>
